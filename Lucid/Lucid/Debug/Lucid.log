@@ -1,11 +1,11 @@
-﻿Build started 2014-01-24 21:01:37.
+﻿Build started 2014-01-24 21:23:16.
      1>Project "C:\Users\Sebastian\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>Link:
-         D:\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Sebastian\Lucid\Lucid\Debug\Lucid.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Sebastian\SFML-2.1\lib" "sfml-audio-d.lib" "sfml-graphics-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" "sfml-main-d.lib" "sfml-network-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Sebastian\Lucid\Lucid\Debug\Lucid.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Sebastian\Lucid\Lucid\Debug\Lucid.lib" /MACHINE:X86 Debug\Main.obj
+         D:\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Sebastian\Lucid\Lucid\Debug\Lucid.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Sebastian\SFML-2.1\lib" "sfml-audio-d.lib" "sfml-graphics-d.lib" "sfml-main-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Sebastian\Lucid\Lucid\Debug\Lucid.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Sebastian\Lucid\Lucid\Debug\Lucid.lib" /MACHINE:X86 Debug\Main.obj
      1>sfml-main-d.lib(SFML_Main.cpp.obj) : warning LNK4099: PDB 'sfml-main-d.pdb' was not found with 'sfml-main-d.lib(SFML_Main.cpp.obj)' or at 'C:\Users\Sebastian\Lucid\Lucid\Debug\sfml-main-d.pdb'; linking object as if no debug info
          Lucid.vcxproj -> C:\Users\Sebastian\Lucid\Lucid\Debug\Lucid.exe
      1>Done Building Project "C:\Users\Sebastian\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.43
+Time Elapsed 00:00:00.66
