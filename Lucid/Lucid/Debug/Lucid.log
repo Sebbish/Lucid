@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿Build started 2014-01-27 17:25:36.
+=======
+﻿Build started 2014-01-27 17:26:19.
+>>>>>>> ab58f04df3a031602561344cd31419e162b556df
      1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp Main.cpp
@@ -15,4 +19,8 @@
 
 Build succeeded.
 
+<<<<<<< HEAD
 Time Elapsed 00:00:09.75
+=======
+Time Elapsed 00:00:08.61
+>>>>>>> ab58f04df3a031602561344cd31419e162b556df
