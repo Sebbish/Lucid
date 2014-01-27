@@ -25,7 +25,7 @@ void Game::run()
 		tick();
 
         mWindow->clear();
-		sf::CircleShape shape(100.f);
+		sf::CircleShape shape(200.f);
 		shape.setFillColor(sf::Color::Green);
         mWindow->draw(shape);
 
