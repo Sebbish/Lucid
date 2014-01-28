@@ -70,5 +70,25 @@ void Game::tick()
 
 void Game::collision()
 {
+	EntiyVector enteties(mEntities);
+	for (EntiyVector::size_type i = 1; i < enteties.size; i++)
+	{
+		Entity *playerEntity = enteties[0];
+		Entity *enemyEntity = enteties[i];
+		if (overlaps(playerEntity,enemyEntity))
+		{
 
+		}
+	}
+	 
+}
+
+bool Game::overlaps(Entity *playerEntity, Entity *enemyEntity)
+{
+	sf::FloatRect playerPosition = playerEntity ->getRect();
+	sf::FloatRect enemyPosition = enemyEntity ->getRect();
+	if (playerPosition.intersects(enemyPosition))
+	return true;
+	else
+	return false;
 }

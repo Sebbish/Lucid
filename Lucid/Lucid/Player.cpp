@@ -92,5 +92,3 @@ void Player::render(sf::RenderWindow* window)
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
 }
-
-
