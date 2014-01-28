@@ -1,6 +1,6 @@
 #include "Map.h"
 
-Map::Map(sf::Texture texture):
+Map::Map(sf::Texture *texture):
 	mTexture(texture)
 {
 	mHidingList.push_back(new Hiding(sf::Vector2f(0, 0), sf::Vector2f(10, 10)));
