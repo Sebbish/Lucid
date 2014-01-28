@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
 #include "Player.h"
+#include "Enemy.h"
 
 typedef std::vector<Entity*> EntiyVector;
 
