@@ -4,7 +4,7 @@
 Game::Game()
 {
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
-	mEntities.push_back(new Player(sf::Vector2f(100,100),sf::Vector2f(10,10),2));
+	mEntities.push_back(new Player(100,100,10,10,2));
 }
 
 Game::~Game()
@@ -14,6 +14,7 @@ Game::~Game()
 
 void Game::run()
 {
+
 	mWindow->setFramerateLimit(60);
 	while (mWindow->isOpen())
     {
@@ -22,23 +23,22 @@ void Game::run()
         {
 			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                 mWindow->close();
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				mEntities[0]->setCurrentSpeed(mEntities[0]->getMaxSpeed());
-			}
-			
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+				mEntities[0]->setDirection(Entity::RIGHT);
+				mEntities[0]->setMove(true);
+			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
-				mEntities[0]->setCurrentSpeed(-mEntities[0]->getMaxSpeed());
-			}
-			if(!sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+				mEntities[0]->setDirection(Entity::LEFT);
+				mEntities[0]->setMove(true);
+			}else
 			{
-				mEntities[0]->setCurrentSpeed(0);
+				mEntities[0]->setMove(false);
 			}
         }
 
 		tick();
-
+	
         mWindow->clear();
 		/*sf::CircleShape shape(200.f);
 		shape.setFillColor(sf::Color::Green);
