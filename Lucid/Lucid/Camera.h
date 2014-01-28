@@ -5,12 +5,14 @@
 class Camera
 {
 public:
-	Camera(Entity* CameraFollowThisEntity);
+	Camera(sf::Vector2f size,Entity *CameraFollowThisEntity);
 	~Camera();
 	void tick();
+	sf::View* getView();
 private:
 	sf::View mView;
 	Entity* mFollowThisEntity;
+	Entity::direction EntityDirection;
 };
 #endif
 

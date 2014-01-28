@@ -2,7 +2,7 @@
 
 
 Player::Player(float x, float y, float width, float height,float speed):
-	mMaxSpeed(speed)
+	mMaxSpeed(speed),mDirection(RIGHT)
 {
 	mRect.left = x;
 	mRect.top = y;
