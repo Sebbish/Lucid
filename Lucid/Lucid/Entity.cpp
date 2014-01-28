@@ -5,7 +5,3 @@ Entity::Entity(void)
 {
 }
 
-
-Entity::~Entity(void)
-{
-}
