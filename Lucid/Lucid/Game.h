@@ -2,6 +2,7 @@
 #define GAME_H
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
+#include "Player.h"
 
 typedef std::vector<Entity*> EntiyVector;
 
@@ -17,6 +18,7 @@ private:
 	void render();
 	void collision();
 	sf::RenderWindow *mWindow;
+	EntiyVector mEntities;
 };
 
 #endif

@@ -1,9 +1,13 @@
 #include "Player.h"
 
 
-Player::Player(sf::Vector2f position, sf::Vector2f Size,float speed):
-	mPosition(position),mSize(Size),mSpeed(speed)
+Player::Player(float x, float y, float width, float height,float speed):
+	mMaxSpeed(speed)
 {
+	mRect.left = x;
+	mRect.top = y;
+	mRect.width = width;
+	mRect.height = height;
 }
 
 
@@ -11,34 +15,44 @@ Player::~Player()
 {
 }
 
-sf::Vector2f Player::getPosition()const
+void Player::setDirection(direction d)
 {
-	return mPosition;
+	mDirection = d;
 }
 
-void Player::setPosition(sf::Vector2f position)
+Entity::direction Player::getDirection()const
 {
-	mPosition = position;
+	return mDirection;
 }
 
-sf::Vector2f Player::getSize()const
+sf::FloatRect Player::getRect()const
 {
-	return mSize;
+	return mRect;
 }
 
-void Player::setSize(sf::Vector2f size)
+void Player::setRect(sf::FloatRect rect)
 {
-	mSize = size;
+	mRect = rect;
 }
 
-void Player::setSpeed(float speed)
+void Player::setMove(bool move)
 {
-	mSpeed = speed;
+	mMove = move;
 }
 
-float Player::getSpeed()const
+bool Player::getMove()const
 {
-	return mSpeed;
+	return mMove;
+}
+
+void Player::setMaxSpeed(float speed)
+{
+	mMaxSpeed = speed;
+}
+
+float Player::getMaxSpeed()const
+{
+	return mMaxSpeed;
 }
 
 void Player::setLastSeen(sf::Vector2f lastSeen)
@@ -63,12 +77,20 @@ void Player::setTexture(sf::Texture* texture)
 
 void Player::tick()
 {
-
+	if(mMove){
+		if(mDirection == Entity::RIGHT)
+			mRect.left += mMaxSpeed;
+		if(mDirection == Entity::LEFT)
+			mRect.left -= mMaxSpeed;
+	}
 }
 
-void Player::render()
+void Player::render(sf::RenderWindow* window)
 {
-
+	sf::RectangleShape r;
+	r.setPosition(mRect.left,mRect.top);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+	window->draw(r);
 }
 
 
