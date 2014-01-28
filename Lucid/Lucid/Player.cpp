@@ -2,7 +2,7 @@
 
 
 Player::Player(sf::Vector2f position, sf::Vector2f Size,float speed):
-	mPosition(position),mSize(Size),mSpeed(speed)
+	mPosition(position),mSize(Size),mMaxSpeed(speed)
 {
 }
 
@@ -31,14 +31,24 @@ void Player::setSize(sf::Vector2f size)
 	mSize = size;
 }
 
-void Player::setSpeed(float speed)
+void Player::setCurrentSpeed(float speed)
 {
-	mSpeed = speed;
+	mCurrentSpeed = speed;
 }
 
-float Player::getSpeed()const
+float Player::getCurrentSpeed()const
 {
-	return mSpeed;
+	return mCurrentSpeed;
+}
+
+void Player::setMaxSpeed(float speed)
+{
+	mMaxSpeed = speed;
+}
+
+float Player::getMaxSpeed()const
+{
+	return mMaxSpeed;
 }
 
 void Player::setLastSeen(sf::Vector2f lastSeen)
@@ -63,12 +73,14 @@ void Player::setTexture(sf::Texture* texture)
 
 void Player::tick()
 {
-
+	mPosition.x += mCurrentSpeed;
 }
 
-void Player::render()
+void Player::render(sf::RenderWindow* window)
 {
-
+	sf::RectangleShape r(mSize);
+	r.setPosition(mPosition);
+	window->draw(r);
 }
 
 
