@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
 #include "Player.h"
+#include "Camera.h"
 
 typedef std::vector<Entity*> EntiyVector;
 
@@ -19,6 +20,7 @@ private:
 	void collision();
 	sf::RenderWindow *mWindow;
 	EntiyVector mEntities;
+	Camera *camera;
 };
 
 #endif
