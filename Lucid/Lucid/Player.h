@@ -5,7 +5,7 @@ class Player :
 	public Entity
 {
 public:
-	Player(float x, float y, float width, float height,float speed);
+	Player(float x, float y, float width, float height, float speed);
 	~Player();
 	virtual sf::FloatRect getRect()const;
 	virtual void setDirection(direction d);

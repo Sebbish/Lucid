@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿Build started 2014-01-28 15:05:24.
      1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
@@ -8,8 +9,49 @@
          Entity.cpp
          Camera.cpp
          Generating Code...
+=======
+<<<<<<< HEAD
+﻿Build started 2014-01-28 16:33:12.
+=======
+<<<<<<< HEAD
+﻿Build started 2014-01-28 16:29:43.
+     1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp
+         Camera.cpp
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+﻿Build started 2014-01-27 17:39:08.
+>>>>>>> 2cd13a0520ef6ff83e7006916eb7f32d1f9fe3ad
+     1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Hiding.cpp Map.cpp Npc.cpp Object.cpp Player.cpp Portal.cpp Wall.cpp
+         Wall.cpp
+         Portal.cpp
+         Player.cpp
+         Object.cpp
+     1>p:\lucid\lucid\lucid\object.cpp(4): error C2600: 'Object::Object' : cannot define a compiler-generated special member function (must be declared in the class first)
+         Npc.cpp
+         Map.cpp
+     1>p:\lucid\lucid\lucid\map.cpp(5): error C2440: 'initializing' : cannot convert from 'sf::Texture' to 'sf::Texture *'
+                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+     1>p:\lucid\lucid\lucid\map.cpp(5): error C2439: 'Map::mTexture' : member could not be initialized
+                 p:\lucid\lucid\lucid\map.h(21) : see declaration of 'Map::mTexture'
+     1>p:\lucid\lucid\lucid\map.cpp(13): error C2276: '!' : illegal operation on bound member function expression
+     1>p:\lucid\lucid\lucid\map.cpp(13): fatal error C1903: unable to recover from previous error(s); stopping compilation
+         Hiding.cpp
+         Generating Code...
+     1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)) -- FAILED.
+<<<<<<< HEAD
+=======
+>>>>>>> 3b615ef647c7b4f041a125932c221526183caaeb
+=======
+>>>>>>> b73fb2494d8d2fd38545584ec772feb770bdf59a
+>>>>>>> 490bbde6b77356a49b1dc0d72ece004a3b7a1f00
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"P:\Lucid\Lucid\Debug\Lucid.exe" /INCREMENTAL /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" "sfml-audio-d.lib" "sfml-graphics-d.lib" "sfml-main-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"P:\Lucid\Lucid\Debug\Lucid.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"P:\Lucid\Lucid\Debug\Lucid.lib" /MACHINE:X86 Debug\Camera.obj
+         Debug\Enemy.obj
          Debug\Entity.obj
          Debug\Game.obj
          Debug\Main.obj
@@ -18,7 +60,29 @@
      1>sfml-main-d.lib(SFML_Main.cpp.obj) : warning LNK4099: PDB 'sfml-main-d.pdb' was not found with 'sfml-main-d.lib(SFML_Main.cpp.obj)' or at 'P:\Lucid\Lucid\Debug\sfml-main-d.pdb'; linking object as if no debug info
          Lucid.vcxproj -> P:\Lucid\Lucid\Debug\Lucid.exe
      1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
+>>>>>>> 3cf2d6016d7a2180bfce5e161e3d88a712a04738
+>>>>>>> 2cd13a0520ef6ff83e7006916eb7f32d1f9fe3ad
 
-Build succeeded.
+Build FAILED.
 
+<<<<<<< HEAD
 Time Elapsed 00:00:40.98
+=======
+<<<<<<< HEAD
+Time Elapsed 00:00:37.02
+=======
+<<<<<<< HEAD
+Time Elapsed 00:00:12.16
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Time Elapsed 00:00:07.16
+=======
+Time Elapsed 00:00:32.72
+>>>>>>> 3b615ef647c7b4f041a125932c221526183caaeb
+=======
+Time Elapsed 00:00:09.39
+>>>>>>> 3cf2d6016d7a2180bfce5e161e3d88a712a04738
+>>>>>>> b73fb2494d8d2fd38545584ec772feb770bdf59a
+>>>>>>> 2cd13a0520ef6ff83e7006916eb7f32d1f9fe3ad
+>>>>>>> 490bbde6b77356a49b1dc0d72ece004a3b7a1f00

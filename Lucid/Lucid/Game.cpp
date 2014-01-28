@@ -5,6 +5,7 @@ Game::Game()
 {
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mEntities.push_back(new Player(100,100,10,10,2));
+	camera = new Camera(sf::Vector2f(mWindow->getSize()),mEntities[0]);
 }
 
 Game::~Game()
@@ -40,10 +41,10 @@ void Game::run()
 		tick();
 	
         mWindow->clear();
-		/*sf::CircleShape shape(200.f);
+		sf::CircleShape shape(200.f);
 		shape.setFillColor(sf::Color::Green);
-        mWindow->draw(shape);*/
-
+		mWindow->setView(*camera->getView());
+        mWindow->draw(shape);
 		render();
 
         mWindow->display();
@@ -64,6 +65,7 @@ void Game::tick()
 	{
 		i->tick();
 	}
+	camera->tick();
 }
 
 void Game::collision()
