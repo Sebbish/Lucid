@@ -9,6 +9,11 @@ Npc::~Npc()
 {
 }
 
+void Npc::getFunc()
+{
+
+}
+
 sf::FloatRect Npc::getRect()const
 {
 	return mRect;

@@ -10,7 +10,6 @@ public:
 	virtual sf::FloatRect getRect()const;
 	virtual void getFunc();
 	virtual void setDirection(direction d);
-	virtual void getFunc();
 	virtual direction getDirection()const;
 	virtual void setRect(sf::FloatRect rect);
 	virtual void setMove(bool move);

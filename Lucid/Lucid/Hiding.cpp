@@ -9,6 +9,11 @@ Hiding::~Hiding()
 {
 }
 
+void Hiding::getFunc()
+{
+
+}
+
 sf::FloatRect Hiding::getRect()const
 {
 	return mRect;

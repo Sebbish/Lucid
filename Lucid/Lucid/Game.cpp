@@ -5,7 +5,7 @@ Game::Game()
 	mFH = new FilHanterare();
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mEntities.push_back(new Player(100,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
-	mEntities.push_back(new Enemy(500,875-768/3,1024/4,768/3,4));
+	//mEntities.push_back(new Enemy(500,875-768/3,1024/4,768/3,4));
 	camera = new Camera(sf::Vector2f(mWindow->getSize()),mEntities[0]);
 	mWindow->setFramerateLimit(60);
 	mWindow->setVerticalSyncEnabled(true);
