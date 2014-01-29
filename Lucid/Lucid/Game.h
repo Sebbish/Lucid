@@ -22,7 +22,7 @@ private:
 	void tick();
 	void render();
 	void collision();
-	static bool overlaps(Entity *playerEntity, Entity *enemyEntity);
+	static bool overlaps(Entity *playerEntity, Entity *otherEntity);
 	sf::RenderWindow *mWindow;
 	EntiyVector mEntities;
 	Camera *camera;
