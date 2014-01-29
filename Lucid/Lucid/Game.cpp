@@ -71,7 +71,7 @@ void Game::tick()
 void Game::collision()
 {
 	EntiyVector enteties(mEntities);
-	for (EntiyVector::size_type i = 1; i < enteties.size; i++)
+	for (EntiyVector::size_type i = 1; i < enteties.size(); i++)
 	{
 		Entity *playerEntity = enteties[0];
 		Entity *enemyEntity = enteties[i];

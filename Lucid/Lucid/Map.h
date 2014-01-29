@@ -11,7 +11,7 @@
 class Map
 {
 public:
-	Map(sf::Texture texture);
+	Map(sf::Texture *texture);
 	~Map();
 	std::vector<Object*> getHidingList()const;
 	std::vector<Object*> getNpcList()const;
