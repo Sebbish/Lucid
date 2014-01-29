@@ -16,14 +16,16 @@ Camera::~Camera(void)
 
 void Camera::tick()
 {
+	
 	if(mFollowThisEntity->getDirection() == Entity::RIGHT)
 	{
-		
-			//mView.setCenter(sf::Vector2f(mFollowThisEntity->getRect().left+(mView.getSize().x/2)/6*2,mFollowThisEntity->getRect().top));
+		float distance = ((mFollowThisEntity->getRect().left+mFollowThisEntity->getRect().width/2)-(mView.getCenter().x+mView.getSize().x/2/3))*acc;
+		mView.setCenter(mFollowThisEntity->getRect().left+distance,mFollowThisEntity->getRect().top);
+			
 	}else if(mFollowThisEntity->getDirection() == Entity::LEFT)
 	{
-		
-			//mView.setCenter(sf::Vector2f(mFollowThisEntity->getRect().left-(mView.getSize().x/2)/6*2,mFollowThisEntity->getRect().top));
+		float distance = ((mFollowThisEntity->getRect().left+mFollowThisEntity->getRect().width/2)-(mView.getCenter().x-mView.getSize().x/2/3))*acc;
+		mView.setCenter(mFollowThisEntity->getRect().left+distance,mFollowThisEntity->getRect().top);
 	}
 }
 
