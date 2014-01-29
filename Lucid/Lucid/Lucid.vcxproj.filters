@@ -49,6 +49,9 @@
 >>>>>>> 3cf2d6016d7a2180bfce5e161e3d88a712a04738
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -80,6 +83,9 @@
 =======
     <ClInclude Include="Camera.h">
 >>>>>>> 3cf2d6016d7a2180bfce5e161e3d88a712a04738
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

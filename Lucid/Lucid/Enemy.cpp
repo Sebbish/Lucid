@@ -1,9 +1,13 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(sf::Vector2f position, sf::Vector2f size, float speed):
-	mPosition(position), mSize(size), mSpeed(speed)
+Enemy::Enemy(float x, float y, float width, float height,float speed):
+	mMaxSpeed(speed)
 {
+	mRect.left = x;
+	mRect.top = y;
+	mRect.width = width;
+	mRect.height = height;
 }
 
 
@@ -11,44 +15,44 @@ Enemy::~Enemy(void)
 {
 }
 
-sf::Vector2f Enemy::getPosition()const
+void Enemy::setDirection(direction d)
 {
-	return mPosition;
+	mDirection = d;
 }
 
-void Enemy::setPosition(sf::Vector2f position)
+Entity::direction Enemy::getDirection()const
 {
-	mPosition = position;
+	return mDirection;
 }
 
-sf::Vector2f Enemy::getSize()const
+sf::FloatRect Enemy::getRect()const
 {
-	return mSize;
+	return mRect;
 }
 
-void Enemy::setSize(sf::Vector2f size)
+void Enemy::setRect(sf::FloatRect rect)
 {
-	mSize = size;
+	mRect = rect;
 }
 
-void  Enemy::setCurrentSpeed(float speed)
+void  Enemy::setMove(bool move)
 {
-	mCurrentSpeed = speed;
+	mMove = move;
 }
 
-float Enemy::getCurrentSpeed()const
+bool Enemy::getMove()const
 {
-	return mCurrentSpeed;
+	return mMove;
 }
 
 void Enemy::setMaxSpeed(float speed)
 {
-	mSpeed = speed;
+	mMaxSpeed = speed;
 }
 
 float Enemy::getMaxSpeed()const
 {
-	return mSpeed;
+	return mMaxSpeed;
 }
 
 void Enemy::setLastSeen(sf::Vector2f lastSeen)
@@ -73,12 +77,18 @@ void Enemy::setTexture(sf::Texture* texture)
 
 void Enemy::tick()
 {
-	mPosition.x += mCurrentSpeed;
+	if(mMove){
+		if(mDirection == Entity::RIGHT)
+			mRect.left += mMaxSpeed;
+		if(mDirection == Entity::LEFT)
+			mRect.left -= mMaxSpeed;
+	}
 }
 
 void Enemy::render(sf::RenderWindow* window)
 {
-	sf::RectangleShape r(mSize);
-	r.setPosition(mPosition);
+	sf::RectangleShape r;
+	r.setPosition(mRect.left,mRect.top);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
 }

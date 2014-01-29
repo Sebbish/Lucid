@@ -2,7 +2,7 @@
 
 
 Player::Player(float x, float y, float width, float height,float speed):
-	mMaxSpeed(speed)
+	mMaxSpeed(speed),mDirection(RIGHT)
 {
 	mRect.left = x;
 	mRect.top = y;
@@ -92,5 +92,3 @@ void Player::render(sf::RenderWindow* window)
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
 }
-
-
