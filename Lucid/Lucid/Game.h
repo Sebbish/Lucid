@@ -1,8 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 #include <SFML/Graphics.hpp>
-#include "Entity.h"
 #include "Player.h"
+#include "Object.h"
 //<<<<<<< HEAD
 #include "Enemy.h"
 //=======
@@ -10,6 +10,7 @@
 //>>>>>>> 2cd13a0520ef6ff83e7006916eb7f32d1f9fe3ad
 
 typedef std::vector<Entity*> EntiyVector;
+typedef std::vector<Object*> ObjectVector;
 
 class Game
 {
@@ -22,9 +23,11 @@ private:
 	void tick();
 	void render();
 	void collision();
-	static bool overlaps(Entity *playerEntity, Entity *enemyEntity);
+	static bool overlapsEntity(Entity *playerEntity, Entity *otherEntity);
+	static bool overlapsObjects(Entity *playerEntity, Object *objectEntity);
 	sf::RenderWindow *mWindow;
 	EntiyVector mEntities;
+	ObjectVector mObjects;
 	Camera *camera;
 };
 
