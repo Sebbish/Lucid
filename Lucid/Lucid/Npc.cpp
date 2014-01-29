@@ -1,7 +1,7 @@
 #include "Npc.h"
 
-Npc::Npc(sf::Vector2f position, sf::Vector2f size, int dialogueID):
-	mPosition(position), mSize(size), mDialogueID(dialogueID)
+Npc::Npc(sf::FloatRect rect, int dialogueID):
+	mRect(rect), mDialogueID(dialogueID)
 {
 }
 
@@ -9,17 +9,20 @@ Npc::~Npc()
 {
 }
 
-sf::Vector2f Npc::getPosition()const
+sf::FloatRect Npc::getRect()const
 {
-	return mPosition;
-}
-
-sf::Vector2f Npc::getSize()const
-{
-	return mSize;
+	return mRect;
 }
 
 int Npc::getDialogueID()
 {
 	return mDialogueID;
+}
+
+void Npc::tick()
+{
+}
+
+void Npc::render(sf::RenderWindow* window)
+{
 }

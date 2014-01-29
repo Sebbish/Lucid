@@ -1,22 +1,16 @@
 #include "Portal.h"
 
-Portal::Portal(sf::Vector2f position, sf::Vector2f size, int targetMapID, int targetPortalID, int portalID):
-	mPosition(position), mSize(size), mTargetMapID(targetMapID), mTargetPortalID(targetPortalID), mPortalID(portalID)
+Portal::Portal(sf::FloatRect rect, int targetMapID, int targetPortalID, int portalID):
+	mRect(rect), mTargetMapID(targetMapID), mTargetPortalID(targetPortalID), mPortalID(portalID)
 {
 }
 
 Portal::~Portal()
 {
 }
-
-sf::Vector2f Portal::getPosition()const
+sf::FloatRect Portal::getRect()const
 {
-	return mPosition;
-}
-
-sf::Vector2f Portal::getSize()const
-{
-	return mSize;
+	return mRect;
 }
 
 int Portal::getTargetMapID()const
@@ -32,4 +26,12 @@ int Portal::getTargetPortalID()const
 int Portal::getPortalID()const
 {
 	return mPortalID;
+}
+
+void Portal::tick()
+{
+}
+
+void Portal::render(sf::RenderWindow* window)
+{
 }
