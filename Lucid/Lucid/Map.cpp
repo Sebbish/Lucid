@@ -10,25 +10,25 @@ Map::Map(sf::Texture *texture):
 
 Map::~Map()
 {
-	while (!mHidingList.empty)
+	while (!mHidingList.empty())
 	{
 		delete mHidingList.end;
 		mHidingList.pop_back();
 	}
 
-	while (!mPortalList.empty)
+	while (!mPortalList.empty())
 	{
 		delete mPortalList.end;
 		mPortalList.pop_back();
 	}
 
-	while (!mNpcList.empty)
+	while (!mNpcList.empty())
 	{
 		delete mNpcList.end;
 		mNpcList.pop_back();
 	}
 
-	while (!mWallList.empty)
+	while (!mWallList.empty())
 	{
 		delete mWallList.end;
 		mWallList.pop_back();
