@@ -5,9 +5,10 @@ class Enemy :
 	public Entity
 {
 public:
-	Enemy(float x, float y, float width, float height, float speed);
+	Enemy(float x, float y, float width, float height, float speed, int direction, sf::Texture* texture);
 	~Enemy();
 	virtual sf::FloatRect getRect()const;
+	virtual void getFunc();
 	virtual void setDirection(direction d);
 	virtual direction getDirection()const;
 	virtual void setRect(sf::FloatRect rect);

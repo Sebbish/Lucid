@@ -1,6 +1,5 @@
 #include "Game.h"
 
-
 Game::Game()
 {
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
@@ -94,6 +93,75 @@ void Game::collision()
 		}
 	}
 	 
+}
+
+void Game::loadMap(std::string filename)
+{
+	std::ifstream stream;
+	stream.open(filename);
+	std::string output;
+	std::vector<int> dataVector;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction;
+	while(!stream.eof())
+	{
+		stream >> output;
+		dataVector.push_back(atoi(output.c_str()));
+	}
+	for (int i = 0; i < dataVector.size(); i++)
+	{
+		switch(dataVector[i])
+		{
+		case 1://Fiende
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			direction = dataVector[i + 5]; //0 är vänster, 1 är höger
+			speed = dataVector[i + 6];
+			typeID = dataVector[i + 7];
+			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, mFH->getTexture(typeID))); //skickar int men tar emot float == problem?
+			i += 7; //i += x där 'x' är antalet variabler
+			break;
+		case 2://Vägg
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			map.addWall(new Wall(sf::FloatRect(x, y, width, height)));
+			i += 4;
+			break;
+		case 3://Portal
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			targetMapID = dataVector[i + 5];
+			targetPortalID = dataVector[i + 6];
+			portalID = dataVector[i + 7];
+			typeID = dataVector[i + 8];
+			map.addPortal(new Portal(sf::FloatRect(x, y, width, height), targetMapID, targetMapID, portalID));
+			i += 8;
+			break;
+		case 4://NPC
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			dialogueID = dataVector[i + 5];
+			typeID = dataVector[i + 6];
+			map.addPortal(new Portal(sf::FloatRect(x, y, width, height), targetMapID, targetPortalID, portalID));
+			i += 6;
+			break;
+		case 5://Hiding
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			typeID = dataVector[i + 5];
+			i += 5;
+			break;
+		}
+	}
 }
 
 bool Game::overlapsEntity(Entity *playerEntity, Entity *otherEntity)

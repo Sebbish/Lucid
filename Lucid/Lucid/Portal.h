@@ -15,6 +15,7 @@ public:
 	virtual sf::FloatRect getRect()const;
 	virtual void tick();
 	virtual void render(sf::RenderWindow* window);
+	virtual void getFunc();
 private:
 	int mTargetMapID;
 	int mTargetPortalID;

@@ -35,6 +35,26 @@ Map::~Map()
 	}
 }
 
+void Map::addHiding(Hiding* hiding)
+{
+	mHidingList.push_back(hiding);
+}
+
+void Map::addNpc(Npc* npc)
+{
+	mNpcList.push_back(npc);
+}
+
+void Map::addPortal(Portal* portal)
+{
+	mPortalList.push_back(portal);
+}
+
+void Map::addWall(Wall* wall)
+{
+	mWallList.push_back(wall);
+}
+
 std::vector<Object*> Map::getHidingList()const
 {
 	return mHidingList;

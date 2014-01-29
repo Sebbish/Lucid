@@ -1,47 +1,26 @@
-<<<<<<< HEAD
-﻿Build started 2014-01-29 10:52:07.
+﻿Build started 2014-01-29 12:00:52.
      1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Map.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp Enemy.cpp Entity.cpp Game.cpp Hiding.cpp Main.cpp Map.cpp Npc.cpp Object.cpp Player.cpp Portal.cpp Wall.cpp
+         Wall.cpp
+         Portal.cpp
+         Player.cpp
+         Object.cpp
+         Npc.cpp
          Map.cpp
-=======
-﻿Build started 2014-01-29 11:47:26.
-     1>Project "\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
+         Main.cpp
+         Hiding.cpp
          Game.cpp
->>>>>>> f13a58bd252c31ef74c6c7a7a3337b6d854f8718
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Debug\Lucid.exe" /INCREMENTAL /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" "sfml-audio-d.lib" "sfml-graphics-d.lib" "sfml-main-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Debug\Lucid.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Debug\Lucid.lib" /MACHINE:X86 Debug\Camera.obj
-         Debug\Enemy.obj
-         Debug\Entity.obj
-         Debug\Game.obj
-         Debug\Hiding.obj
-         Debug\Main.obj
-         Debug\Map.obj
-         Debug\Npc.obj
-         Debug\Object.obj
-         Debug\Player.obj
-         Debug\Portal.obj
-         Debug\Wall.obj
-<<<<<<< HEAD
-         LINK : P:\Lucid\Lucid\Debug\Lucid.exe not found or not built by the last incremental link; performing full link
-     1>Player.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Player.obj' or at 'P:\Lucid\Lucid\Debug\vc110.pdb'; linking object as if no debug info
-     1>Object.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Object.obj' or at 'P:\Lucid\Lucid\Debug\vc110.pdb'; linking object as if no debug info
-     1>Entity.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Entity.obj' or at 'P:\Lucid\Lucid\Debug\vc110.pdb'; linking object as if no debug info
-     1>Camera.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Camera.obj' or at 'P:\Lucid\Lucid\Debug\vc110.pdb'; linking object as if no debug info
-     1>sfml-main-d.lib(SFML_Main.cpp.obj) : warning LNK4099: PDB 'sfml-main-d.pdb' was not found with 'sfml-main-d.lib(SFML_Main.cpp.obj)' or at 'P:\Lucid\Lucid\Debug\sfml-main-d.pdb'; linking object as if no debug info
-         Lucid.vcxproj -> P:\Lucid\Lucid\Debug\Lucid.exe
-     1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
+     1>p:\lucid\lucid\lucid\game.cpp(7): error C2259: 'Player' : cannot instantiate abstract class
+                 due to following members:
+                 'void Entity::getFunc(void)' : is abstract
+                 p:\lucid\lucid\lucid\entity.h(16) : see declaration of 'Entity::getFunc'
+         Entity.cpp
+         Enemy.cpp
+         Camera.cpp
+         Generating Code...
+     1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:16.33
-=======
-         Lucid.vcxproj -> \\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Debug\Lucid.exe
-     1>Done Building Project "\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:00:10.56
->>>>>>> f13a58bd252c31ef74c6c7a7a3337b6d854f8718
+Time Elapsed 00:01:41.77

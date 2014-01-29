@@ -1,13 +1,21 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(float x, float y, float width, float height,float speed):
-	mMaxSpeed(speed)
+Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, sf::Texture* texture):
+	mMaxSpeed(speed), mTexture(texture)
 {
 	mRect.left = x;
 	mRect.top = y;
 	mRect.width = width;
 	mRect.height = height;
+	if (direction == 0)
+	{
+		mDirection = LEFT;
+	}
+	else
+	{
+		mDirection = RIGHT;
+	}
 }
 
 

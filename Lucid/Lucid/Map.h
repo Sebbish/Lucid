@@ -7,12 +7,17 @@
 #include "Npc.h"
 #include "Hiding.h"
 #include "Portal.h"
+#include "Wall.h"
 
 class Map
 {
 public:
 	Map(sf::Texture *texture);
 	~Map();
+	void addHiding(Hiding* hiding);
+	void addNpc(Npc* npc);
+	void addPortal(Portal* portal);
+	void addWall(Wall* wall);
 	std::vector<Object*> getHidingList()const;
 	std::vector<Object*> getNpcList()const;
 	std::vector<Object*> getPortalList()const;
