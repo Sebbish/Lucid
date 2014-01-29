@@ -1,8 +1,8 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, sf::Texture* texture):
-	mMaxSpeed(speed), mTexture(texture)
+Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, sf::Texture* texture, int typeID):
+	mMaxSpeed(speed), mTexture(texture), mTypeID(typeID)
 {
 	mRect.left = x;
 	mRect.top = y;

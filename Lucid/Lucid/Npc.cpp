@@ -1,7 +1,7 @@
 #include "Npc.h"
 
-Npc::Npc(sf::FloatRect rect, int dialogueID):
-	mRect(rect), mDialogueID(dialogueID)
+Npc::Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID):
+	mRect(rect), mDialogueID(dialogueID), mTexture(texture), mTypeID(typeID)
 {
 }
 

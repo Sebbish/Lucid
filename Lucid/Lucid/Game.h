@@ -26,14 +26,14 @@ private:
 	void tick();
 	void render();
 	void collision();
-	void loadMap(std::string filename);
+	void loadMap(std::string filename, int mapID);
 	static bool overlapsEntity(Entity *playerEntity, Entity *otherEntity);
 	static bool overlapsObjects(Entity *playerEntity, Object *objectEntity);
 	sf::RenderWindow *mWindow;
 	EntiyVector mEntities;
 	ObjectVector mObjects;
 	Camera *camera;
-	Map map;
+	Map* mMap;
 };
 
 #endif

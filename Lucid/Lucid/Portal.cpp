@@ -1,7 +1,7 @@
 #include "Portal.h"
 
-Portal::Portal(sf::FloatRect rect, int targetMapID, int targetPortalID, int portalID):
-	mRect(rect), mTargetMapID(targetMapID), mTargetPortalID(targetPortalID), mPortalID(portalID)
+Portal::Portal(sf::FloatRect rect, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID):
+	mRect(rect), mTargetMapID(targetMapID), mTargetPortalID(targetPortalID), mPortalID(portalID), mTexture(texture), mTypeID(typeID)
 {
 }
 

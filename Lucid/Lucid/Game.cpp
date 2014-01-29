@@ -95,8 +95,11 @@ void Game::collision()
 	 
 }
 
-void Game::loadMap(std::string filename)
+void Game::loadMap(std::string filename, int mapID)
 {
+	delete mMap;
+	mMap = new Map(mapID);
+	mMap->setTexture(mFH->getTexture(mapID));
 	std::ifstream stream;
 	stream.open(filename);
 	std::string output;
@@ -119,7 +122,7 @@ void Game::loadMap(std::string filename)
 			direction = dataVector[i + 5]; //0 är vänster, 1 är höger
 			speed = dataVector[i + 6];
 			typeID = dataVector[i + 7];
-			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, mFH->getTexture(typeID))); //skickar int men tar emot float == problem?
+			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, mFH->getTexture(typeID), typeID)); //skickar int men tar emot float == problem?
 			i += 7; //i += x där 'x' är antalet variabler
 			break;
 		case 2://Vägg
@@ -127,7 +130,7 @@ void Game::loadMap(std::string filename)
 			y = dataVector[i + 2];
 			width = dataVector[i + 3];
 			height = dataVector[i + 4];
-			map.addWall(new Wall(sf::FloatRect(x, y, width, height)));
+			mMap->addWall(new Wall(sf::FloatRect(x, y, width, height)));
 			i += 4;
 			break;
 		case 3://Portal
@@ -139,7 +142,7 @@ void Game::loadMap(std::string filename)
 			targetPortalID = dataVector[i + 6];
 			portalID = dataVector[i + 7];
 			typeID = dataVector[i + 8];
-			map.addPortal(new Portal(sf::FloatRect(x, y, width, height), targetMapID, targetMapID, portalID));
+			mMap->addPortal(new Portal(sf::FloatRect(x, y, width, height), targetMapID, targetPortalID, portalID, mFH->getTexture(typeID), typeID));
 			i += 8;
 			break;
 		case 4://NPC
@@ -149,7 +152,7 @@ void Game::loadMap(std::string filename)
 			height = dataVector[i + 4];
 			dialogueID = dataVector[i + 5];
 			typeID = dataVector[i + 6];
-			map.addPortal(new Portal(sf::FloatRect(x, y, width, height), targetMapID, targetPortalID, portalID));
+			mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID));
 			i += 6;
 			break;
 		case 5://Hiding
@@ -158,6 +161,7 @@ void Game::loadMap(std::string filename)
 			width = dataVector[i + 3];
 			height = dataVector[i + 4];
 			typeID = dataVector[i + 5];
+			mMap->addHiding(new Hiding(sf::FloatRect(x, y, width, height), mFH->getTexture(typeID), typeID));
 			i += 5;
 			break;
 		}

@@ -7,7 +7,7 @@ class Hiding :
 	public Object
 {
 public:
-	Hiding(sf::FloatRect rect);
+	Hiding(sf::FloatRect rect, sf::Texture* texture, int typeID);
 	~Hiding();
 	virtual sf::FloatRect getRect()const;
 	virtual void tick();
@@ -15,6 +15,8 @@ public:
 	virtual void getFunc();
 private:
 	sf::FloatRect mRect;
+	int mTypeID;
+	sf::Texture* mTexture;
 };
 
 #endif
