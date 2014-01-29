@@ -30,6 +30,11 @@ sf::FloatRect Player::getRect()const
 	return mRect;
 }
 
+void Player::getFunc()
+{
+
+}
+
 void Player::setRect(sf::FloatRect rect)
 {
 	mRect = rect;

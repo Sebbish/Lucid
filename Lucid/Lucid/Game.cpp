@@ -38,6 +38,7 @@ void Game::run()
 			}
         }
 		tick();
+		
 	
         mWindow->clear();
 		sf::CircleShape shape(200.f);
@@ -45,6 +46,7 @@ void Game::run()
 		mWindow->setView(*camera->getView());
         mWindow->draw(shape);
 		render();
+		mousePositionFunc();
 
         mWindow->display();
     }
@@ -59,7 +61,7 @@ void Game::render()
 
 void Game::tick()
 {
-
+	mMousePosition = sf::Mouse::getPosition();
 	for(auto i:mEntities)
 	{
 		i->tick();
@@ -79,6 +81,10 @@ void Game::collision()
 		if (overlapsEntity(playerEntity,enemyEntity))
 		{
 			enteties[i] -> getFunc();
+		}
+		if (overlapsMouse(enemyEntity))
+		{
+
 		}
 	}
 	for (ObjectVector::size_type i = 1; i < objects.size(); i++)
@@ -114,4 +120,27 @@ bool Game::overlapsObjects(Entity *playerEntity, Object *objectEntity)
 	return true;
 	else
 	return false;
+}
+
+bool Game::overlapsMouse(Entity *entity)
+{
+	sf::Vector2i mMousePosition = sf::Mouse::getPosition();
+	sf::FloatRect mousePosition;
+	mousePosition.left = mMousePosition.x;
+	mousePosition.top  = mMousePosition.y;
+	sf::FloatRect otherPosition = entity ->getRect();
+	if (mousePosition.intersects(otherPosition))
+	return true;
+	else
+	return false;
+}
+
+void Game::mousePositionFunc()
+{
+	int mouseX = 0;
+	int mouseY = 0;
+	sf::RectangleShape mouseRect;
+	mouseRect.setPosition(mMousePosition.x-380 - mouseX,mMousePosition.y-440 - mouseY);
+	mouseRect.setSize(sf::Vector2f(15,15));
+	mWindow -> draw(mouseRect);
 }
