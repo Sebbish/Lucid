@@ -3,11 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Object.h"
-//<<<<<<< HEAD
 #include "Enemy.h"
-//=======
 #include "Camera.h"
-//>>>>>>> 2cd13a0520ef6ff83e7006916eb7f32d1f9fe3ad
 #include "FilHanterare.h"
 #include "Map.h"
 
