@@ -37,6 +37,7 @@
     <ClCompile Include="Wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FilHanterare.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -72,6 +73,7 @@
     <ClInclude Include="Wall.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="FilHanterare.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">

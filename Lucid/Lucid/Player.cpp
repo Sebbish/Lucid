@@ -1,13 +1,14 @@
 #include "Player.h"
 
 
-Player::Player(float x, float y, float width, float height,float speed):
-	mMaxSpeed(speed),mDirection(RIGHT)
+Player::Player(float x, float y, float width, float height,float speed,sf::Texture* texture,float anitmationPicX):
+	mMaxSpeed(speed),mDirection(RIGHT),mTexture(texture),mAnimationPicX(anitmationPicX)
 {
 	mRect.left = x;
 	mRect.top = y;
 	mRect.width = width;
 	mRect.height = height;
+	mAnimationTimer = 0.0f;
 }
 
 
@@ -28,6 +29,11 @@ Entity::direction Player::getDirection()const
 sf::FloatRect Player::getRect()const
 {
 	return mRect;
+}
+
+void Player::getFunc()
+{
+
 }
 
 void Player::setRect(sf::FloatRect rect)
@@ -82,13 +88,21 @@ void Player::tick()
 			mRect.left += mMaxSpeed;
 		if(mDirection == Entity::LEFT)
 			mRect.left -= mMaxSpeed;
-	}
+		if(mAnimationTimer >= mAnimationPicX-0.1f)
+			mAnimationTimer = 0.0f;
+		else
+			mAnimationTimer += 0.1f;
+	}else
+		mAnimationTimer = 0.0f;
 }
 
 void Player::render(sf::RenderWindow* window)
 {
 	sf::RectangleShape r;
+	r.setTexture(mTexture);
+	r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer,0,mRect.width,mRect.height));
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
+	
 }
