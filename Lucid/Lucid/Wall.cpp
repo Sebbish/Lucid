@@ -1,7 +1,7 @@
 #include "Wall.h"
 
-Wall::Wall(sf::Vector2f position, sf::Vector2f size):
-	mPosition(position), mSize(size)
+Wall::Wall(sf::FloatRect rect):
+	mRect(rect)
 {
 }
 
@@ -9,12 +9,15 @@ Wall::~Wall()
 {
 }
 
-sf::Vector2f Wall::getPosition()const
+sf::FloatRect Wall::getRect()const
 {
-	return mPosition;
+	return mRect;
 }
 
-sf::Vector2f Wall::getSize()const
+void Wall::tick()
 {
-	return mSize;
+}
+
+void Wall::render(sf::RenderWindow* window)
+{
 }

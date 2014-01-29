@@ -7,15 +7,15 @@ class Npc :
 	public Object
 {
 public:
-	Npc(sf::Vector2f position, sf::Vector2f size, int dialogueID);
+	Npc(sf::FloatRect rect, int dialogueID);
 	~Npc();
-	virtual sf::Vector2f getPosition()const;
-	virtual sf::Vector2f getSize()const;
 	int getDialogueID();
+	virtual sf::FloatRect getRect()const;
+	virtual void tick();
+	virtual void render(sf::RenderWindow* window);
 private:
-	sf::Vector2f mPosition;
-	sf::Vector2f mSize;
 	int mDialogueID;
+	sf::FloatRect mRect;
 };
 
 #endif
