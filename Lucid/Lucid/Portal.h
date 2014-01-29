@@ -7,19 +7,19 @@ class Portal :
 	public Object
 {
 public:
-	Portal(sf::Vector2f position, sf::Vector2f size, int targetMapID, int targetPortalID, int portalID);
+	Portal(sf::FloatRect rect, int targetMapID, int targetPortalID, int portalID);
 	~Portal();
-	virtual sf::Vector2f getPosition()const;
-	virtual sf::Vector2f getSize()const;
 	int getTargetMapID()const;
 	int getTargetPortalID()const;
 	int getPortalID()const;
+	virtual sf::FloatRect getRect()const;
+	virtual void tick();
+	virtual void render(sf::RenderWindow* window);
 private:
-	sf::Vector2f mPosition;
-	sf::Vector2f mSize;
 	int mTargetMapID;
 	int mTargetPortalID;
 	int mPortalID;
+	sf::FloatRect mRect;
 };
 
 #endif

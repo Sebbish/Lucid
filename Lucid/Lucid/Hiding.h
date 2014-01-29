@@ -7,13 +7,13 @@ class Hiding :
 	public Object
 {
 public:
-	Hiding(sf::Vector2f position, sf::Vector2f size);
+	Hiding(sf::FloatRect rect);
 	~Hiding();
-	virtual sf::Vector2f getPosition()const;
-	virtual sf::Vector2f getSize()const;
+	virtual sf::FloatRect getRect()const;
+	virtual void tick();
+	virtual void render(sf::RenderWindow* window);
 private:
-	sf::Vector2f mPosition;
-	sf::Vector2f mSize;
+	sf::FloatRect mRect;
 };
 
 #endif
