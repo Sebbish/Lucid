@@ -10,7 +10,7 @@ public:
 	~FilHanterare();
 	sf::Texture* getTexture(int ID)const;
 private:
-	sf::Texture *mTexture[2];
+	sf::Texture *mTexture[5];
 };
 #endif
 

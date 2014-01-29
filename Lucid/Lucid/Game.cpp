@@ -10,6 +10,7 @@ Game::Game()
 	mWindow->setFramerateLimit(60);
 	mWindow->setVerticalSyncEnabled(true);
 	mMap = new Map(1);
+	loadMap("../Debug/map1.txt", 1);
 }
 
 Game::~Game()
@@ -40,7 +41,6 @@ void Game::run()
 			}
         }
 		tick();
-		
 	
         mWindow->clear();
 		sf::CircleShape shape(200.f);

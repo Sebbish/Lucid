@@ -2,7 +2,6 @@
 #define GAME_H
 #include <SFML/Graphics.hpp>
 #include "Player.h"
-#include "Object.h"
 #include "Enemy.h"
 #include "Camera.h"
 #include <fstream>
