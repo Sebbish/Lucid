@@ -5,12 +5,13 @@ class Player :
 	public Entity
 {
 public:
-	Player(float x, float y, float width, float height, float speed);
+	Player(float x, float y, float width, float height, float speed,sf::Texture* texture,float anitmationPicX);
 	~Player();
 	virtual sf::FloatRect getRect()const;
 	virtual void getFunc();
 	virtual void setDirection(direction d);
 	virtual direction getDirection()const;
+	virtual void getFunc();
 	virtual void setRect(sf::FloatRect rect);
 	virtual void setMove(bool move);
 	virtual bool getMove()const;
@@ -29,6 +30,8 @@ private:
 	sf::Texture* mTexture;
 	bool mMove;
 	direction mDirection;
+	float mAnimationTimer;
+	float mAnimationPicX;
 };
 #endif
 

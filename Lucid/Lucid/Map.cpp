@@ -79,3 +79,13 @@ std::vector<Object*> Map::getWallList()const
 {
 	return mWallList;
 }
+
+void Map::render(sf::RenderWindow* window)
+{
+	sf::RectangleShape r;
+	r.setTexture(mTexture);
+	//r.setTextureRect(sf::IntRect(0,0,window->getSize().x,window->getSize().y));
+	r.setPosition(0,0);
+	r.setSize(sf::Vector2f(window->getSize().x,window->getSize().y));
+	window->draw(r);
+}

@@ -23,6 +23,7 @@ public:
 	std::vector<Object*> getNpcList()const;
 	std::vector<Object*> getPortalList()const;
 	std::vector<Object*> getWallList()const;
+	void render(sf::RenderWindow* window);
 private:
 	sf::Texture* mTexture;
 	std::vector<Object*> mHidingList, mNpcList, mPortalList, mWallList;
