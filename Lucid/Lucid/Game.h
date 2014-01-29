@@ -27,7 +27,10 @@ private:
 	void collision();
 	static bool overlapsEntity(Entity *playerEntity, Entity *otherEntity);
 	static bool overlapsObjects(Entity *playerEntity, Object *objectEntity);
+	static bool overlapsMouse(Entity *entity);
+	void mousePositionFunc();
 	sf::RenderWindow *mWindow;
+	sf::Vector2i mMousePosition;
 	EntiyVector mEntities;
 	ObjectVector mObjects;
 	Camera *camera;
