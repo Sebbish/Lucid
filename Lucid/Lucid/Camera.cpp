@@ -19,13 +19,13 @@ void Camera::tick()
 	
 	if(mFollowThisEntity->getDirection() == Entity::RIGHT)
 	{
-		float distance = ((mFollowThisEntity->getRect().left+mFollowThisEntity->getRect().width/2)-(mView.getCenter().x+mView.getSize().x/2/3))*acc;
-		mView.setCenter(mFollowThisEntity->getRect().left+distance,mFollowThisEntity->getRect().top);
+		float distance = ((mFollowThisEntity->getRect().left+mFollowThisEntity->getRect().width/2)-(mView.getCenter().x-mView.getSize().x/4))*acc;
+		mView.setCenter(mView.getCenter().x+distance,mView.getCenter().y);
 			
 	}else if(mFollowThisEntity->getDirection() == Entity::LEFT)
 	{
-		float distance = ((mFollowThisEntity->getRect().left+mFollowThisEntity->getRect().width/2)-(mView.getCenter().x-mView.getSize().x/2/3))*acc;
-		mView.setCenter(mFollowThisEntity->getRect().left+distance,mFollowThisEntity->getRect().top);
+		float distance = ((mFollowThisEntity->getRect().left+mFollowThisEntity->getRect().width/2)-(mView.getCenter().x+mView.getSize().x/4))*acc;
+		mView.setCenter(mView.getCenter().x+distance,mView.getCenter().y);
 	}
 }
 

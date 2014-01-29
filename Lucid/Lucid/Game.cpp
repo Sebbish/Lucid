@@ -37,7 +37,7 @@ void Game::run()
 				mEntities[0]->setMove(false);
 			}
         }
-
+		mWindow->setVerticalSyncEnabled(true);
 		tick();
 	
         mWindow->clear();
