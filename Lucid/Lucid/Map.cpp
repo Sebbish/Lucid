@@ -12,25 +12,25 @@ Map::~Map()
 {
 	while (!mHidingList.empty())
 	{
-		delete mHidingList.end;
+		delete mHidingList[mHidingList.size()-1];
 		mHidingList.pop_back();
 	}
 
 	while (!mPortalList.empty())
 	{
-		delete mPortalList.end;
+		delete mPortalList[mPortalList.size()-1];
 		mPortalList.pop_back();
 	}
 
 	while (!mNpcList.empty())
 	{
-		delete mNpcList.end;
+		delete mNpcList[mNpcList.size()-1];
 		mNpcList.pop_back();
 	}
 
 	while (!mWallList.empty())
 	{
-		delete mWallList.end;
+		delete mWallList[mWallList.size()-1];
 		mWallList.pop_back();
 	}
 }
