@@ -5,6 +5,7 @@ Game::Game()
 	mFH = new FilHanterare();
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mEntities.push_back(new Player(100,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
+	//mEntities.push_back(new Enemy(500,875-768/3,1024/4,768/3,4));
 	camera = new Camera(sf::Vector2f(mWindow->getSize()),mEntities[0]);
 	mWindow->setFramerateLimit(60);
 	mWindow->setVerticalSyncEnabled(true);
@@ -64,9 +65,11 @@ void Game::render()
 void Game::tick()
 {
 	mMousePosition = sf::Mouse::getPosition();
+	mMousePosition.x = sf::Mouse::getPosition().x + camera->getView()->getCenter().x;
+	collision();
 	for(auto i:mEntities)
 	{
-		i->tick();
+		i->tick(mEntities[0]);
 	}
 	camera->tick();
 }
@@ -215,7 +218,7 @@ void Game::mousePositionFunc()
 	int mouseX = 0;
 	int mouseY = 0;
 	sf::RectangleShape mouseRect;
-	mouseRect.setPosition(mMousePosition.x-380 - mouseX,mMousePosition.y-440 - mouseY);
+	mouseRect.setPosition(mMousePosition.x - mouseX,mMousePosition.y - mouseY);
 	mouseRect.setSize(sf::Vector2f(15,15));
 	mWindow -> draw(mouseRect);
 }

@@ -81,7 +81,7 @@ void Player::setTexture(sf::Texture* texture)
 	mTexture = texture;
 }
 
-void Player::tick()
+void Player::tick(Entity *player)
 {
 	if(mMove){
 		if(mDirection == Entity::RIGHT)

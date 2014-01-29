@@ -20,7 +20,7 @@ public:
 	virtual sf::Vector2f getLastSeen()const;
 	virtual sf::Texture* getTexture()const;
 	virtual void setTexture(sf::Texture* texture);
-	virtual void tick();
+	virtual void tick(Entity *player);
 	virtual void render(sf::RenderWindow* window);
 private:
 	sf::Vector2f mLastSeen;

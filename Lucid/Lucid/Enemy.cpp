@@ -28,6 +28,10 @@ void Enemy::setDirection(direction d)
 	mDirection = d;
 }
 
+void Enemy::getFunc()
+{
+}
+
 Entity::direction Enemy::getDirection()const
 {
 	return mDirection;
@@ -83,13 +87,16 @@ void Enemy::setTexture(sf::Texture* texture)
 	mTexture = texture;
 }
 
-void Enemy::tick()
+void Enemy::tick(Entity *player)
 {
-	if(mMove){
-		if(mDirection == Entity::RIGHT)
-			mRect.left += mMaxSpeed;
-		if(mDirection == Entity::LEFT)
-			mRect.left -= mMaxSpeed;
+	if(player->getRect().left+player->getRect().width <= mRect.left)
+	{
+		mDirection = LEFT;
+		mRect.left -= mMaxSpeed;
+	}else if(mRect.left+mRect.width <= player->getRect().left)
+	{
+		mDirection = RIGHT;
+		mRect.left += mMaxSpeed;
 	}
 }
 

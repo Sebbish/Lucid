@@ -9,6 +9,11 @@ Wall::~Wall()
 {
 }
 
+void Wall::getFunc()
+{
+
+}
+
 sf::FloatRect Wall::getRect()const
 {
 	return mRect;

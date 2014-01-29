@@ -8,6 +8,12 @@ Portal::Portal(sf::FloatRect rect, int targetMapID, int targetPortalID, int port
 Portal::~Portal()
 {
 }
+
+void Portal::getFunc()
+{
+
+}
+
 sf::FloatRect Portal::getRect()const
 {
 	return mRect;
