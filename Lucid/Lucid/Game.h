@@ -5,6 +5,11 @@
 #include "Object.h"
 #include "Enemy.h"
 #include "Camera.h"
+<<<<<<< HEAD
+=======
+#include <fstream>
+#include <string>
+>>>>>>> edc2334d7a7ab2c4819ecdf436c744be4627b5ae
 #include "FilHanterare.h"
 #include "Map.h"
 
@@ -22,6 +27,7 @@ private:
 	void tick();
 	void render();
 	void collision();
+	void loadMap(std::string filename, int mapID);
 	static bool overlapsEntity(Entity *playerEntity, Entity *otherEntity);
 	static bool overlapsObjects(Entity *playerEntity, Object *objectEntity);
 	static bool overlapsMouse(Entity *entity);
@@ -31,8 +37,8 @@ private:
 	EntiyVector mEntities;
 	ObjectVector mObjects;
 	Camera *camera;
+	Map* mMap;
 	FilHanterare* mFH;
-	Map *map;
 };
 
 #endif

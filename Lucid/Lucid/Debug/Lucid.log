@@ -1,4 +1,33 @@
+<<<<<<< HEAD
 ﻿Build started 2014-01-29 15:59:10.
+=======
+<<<<<<< HEAD
+﻿Build started 2014-01-29 12:00:52.
+     1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp Enemy.cpp Entity.cpp Game.cpp Hiding.cpp Main.cpp Map.cpp Npc.cpp Object.cpp Player.cpp Portal.cpp Wall.cpp
+         Wall.cpp
+         Portal.cpp
+         Player.cpp
+         Object.cpp
+         Npc.cpp
+         Map.cpp
+         Main.cpp
+         Hiding.cpp
+         Game.cpp
+     1>p:\lucid\lucid\lucid\game.cpp(7): error C2259: 'Player' : cannot instantiate abstract class
+                 due to following members:
+                 'void Entity::getFunc(void)' : is abstract
+                 p:\lucid\lucid\lucid\entity.h(16) : see declaration of 'Entity::getFunc'
+         Entity.cpp
+         Enemy.cpp
+         Camera.cpp
+         Generating Code...
+     1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)) -- FAILED.
+=======
+<<<<<<< HEAD
+﻿Build started 2014-01-29 15:08:02.
+>>>>>>> edc2334d7a7ab2c4819ecdf436c744be4627b5ae
      1>Project "P:\Downloads\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Enemy.cpp
@@ -22,4 +51,21 @@
 
 Build succeeded.
 
+<<<<<<< HEAD
 Time Elapsed 00:00:13.57
+=======
+Time Elapsed 00:00:14.14
+=======
+         Lucid.vcxproj -> P:\Lucid\Lucid\Debug\Lucid.exe
+     1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
+>>>>>>> 3ad732deed0a053df439f09534c68b0c5e8fe785
+
+Build FAILED.
+
+<<<<<<< HEAD
+Time Elapsed 00:01:41.77
+=======
+Time Elapsed 00:00:12.58
+>>>>>>> 714c562cd91c07beb58726c9c8ad75395c730ebe
+>>>>>>> 3ad732deed0a053df439f09534c68b0c5e8fe785
+>>>>>>> edc2334d7a7ab2c4819ecdf436c744be4627b5ae

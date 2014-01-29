@@ -1,7 +1,7 @@
 #include "Map.h"
 
-Map::Map(sf::Texture *texture):
-	mTexture(texture)
+Map::Map(int mapID):
+	mMapID(mapID)
 {
 	/*mHidingList.push_back(new Hiding(sf::Vector2f(0, 0), sf::Vector2f(10, 10)));
 	mNpcList.push_back(new Npc(sf::Vector2f(0, 100), sf::Vector2f(10, 10), 0));
@@ -33,6 +33,31 @@ Map::~Map()
 		delete mWallList[mWallList.size()-1];
 		mWallList.pop_back();
 	}
+}
+
+void Map::addHiding(Hiding* hiding)
+{
+	mHidingList.push_back(hiding);
+}
+
+void Map::addNpc(Npc* npc)
+{
+	mNpcList.push_back(npc);
+}
+
+void Map::addPortal(Portal* portal)
+{
+	mPortalList.push_back(portal);
+}
+
+void Map::addWall(Wall* wall)
+{
+	mWallList.push_back(wall);
+}
+
+void Map::setTexture(sf::Texture *texture)
+{
+	mTexture = texture;
 }
 
 std::vector<Object*> Map::getHidingList()const
