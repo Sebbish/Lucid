@@ -13,6 +13,7 @@ public:
 	};
 	virtual ~Entity() = 0;
 	virtual sf::FloatRect getRect()const = 0;
+	virtual void getFunc() = 0;
 	virtual void setDirection(direction d) = 0;
 	virtual direction getDirection()const = 0;
 	virtual void setRect(sf::FloatRect rect) = 0;

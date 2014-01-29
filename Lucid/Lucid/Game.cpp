@@ -6,6 +6,8 @@ Game::Game()
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mEntities.push_back(new Player(100,100,10,10,2));
 	camera = new Camera(sf::Vector2f(mWindow->getSize()),mEntities[0]);
+	mWindow->setFramerateLimit(60);
+	mWindow->setVerticalSyncEnabled(true);
 }
 
 Game::~Game()
@@ -15,8 +17,6 @@ Game::~Game()
 
 void Game::run()
 {
-
-	mWindow->setFramerateLimit(60);
 	while (mWindow->isOpen())
     {
         sf::Event event;
@@ -37,7 +37,6 @@ void Game::run()
 				mEntities[0]->setMove(false);
 			}
         }
-
 		tick();
 	
         mWindow->clear();
@@ -71,23 +70,47 @@ void Game::tick()
 void Game::collision()
 {
 	EntiyVector enteties(mEntities);
+	ObjectVector objects(mObjects);
+
 	for (EntiyVector::size_type i = 1; i < enteties.size(); i++)
 	{
 		Entity *playerEntity = enteties[0];
 		Entity *enemyEntity = enteties[i];
-		if (overlaps(playerEntity,enemyEntity))
+		if (overlapsEntity(playerEntity,enemyEntity))
 		{
-
+			enteties[i] -> getFunc();
+		}
+	}
+	for (ObjectVector::size_type i = 1; i < objects.size(); i++)
+	{
+		Entity *playerEntity = enteties[0];
+		Object *objectEntity = objects[i];
+		if (overlapsObjects(playerEntity,objectEntity))
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+			{
+				objects[i] -> getFunc();
+			}
 		}
 	}
 	 
 }
 
-bool Game::overlaps(Entity *playerEntity, Entity *enemyEntity)
+bool Game::overlapsEntity(Entity *playerEntity, Entity *otherEntity)
 {
 	sf::FloatRect playerPosition = playerEntity ->getRect();
-	sf::FloatRect enemyPosition = enemyEntity ->getRect();
-	if (playerPosition.intersects(enemyPosition))
+	sf::FloatRect otherPosition = otherEntity ->getRect();
+	if (playerPosition.intersects(otherPosition))
+	return true;
+	else
+	return false;
+}
+
+bool Game::overlapsObjects(Entity *playerEntity, Object *objectEntity)
+{
+	sf::FloatRect playerPosition = playerEntity ->getRect();
+	sf::FloatRect otherPosition = objectEntity ->getRect();
+	if (playerPosition.intersects(otherPosition))
 	return true;
 	else
 	return false;
