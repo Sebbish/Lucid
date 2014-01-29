@@ -33,3 +33,8 @@ sf::View* Camera::getView()
 {
 	return &mView;
 }
+
+void Camera::setTarget(Entity *entity)
+{
+	mFollowThisEntity = entity;
+}

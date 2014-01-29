@@ -6,6 +6,8 @@ Game::Game()
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mEntities.push_back(new Player(100,100,10,10,2));
 	camera = new Camera(sf::Vector2f(mWindow->getSize()),mEntities[0]);
+	mWindow->setFramerateLimit(60);
+	mWindow->setVerticalSyncEnabled(true);
 }
 
 Game::~Game()
@@ -15,8 +17,6 @@ Game::~Game()
 
 void Game::run()
 {
-
-	mWindow->setFramerateLimit(60);
 	while (mWindow->isOpen())
     {
         sf::Event event;
@@ -37,7 +37,6 @@ void Game::run()
 				mEntities[0]->setMove(false);
 			}
         }
-		mWindow->setVerticalSyncEnabled(true);
 		tick();
 	
         mWindow->clear();
