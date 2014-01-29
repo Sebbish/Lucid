@@ -9,6 +9,7 @@ public:
 	~Camera();
 	void tick();
 	sf::View* getView();
+	void setTarget(Entity *entity);
 private:
 	sf::View mView;
 	Entity* mFollowThisEntity;
