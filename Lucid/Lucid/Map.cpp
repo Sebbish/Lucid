@@ -88,4 +88,11 @@ void Map::render(sf::RenderWindow* window)
 	r.setPosition(0,0);
 	r.setSize(sf::Vector2f(window->getSize().x,window->getSize().y));
 	window->draw(r);
+
+	for (auto i:mHidingList)
+		i->render(window);
+	for (auto i:mPortalList)
+		i->render(window);
+	for (auto i:mNpcList)
+		i->render(window);
 }

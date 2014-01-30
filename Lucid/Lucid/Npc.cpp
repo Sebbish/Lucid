@@ -30,4 +30,10 @@ void Npc::tick()
 
 void Npc::render(sf::RenderWindow* window)
 {
+	sf::RectangleShape r;
+	r.setTexture(mTexture);
+	r.setTextureRect(sf::IntRect(0,0,mRect.width,mRect.height));
+	r.setPosition(mRect.left,mRect.top);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+	window->draw(r);
 }
