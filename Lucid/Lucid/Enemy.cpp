@@ -18,6 +18,7 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 		mDirection = RIGHT;
 	}
 	mAnimationPicX = 2;
+	mLayer = Front;
 }
 
 
@@ -109,9 +110,23 @@ void Enemy::setTexture(sf::Texture* texture)
 	mTexture = texture;
 }
 
+void Enemy::toggleHiding()
+{
+}
+
+Enemy::layer Enemy::getLayer()
+{
+	return mLayer;
+}
+
+bool Enemy::getHiding()
+{
+	return false;
+}
+
 void Enemy::tick(Entity *player)
 {
-	if(!mControlled)
+	if(!mControlled && !player->getHiding())
 	{
 	if(player->getRect().left+player->getRect().width >= mRect.left-200)
 	{

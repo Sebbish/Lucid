@@ -23,8 +23,7 @@ void Game::run()
 {
 	while (mWindow->isOpen())
     {
-<<<<<<< HEAD
-		input(mEntities[1]);
+		input(mEntities[0]);
 		tick();
 	
         mWindow->clear();
@@ -38,53 +37,45 @@ void Game::run()
 
 void Game::input(Entity* entity)
 {
-	
-	sf::Event event;
-=======
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+    sf::Event event;
+    while (mWindow->pollEvent(event))
+    {
+		if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            mWindow->close();
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			mMap->getPortalList()[0]->getFunc(mEntities[0]);
+			entity->setDirection(Entity::RIGHT);
+			entity->setMove(true);
+		}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			entity->setDirection(Entity::LEFT);
+			entity->setMove(true);
+		}else
+		{
+			entity->setMove(false);
 		}
-        sf::Event event;
->>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
-        while (mWindow->pollEvent(event))
-        {
-			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                mWindow->close();
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			{
-				entity->setDirection(Entity::RIGHT);
-				entity->setMove(true);
-			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			{
-				entity->setDirection(Entity::LEFT);
-				entity->setMove(true);
-			}else
-			{
-				entity->setMove(false);
-			}
 			
-        }
+    }
 }
 
 
 
 void Game::render()
 {
-	mMap->render(mWindow);
+	mMap->renderMap(mWindow);
 	for(auto i:mEntities){
-		i->render(mWindow);
+		if (i -> getLayer() == Entity::Back)
+			i->render(mWindow);
+	}
+	mMap -> renderObjects(mWindow);
+	for(auto i:mEntities){
+		if (i -> getLayer() == Entity::Front)
+			i->render(mWindow);
 	}
 }
 
 void Game::tick()
 {
-<<<<<<< HEAD
-
-=======
-	angle += 1;
-	camera->getView()->setRotation(angle);
->>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
 	mMousePosition = sf::Mouse::getPosition();
 	mMousePosition.x = sf::Mouse::getPosition().x + camera->getView()->getCenter().x;
 	collision();
@@ -93,6 +84,7 @@ void Game::tick()
 		i->tick(mEntities[0]);
 	}
 	camera->tick();
+	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
 }
 
 void Game::collision()
@@ -122,7 +114,7 @@ void Game::collision()
 		if (overlapsObjects(playerEntity,objectEntity))
 		{
 			//Visa E-symbol här
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
 			{
 				objects[i] -> getFunc(playerEntity);
 				break;

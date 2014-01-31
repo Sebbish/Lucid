@@ -36,6 +36,7 @@ private:
 	Map* mMap;
 	FilHanterare* mFH;
 	float angle;
+	bool mIsEPressed;
 };
 
 #endif

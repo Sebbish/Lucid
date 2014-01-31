@@ -11,7 +11,7 @@ Hiding::~Hiding()
 
 void Hiding::getFunc(Entity* player)
 {
-
+	player->toggleHiding();
 }
 
 sf::FloatRect Hiding::getRect()const

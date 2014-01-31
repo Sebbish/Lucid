@@ -9,6 +9,8 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mRect.width = width;
 	mRect.height = height;
 	mAnimationTimer = 0.0f;
+	mHiding = false;
+	mLayer = Front;
 }
 
 
@@ -36,16 +38,15 @@ sf::FloatRect Player::getRect()const
 	return mRect;
 }
 
-<<<<<<< HEAD
 void Player::setKockBack(float width,float acc)
 {
 	mKnockWidth = width;
 	mAcc = acc;
-=======
+}
+
 sf::FloatRect Player::getLastRect()const
 {
 	return mLastRect;
->>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
 }
 
 void Player::getFunc()
@@ -104,14 +105,30 @@ void Player::setTexture(sf::Texture* texture)
 	mTexture = texture;
 }
 
+void Player::toggleHiding()
+{
+	mHiding = !mHiding;
+	if (mLayer == Back)
+		mLayer = Front;
+	else
+		mLayer = Back;
+}
+
+Player::layer Player::getLayer()
+{
+	return mLayer;
+}
+
+bool Player::getHiding()
+{
+	return mHiding;
+}
+
 void Player::tick(Entity *player)
 {
-<<<<<<< HEAD
-	if(mMove && mKnockWidth == 0){
-=======
-	if(mMove){
 		mLastRect = mRect;
->>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
+	if(mMove && mKnockWidth == 0 && !mHiding)
+	{
 		if(mDirection == Entity::RIGHT)
 			mRect.left += mMaxSpeed;
 		if(mDirection == Entity::LEFT)
@@ -120,7 +137,8 @@ void Player::tick(Entity *player)
 			mAnimationTimer = 0.0f;
 		else
 			mAnimationTimer += 0.1f;
-	}else
+	}
+	else
 		mAnimationTimer = 0.0f;
 
 	if(mKnockWidth <= 1.9f && mKnockWidth >= -1.9f)
@@ -144,14 +162,15 @@ void Player::render(sf::RenderWindow* window)
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
-	}else if(mDirection == LEFT)
+	}
+	else if(mDirection == LEFT)
 	{
 		sf::RectangleShape r;
-	r.setTexture(mTexture);
-	r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
-	r.setPosition(mRect.left,mRect.top);
-	r.setSize(sf::Vector2f(mRect.width,mRect.height));
-	window->draw(r);
+		r.setTexture(mTexture);
+		r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
+		r.setPosition(mRect.left,mRect.top);
+		r.setSize(sf::Vector2f(mRect.width,mRect.height));
+		window->draw(r);
 	}
 	
 }

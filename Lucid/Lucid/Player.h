@@ -8,11 +8,8 @@ public:
 	Player(float x, float y, float width, float height, float speed,sf::Texture* texture,float anitmationPicX);
 	~Player();
 	virtual sf::FloatRect getRect()const;
-<<<<<<< HEAD
 	virtual void setKockBack(float width,float acc);
-=======
 	virtual sf::FloatRect getLastRect()const;
->>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
 	virtual void getFunc();
 	virtual void controlled(bool controlled);
 	virtual void setDirection(direction d);
@@ -27,6 +24,9 @@ public:
 	virtual float getLastSeenX()const;
 	virtual sf::Texture* getTexture()const;
 	virtual void setTexture(sf::Texture* texture);
+	virtual void toggleHiding();
+	virtual layer getLayer();
+	virtual bool getHiding();
 	virtual void tick(Entity *player);
 	virtual void render(sf::RenderWindow* window);
 private:
@@ -42,6 +42,8 @@ private:
 	float mKnockWidth;
 	float mAcc;
 	bool mControlled;
+	bool mHiding;
+	layer mLayer;
 };
 #endif
 

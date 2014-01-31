@@ -99,7 +99,7 @@ std::vector<Object*> Map::getObjectList()const
 	return objects;
 }
 
-void Map::render(sf::RenderWindow* window)
+void Map::renderMap(sf::RenderWindow* window)
 {
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
@@ -107,7 +107,10 @@ void Map::render(sf::RenderWindow* window)
 	r.setPosition(0,0);
 	r.setSize(sf::Vector2f(mTexture->getSize().x,window->getSize().y*2));
 	window->draw(r);
+}
 
+void Map::renderObjects(sf::RenderWindow* window)
+{
 	for (auto i:mHidingList)
 		i->render(window);
 	for (auto i:mPortalList)
