@@ -7,7 +7,7 @@ class Portal :
 	public Object
 {
 public:
-	Portal(sf::FloatRect rect, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID);
+	Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID);
 	~Portal();
 	int getTargetMapID()const;
 	int getTargetPortalID()const;
@@ -15,14 +15,17 @@ public:
 	virtual sf::FloatRect getRect()const;
 	virtual void tick();
 	virtual void render(sf::RenderWindow* window);
-	virtual void getFunc();
+	virtual void getFunc(Entity* player);
+	void setTargetPortal(Portal* portal);
 private:
+	int mCurrentMapID;
 	int mTargetMapID;
 	int mTargetPortalID;
 	int mPortalID;
 	sf::FloatRect mRect;
 	int mTypeID;
 	sf::Texture* mTexture;
+	Portal* mTargetPortal;
 };
 
 #endif

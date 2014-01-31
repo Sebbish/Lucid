@@ -31,6 +31,11 @@ sf::FloatRect Player::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Player::getLastRect()const
+{
+	return mLastRect;
+}
+
 void Player::getFunc()
 {
 
@@ -39,6 +44,12 @@ void Player::getFunc()
 void Player::setRect(sf::FloatRect rect)
 {
 	mRect = rect;
+}
+
+void Player::setPosition(sf::FloatRect rect)
+{
+	mRect.left = rect.left;
+	mRect.top = rect.top;
 }
 
 void Player::setMove(bool move)
@@ -84,6 +95,7 @@ void Player::setTexture(sf::Texture* texture)
 void Player::tick(Entity *player)
 {
 	if(mMove){
+		mLastRect = mRect;
 		if(mDirection == Entity::RIGHT)
 			mRect.left += mMaxSpeed;
 		if(mDirection == Entity::LEFT)

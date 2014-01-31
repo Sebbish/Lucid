@@ -2,6 +2,7 @@
 
 Game::Game()
 {
+	angle = 0;
 	mFH = new FilHanterare();
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mEntities.push_back(new Player(100,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
@@ -22,6 +23,10 @@ void Game::run()
 {
 	while (mWindow->isOpen())
     {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+		{
+			mMap->getPortalList()[0]->getFunc(mEntities[0]);
+		}
         sf::Event event;
         while (mWindow->pollEvent(event))
         {
@@ -64,6 +69,8 @@ void Game::render()
 
 void Game::tick()
 {
+	angle += 1;
+	camera->getView()->setRotation(angle);
 	mMousePosition = sf::Mouse::getPosition();
 	mMousePosition.x = sf::Mouse::getPosition().x + camera->getView()->getCenter().x;
 	collision();
@@ -77,7 +84,8 @@ void Game::tick()
 void Game::collision()
 {
 	EntiyVector enteties(mEntities);
-	ObjectVector objects(mObjects);
+	ObjectVector objects(mMap->getObjectList());
+	ObjectVector walls(mMap->getWallList());
 
 	for (EntiyVector::size_type i = 1; i < enteties.size(); i++)
 	{
@@ -92,19 +100,31 @@ void Game::collision()
 
 		}
 	}
-	for (ObjectVector::size_type i = 1; i < objects.size(); i++)
+
+	for (ObjectVector::size_type i = 0; i < objects.size(); i++)
 	{
 		Entity *playerEntity = enteties[0];
 		Object *objectEntity = objects[i];
 		if (overlapsObjects(playerEntity,objectEntity))
 		{
+			//Visa E-symbol här
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 			{
-				objects[i] -> getFunc();
+				objects[i] -> getFunc(playerEntity);
+				break;
 			}
 		}
 	}
-	 
+
+	for (ObjectVector::size_type i = 0; i < walls.size(); i++)
+	{
+		Entity *playerEntity = enteties[0];
+		Object *wallEntity = walls[i];
+		if (overlapsObjects(playerEntity, wallEntity))
+		{
+			walls[i] -> getFunc(playerEntity);
+		}
+	}
 }
 
 void Game::loadMap(std::string filename, int mapID)
@@ -152,9 +172,9 @@ void Game::loadMap(std::string filename, int mapID)
 			height = dataVector[i + 4];
 			targetMapID = dataVector[i + 5];
 			targetPortalID = dataVector[i + 6];
-			portalID = dataVector[i + 7];
+			portalID = dataVector[i +7];
 			typeID = dataVector[i + 8];
-			mMap->addPortal(new Portal(sf::FloatRect(x, y, width, height), targetMapID, targetPortalID, portalID, mFH->getTexture(typeID), typeID));
+			mMap->addPortal(new Portal(sf::FloatRect(x, y, width, height), mMap->getID(), targetMapID, targetPortalID, portalID, mFH->getTexture(typeID), typeID));
 			i += 8;
 			break;
 		case 4://NPC
@@ -178,6 +198,7 @@ void Game::loadMap(std::string filename, int mapID)
 			break;
 		}
 	}
+	mMap->setupPortals();
 }
 
 bool Game::overlapsEntity(Entity *playerEntity, Entity *otherEntity)

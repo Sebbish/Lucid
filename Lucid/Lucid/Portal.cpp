@@ -1,7 +1,7 @@
 #include "Portal.h"
 
-Portal::Portal(sf::FloatRect rect, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID):
-	mRect(rect), mTargetMapID(targetMapID), mTargetPortalID(targetPortalID), mPortalID(portalID), mTexture(texture), mTypeID(typeID)
+Portal::Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID):
+	mRect(rect), mCurrentMapID(currentMapID), mTargetMapID(targetMapID), mTargetPortalID(targetPortalID), mPortalID(portalID), mTexture(texture), mTypeID(typeID)
 {
 }
 
@@ -9,14 +9,19 @@ Portal::~Portal()
 {
 }
 
-void Portal::getFunc()
+void Portal::getFunc(Entity* player)
 {
-
+	player->setPosition(mTargetPortal->getRect());
 }
 
 sf::FloatRect Portal::getRect()const
 {
 	return mRect;
+}
+
+void Portal::setTargetPortal(Portal* portal)
+{
+	mTargetPortal = portal;
 }
 
 int Portal::getTargetMapID()const

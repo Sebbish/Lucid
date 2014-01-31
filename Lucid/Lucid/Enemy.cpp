@@ -42,9 +42,18 @@ sf::FloatRect Enemy::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Enemy::getLastRect()const
+{
+	return mLastRect;
+}
+
 void Enemy::setRect(sf::FloatRect rect)
 {
 	mRect = rect;
+}
+
+void Enemy::setPosition(sf::FloatRect rect)
+{
 }
 
 void  Enemy::setMove(bool move)

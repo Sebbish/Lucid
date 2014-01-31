@@ -13,7 +13,7 @@ public:
 	virtual sf::FloatRect getRect()const;
 	virtual void tick();
 	virtual void render(sf::RenderWindow* window);
-	virtual void getFunc();
+	virtual void getFunc(Entity* player);
 private:
 	int mDialogueID;
 	sf::FloatRect mRect;

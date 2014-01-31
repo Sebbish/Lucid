@@ -8,10 +8,12 @@ public:
 	Player(float x, float y, float width, float height, float speed,sf::Texture* texture,float anitmationPicX);
 	~Player();
 	virtual sf::FloatRect getRect()const;
+	virtual sf::FloatRect getLastRect()const;
 	virtual void getFunc();
 	virtual void setDirection(direction d);
 	virtual direction getDirection()const;
 	virtual void setRect(sf::FloatRect rect);
+	virtual void setPosition(sf::FloatRect rect);
 	virtual void setMove(bool move);
 	virtual bool getMove()const;
 	virtual void setMaxSpeed(float speed);
@@ -25,6 +27,7 @@ public:
 private:
 	sf::Vector2f mLastSeen;
 	sf::FloatRect mRect;
+	sf::FloatRect mLastRect;
 	float mMaxSpeed;
 	sf::Texture* mTexture;
 	bool mMove;
