@@ -6,7 +6,6 @@ Game::Game()
 	mFH = new FilHanterare();
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mEntities.push_back(new Player(100,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
-	//mEntities.push_back(new Enemy(500,875-768/3,1024/4,768/3,4));
 	camera = new Camera(sf::Vector2f(mWindow->getSize()),mEntities[0]);
 	mWindow->setFramerateLimit(60);
 	mWindow->setVerticalSyncEnabled(true);
@@ -23,8 +22,7 @@ void Game::run()
 {
 	while (mWindow->isOpen())
     {
-<<<<<<< HEAD
-		input(mEntities[1]);
+		input(mEntities[0]);
 		tick();
 	
         mWindow->clear();
@@ -40,13 +38,6 @@ void Game::input(Entity* entity)
 {
 	
 	sf::Event event;
-=======
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
-		{
-			mMap->getPortalList()[0]->getFunc(mEntities[0]);
-		}
-        sf::Event event;
->>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
         while (mWindow->pollEvent(event))
         {
 			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -79,12 +70,6 @@ void Game::render()
 
 void Game::tick()
 {
-<<<<<<< HEAD
-
-=======
-	angle += 1;
-	camera->getView()->setRotation(angle);
->>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
 	mMousePosition = sf::Mouse::getPosition();
 	mMousePosition.x = sf::Mouse::getPosition().x + camera->getView()->getCenter().x;
 	collision();

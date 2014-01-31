@@ -2,7 +2,7 @@
 
 
 Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, sf::Texture* texture, int typeID):
-	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false)
+	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false),mControlled(false)
 {
 	mRect.left = x;
 	mRect.top = y;
@@ -151,8 +151,9 @@ void Enemy::tick(Entity *player)
 		if(mMove)
 		{
 		if(mAnimationTimer >= 1.9f)
+		{
 			mAnimationTimer = 0.0f;
-		else
+		}else
 			mAnimationTimer += 0.1f;
 		}else
 			mAnimationTimer = 0.0f;
@@ -162,7 +163,7 @@ void Enemy::tick(Entity *player)
 
 void Enemy::render(sf::RenderWindow* window)
 {
-	if(mDirection == RIGHT)
+	/*if(mDirection == RIGHT)
 	{
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
@@ -178,5 +179,11 @@ void Enemy::render(sf::RenderWindow* window)
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
-	}
+	}*/
+	sf::RectangleShape r;
+	r.setTexture(mTexture);
+	r.setTextureRect(sf::IntRect(mRect.width,0,-mRect.width,mRect.height));
+	r.setPosition(mRect.left,mRect.top);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+	window->draw(r);
 }

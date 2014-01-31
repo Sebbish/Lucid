@@ -8,11 +8,8 @@ public:
 	Player(float x, float y, float width, float height, float speed,sf::Texture* texture,float anitmationPicX);
 	~Player();
 	virtual sf::FloatRect getRect()const;
-<<<<<<< HEAD
 	virtual void setKockBack(float width,float acc);
-=======
 	virtual sf::FloatRect getLastRect()const;
->>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
 	virtual void getFunc();
 	virtual void controlled(bool controlled);
 	virtual void setDirection(direction d);
