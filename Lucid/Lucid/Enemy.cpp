@@ -19,6 +19,7 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	}
 	mAnimationPicX = 2;
 	mLayer = Front;
+	mAnimationTimer = 0;
 }
 
 
@@ -126,8 +127,10 @@ bool Enemy::getHiding()
 
 void Enemy::tick(Entity *player)
 {
-	if(!mControlled && !player->getHiding())
+	if(!mControlled)
 	{
+		if (!player->getHiding())
+		{
 	if(player->getRect().left+player->getRect().width >= mRect.left-200)
 	{
 		mDirection = LEFT;
@@ -139,6 +142,8 @@ void Enemy::tick(Entity *player)
 		mLastSeenX = player->getRect().left;
 
 	}
+		}
+
 	if(mTempCollideWithPlayer)
 	{
 		mMove = false;
@@ -178,7 +183,7 @@ void Enemy::tick(Entity *player)
 
 void Enemy::render(sf::RenderWindow* window)
 {
-	/*if(mDirection == RIGHT)
+	if(mDirection == RIGHT)
 	{
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
@@ -194,11 +199,11 @@ void Enemy::render(sf::RenderWindow* window)
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
-	}*/
-	sf::RectangleShape r;
+	}
+	/*sf::RectangleShape r;
 	r.setTexture(mTexture);
 	r.setTextureRect(sf::IntRect(mRect.width,0,-mRect.width,mRect.height));
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
-	window->draw(r);
+	window->draw(r);*/
 }
