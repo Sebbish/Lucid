@@ -18,6 +18,7 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 		mDirection = RIGHT;
 	}
 	mAnimationPicX = 2;
+	mLayer = Front;
 	mAnimationTimer = 0;
 }
 
@@ -110,21 +111,51 @@ void Enemy::setTexture(sf::Texture* texture)
 	mTexture = texture;
 }
 
+void Enemy::toggleHiding()
+{
+}
+
+Enemy::layer Enemy::getLayer()
+{
+	return mLayer;
+}
+
+bool Enemy::getHiding()
+{
+	return false;
+}
+
 void Enemy::tick(Entity *player)
 {
 	if(!mControlled)
 	{
-	if(player->getRect().left+player->getRect().width >= mRect.left-200)
-	{
-		mDirection = LEFT;
-		mLastSeenX = player->getRect().left;
+		if (!player->getHiding())
+		{
+			if(player->getRect().top >= mRect.top-100 && player->getRect().top <= mRect.top+100)
+			{
 
-	}else if(player->getRect().left >= mRect.left+mRect.width+200)
-	{
-		mDirection = RIGHT;
-		mLastSeenX = player->getRect().left;
+				if(player->getRect().left+player->getRect().width >= mRect.left-50 && player->getRect().left+player->getRect().width <= mRect.left)
+				{
+					mDirection = LEFT;
 
-	}
+				}else if(player->getRect().left <= mRect.left+mRect.width+50 && player->getRect().left >= mRect.left+mRect.width)
+				{
+					mDirection = RIGHT;
+
+				}
+
+				if(player->getRect().left+player->getRect().width >= mRect.left-200 && player->getRect().left+player->getRect().width <= mRect.left && mDirection == LEFT)
+				{
+					mLastSeenX = player->getRect().left+player->getRect().width;
+
+				}else if(player->getRect().left <= mRect.left+mRect.width+200 && player->getRect().left >= mRect.left+mRect.width && mDirection == RIGHT)
+				{
+					mLastSeenX = player->getRect().left;
+
+				}
+			}
+		}
+
 	if(mTempCollideWithPlayer)
 	{
 		mMove = false;
@@ -162,7 +193,7 @@ void Enemy::tick(Entity *player)
 	}
 }
 
-void Enemy::render(sf::RenderWindow* window)
+void Enemy::render(sf::RenderTexture* window)
 {
 	if(mDirection == RIGHT)
 	{

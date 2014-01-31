@@ -12,7 +12,7 @@ public:
 	int getDialogueID();
 	virtual sf::FloatRect getRect()const;
 	virtual void tick();
-	virtual void render(sf::RenderWindow* window);
+	virtual void render(sf::RenderTexture* window);
 	virtual void getFunc(Entity* player);
 private:
 	int mDialogueID;

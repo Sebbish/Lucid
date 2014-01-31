@@ -24,7 +24,8 @@ public:
 	std::vector<Object*> getPortalList()const;
 	std::vector<Object*> getWallList()const;
 	std::vector<Object*> getObjectList()const;
-	void render(sf::RenderWindow* window);
+	void renderMap(sf::RenderTexture* window);
+	void renderObjects(sf::RenderTexture* window);
 	int getID();
 	void setupPortals();
 private:

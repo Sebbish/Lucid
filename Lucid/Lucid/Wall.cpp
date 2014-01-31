@@ -23,6 +23,6 @@ void Wall::tick()
 {
 }
 
-void Wall::render(sf::RenderWindow* window)
+void Wall::render(sf::RenderTexture* window)
 {
 }

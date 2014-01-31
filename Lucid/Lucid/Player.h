@@ -24,8 +24,11 @@ public:
 	virtual float getLastSeenX()const;
 	virtual sf::Texture* getTexture()const;
 	virtual void setTexture(sf::Texture* texture);
+	virtual void toggleHiding();
+	virtual layer getLayer();
+	virtual bool getHiding();
 	virtual void tick(Entity *player);
-	virtual void render(sf::RenderWindow* window);
+	virtual void render(sf::RenderTexture* window);
 private:
 	float mLastSeenX;
 	sf::FloatRect mRect;
@@ -39,6 +42,8 @@ private:
 	float mKnockWidth;
 	float mAcc;
 	bool mControlled;
+	bool mHiding;
+	layer mLayer;
 };
 #endif
 

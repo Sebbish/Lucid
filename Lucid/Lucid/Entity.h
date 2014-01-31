@@ -9,6 +9,11 @@ public:
 		LEFT,
 		RIGHT
 	};
+	enum layer
+	{
+		Front,
+		Back
+	};
 	virtual ~Entity() = 0;
 	virtual void setKockBack(float width,float acc) = 0;
 	virtual sf::FloatRect getRect()const = 0;
@@ -28,7 +33,10 @@ public:
 	virtual sf::Texture* getTexture()const = 0;
 	virtual void setTexture(sf::Texture* texture) = 0;
 	virtual void tick(Entity *player) = 0;
-	virtual void render(sf::RenderWindow* window) = 0;
+	virtual void render(sf::RenderTexture* window) = 0;
+	virtual void toggleHiding() = 0;
+	virtual layer getLayer() = 0;
+	virtual bool getHiding() = 0;
 };
 #endif
 

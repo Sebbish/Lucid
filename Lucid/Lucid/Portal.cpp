@@ -43,7 +43,7 @@ void Portal::tick()
 {
 }
 
-void Portal::render(sf::RenderWindow* window)
+void Portal::render(sf::RenderTexture* window)
 {
 	sf::RectangleShape r;
 	r.setTexture(mTexture);

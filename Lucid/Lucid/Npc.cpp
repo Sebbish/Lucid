@@ -28,7 +28,7 @@ void Npc::tick()
 {
 }
 
-void Npc::render(sf::RenderWindow* window)
+void Npc::render(sf::RenderTexture* window)
 {
 	sf::RectangleShape r;
 	r.setTexture(mTexture);

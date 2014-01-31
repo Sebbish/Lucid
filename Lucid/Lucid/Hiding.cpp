@@ -11,7 +11,7 @@ Hiding::~Hiding()
 
 void Hiding::getFunc(Entity* player)
 {
-
+	player->toggleHiding();
 }
 
 sf::FloatRect Hiding::getRect()const
@@ -23,7 +23,7 @@ void Hiding::tick()
 {
 }
 
-void Hiding::render(sf::RenderWindow* window)
+void Hiding::render(sf::RenderTexture* window)
 {
 	sf::RectangleShape r;
 	r.setTexture(mTexture);

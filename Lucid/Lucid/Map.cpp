@@ -99,15 +99,18 @@ std::vector<Object*> Map::getObjectList()const
 	return objects;
 }
 
-void Map::render(sf::RenderWindow* window)
+void Map::renderMap(sf::RenderTexture* window)
 {
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
 	//r.setTextureRect(sf::IntRect(0,0,window->getSize().x,window->getSize().y));
 	r.setPosition(0,0);
-	r.setSize(sf::Vector2f(mTexture->getSize().x,window->getSize().y*2));
+	r.setSize(sf::Vector2f(mTexture->getSize().x,mTexture->getSize().y));
 	window->draw(r);
+}
 
+void Map::renderObjects(sf::RenderTexture* window)
+{
 	for (auto i:mHidingList)
 		i->render(window);
 	for (auto i:mPortalList)

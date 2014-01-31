@@ -11,6 +11,14 @@ Game::Game()
 	mWindow->setVerticalSyncEnabled(true);
 	mMap = new Map(1);
 	loadMap("../Debug/map1.txt", 1);
+
+	//ladda shader
+	/*mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/edge.frag",sf::Shader::Fragment);
+	/*mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/wave.vert","P:/SFML-2.1/examples/shader/resources/blur.frag");
+
+	//fixar edge shader
+	mShader.setParameter("texture", sf::Shader::CurrentTexture);*/
+
 }
 
 Game::~Game()
@@ -25,18 +33,16 @@ void Game::run()
 		input(mEntities[0]);
 		tick();
 	
-        mWindow->clear();
+		mWindow->clear(sf::Color(255, 0, 255));
 		mWindow->setView(*camera->getView());
 		render();
 		//mousePositionFunc();
-
         mWindow->display();
     }
 }
 
 void Game::input(Entity* entity)
 {
-	
 	sf::Event event;
         while (mWindow->pollEvent(event))
         {
@@ -54,18 +60,29 @@ void Game::input(Entity* entity)
 			{
 				entity->setMove(false);
 			}
-			
-        }
+    }
 }
 
 
 
 void Game::render()
 {
-	mMap->render(mWindow);
+	mRenderTexture.clear();
+	mMap->renderMap(&mRenderTexture);
 	for(auto i:mEntities){
-		i->render(mWindow);
+		if (i -> getLayer() == Entity::Back)
+			i->render(&mRenderTexture);
 	}
+	mMap -> renderObjects(&mRenderTexture);
+	for(auto i:mEntities){
+		if (i -> getLayer() == Entity::Front)
+			i->render(&mRenderTexture);
+	}
+	mRenderTexture.display();
+	const sf::Texture& s = mRenderTexture.getTexture();
+	sf::Sprite ss;
+	ss.setTexture(s);
+	mWindow->draw(ss,&mShader);
 }
 
 void Game::tick()
@@ -73,12 +90,24 @@ void Game::tick()
 	/*mMousePosition = sf::Mouse::getPosition();
 	mMousePosition.x = sf::Mouse::getPosition().x + camera->getView()->getCenter().x;
 	*/
+	float x = static_cast<float>(sf::Mouse::getPosition(*mWindow).x) / mWindow->getSize().x;
+      float y = static_cast<float>(sf::Mouse::getPosition(*mWindow).y) / mWindow->getSize().y;
+
+	  //edge shader
+	//mShader.setParameter("edge_threshold",  1 - (x + y) / 2);
+
+	//våg blör shader
+	/*mShader.setParameter("wave_phase", clock.getElapsedTime().asSeconds());
+    mShader.setParameter("wave_amplitude", x * 40, y * 40);
+    mShader.setParameter("blur_radius", 0);*/
+	//mShader.bind(&mShader);
 	collision();
 	for(auto i:mEntities)
 	{
 		i->tick(mEntities[0]);
 	}
 	camera->tick();
+	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
 }
 
 void Game::collision()
@@ -91,7 +120,7 @@ void Game::collision()
 	{
 		Entity *playerEntity = enteties[0];
 		Entity *enemyEntity = enteties[i];
-		if (overlapsEntity(playerEntity,enemyEntity))
+		if (overlapsEntity(playerEntity,enemyEntity) && !playerEntity->getHiding())
 		{
 			enteties[i] -> getFunc();
 		}
@@ -108,7 +137,7 @@ void Game::collision()
 		if (overlapsObjects(playerEntity,objectEntity))
 		{
 			//Visa E-symbol här
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
 			{
 				objects[i] -> getFunc(playerEntity);
 				break;
@@ -132,6 +161,7 @@ void Game::loadMap(std::string filename, int mapID)
 	delete mMap;
 	mMap = new Map(mapID);
 	mMap->setTexture(mFH->getTexture(mapID));
+	mRenderTexture.create(mFH->getTexture(mapID)->getSize().x,mFH->getTexture(mapID)->getSize().y);
 	std::ifstream stream;
 	stream.open(filename);
 	std::string output;

@@ -36,6 +36,10 @@ private:
 	Map* mMap;
 	FilHanterare* mFH;
 	float angle;
+	bool mIsEPressed;
+	sf::Clock clock;
+	sf::Shader mShader;
+	sf::RenderTexture mRenderTexture;
 };
 
 #endif
