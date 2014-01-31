@@ -22,37 +22,43 @@ void Game::run()
 {
 	while (mWindow->isOpen())
     {
-        sf::Event event;
-        while (mWindow->pollEvent(event))
-        {
-			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                mWindow->close();
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			{
-				mEntities[0]->setDirection(Entity::RIGHT);
-				mEntities[0]->setMove(true);
-			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			{
-				mEntities[0]->setDirection(Entity::LEFT);
-				mEntities[0]->setMove(true);
-			}else
-			{
-				mEntities[0]->setMove(false);
-			}
-        }
+		input(mEntities[1]);
 		tick();
 	
         mWindow->clear();
-		sf::CircleShape shape(200.f);
-		shape.setFillColor(sf::Color::Green);
 		mWindow->setView(*camera->getView());
-        mWindow->draw(shape);
 		render();
 		mousePositionFunc();
 
         mWindow->display();
     }
 }
+
+void Game::input(Entity* entity)
+{
+	
+	sf::Event event;
+        while (mWindow->pollEvent(event))
+        {
+			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                mWindow->close();
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			{
+				entity->setDirection(Entity::RIGHT);
+				entity->setMove(true);
+			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			{
+				entity->setDirection(Entity::LEFT);
+				entity->setMove(true);
+			}else
+			{
+				entity->setMove(false);
+			}
+			
+        }
+}
+
+
 
 void Game::render()
 {
@@ -64,6 +70,7 @@ void Game::render()
 
 void Game::tick()
 {
+
 	mMousePosition = sf::Mouse::getPosition();
 	mMousePosition.x = sf::Mouse::getPosition().x + camera->getView()->getCenter().x;
 	collision();
@@ -89,7 +96,7 @@ void Game::collision()
 		}
 		if (overlapsMouse(enemyEntity))
 		{
-
+			enteties[i] -> getFunc();
 		}
 	}
 	for (ObjectVector::size_type i = 1; i < objects.size(); i++)
@@ -218,7 +225,7 @@ void Game::mousePositionFunc()
 	int mouseX = 0;
 	int mouseY = 0;
 	sf::RectangleShape mouseRect;
-	mouseRect.setPosition(mMousePosition.x - mouseX,mMousePosition.y - mouseY);
+	mouseRect.setPosition(mMousePosition.x-mWindow->getSize().x/2,mMousePosition.y - mouseY);
 	mouseRect.setSize(sf::Vector2f(15,15));
 	mWindow -> draw(mouseRect);
 }

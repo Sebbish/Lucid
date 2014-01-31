@@ -23,6 +23,7 @@ private:
 	void tick();
 	void render();
 	void collision();
+	void input(Entity* entity);
 	void loadMap(std::string filename, int mapID);
 	static bool overlapsEntity(Entity *playerEntity, Entity *otherEntity);
 	static bool overlapsObjects(Entity *playerEntity, Object *objectEntity);

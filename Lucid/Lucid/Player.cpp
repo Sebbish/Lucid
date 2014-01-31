@@ -2,7 +2,7 @@
 
 
 Player::Player(float x, float y, float width, float height,float speed,sf::Texture* texture,float anitmationPicX):
-	mMaxSpeed(speed),mDirection(RIGHT),mTexture(texture),mAnimationPicX(anitmationPicX)
+	mMaxSpeed(speed),mDirection(RIGHT),mTexture(texture),mAnimationPicX(anitmationPicX),mKnockWidth(0),mAcc(0)
 {
 	mRect.left = x;
 	mRect.top = y;
@@ -14,6 +14,11 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 
 Player::~Player()
 {
+}
+
+void Player::controlled(bool controlled)
+{
+	mControlled = controlled;
 }
 
 void Player::setDirection(direction d)
@@ -29,6 +34,12 @@ Entity::direction Player::getDirection()const
 sf::FloatRect Player::getRect()const
 {
 	return mRect;
+}
+
+void Player::setKockBack(float width,float acc)
+{
+	mKnockWidth = width;
+	mAcc = acc;
 }
 
 void Player::getFunc()
@@ -61,14 +72,14 @@ float Player::getMaxSpeed()const
 	return mMaxSpeed;
 }
 
-void Player::setLastSeen(sf::Vector2f lastSeen)
+void Player::setLastSeenX(float lastSeenX)
 {
-	mLastSeen = lastSeen;
+	mLastSeenX = lastSeenX;
 }
 
-sf::Vector2f Player::getLastSeen()const
+float Player::getLastSeenX()const
 {
-	return mLastSeen;
+	return mLastSeenX;
 }
 
 sf::Texture* Player::getTexture()const
@@ -83,7 +94,7 @@ void Player::setTexture(sf::Texture* texture)
 
 void Player::tick(Entity *player)
 {
-	if(mMove){
+	if(mMove && mKnockWidth == 0){
 		if(mDirection == Entity::RIGHT)
 			mRect.left += mMaxSpeed;
 		if(mDirection == Entity::LEFT)
@@ -94,15 +105,36 @@ void Player::tick(Entity *player)
 			mAnimationTimer += 0.1f;
 	}else
 		mAnimationTimer = 0.0f;
+
+	if(mKnockWidth <= 1.9f && mKnockWidth >= -1.9f)
+		mKnockWidth = 0;
+
+	if(mKnockWidth != 0)
+	{
+		mKnockWidth = mKnockWidth*mAcc;
+		mRect.left += mKnockWidth;
+	}
+
 }
 
 void Player::render(sf::RenderWindow* window)
 {
+	if(mDirection == RIGHT)
+	{
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
 	r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer,0,mRect.width,mRect.height));
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
+	}else if(mDirection == LEFT)
+	{
+		sf::RectangleShape r;
+	r.setTexture(mTexture);
+	r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
+	r.setPosition(mRect.left,mRect.top);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+	window->draw(r);
+	}
 	
 }

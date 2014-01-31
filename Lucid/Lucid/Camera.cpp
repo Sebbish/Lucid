@@ -5,8 +5,9 @@ float acc = 0.1f;
 Camera::Camera(sf::Vector2f size,Entity *CameraFollowThisEntity):
 	mFollowThisEntity(CameraFollowThisEntity)
 {
-	mView.setCenter(sf::Vector2f(mFollowThisEntity->getRect().left+(mView.getSize().x/2)/6*2,size.y/2));
-	mView.setSize(size);
+	mView.setCenter(sf::Vector2f(mFollowThisEntity->getRect().left+(mView.getSize().x/2)/6*2,mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2));
+	//mView.setSize(size);
+	mView.setSize(sf::Vector2f(16*100,9*100));
 }
 
 

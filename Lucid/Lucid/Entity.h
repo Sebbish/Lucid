@@ -10,8 +10,10 @@ public:
 		RIGHT
 	};
 	virtual ~Entity() = 0;
+	virtual void setKockBack(float width,float acc) = 0;
 	virtual sf::FloatRect getRect()const = 0;
 	virtual void getFunc() = 0;
+	virtual void controlled(bool controlled) = 0;
 	virtual void setDirection(direction d) = 0;
 	virtual direction getDirection()const = 0;
 	virtual void setRect(sf::FloatRect rect) = 0;
@@ -19,8 +21,8 @@ public:
 	virtual bool getMove()const = 0;
 	virtual void setMaxSpeed(float speed) = 0;
 	virtual float getMaxSpeed()const = 0;
-	virtual void setLastSeen(sf::Vector2f lastSeen) = 0;
-	virtual sf::Vector2f getLastSeen()const = 0;
+	virtual void setLastSeenX(float lastSeen) = 0;
+	virtual float getLastSeenX()const = 0;
 	virtual sf::Texture* getTexture()const = 0;
 	virtual void setTexture(sf::Texture* texture) = 0;
 	virtual void tick(Entity *player) = 0;

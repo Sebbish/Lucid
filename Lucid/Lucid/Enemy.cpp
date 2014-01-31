@@ -2,12 +2,13 @@
 
 
 Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, sf::Texture* texture, int typeID):
-	mMaxSpeed(speed), mTexture(texture), mTypeID(typeID)
+	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false)
 {
 	mRect.left = x;
 	mRect.top = y;
 	mRect.width = width;
 	mRect.height = height;
+	mLastSeenX = x;
 	if (direction == 0)
 	{
 		mDirection = LEFT;
@@ -16,11 +17,22 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	{
 		mDirection = RIGHT;
 	}
+	mAnimationPicX = 2;
 }
 
 
 Enemy::~Enemy(void)
 {
+}
+
+void Enemy::controlled(bool controlled)
+{
+	mControlled = controlled;
+}
+
+void Enemy::setKockBack(float width,float acc)
+{
+
 }
 
 void Enemy::setDirection(direction d)
@@ -30,6 +42,7 @@ void Enemy::setDirection(direction d)
 
 void Enemy::getFunc()
 {
+	mTempCollideWithPlayer = true;
 }
 
 Entity::direction Enemy::getDirection()const
@@ -67,14 +80,14 @@ float Enemy::getMaxSpeed()const
 	return mMaxSpeed;
 }
 
-void Enemy::setLastSeen(sf::Vector2f lastSeen)
+void Enemy::setLastSeenX(float lastSeenX)
 {
-	mLastSeen = lastSeen;
+	mLastSeenX = lastSeenX;
 }
 
-sf::Vector2f Enemy::getLastSeen()const
+float Enemy::getLastSeenX()const
 {
-	return mLastSeen;
+	return mLastSeenX;
 }
 
 sf::Texture* Enemy::getTexture()const
@@ -89,23 +102,72 @@ void Enemy::setTexture(sf::Texture* texture)
 
 void Enemy::tick(Entity *player)
 {
-	if(player->getRect().left+player->getRect().width <= mRect.left)
+	if(!mControlled)
+	{
+	if(player->getRect().left+player->getRect().width >= mRect.left-200)
 	{
 		mDirection = LEFT;
-		mRect.left -= mMaxSpeed;
-	}else if(mRect.left+mRect.width <= player->getRect().left)
+		mLastSeenX = player->getRect().left;
+
+	}else if(player->getRect().left >= mRect.left+mRect.width+200)
 	{
 		mDirection = RIGHT;
-		mRect.left += mMaxSpeed;
+		mLastSeenX = player->getRect().left;
+
+	}
+	if(mTempCollideWithPlayer)
+	{
+		mMove = false;
+		if(mDirection == LEFT)
+		{
+			player->setKockBack(-30.0f,0.9f);
+			mTempCollideWithPlayer = false;
+		}else
+		{
+			player->setKockBack(30.0f,0.9f);
+			mTempCollideWithPlayer = false;
+		}
+	}else{
+		if(mLastSeenX < mRect.left)
+		{
+			mRect.left -= mMaxSpeed;
+			mMove = true;
+		}else if(mLastSeenX > mRect.left+mRect.width)
+		{
+			mRect.left += mMaxSpeed;
+			mMove = true;
+		}else
+			mMove = false;
+
+		if(mMove)
+		{
+		if(mAnimationTimer >= 1.9f)
+			mAnimationTimer = 0.0f;
+		else
+			mAnimationTimer += 0.1f;
+		}else
+			mAnimationTimer = 0.0f;
+	}
 	}
 }
 
 void Enemy::render(sf::RenderWindow* window)
 {
+	if(mDirection == RIGHT)
+	{
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
-	r.setTextureRect(sf::IntRect(0,0,mRect.width,mRect.height));
+	r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer,0,mRect.width,mRect.height));
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
+	}else if(mDirection == LEFT)
+	{
+	sf::RectangleShape r;
+	r.setTexture(mTexture);
+	r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
+	r.setPosition(mRect.left,mRect.top);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+	window->draw(r);
+	}
 }
