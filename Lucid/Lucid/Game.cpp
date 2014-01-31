@@ -28,7 +28,7 @@ void Game::run()
         mWindow->clear();
 		mWindow->setView(*camera->getView());
 		render();
-		mousePositionFunc();
+		//mousePositionFunc();
 
         mWindow->display();
     }
@@ -70,8 +70,9 @@ void Game::render()
 
 void Game::tick()
 {
-	mMousePosition = sf::Mouse::getPosition();
+	/*mMousePosition = sf::Mouse::getPosition();
 	mMousePosition.x = sf::Mouse::getPosition().x + camera->getView()->getCenter().x;
+	*/
 	collision();
 	for(auto i:mEntities)
 	{
