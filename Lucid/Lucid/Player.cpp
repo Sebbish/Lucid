@@ -36,10 +36,16 @@ sf::FloatRect Player::getRect()const
 	return mRect;
 }
 
+<<<<<<< HEAD
 void Player::setKockBack(float width,float acc)
 {
 	mKnockWidth = width;
 	mAcc = acc;
+=======
+sf::FloatRect Player::getLastRect()const
+{
+	return mLastRect;
+>>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
 }
 
 void Player::getFunc()
@@ -50,6 +56,12 @@ void Player::getFunc()
 void Player::setRect(sf::FloatRect rect)
 {
 	mRect = rect;
+}
+
+void Player::setPosition(sf::FloatRect rect)
+{
+	mRect.left = rect.left;
+	mRect.top = rect.top;
 }
 
 void Player::setMove(bool move)
@@ -94,7 +106,12 @@ void Player::setTexture(sf::Texture* texture)
 
 void Player::tick(Entity *player)
 {
+<<<<<<< HEAD
 	if(mMove && mKnockWidth == 0){
+=======
+	if(mMove){
+		mLastRect = mRect;
+>>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
 		if(mDirection == Entity::RIGHT)
 			mRect.left += mMaxSpeed;
 		if(mDirection == Entity::LEFT)

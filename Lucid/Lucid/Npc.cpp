@@ -9,7 +9,7 @@ Npc::~Npc()
 {
 }
 
-void Npc::getFunc()
+void Npc::getFunc(Entity* player)
 {
 
 }

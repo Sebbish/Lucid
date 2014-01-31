@@ -32,10 +32,10 @@ private:
 	sf::RenderWindow *mWindow;
 	sf::Vector2i mMousePosition;
 	EntiyVector mEntities;
-	ObjectVector mObjects;
 	Camera *camera;
 	Map* mMap;
 	FilHanterare* mFH;
+	float angle;
 };
 
 #endif

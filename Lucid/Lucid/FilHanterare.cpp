@@ -13,7 +13,11 @@ FilHanterare::FilHanterare(void)
 		mTexture[i] = new sf::Texture();
 	mTexture[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis_Insane_Spritesheet.png",sf::IntRect(0,0,1024,768));
 	mTexture[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/DubbelMap.jpg",sf::IntRect(0,0,1152,1296));
+<<<<<<< HEAD
 	mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/enemy.png",sf::IntRect(0,0,480,240));
+=======
+	mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/enemy.png",sf::IntRect(0,0,256,256));
+>>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
 	mTexture[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Dörr.png",sf::IntRect(0,0,256,256));
 	mTexture[4]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/kruka.png",sf::IntRect(0,0,256,256));
 }

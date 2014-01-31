@@ -8,12 +8,17 @@ public:
 	Enemy(float x, float y, float width, float height, float speed, int direction, sf::Texture* texture, int typeID);
 	~Enemy();
 	virtual sf::FloatRect getRect()const;
+<<<<<<< HEAD
 	virtual void setKockBack(float width,float acc);
+=======
+	virtual sf::FloatRect getLastRect()const;
+>>>>>>> 71386606a6b96a2b6feed366cb45bab2a51736ce
 	virtual void getFunc();
 	virtual void controlled(bool controlled);
 	virtual void setDirection(direction d);
 	virtual direction getDirection()const;
 	virtual void setRect(sf::FloatRect rect);
+	virtual void setPosition(sf::FloatRect rect);
 	virtual void setMove(bool move);
 	virtual bool getMove()const;
 	virtual void setMaxSpeed(float speed);
@@ -27,6 +32,7 @@ public:
 private:
 	float mLastSeenX;
 	sf::FloatRect mRect;
+	sf::FloatRect mLastRect;
 	float mMaxSpeed;
 	sf::Texture* mTexture;
 	bool mMove;

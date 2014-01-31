@@ -12,11 +12,13 @@ public:
 	virtual ~Entity() = 0;
 	virtual void setKockBack(float width,float acc) = 0;
 	virtual sf::FloatRect getRect()const = 0;
+	virtual sf::FloatRect getLastRect()const = 0;
 	virtual void getFunc() = 0;
 	virtual void controlled(bool controlled) = 0;
 	virtual void setDirection(direction d) = 0;
 	virtual direction getDirection()const = 0;
 	virtual void setRect(sf::FloatRect rect) = 0;
+	virtual void setPosition(sf::FloatRect rect) = 0;
 	virtual void setMove(bool move) = 0;
 	virtual bool getMove()const = 0;
 	virtual void setMaxSpeed(float speed) = 0;

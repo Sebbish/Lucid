@@ -23,11 +23,15 @@ public:
 	std::vector<Object*> getNpcList()const;
 	std::vector<Object*> getPortalList()const;
 	std::vector<Object*> getWallList()const;
+	std::vector<Object*> getObjectList()const;
 	void render(sf::RenderWindow* window);
+	int getID();
+	void setupPortals();
 private:
 	sf::Texture* mTexture;
 	std::vector<Object*> mHidingList, mNpcList, mPortalList, mWallList;
 	int mMapID;
+	std::vector<Portal*> mSuperPortalList;
 };
 
 #endif

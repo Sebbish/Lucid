@@ -22,6 +22,12 @@ Map::~Map()
 		mPortalList.pop_back();
 	}
 
+	while (!mSuperPortalList.empty())
+	{
+		delete mSuperPortalList[mSuperPortalList.size()-1];
+		mSuperPortalList.pop_back();
+	}
+
 	while (!mNpcList.empty())
 	{
 		delete mNpcList[mNpcList.size()-1];
@@ -48,6 +54,7 @@ void Map::addNpc(Npc* npc)
 void Map::addPortal(Portal* portal)
 {
 	mPortalList.push_back(portal);
+	mSuperPortalList.push_back(portal);
 }
 
 void Map::addWall(Wall* wall)
@@ -80,6 +87,18 @@ std::vector<Object*> Map::getWallList()const
 	return mWallList;
 }
 
+std::vector<Object*> Map::getObjectList()const
+{
+	std::vector<Object*> objects;
+	for (auto i:mPortalList)
+		objects.push_back(i);
+	for (auto i:mNpcList)
+		objects.push_back(i);
+	for (auto i:mHidingList)
+		objects.push_back(i);
+	return objects;
+}
+
 void Map::render(sf::RenderWindow* window)
 {
 	sf::RectangleShape r;
@@ -95,4 +114,27 @@ void Map::render(sf::RenderWindow* window)
 		i->render(window);
 	for (auto i:mNpcList)
 		i->render(window);
+}
+
+int Map::getID()
+{
+	return mMapID;
+}
+
+void Map::setupPortals()
+{
+	for (auto i:mSuperPortalList)
+	{
+		i->setTargetPortal(0);
+	}
+	for (auto i: mSuperPortalList)
+	{
+		for (auto j: mSuperPortalList)
+		{
+			if (i->getTargetPortalID() == j->getPortalID())
+			{
+				i->setTargetPortal(j);
+			}
+		}
+	}
 }

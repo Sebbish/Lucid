@@ -9,7 +9,7 @@ Hiding::~Hiding()
 {
 }
 
-void Hiding::getFunc()
+void Hiding::getFunc(Entity* player)
 {
 
 }
