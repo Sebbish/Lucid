@@ -105,7 +105,7 @@ void Map::renderMap(sf::RenderWindow* window)
 	r.setTexture(mTexture);
 	//r.setTextureRect(sf::IntRect(0,0,window->getSize().x,window->getSize().y));
 	r.setPosition(0,0);
-	r.setSize(sf::Vector2f(mTexture->getSize().x,window->getSize().y*2));
+	r.setSize(sf::Vector2f(mTexture->getSize().x,mTexture->getSize().y));
 	window->draw(r);
 }
 
