@@ -126,7 +126,7 @@ bool Player::getHiding()
 
 void Player::tick(Entity *player)
 {
-		mLastRect = mRect;
+	mLastRect = mRect;
 	if(mMove && mKnockWidth == 0 && !mHiding)
 	{
 		if(mDirection == Entity::RIGHT)
@@ -149,6 +149,7 @@ void Player::tick(Entity *player)
 		mKnockWidth = mKnockWidth*mAcc;
 		mRect.left += mKnockWidth;
 	}
+
 
 }
 

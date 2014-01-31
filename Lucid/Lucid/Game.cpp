@@ -6,7 +6,6 @@ Game::Game()
 	mFH = new FilHanterare();
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mEntities.push_back(new Player(100,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
-	//mEntities.push_back(new Enemy(500,875-768/3,1024/4,768/3,4));
 	camera = new Camera(sf::Vector2f(mWindow->getSize()),mEntities[0]);
 	mWindow->setFramerateLimit(60);
 	mWindow->setVerticalSyncEnabled(true);
@@ -37,24 +36,23 @@ void Game::run()
 
 void Game::input(Entity* entity)
 {
-    sf::Event event;
-    while (mWindow->pollEvent(event))
-    {
-		if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            mWindow->close();
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			entity->setDirection(Entity::RIGHT);
-			entity->setMove(true);
-		}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			entity->setDirection(Entity::LEFT);
-			entity->setMove(true);
-		}else
-		{
-			entity->setMove(false);
-		}
-			
+	sf::Event event;
+        while (mWindow->pollEvent(event))
+        {
+			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+                mWindow->close();
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			{
+				entity->setDirection(Entity::RIGHT);
+				entity->setMove(true);
+			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			{
+				entity->setDirection(Entity::LEFT);
+				entity->setMove(true);
+			}else
+			{
+				entity->setMove(false);
+			}
     }
 }
 
