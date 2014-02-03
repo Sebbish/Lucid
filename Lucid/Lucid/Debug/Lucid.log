@@ -1,4 +1,4 @@
-﻿Build started 2014-01-31 17:37:41.
+﻿Build started 2014-02-03 13:49:56.
      1>Project "\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
@@ -28,9 +28,10 @@
          Debug\Portal.obj
          Debug\Sanity.obj
          Debug\Wall.obj
+     1>sfml-main-d.lib(SFML_Main.cpp.obj) : warning LNK4099: PDB 'sfml-main-d.pdb' was not found with 'sfml-main-d.lib(SFML_Main.cpp.obj)' or at '\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Debug\sfml-main-d.pdb'; linking object as if no debug info
          Lucid.vcxproj -> \\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Debug\Lucid.exe
      1>Done Building Project "\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:08.57
+Time Elapsed 00:00:12.60

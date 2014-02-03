@@ -13,11 +13,11 @@ Game::Game()
 	loadMap("../Debug/map1.txt", 1);
 
 	//ladda shader
-	/*mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/edge.frag",sf::Shader::Fragment);
-	/*mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/wave.vert","P:/SFML-2.1/examples/shader/resources/blur.frag");
+	//mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/edge.frag",sf::Shader::Fragment);
+	//mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/wave.vert","P:/SFML-2.1/examples/shader/resources/blur.frag");
 
-	//fixar edge shader
-	mShader.setParameter("texture", sf::Shader::CurrentTexture);*/
+	//fixar edge shader*/
+	//mShader.setParameter("texture", sf::Shader::CurrentTexture);
 
 }
 
@@ -90,8 +90,8 @@ void Game::tick()
 	/*mMousePosition = sf::Mouse::getPosition();
 	mMousePosition.x = sf::Mouse::getPosition().x + camera->getView()->getCenter().x;
 	*/
-	float x = static_cast<float>(sf::Mouse::getPosition(*mWindow).x) / mWindow->getSize().x;
-      float y = static_cast<float>(sf::Mouse::getPosition(*mWindow).y) / mWindow->getSize().y;
+	//float x = static_cast<float>(sf::Mouse::getPosition(*mWindow).x) / mWindow->getSize().x;
+    //float y = static_cast<float>(sf::Mouse::getPosition(*mWindow).y) / mWindow->getSize().y;
 
 	  //edge shader
 	//mShader.setParameter("edge_threshold",  1 - (x + y) / 2);
@@ -99,8 +99,8 @@ void Game::tick()
 	//våg blör shader
 	/*mShader.setParameter("wave_phase", clock.getElapsedTime().asSeconds());
     mShader.setParameter("wave_amplitude", x * 40, y * 40);
-    mShader.setParameter("blur_radius", 0);*/
-	//mShader.bind(&mShader);
+    mShader.setParameter("blur_radius", 0);
+	mShader.bind(&mShader);*/
 	collision();
 	for(auto i:mEntities)
 	{
