@@ -6,11 +6,10 @@ Game::Game()
 	mFH = new FilHanterare();
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
-	camera = new Camera(sf::Vector2f(mWindow->getSize()),mEntities[0]);
 	mWindow->setFramerateLimit(60);
 	mWindow->setVerticalSyncEnabled(true);
-	mMap = new Map(1);
 	loadMap("../Debug/map1.txt", 1);
+	camera = new Camera(sf::Vector2f(mWindow->getSize()),mEntities[0]);
 
 	//ladda shader
 	//mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/edge.frag",sf::Shader::Fragment);
@@ -123,6 +122,7 @@ void Game::collision()
 		if (overlapsEntity(playerEntity,enemyEntity) && !playerEntity->getHiding())
 		{
 			enteties[i] -> getFunc();
+			loadMap("../Debug/map1.txt", 1);
 		}
 		if (overlapsMouse(enemyEntity))
 		{

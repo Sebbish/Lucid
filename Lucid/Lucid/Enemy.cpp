@@ -159,7 +159,7 @@ void Enemy::tick(Entity *player)
 	if(mTempCollideWithPlayer)
 	{
 		mMove = false;
-		if(mDirection == LEFT)
+		/*if(mDirection == LEFT)
 		{
 			player->setKockBack(-30.0f,0.9f);
 			mTempCollideWithPlayer = false;
@@ -167,7 +167,7 @@ void Enemy::tick(Entity *player)
 		{
 			player->setKockBack(30.0f,0.9f);
 			mTempCollideWithPlayer = false;
-		}
+		}*/
 	}else{
 		if(mLastSeenX < mRect.left)
 		{
