@@ -9,3 +9,6 @@ int main()
 	g->~Game();
     return 0;
 }
+
+
+
