@@ -43,6 +43,15 @@
     <ClCompile Include="Sanity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Downloads\LightEngine\LightEngine\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Downloads\LightEngine\LightEngine\LightManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Downloads\LightEngine\LightEngine\LightMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -84,6 +93,12 @@
     <ClInclude Include="Sanity.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Downloads\LightEngine\LightEngine\LightManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Downloads\LightEngine\LightEngine\Light.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -92,5 +107,16 @@
     <Filter Include="Headers">
       <UniqueIdentifier>{ca6dc2e8-8ae5-4151-901c-5104e2885319}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{36eafa42-51a2-44c4-872b-b0994d3f782c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Downloads\LightEngine\LightEngine\glow.png">
+      <Filter>Objects</Filter>
+    </Image>
+    <Image Include="..\..\..\Downloads\LightEngine\LightEngine\background.png">
+      <Filter>Objects</Filter>
+    </Image>
   </ItemGroup>
 </Project>
