@@ -5,7 +5,7 @@ class Enemy :
 	public Entity
 {
 public:
-	Enemy(float x, float y, float width, float height, float speed, int direction, sf::Texture* texture, int typeID);
+	Enemy(float x, float y, float width, float height, float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID);
 	~Enemy();
 	virtual sf::FloatRect getRect()const;
 	virtual void setKockBack(float width,float acc);
@@ -42,6 +42,8 @@ private:
 	float mAnimationTimer;
 	float mAnimationPicX;
 	bool mControlled;
+	int mPatrolStart;
+	int mPatrolStop;
 	layer mLayer;
 };
 #endif

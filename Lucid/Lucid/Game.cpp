@@ -9,7 +9,6 @@ Game::Game()
 	camera = new Camera(sf::Vector2f(mWindow->getSize()),mEntities[0]);
 	mWindow->setFramerateLimit(60);
 	mWindow->setVerticalSyncEnabled(true);
-	mMap = new Map(1);
 	loadMap("../Debug/map1.txt", 1);
 
 	//ladda shader
@@ -159,6 +158,11 @@ void Game::collision()
 void Game::loadMap(std::string filename, int mapID)
 {
 	delete mMap;
+	while (!mEntities.empty())
+	{
+		delete mEntities[mEntities.size()-1];
+		mEntities.pop_back();
+	}
 	mMap = new Map(mapID);
 	mMap->setTexture(mFH->getTexture(mapID));
 	mRenderTexture.create(mFH->getTexture(mapID)->getSize().x,mFH->getTexture(mapID)->getSize().y);
@@ -166,17 +170,18 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop;
 	while(!stream.eof())
 	{
 		stream >> output;
 		dataVector.push_back(atoi(output.c_str()));
 	}
+	
 	for (int i = 0; i < dataVector.size(); i++)
 	{
 		switch(dataVector[i])
 		{
-		case 1://Fiende
+		case 0://Spelare
 			x = dataVector[i + 1];
 			y = dataVector[i + 2];
 			width = dataVector[i + 3];
@@ -184,8 +189,21 @@ void Game::loadMap(std::string filename, int mapID)
 			direction = dataVector[i + 5]; //0 är vänster, 1 är höger
 			speed = dataVector[i + 6];
 			typeID = dataVector[i + 7];
-			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, mFH->getTexture(typeID), typeID)); //skickar int men tar emot float == problem?
-			i += 7; //i += x där 'x' är antalet variabler
+			mEntities.push_back(new Player(x, y, width, height, speed, mFH->getTexture(typeID), 4));
+			i += 7;
+			break;
+		case 1://Fiende
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			direction = dataVector[i + 5]; //0 är vänster, 1 är höger
+			speed = dataVector[i + 6];
+			patrolStart = dataVector[i + 7];
+			patrolStop = dataVector[i + 8];
+			typeID = dataVector[i + 9];
+			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, patrolStart, patrolStop, mFH->getTexture(typeID), typeID)); //skickar int men tar emot float == problem?
+			i += 9; //i += x där 'x' är antalet variabler
 			break;
 		case 2://Vägg
 			x = dataVector[i + 1];
