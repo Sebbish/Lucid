@@ -45,5 +45,14 @@ private:
 	int mPatrolStart;
 	int mPatrolStop;
 	layer mLayer;
+	bool mWait;
+	bool mHunting;
+	bool mIsPlayerVisible;
+	int mWaitTimer;
+	int mWaitTime;
+	int mTargetX;
+	int mViewBackRange, mViewFrontRange;
+	int mAggroRange;
+	int mPlayerX;
 };
 #endif

@@ -186,11 +186,10 @@ void Game::loadMap(std::string filename, int mapID)
 			y = dataVector[i + 2];
 			width = dataVector[i + 3];
 			height = dataVector[i + 4];
-			direction = dataVector[i + 5]; //0 är vänster, 1 är höger
-			speed = dataVector[i + 6];
-			typeID = dataVector[i + 7];
-			mEntities.push_back(new Player(x, y, width, height, speed, mFH->getTexture(typeID), 4));
-			i += 7;
+			speed = dataVector[i + 5];
+			mEntities.push_back(new Player(x, y, width, height, speed, mFH->getTexture(0), 4));
+			camera->setTarget(mEntities[0]);
+			i += 5;
 			break;
 		case 1://Fiende
 			x = dataVector[i + 1];

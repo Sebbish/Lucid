@@ -20,6 +20,13 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mAnimationPicX = 2;
 	mLayer = Front;
 	mAnimationTimer = 0;
+	mWaitTimer = 0;
+	mWait = true;
+	mWaitTime = 60;
+	mViewBackRange = 50;
+	mViewFrontRange = 300;
+	mAggroRange = 100;
+	mIsPlayerVisible = false;
 }
 
 
@@ -131,6 +138,47 @@ void Enemy::tick(Entity *player)
 	{
 		if (!player->getHiding())
 		{
+			mPlayerX = player->getRect().left;
+			mHunting = false;
+			if (mPlayerX > mRect.left - mViewBackRange && mPlayerX < mRect.left + mViewFrontRange && mDirection == RIGHT)
+			{
+				mTargetX = mPlayerX;
+				if (mTargetX > mRect.left)
+					mTargetX += mAggroRange;
+				else
+					mTargetX -= mAggroRange;
+				mIsPlayerVisible = true;
+			}
+			else if (mPlayerX < mRect.left + mViewBackRange && mPlayerX > mRect.left - mViewFrontRange && mDirection == LEFT)
+			{
+				mTargetX = mPlayerX;
+				if (mTargetX > mRect.left)
+					mTargetX += mAggroRange;
+				else
+					mTargetX -= mAggroRange;
+				mIsPlayerVisible = true;
+			}
+		}
+		else
+		{
+			if (mIsPlayerVisible == false)
+			{
+				if (mDirection == RIGHT && player->getRect().left > mRect.left && player->getRect().left < mRect.left + mAggroRange)
+				{
+					mHunting = true;
+				}
+				else if (mDirection == LEFT && player->getRect().left < mRect.left && player->getRect().left > mRect.left - mAggroRange)
+				{
+					mHunting = true;
+				}
+			}
+		}
+
+
+
+
+		/*if (!player->getHiding())
+		{
 			if(player->getRect().top >= mRect.top-100 && player->getRect().top <= mRect.top+100)
 			{
 
@@ -156,62 +204,51 @@ void Enemy::tick(Entity *player)
 			}
 		}
 
-	if(mTempCollideWithPlayer)
+	
+	if(mLastSeenX < mRect.left)
 	{
-		mMove = false;
-		if(mDirection == LEFT)
-		{
-			player->setKockBack(-30.0f,0.9f);
-			mTempCollideWithPlayer = false;
-		}else
-		{
-			player->setKockBack(30.0f,0.9f);
-			mTempCollideWithPlayer = false;
-		}
-	}else{
-		if(mLastSeenX < mRect.left)
-		{
-			mRect.left -= mMaxSpeed;
-			mMove = true;
-		}else if(mLastSeenX > mRect.left+mRect.width)
-		{
-			mRect.left += mMaxSpeed;
-			mMove = true;
-		}else
-			mMove = false;
+		mRect.left -= mMaxSpeed;
+		mMove = true;
+	}else if(mLastSeenX > mRect.left+mRect.width)
+	{
+		mRect.left += mMaxSpeed;
+		mMove = true;
+	}else
+		mMove = false;*/
 
-		if(mMove)
-		{
+	if (mWait = true)
+	{
+		mWaitTimer++;
+		if (mWaitTimer >= mWaitTime)
+			mWait = false;
+	}
+
+	if(mMove && mWait == false)
+	{
 		if(mAnimationTimer >= 1.9f)
 		{
 			mAnimationTimer = 0.0f;
-		}else
+		}
+		else
 			mAnimationTimer += 0.1f;
-		}else
-			mAnimationTimer = 0.0f;
 	}
+	else
+		mAnimationTimer = 0.0f;
 	}
 }
 
 void Enemy::render(sf::RenderTexture* window)
 {
+	sf::RectangleShape r;
+	r.setTexture(mTexture);
 	if(mDirection == RIGHT)
-	{
-	sf::RectangleShape r;
-	r.setTexture(mTexture);
-	r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer,0,mRect.width,mRect.height));
+		r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer,0,mRect.width,mRect.height));
+	else if(mDirection == LEFT)
+		r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
-	}else if(mDirection == LEFT)
-	{
-	sf::RectangleShape r;
-	r.setTexture(mTexture);
-	r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
-	r.setPosition(mRect.left,mRect.top);
-	r.setSize(sf::Vector2f(mRect.width,mRect.height));
-	window->draw(r);
-	}
+
 	/*sf::RectangleShape r;
 	r.setTexture(mTexture);
 	r.setTextureRect(sf::IntRect(mRect.width,0,-mRect.width,mRect.height));
