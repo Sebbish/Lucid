@@ -21,12 +21,20 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mLayer = Front;
 	mAnimationTimer = 0;
 	mWaitTimer = 0;
-	mWait = true;
+	mWait = false;
 	mWaitTime = 60;
 	mViewBackRange = 50;
 	mViewFrontRange = 300;
 	mAggroRange = 100;
 	mIsPlayerVisible = false;
+	mTargetX = mPatrolStop;
+
+	/*mFont.loadFromFile("../Debug/ariblk.ttf");
+	mText.setFont(mFont);
+	mText.setCharacterSize(24);
+	mText.setColor(sf::Color::White);
+
+	mWindow = new sf::RenderWindow(sf::VideoMode(300, 300, 32), "Enemy");*/
 }
 
 
@@ -140,7 +148,7 @@ void Enemy::tick(Entity *player)
 		{
 			mPlayerX = player->getRect().left;
 			mHunting = false;
-			if (mPlayerX > mRect.left - mViewBackRange && mPlayerX < mRect.left + mViewFrontRange && mDirection == RIGHT)
+			if (mPlayerX > mRect.left - mViewBackRange && mPlayerX < mRect.left + mRect.width + mViewFrontRange && mDirection == RIGHT)
 			{
 				mTargetX = mPlayerX;
 				if (mTargetX > mRect.left)
@@ -149,7 +157,7 @@ void Enemy::tick(Entity *player)
 					mTargetX -= mAggroRange;
 				mIsPlayerVisible = true;
 			}
-			else if (mPlayerX < mRect.left + mViewBackRange && mPlayerX > mRect.left - mViewFrontRange && mDirection == LEFT)
+			else if (mPlayerX < mRect.left + mRect.width + mViewBackRange && mPlayerX > mRect.left - mViewFrontRange && mDirection == LEFT)
 			{
 				mTargetX = mPlayerX;
 				if (mTargetX > mRect.left)
@@ -161,7 +169,7 @@ void Enemy::tick(Entity *player)
 		}
 		else
 		{
-			if (mIsPlayerVisible == false)
+			if (mIsPlayerVisible == true)
 			{
 				if (mDirection == RIGHT && player->getRect().left > mRect.left && player->getRect().left < mRect.left + mAggroRange)
 				{
@@ -172,69 +180,67 @@ void Enemy::tick(Entity *player)
 					mHunting = true;
 				}
 			}
+			mIsPlayerVisible = false;
 		}
 
-
-
-
-		/*if (!player->getHiding())
+		if (mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5)
 		{
-			if(player->getRect().top >= mRect.top-100 && player->getRect().top <= mRect.top+100)
+			mWait = true;
+			if (mTargetX == mPatrolStart)
+				mTargetX = mPatrolStop;
+			else
+				mTargetX = mPatrolStart;
+		}
+
+		if (mWait == true)
+		{
+			mMove = false;
+			mWaitTimer++;
+			if (mWaitTimer >= mWaitTime)
 			{
-
-				if(player->getRect().left+player->getRect().width >= mRect.left-50 && player->getRect().left+player->getRect().width <= mRect.left)
-				{
-					mDirection = LEFT;
-
-				}else if(player->getRect().left <= mRect.left+mRect.width+50 && player->getRect().left >= mRect.left+mRect.width)
-				{
-					mDirection = RIGHT;
-
-				}
-
-				if(player->getRect().left+player->getRect().width >= mRect.left-200 && player->getRect().left+player->getRect().width <= mRect.left && mDirection == LEFT)
-				{
-					mLastSeenX = player->getRect().left+player->getRect().width;
-
-				}else if(player->getRect().left <= mRect.left+mRect.width+200 && player->getRect().left >= mRect.left+mRect.width && mDirection == RIGHT)
-				{
-					mLastSeenX = player->getRect().left;
-
-				}
+				mWait = false;
+				mWaitTimer = 0;
 			}
 		}
-
-	
-	if(mLastSeenX < mRect.left)
-	{
-		mRect.left -= mMaxSpeed;
-		mMove = true;
-	}else if(mLastSeenX > mRect.left+mRect.width)
-	{
-		mRect.left += mMaxSpeed;
-		mMove = true;
-	}else
-		mMove = false;*/
-
-	if (mWait = true)
-	{
-		mWaitTimer++;
-		if (mWaitTimer >= mWaitTime)
-			mWait = false;
-	}
-
-	if(mMove && mWait == false)
-	{
-		if(mAnimationTimer >= 1.9f)
+		else
 		{
-			mAnimationTimer = 0.0f;
+			if(mTargetX < mRect.left)
+			{
+				mRect.left -= mMaxSpeed;
+				mDirection = LEFT;
+				mMove = true;
+			}
+			else if(mTargetX > mRect.left)
+			{
+				mRect.left += mMaxSpeed;
+				mDirection = RIGHT;
+				mMove = true;
+			}
+			else
+				mMove = false;
+		}
+
+		if(mMove)
+		{
+			if(mAnimationTimer >= 1.9f)
+			{
+				mAnimationTimer = 0.0f;
+			}
+			else
+				mAnimationTimer += 0.1f;
 		}
 		else
-			mAnimationTimer += 0.1f;
+			mAnimationTimer = 0.0f;
 	}
-	else
-		mAnimationTimer = 0.0f;
-	}
+
+	/*std::string tempStr;
+	tempStr = std::to_string(mRect.left);
+	tempStr += " ";
+	tempStr += std::to_string(mTargetX);
+	tempStr += " ";
+	tempStr += std::to_string(mWaitTimer);
+	mText.setString(tempStr);*/
+
 }
 
 void Enemy::render(sf::RenderTexture* window)
@@ -247,6 +253,10 @@ void Enemy::render(sf::RenderTexture* window)
 		r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+	
+	/*mWindow->clear(sf::Color(255, 0, 255));
+	mWindow->draw(mText);
+	mWindow->display();*/
 	window->draw(r);
 
 	/*sf::RectangleShape r;

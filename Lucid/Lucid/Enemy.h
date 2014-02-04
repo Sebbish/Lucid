@@ -54,5 +54,9 @@ private:
 	int mViewBackRange, mViewFrontRange;
 	int mAggroRange;
 	int mPlayerX;
+	sf::Font mFont;
+	sf::Text mText;
+
+	sf::RenderWindow* mWindow;
 };
 #endif

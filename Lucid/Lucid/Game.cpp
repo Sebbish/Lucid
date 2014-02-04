@@ -11,6 +11,8 @@ Game::Game()
 	mWindow->setVerticalSyncEnabled(true);
 	loadMap("../Debug/map1.txt", 1);
 
+	
+
 	//ladda shader
 	//mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/edge.frag",sf::Shader::Fragment);
 	//mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/wave.vert","P:/SFML-2.1/examples/shader/resources/blur.frag");
