@@ -155,23 +155,13 @@ void Player::tick(Entity *player)
 
 void Player::render(sf::RenderTexture* window)
 {
-	if(mDirection == RIGHT)
-	{
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
-	r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer,0,mRect.width,mRect.height));
+	if(mDirection == RIGHT)
+		r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer,0,mRect.width,mRect.height));
+	else if(mDirection == LEFT)
+		r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
-	}
-	else if(mDirection == LEFT)
-	{
-		sf::RectangleShape r;
-		r.setTexture(mTexture);
-		r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
-		r.setPosition(mRect.left,mRect.top);
-		r.setSize(sf::Vector2f(mRect.width,mRect.height));
-		window->draw(r);
-	}
-	
 }

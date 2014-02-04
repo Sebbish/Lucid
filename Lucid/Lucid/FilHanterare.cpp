@@ -16,7 +16,6 @@ FilHanterare::FilHanterare(void)
 	mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/enemy.png",sf::IntRect(0,0,960,240));
 	mTexture[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Dörr.png",sf::IntRect(0,0,256,256));
 	mTexture[4]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/kruka.png",sf::IntRect(0,0,256,256));
-	//mSound.loadFromFile("P:/Downloads/LucidProject/Resources/Sound/a.wav");
 	
 }
 

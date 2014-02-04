@@ -5,12 +5,12 @@ Game::Game()
 	angle = 0;
 	mFH = new FilHanterare();
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
-	mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
+	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
 	mWindow->setFramerateLimit(60);
 	mWindow->setVerticalSyncEnabled(true);
 	loadMap("../Debug/map1.txt", 1);
-	mControlledEntity = mEntities[0];
-	camera = new Camera(sf::Vector2f(mWindow->getSize()),mControlledEntity);
+
+	
 
 	//ladda shader
 	//mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/edge.frag",sf::Shader::Fragment);
@@ -28,12 +28,12 @@ Game::~Game()
 
 void Game::run()
 {
-	sf::SoundBuffer mSound;
+	/*sf::SoundBuffer mSound;
 	mSound.loadFromFile("P:/Downloads/LucidProject/Resources/Sound/a.wav");
 	sf::Sound sound;
 	sound.setBuffer(mSound);
 	sound.setLoop(true);
-	//sound.play();
+	sound.play();*/
 
 	while (mWindow->isOpen())
     {
@@ -204,6 +204,11 @@ void Game::collision()
 void Game::loadMap(std::string filename, int mapID)
 {
 	delete mMap;
+	while (!mEntities.empty())
+	{
+		delete mEntities[mEntities.size()-1];
+		mEntities.pop_back();
+	}
 	mMap = new Map(mapID);
 	mMap->setTexture(mFH->getTexture(mapID));
 	mRenderTexture.create(mFH->getTexture(mapID)->getSize().x,mFH->getTexture(mapID)->getSize().y);
@@ -211,16 +216,28 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop;
 	while(!stream.eof())
 	{
 		stream >> output;
 		dataVector.push_back(atoi(output.c_str()));
 	}
+	
 	for (int i = 0; i < dataVector.size(); i++)
 	{
 		switch(dataVector[i])
 		{
+		case 0://Spelare
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			speed = dataVector[i + 5];
+			mEntities.push_back(new Player(x, y, width, height, speed, mFH->getTexture(0), 4));
+			mControlledEntity = mEntities[0];
+			camera = new Camera(sf::Vector2f(mWindow->getSize()),mControlledEntity);
+			i += 5;
+			break;
 		case 1://Fiende
 			x = dataVector[i + 1];
 			y = dataVector[i + 2];
@@ -228,9 +245,11 @@ void Game::loadMap(std::string filename, int mapID)
 			height = dataVector[i + 4];
 			direction = dataVector[i + 5]; //0 är vänster, 1 är höger
 			speed = dataVector[i + 6];
-			typeID = dataVector[i + 7];
-			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, mFH->getTexture(typeID), typeID)); //skickar int men tar emot float == problem?
-			i += 7; //i += x där 'x' är antalet variabler
+			patrolStart = dataVector[i + 7];
+			patrolStop = dataVector[i + 8];
+			typeID = dataVector[i + 9];
+			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, patrolStart, patrolStop, mFH->getTexture(typeID), typeID)); //skickar int men tar emot float == problem?
+			i += 9; //i += x där 'x' är antalet variabler
 			break;
 		case 2://Vägg
 			x = dataVector[i + 1];
