@@ -27,8 +27,12 @@ public:
 	virtual void toggleHiding();
 	virtual layer getLayer();
 	virtual bool getHiding();
+	virtual bool getHunting();
+	virtual bool getCanSeePlayer();
+	virtual int getTypeID();
 	virtual void tick(Entity *player);
 	virtual void render(sf::RenderTexture* window);
+	
 private:
 	float mLastSeenX;
 	sf::FloatRect mRect;

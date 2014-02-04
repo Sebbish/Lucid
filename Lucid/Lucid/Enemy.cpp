@@ -140,42 +140,64 @@ bool Enemy::getHiding()
 	return false;
 }
 
+bool Enemy::getHunting()
+{
+	return mHunting;
+}
+
+bool Enemy::getCanSeePlayer()
+{
+	return mIsPlayerVisible;
+}
+
+int Enemy::getTypeID()
+{
+	return mTypeID;
+}
+
 void Enemy::tick(Entity *player)
 {
 	if(!mControlled)
 	{
+		mPlayerX = player->getRect().left;
 		if (!player->getHiding())
 		{
-			mPlayerX = player->getRect().left;
 			mHunting = false;
-			if (mPlayerX > mRect.left - mViewBackRange && mPlayerX < mRect.left + mRect.width + mViewFrontRange && mDirection == RIGHT)
+			if (player->getRect().top > mRect.top - 50 && player->getRect().top < mRect.top + 50)
 			{
-				mTargetX = mPlayerX;
-				if (mTargetX > mRect.left)
-					mTargetX += mAggroRange;
-				else
-					mTargetX -= mAggroRange;
-				mIsPlayerVisible = true;
-			}
-			else if (mPlayerX < mRect.left + mRect.width + mViewBackRange && mPlayerX > mRect.left - mViewFrontRange && mDirection == LEFT)
-			{
-				mTargetX = mPlayerX;
-				if (mTargetX > mRect.left)
-					mTargetX += mAggroRange;
-				else
-					mTargetX -= mAggroRange;
-				mIsPlayerVisible = true;
+				if (mPlayerX > mRect.left - mViewBackRange && mPlayerX < mRect.left + mViewFrontRange && mDirection == RIGHT)
+				{
+					mTargetX = mPlayerX;
+					if (mTargetX > mRect.left)
+						mTargetX += mAggroRange;
+					else
+						mTargetX -= mAggroRange;
+					mIsPlayerVisible = true;
+					mWait = false;
+					mWaitTimer = 0;
+				}
+				else if (mPlayerX < mRect.left + mViewBackRange && mPlayerX > mRect.left - mViewFrontRange && mDirection == LEFT)
+				{
+					mTargetX = mPlayerX;
+					if (mTargetX > mRect.left)
+						mTargetX += mAggroRange;
+					else
+						mTargetX -= mAggroRange;
+					mIsPlayerVisible = true;
+					mWait = false;
+					mWaitTimer = 0;
+				}
 			}
 		}
 		else
 		{
 			if (mIsPlayerVisible == true)
 			{
-				if (mDirection == RIGHT && player->getRect().left > mRect.left && player->getRect().left < mRect.left + mAggroRange)
+				if (mDirection == RIGHT && mPlayerX > mRect.left && mPlayerX < mRect.left + mAggroRange)
 				{
 					mHunting = true;
 				}
-				else if (mDirection == LEFT && player->getRect().left < mRect.left && player->getRect().left > mRect.left - mAggroRange)
+				else if (mDirection == LEFT && mPlayerX < mRect.left && mPlayerX > mRect.left - mAggroRange)
 				{
 					mHunting = true;
 				}

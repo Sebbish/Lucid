@@ -124,6 +124,22 @@ bool Player::getHiding()
 	return mHiding;
 }
 
+bool Player::getHunting()
+{
+	return false;
+}
+
+bool Player::getCanSeePlayer()
+{
+	return false;
+}
+
+int Enemy::getTypeID()
+{
+	return 0;
+}
+
+
 void Player::tick(Entity *player)
 {
 	mLastRect = mRect;
