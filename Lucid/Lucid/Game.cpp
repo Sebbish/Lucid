@@ -9,7 +9,8 @@ Game::Game()
 	mWindow->setFramerateLimit(60);
 	mWindow->setVerticalSyncEnabled(true);
 	loadMap("../Debug/map1.txt", 1);
-	camera = new Camera(sf::Vector2f(mWindow->getSize()),mEntities[0]);
+	mControlledEntity = mEntities[0];
+	camera = new Camera(sf::Vector2f(mWindow->getSize()),mControlledEntity);
 
 	//ladda shader
 	//mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/edge.frag",sf::Shader::Fragment);
@@ -27,11 +28,18 @@ Game::~Game()
 
 void Game::run()
 {
+	sf::SoundBuffer mSound;
+	mSound.loadFromFile("P:/Downloads/LucidProject/Resources/Sound/a.wav");
+	sf::Sound sound;
+	sound.setBuffer(mSound);
+	sound.setLoop(true);
+	//sound.play();
+
 	while (mWindow->isOpen())
     {
-		input(mEntities[0]);
+		input(mControlledEntity);
 		tick();
-	
+		
 		mWindow->clear(sf::Color(255, 0, 255));
 		mWindow->setView(*camera->getView());
 		render();
@@ -59,7 +67,41 @@ void Game::input(Entity* entity)
 			{
 				entity->setMove(false);
 			}
+
+		
     }
+	//kollar om Q trycktes ned och mindcontrollar då
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
+		{
+			//kontrollerar om den kontrollerade entiteten är spelaren
+			if(mControlledEntity == mEntities[0])
+			{
+				Entity* enemie = NULL;
+				//kollar alla entiteter och kollar vilken som är närmast av de som är på samma y-level och innom 200p range
+				for(auto i:mEntities)
+				{
+					if(mEntities[0]->getRect().top >= i->getRect().top-100 && mEntities[0]->getRect().top <= i->getRect().top+100 && i != mEntities[0])
+					{
+						if(mEntities[0]->getRect().left+mEntities[0]->getRect().width >= i->getRect().left-200 && mEntities[0]->getRect().left <= i->getRect().left+i->getRect().width+200)
+						{
+						if(enemie == NULL)
+							enemie = i;
+						else
+						{
+							if(mEntities[0]->getRect().left-i->getRect().left <= mEntities[0]->getRect().left-enemie->getRect().left)
+								enemie = i;
+						}
+					}
+					}
+				}
+				if(enemie != NULL)
+					setControlledEntity(enemie);
+
+			}else
+			{
+				setControlledEntity(mEntities[0]);
+			}
+		}
 }
 
 
@@ -100,6 +142,9 @@ void Game::tick()
     mShader.setParameter("wave_amplitude", x * 40, y * 40);
     mShader.setParameter("blur_radius", 0);
 	mShader.bind(&mShader);*/
+
+	
+
 	collision();
 	for(auto i:mEntities)
 	{
@@ -107,6 +152,7 @@ void Game::tick()
 	}
 	camera->tick();
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
+	mIsQPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
 }
 
 void Game::collision()
@@ -122,7 +168,6 @@ void Game::collision()
 		if (overlapsEntity(playerEntity,enemyEntity) && !playerEntity->getHiding())
 		{
 			enteties[i] -> getFunc();
-			loadMap("../Debug/map1.txt", 1);
 		}
 		if (overlapsMouse(enemyEntity))
 		{
@@ -229,6 +274,14 @@ void Game::loadMap(std::string filename, int mapID)
 		}
 	}
 	mMap->setupPortals();
+}
+
+void Game::setControlledEntity(Entity* entity)
+{
+	mControlledEntity->controlled(false);
+	mControlledEntity = entity;
+	camera->setTarget(mControlledEntity);
+	mControlledEntity->controlled(true);
 }
 
 bool Game::overlapsEntity(Entity *playerEntity, Entity *otherEntity)

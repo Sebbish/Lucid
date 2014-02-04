@@ -156,19 +156,7 @@ void Enemy::tick(Entity *player)
 			}
 		}
 
-	if(mTempCollideWithPlayer)
-	{
-		mMove = false;
-		/*if(mDirection == LEFT)
-		{
-			player->setKockBack(-30.0f,0.9f);
-			mTempCollideWithPlayer = false;
-		}else
-		{
-			player->setKockBack(30.0f,0.9f);
-			mTempCollideWithPlayer = false;
-		}*/
-	}else{
+
 		if(mLastSeenX < mRect.left)
 		{
 			mRect.left -= mMaxSpeed;
@@ -179,8 +167,21 @@ void Enemy::tick(Entity *player)
 			mMove = true;
 		}else
 			mMove = false;
-
+	}else
+	{
 		if(mMove)
+		{
+			if(mDirection == LEFT)
+			{
+				mRect.left -= mMaxSpeed;
+			}else
+			{
+				mRect.left += mMaxSpeed;
+			}
+		}
+	}
+
+	if(mMove)
 		{
 		if(mAnimationTimer >= 1.9f)
 		{
@@ -189,8 +190,7 @@ void Enemy::tick(Entity *player)
 			mAnimationTimer += 0.1f;
 		}else
 			mAnimationTimer = 0.0f;
-	}
-	}
+	
 }
 
 void Enemy::render(sf::RenderTexture* window)

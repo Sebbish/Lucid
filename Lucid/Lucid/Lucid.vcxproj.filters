@@ -43,13 +43,13 @@
     <ClCompile Include="Sanity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Downloads\LightEngine\LightEngine\Light.cpp">
+    <ClCompile Include="LightMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Downloads\LightEngine\LightEngine\LightManager.cpp">
+    <ClCompile Include="LightManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Downloads\LightEngine\LightEngine\LightMain.cpp">
+    <ClCompile Include="Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,10 +93,10 @@
     <ClInclude Include="Sanity.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Downloads\LightEngine\LightEngine\LightManager.h">
+    <ClInclude Include="Light.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Downloads\LightEngine\LightEngine\Light.h">
+    <ClInclude Include="LightManager.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -112,10 +112,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Downloads\LightEngine\LightEngine\glow.png">
+    <Image Include="background.png">
       <Filter>Objects</Filter>
     </Image>
-    <Image Include="..\..\..\Downloads\LightEngine\LightEngine\background.png">
+    <Image Include="glow.png">
       <Filter>Objects</Filter>
     </Image>
   </ItemGroup>

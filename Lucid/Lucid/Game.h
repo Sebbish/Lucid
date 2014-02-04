@@ -20,6 +20,7 @@ public:
 	void run();
 
 private:
+	void setControlledEntity(Entity* entity);
 	void tick();
 	void render();
 	void collision();
@@ -36,10 +37,11 @@ private:
 	Map* mMap;
 	FilHanterare* mFH;
 	float angle;
-	bool mIsEPressed;
+	bool mIsEPressed,mIsQPressed;
 	sf::Clock clock;
 	sf::Shader mShader;
 	sf::RenderTexture mRenderTexture;
+	Entity *mControlledEntity;
 };
 
 #endif
