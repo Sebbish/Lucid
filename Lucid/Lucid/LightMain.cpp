@@ -5,7 +5,7 @@
 #include <SFML\Graphics.hpp>
 
 /* DEMO OF LIGHT ENGINE */
-int main()
+void maisdfgn()
 {
 	/* Create a lightmanager and give it an initial screensize. */
 	db::LightManager lm( sf::Vector2i(800,600) );
@@ -95,5 +95,5 @@ int main()
 
 
 
-	return 0;
+	//return 0;
 }

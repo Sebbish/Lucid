@@ -217,6 +217,7 @@ void Enemy::tick(Entity *player)
 		if (mWait == true)
 		{
 			mMove = false;
+
 			mWaitTimer++;
 			if (mWaitTimer >= mWaitTime)
 			{
