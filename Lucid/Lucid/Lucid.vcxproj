@@ -84,6 +84,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Downloads\LightEngine\LightEngine\Light.cpp" />
+    <ClCompile Include="..\..\..\Downloads\LightEngine\LightEngine\LightManager.cpp" />
+    <ClCompile Include="..\..\..\Downloads\LightEngine\LightEngine\LightMain.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -100,6 +103,8 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Downloads\LightEngine\LightEngine\Light.h" />
+    <ClInclude Include="..\..\..\Downloads\LightEngine\LightEngine\LightManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
@@ -113,6 +118,10 @@
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Sanity.h" />
     <ClInclude Include="Wall.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Downloads\LightEngine\LightEngine\background.png" />
+    <Image Include="..\..\..\Downloads\LightEngine\LightEngine\glow.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
