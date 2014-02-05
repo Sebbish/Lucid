@@ -88,10 +88,15 @@ void Game::input(Entity* entity)
 					}
 				}
 				if(enemie != NULL)
+				{
+					mControlledEntity->setMove(false);
 					setControlledEntity(enemie);
+				}
 
 			}else
 			{
+				mControlledEntity->resetTargetX();
+				mControlledEntity->setWait();
 				setControlledEntity(mEntities[0]);
 			}
 		}
@@ -158,7 +163,7 @@ void Game::collision()
 	{
 		Entity *playerEntity = enteties[0];
 		Entity *enemyEntity = enteties[i];
-		if (overlapsEntity(playerEntity,enemyEntity) && !playerEntity->getHiding())
+		if (overlapsEntity(playerEntity,enemyEntity) && (!playerEntity->getHiding() || enemyEntity->getHunting()))
 		{
 			enteties[i] -> getFunc();
 			if(mDeathSound.getStatus() != sf::Sound::Playing)
@@ -172,14 +177,14 @@ void Game::collision()
 
 	for (ObjectVector::size_type i = 0; i < objects.size(); i++)
 	{
-		Entity *playerEntity = enteties[0];
+		Entity *controlledEntity = mControlledEntity;
 		Object *objectEntity = objects[i];
-		if (overlapsObjects(playerEntity,objectEntity))
+		if (overlapsObjects(controlledEntity,objectEntity))
 		{
 			//Visa E-symbol här
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
 			{
-				objects[i] -> getFunc(playerEntity);
+				objects[i] -> getFunc(mControlledEntity);
 				break;
 			}
 		}

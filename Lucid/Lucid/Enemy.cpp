@@ -2,12 +2,13 @@
 
 
 Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID,sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound):
-	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false),mControlled(false), mPatrolStart(patrolStart), mPatrolStop(patrolStop),mWalkPitchSound(false)
+	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false),mControlled(false), mPatrolStart(patrolStart), mPatrolStop(patrolStop)
 {
 	mRect.left = x;
 	mRect.top = y;
 	mRect.width = width;
 	mRect.height = height;
+	mOriginalPosition = mRect;
 	mLastSeenX = x;
 	if (direction == 0)
 	{
@@ -30,6 +31,10 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mTargetX = mPatrolStop;
 	mWalkSound.setBuffer(*walkSound);
 	mJagaSound.setBuffer(*jagaSound);
+	mTeleportWaitTime = 300;
+	mTeleport = false;
+	mTeleportTimer = 0;
+
 	/*mFont.loadFromFile("../Debug/ariblk.ttf");
 	mText.setFont(mFont);
 	mText.setCharacterSize(24);
@@ -85,6 +90,8 @@ void Enemy::setRect(sf::FloatRect rect)
 
 void Enemy::setPosition(sf::FloatRect rect)
 {
+	mRect.left = rect.left;
+	mRect.top = rect.top;
 }
 
 void  Enemy::setMove(bool move)
@@ -156,10 +163,29 @@ int Enemy::getTypeID()
 	return mTypeID;
 }
 
+void Enemy::setWait()
+{
+	mWait = true;
+}
+
+void Enemy::resetTargetX()
+{
+	if (mRect.top == mOriginalPosition.top) //Om den är på samma våning återgå till startpositionen
+	{
+		mTargetX = mPatrolStart;
+	}
+	else //Annars stå still
+		mTargetX = mRect.left;
+}
+
 void Enemy::tick(Entity *player)
 {
 	if(!mControlled)
 	{
+		if (mRect.top != mOriginalPosition.top)
+		{
+			mTeleport = true;
+		}
 		mPlayerX = player->getRect().left;
 		if (!player->getHiding())
 		{
@@ -170,23 +196,33 @@ void Enemy::tick(Entity *player)
 				{
 					mTargetX = mPlayerX;
 					if (mTargetX > mRect.left)
+					{
 						mTargetX += mAggroRange;
+					}
 					else
+					{
 						mTargetX -= mAggroRange;
+					}
 					mIsPlayerVisible = true;
 					mWait = false;
 					mWaitTimer = 0;
+					mTeleportTimer = 0; //Väntar med teleport om spelaren syns
 				}
 				else if (mPlayerX < mRect.left + mViewBackRange && mPlayerX > mRect.left - mViewFrontRange && mDirection == LEFT)
 				{
 					mTargetX = mPlayerX;
 					if (mTargetX > mRect.left)
+					{
 						mTargetX += mAggroRange;
+					}
 					else
+					{
 						mTargetX -= mAggroRange;
+					}
 					mIsPlayerVisible = true;
 					mWait = false;
 					mWaitTimer = 0;
+					mTeleportTimer = 0;
 				}
 			}
 		}
@@ -209,22 +245,25 @@ void Enemy::tick(Entity *player)
 		if (mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5)
 		{
 			mWait = true;
-			if (mTargetX == mPatrolStart)
-				mTargetX = mPatrolStop;
-			else
-				mTargetX = mPatrolStart;
+			if (!mTeleport)//Patrullerar inte om den ska teleportera, då jagar den spelaren eller står still
+			{
+				if (mTargetX == mPatrolStart)
+					mTargetX = mPatrolStop;
+				else
+					mTargetX = mPatrolStart;
+			}
 		}
 
-		if (mWait == true)
+		if (mWait)
 		{
 			mMove = false;
-
 			mWaitTimer++;
 			if (mWaitTimer >= mWaitTime)
 			{
 				mWait = false;
 				mWaitTimer = 0;
 			}
+			
 		}
 		else
 		{
@@ -244,7 +283,36 @@ void Enemy::tick(Entity *player)
 				mMove = false;
 		}
 
-		if(mMove)
+		if (mTeleport)
+		{
+			mTeleportTimer++;
+			if (mTeleportTimer >= mTeleportWaitTime)
+			{
+				mRect = mOriginalPosition;
+				mTeleportTimer = 0;
+				mTeleport = false;
+				mWait = true;
+				mTargetX = mPatrolStop;
+			}
+		}
+	}
+
+	else
+	{
+		if (mMove)
+		{
+			if (mDirection == LEFT)
+			{
+				mRect.left -= mMaxSpeed;
+			}
+			else
+			{
+				mRect.left += mMaxSpeed;
+			}
+		}
+	}
+
+	if(mMove)
 		{
 			if(mAnimationTimer >= 1.9f)
 			{
@@ -255,8 +323,6 @@ void Enemy::tick(Entity *player)
 		}
 		else
 			mAnimationTimer = 0.0f;
-	}
-
 	/*std::string tempStr;
 	tempStr = std::to_string(mRect.left);
 	tempStr += " ";
@@ -269,15 +335,7 @@ void Enemy::tick(Entity *player)
 	{
 		if(mWalkSound.getStatus() != sf::Sound::Playing)
 		{
-		if(mWalkPitchSound)
-			{
-				mWalkSound.setPitch(1.2f);
-				mWalkPitchSound = false;
-			}else
-			{
-				mWalkSound.setPitch(1.0f);
-				mWalkPitchSound = true;
-			}
+
 			mWalkSound.play();
 		}
 	}else

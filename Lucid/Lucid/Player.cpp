@@ -2,7 +2,7 @@
 
 
 Player::Player(float x, float y, float width, float height,float speed,sf::Texture* texture,float anitmationPicX,sf::SoundBuffer* walkSound):
-	mMaxSpeed(speed),mDirection(RIGHT),mTexture(texture),mAnimationPicX(anitmationPicX),mKnockWidth(0),mAcc(0),mWalkPitchSound(false)
+	mMaxSpeed(speed),mDirection(RIGHT),mTexture(texture),mAnimationPicX(anitmationPicX),mKnockWidth(0),mAcc(0)
 {
 	mRect.left = x;
 	mRect.top = y;
@@ -140,6 +140,14 @@ int Player::getTypeID()
 	return 0;
 }
 
+void Player::setWait()
+{
+}
+
+void Player::resetTargetX()
+{
+
+}
 
 void Player::tick(Entity *player)
 {
@@ -157,15 +165,7 @@ void Player::tick(Entity *player)
 
 		if(mWalkSound.getStatus() != sf::Sound::Playing)
 		{
-			if(mWalkPitchSound)
-			{
-				mWalkSound.setPitch(1.2f);
-				mWalkPitchSound = false;
-			}else
-			{
-				mWalkSound.setPitch(1.0f);
-				mWalkPitchSound = true;
-			}
+
 			mWalkSound.play();
 		}
 
