@@ -139,6 +139,14 @@ int Player::getTypeID()
 	return 0;
 }
 
+void Player::setWait()
+{
+}
+
+void Player::resetTargetX()
+{
+
+}
 
 void Player::tick(Entity *player)
 {

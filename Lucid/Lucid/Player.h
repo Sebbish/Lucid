@@ -30,6 +30,8 @@ public:
 	virtual bool getHunting();
 	virtual bool getCanSeePlayer();
 	virtual int getTypeID();
+	virtual void setWait();
+	virtual void resetTargetX();
 	virtual void tick(Entity *player);
 	virtual void render(sf::RenderTexture* window);
 private:

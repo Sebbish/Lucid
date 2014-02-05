@@ -40,6 +40,8 @@ public:
 	virtual bool getHunting() = 0;
 	virtual bool getCanSeePlayer() = 0;
 	virtual int getTypeID() = 0;
+	virtual void setWait() = 0;
+	virtual void resetTargetX() = 0;
 };
 #endif
 
