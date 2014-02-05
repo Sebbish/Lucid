@@ -28,12 +28,9 @@ Game::~Game()
 
 void Game::run()
 {
-	/*sf::SoundBuffer mSound;
-	mSound.loadFromFile("P:/Downloads/LucidProject/Resources/Sound/a.wav");
-	sf::Sound sound;
-	sound.setBuffer(mSound);
-	sound.setLoop(true);
-	sound.play();*/
+	//sf::SoundBuffer mSound;
+	//mSound.loadFromFile("P:/Downloads/LucidProject/Resources/Sound/death.wav");
+	//mTestSound.setBuffer(mSound);
 
 	while (mWindow->isOpen())
     {
@@ -168,6 +165,8 @@ void Game::collision()
 		if (overlapsEntity(playerEntity,enemyEntity) && !playerEntity->getHiding())
 		{
 			enteties[i] -> getFunc();
+			//if(mTestSound.getStatus() != sf::Sound::Playing)
+				//mTestSound.play();
 		}
 		if (overlapsMouse(enemyEntity))
 		{

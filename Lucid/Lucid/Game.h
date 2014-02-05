@@ -42,6 +42,7 @@ private:
 	sf::Shader mShader;
 	sf::RenderTexture mRenderTexture;
 	Entity *mControlledEntity;
+	sf::Sound mTestSound;
 };
 
 #endif

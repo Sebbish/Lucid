@@ -1,46 +1,19 @@
-﻿Build started 2014-02-04 15:06:50.
-     1>Project "\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 2014-02-05 11:50:18.
+     1>Project "\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp Enemy.cpp Entity.cpp FilHanterare.cpp Game.cpp Hiding.cpp Light.cpp LightMain.cpp LightManager.cpp Main.cpp Map.cpp Npc.cpp Object.cpp Player.cpp Portal.cpp Sanity.cpp Wall.cpp
-         Wall.cpp
-         Sanity.cpp
-         Portal.cpp
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\portal.cpp(50): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-         Player.cpp
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\player.cpp(161): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\player.cpp(163): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-         Object.cpp
-         Npc.cpp
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\npc.cpp(35): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-         Map.cpp
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\map.cpp(108): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-         Main.cpp
-         LightManager.cpp
-         LightMain.cpp
-         Light.cpp
-         Hiding.cpp
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\hiding.cpp(30): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
          Game.cpp
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(226): warning C4018: '<' : signed/unsigned mismatch
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(236): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(251): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(259): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(271): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(281): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(290): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(225): warning C4018: '<' : signed/unsigned mismatch
+     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(235): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(250): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(258): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(270): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(280): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(289): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(329): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
      1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(330): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(331): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(344): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(344): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-         FilHanterare.cpp
-         Entity.cpp
-         Enemy.cpp
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\enemy.cpp(149): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\enemy.cpp(252): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\enemy.cpp(254): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-         Camera.cpp
-         Generating Code...
-     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\filhanterare.cpp(35): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
+     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(343): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>\\hsnas3\studenthome\2013\a13ronka\downloads\lucid\lucid\lucid\game.cpp(343): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Debug\Lucid.exe" /INCREMENTAL /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" "sfml-audio-d.lib" "sfml-graphics-d.lib" "sfml-main-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Debug\Lucid.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Debug\Lucid.lib" /MACHINE:X86 Debug\Camera.obj
          Debug\Enemy.obj
@@ -61,8 +34,8 @@
          Debug\Wall.obj
      1>sfml-main-d.lib(SFML_Main.cpp.obj) : warning LNK4099: PDB 'sfml-main-d.pdb' was not found with 'sfml-main-d.lib(SFML_Main.cpp.obj)' or at '\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Debug\sfml-main-d.pdb'; linking object as if no debug info
          Lucid.vcxproj -> \\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Debug\Lucid.exe
-     1>Done Building Project "\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Lucid\Lucid.vcxproj" (Rebuild target(s)).
+     1>Done Building Project "\\hsnas3\StudentHome\2013\a13ronka\Downloads\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:01:27.92
+Time Elapsed 00:00:11.61
