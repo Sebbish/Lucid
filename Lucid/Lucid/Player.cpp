@@ -134,7 +134,7 @@ bool Player::getCanSeePlayer()
 	return false;
 }
 
-int Enemy::getTypeID()
+int Player::getTypeID()
 {
 	return 0;
 }
