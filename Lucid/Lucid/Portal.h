@@ -7,7 +7,7 @@ class Portal :
 	public Object
 {
 public:
-	Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID);
+	Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID,sf::SoundBuffer* portalSound);
 	~Portal();
 	int getTargetMapID()const;
 	int getTargetPortalID()const;
@@ -26,6 +26,7 @@ private:
 	int mTypeID;
 	sf::Texture* mTexture;
 	Portal* mTargetPortal;
+	sf::Sound mPortalSound;
 };
 
 #endif

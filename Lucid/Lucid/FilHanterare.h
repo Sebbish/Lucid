@@ -10,9 +10,10 @@ public:
 	FilHanterare();
 	~FilHanterare();
 	sf::Texture* getTexture(int ID)const;
-	void getSound(int ID);
+	sf::SoundBuffer* getSound(int ID);
 private:
 	sf::Texture *mTexture[5];
+	sf::SoundBuffer *mSoundBuffer[4];
 };
 #endif
 

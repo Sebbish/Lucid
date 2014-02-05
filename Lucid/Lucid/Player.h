@@ -5,7 +5,7 @@ class Player :
 	public Entity
 {
 public:
-	Player(float x, float y, float width, float height, float speed,sf::Texture* texture,float anitmationPicX);
+	Player(float x, float y, float width, float height, float speed,sf::Texture* texture,float anitmationPicX,sf::SoundBuffer* walkSound);
 	~Player();
 	virtual sf::FloatRect getRect()const;
 	virtual void setKockBack(float width,float acc);
@@ -47,6 +47,8 @@ private:
 	bool mControlled;
 	bool mHiding;
 	layer mLayer;
+	sf::Sound mWalkSound;
+	bool mWalkPitchSound;
 };
 #endif
 

@@ -1,8 +1,8 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID):
-	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false),mControlled(false), mPatrolStart(patrolStart), mPatrolStop(patrolStop)
+Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID,sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound):
+	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false),mControlled(false), mPatrolStart(patrolStart), mPatrolStop(patrolStop),mWalkPitchSound(false)
 {
 	mRect.left = x;
 	mRect.top = y;
@@ -28,7 +28,8 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mAggroRange = 100;
 	mIsPlayerVisible = false;
 	mTargetX = mPatrolStop;
-
+	mWalkSound.setBuffer(*walkSound);
+	mJagaSound.setBuffer(*jagaSound);
 	/*mFont.loadFromFile("../Debug/ariblk.ttf");
 	mText.setFont(mFont);
 	mText.setCharacterSize(24);
@@ -263,6 +264,33 @@ void Enemy::tick(Entity *player)
 	tempStr += " ";
 	tempStr += std::to_string(mWaitTimer);
 	mText.setString(tempStr);*/
+
+	if(mMove)
+	{
+		if(mWalkSound.getStatus() != sf::Sound::Playing)
+		{
+		if(mWalkPitchSound)
+			{
+				mWalkSound.setPitch(1.2f);
+				mWalkPitchSound = false;
+			}else
+			{
+				mWalkSound.setPitch(1.0f);
+				mWalkPitchSound = true;
+			}
+			mWalkSound.play();
+		}
+	}else
+		mWalkSound.stop();
+
+	if(mIsPlayerVisible)
+	{
+		if(mJagaSound.getStatus() != sf::Sound::Playing)
+		{
+			mJagaSound.play();
+		}
+	}else
+		mJagaSound.stop();
 
 }
 
