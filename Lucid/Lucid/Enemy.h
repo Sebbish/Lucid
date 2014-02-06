@@ -10,7 +10,7 @@ public:
 	virtual sf::FloatRect getRect()const;
 	virtual void setKockBack(float width,float acc);
 	virtual sf::FloatRect getLastRect()const;
-	virtual void getFunc();
+	virtual void getFunc(Entity* entity);
 	virtual void controlled(bool controlled);
 	virtual void setDirection(direction d);
 	virtual direction getDirection()const;
@@ -32,8 +32,9 @@ public:
 	virtual int getTypeID();
 	virtual void setWait();
 	virtual void resetTargetX();
-	virtual void tick(Entity *player);
+	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
 	virtual void render(sf::RenderTexture* window);
+	void checkSight(Entity* entity);
 	
 private:
 	float mLastSeenX;

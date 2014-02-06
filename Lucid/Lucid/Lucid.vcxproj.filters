@@ -52,6 +52,9 @@
     <ClCompile Include="Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Effects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -97,6 +100,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="LightManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

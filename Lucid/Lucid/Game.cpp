@@ -9,7 +9,7 @@ Game::Game()
 	mWindow->setFramerateLimit(60);
 	mWindow->setVerticalSyncEnabled(true);
 	loadMap("../Debug/map1.txt", 1);
-
+	mEffects = new Effects();
 	
 
 	//ladda shader
@@ -51,24 +51,42 @@ void Game::run()
 void Game::input(Entity* entity)
 {
 	sf::Event event;
-        while (mWindow->pollEvent(event))
-        {
-			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                mWindow->close();
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			{
-				entity->setDirection(Entity::RIGHT);
-				entity->setMove(true);
-			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			{
-				entity->setDirection(Entity::LEFT);
-				entity->setMove(true);
-			}else
-			{
-				entity->setMove(false);
-			}
-
-		
+    while (mWindow->pollEvent(event))
+    {
+		if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            mWindow->close();
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			entity->setDirection(Entity::RIGHT);
+			entity->setMove(true);
+		}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			entity->setDirection(Entity::LEFT);
+			entity->setMove(true);
+		}else
+		{
+			entity->setMove(false);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
+		{
+			mEffects->setNextShader(0);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+		{
+			mEffects->setNextShader(1);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+		{
+			mEffects->setNextShader(2);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+		{
+			mEffects->setNextShader(3);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+		{
+			mEffects->setNextShader(4);
+		}
     }
 	//kollar om Q trycktes ned och mindcontrollar då
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
@@ -94,7 +112,7 @@ void Game::input(Entity* entity)
 					}
 					}
 				}
-				if(enemie != NULL)
+				if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getHunting() && enemie->getTypeID() == 2)
 				{
 					mControlledEntity->setMove(false);
 					setControlledEntity(enemie);
@@ -128,7 +146,8 @@ void Game::render()
 	const sf::Texture& s = mRenderTexture.getTexture();
 	sf::Sprite ss;
 	ss.setTexture(s);
-	mWindow->draw(ss,&mShader);
+	//mWindow->draw(ss,&mShader);
+	mWindow->draw(ss,&mEffects->getShader());
 }
 
 void Game::tick()
@@ -148,12 +167,12 @@ void Game::tick()
     mShader.setParameter("blur_radius", 0);
 	mShader.bind(&mShader);*/
 
-	
+	mEffects->tick(clock);
 
 	collision();
 	for(auto i:mEntities)
 	{
-		i->tick(mEntities[0]);
+		i->tick(mEntities[0], mEntities);
 	}
 	camera->tick();
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
@@ -166,17 +185,29 @@ void Game::collision()
 	ObjectVector objects(mMap->getObjectList());
 	ObjectVector walls(mMap->getWallList());
 
-	for (EntiyVector::size_type i = 1; i < enteties.size(); i++)
+	for (auto i:enteties)
 	{
-		Entity *playerEntity = enteties[0];
-		Entity *enemyEntity = enteties[i];
-		if (overlapsEntity(playerEntity,enemyEntity) && (!playerEntity->getHiding() || enemyEntity->getHunting()))
+		for (auto j:enteties)
 		{
-			enteties[i] -> getFunc();
-		}
-		if (overlapsMouse(enemyEntity))
-		{
-			enteties[i] -> getFunc();
+			if (overlapsEntity(i,j) && i != j)
+			{
+				if (i == enteties[0] && (!i->getHiding() || j->getHunting()))
+				{
+					// Man dör
+				}
+				else if (j != enteties[0] && i != enteties[0]) // 2 monster kolliderar
+				{
+					i ->getFunc(j);
+					if (i == mControlledEntity || j == mControlledEntity) //Kontrollen bryts
+					{
+						setControlledEntity(enteties[0]);
+					}
+				}
+			}
+			/*if (overlapsMouse(enemyEntity))
+			{
+				enteties[i] -> getFunc();
+			}*/
 		}
 	}
 
@@ -195,13 +226,15 @@ void Game::collision()
 		}
 	}
 
-	for (ObjectVector::size_type i = 0; i < walls.size(); i++)
+	for (auto j:enteties)
 	{
-		Entity *playerEntity = enteties[0];
-		Object *wallEntity = walls[i];
-		if (overlapsObjects(playerEntity, wallEntity))
+		for (ObjectVector::size_type i = 0; i < walls.size(); i++)
 		{
-			walls[i] -> getFunc(playerEntity);
+			Object *wallEntity = walls[i];
+			if (overlapsObjects(j, wallEntity))
+			{
+				walls[i] -> getFunc(j);
+			}
 		}
 	}
 }

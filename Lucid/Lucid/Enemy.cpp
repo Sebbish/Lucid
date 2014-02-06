@@ -18,7 +18,7 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	{
 		mDirection = RIGHT;
 	}
-	mAnimationPicX = 2;
+	mAnimationPicX = 4;
 	mLayer = Front;
 	mAnimationTimer = 0;
 	mWaitTimer = 0;
@@ -61,9 +61,17 @@ void Enemy::setDirection(direction d)
 	mDirection = d;
 }
 
-void Enemy::getFunc()
+void Enemy::getFunc(Entity* entity)
 {
-	mTempCollideWithPlayer = true;
+	if (entity->getTypeID() == 6 && mTypeID == 2)
+	{
+		mRect.left = -5000;
+		mRect.top = -5000;
+	}
+	if (entity->getTypeID() == 0 && (mTypeID == 2 || mTypeID == 6) && (!entity->getHiding() || mHunting))
+	{
+
+	}
 }
 
 Entity::direction Enemy::getDirection()const
@@ -84,6 +92,7 @@ sf::FloatRect Enemy::getLastRect()const
 void Enemy::setRect(sf::FloatRect rect)
 {
 	mRect = rect;
+	mAnimationTimer = 0;
 }
 
 void Enemy::setPosition(sf::FloatRect rect)
@@ -176,69 +185,87 @@ void Enemy::resetTargetX()
 		mTargetX = mRect.left;
 }
 
-void Enemy::tick(Entity *player)
+void Enemy::checkSight(Entity *entity)
 {
+	mPlayerX = entity->getRect().left;
+	if (!entity->getHiding())
+	{
+		mHunting = false;
+		if (entity->getRect().top > mRect.top - 50 && entity->getRect().top < mRect.top + 50)
+		{
+			if (mPlayerX > mRect.left - mViewBackRange && mPlayerX < mRect.left + mViewFrontRange && mDirection == RIGHT)
+			{
+				mTargetX = mPlayerX;
+				if (mTargetX > mRect.left)
+				{
+					mTargetX += mAggroRange;
+				}
+				else
+				{
+					mTargetX -= mAggroRange;
+				}
+				mIsPlayerVisible = true;
+				mWait = false;
+				mWaitTimer = 0;
+				mTeleportTimer = 0; //Väntar med teleport om spelaren syns
+			}
+			else if (mPlayerX < mRect.left + mViewBackRange && mPlayerX > mRect.left - mViewFrontRange && mDirection == LEFT)
+			{
+				mTargetX = mPlayerX;
+				if (mTargetX > mRect.left)
+				{
+					mTargetX += mAggroRange;
+				}
+				else
+				{
+					mTargetX -= mAggroRange;
+				}
+				mIsPlayerVisible = true;
+				mWait = false;
+				mWaitTimer = 0;
+				mTeleportTimer = 0;
+			}
+			else
+			{
+				mIsPlayerVisible = false;
+			}
+		}
+	}
+	else
+	{
+		if (mIsPlayerVisible == true)
+		{
+			if (mDirection == RIGHT && mPlayerX > mRect.left && mPlayerX < mRect.left + mAggroRange)
+			{
+				mHunting = true;
+			}
+			else if (mDirection == LEFT && mPlayerX < mRect.left && mPlayerX > mRect.left - mAggroRange)
+			{
+				mHunting = true;
+			}
+		}
+		mIsPlayerVisible = false;
+	}
+}
+
+void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
+{
+	mLastRect = mRect;
 	if(!mControlled)
 	{
 		if (mRect.top != mOriginalPosition.top)
 		{
 			mTeleport = true;
 		}
-		mPlayerX = player->getRect().left;
-		if (!player->getHiding())
+		for (auto i:entityVector)
 		{
-			mHunting = false;
-			if (player->getRect().top > mRect.top - 50 && player->getRect().top < mRect.top + 50)
+			if (i->getTypeID() == 2 && mTypeID == 6)
 			{
-				if (mPlayerX > mRect.left - mViewBackRange && mPlayerX < mRect.left + mViewFrontRange && mDirection == RIGHT)
-				{
-					mTargetX = mPlayerX;
-					if (mTargetX > mRect.left)
-					{
-						mTargetX += mAggroRange;
-					}
-					else
-					{
-						mTargetX -= mAggroRange;
-					}
-					mIsPlayerVisible = true;
-					mWait = false;
-					mWaitTimer = 0;
-					mTeleportTimer = 0; //Väntar med teleport om spelaren syns
-				}
-				else if (mPlayerX < mRect.left + mViewBackRange && mPlayerX > mRect.left - mViewFrontRange && mDirection == LEFT)
-				{
-					mTargetX = mPlayerX;
-					if (mTargetX > mRect.left)
-					{
-						mTargetX += mAggroRange;
-					}
-					else
-					{
-						mTargetX -= mAggroRange;
-					}
-					mIsPlayerVisible = true;
-					mWait = false;
-					mWaitTimer = 0;
-					mTeleportTimer = 0;
-				}
+				checkSight(i);
 			}
 		}
-		else
-		{
-			if (mIsPlayerVisible == true)
-			{
-				if (mDirection == RIGHT && mPlayerX > mRect.left && mPlayerX < mRect.left + mAggroRange)
-				{
-					mHunting = true;
-				}
-				else if (mDirection == LEFT && mPlayerX < mRect.left && mPlayerX > mRect.left - mAggroRange)
-				{
-					mHunting = true;
-				}
-			}
-			mIsPlayerVisible = false;
-		}
+		checkSight(player);
+		
 
 		if (mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5)
 		{
@@ -291,6 +318,7 @@ void Enemy::tick(Entity *player)
 				mTeleport = false;
 				mWait = true;
 				mTargetX = mPatrolStop;
+				mWaitTimer = 0;
 			}
 		}
 	}
@@ -312,7 +340,7 @@ void Enemy::tick(Entity *player)
 
 	if(mMove)
 		{
-			if(mAnimationTimer >= 1.9f)
+			if(mAnimationTimer >= mAnimationPicX - 0.1f)
 			{
 				mAnimationTimer = 0.0f;
 			}
@@ -321,6 +349,7 @@ void Enemy::tick(Entity *player)
 		}
 		else
 			mAnimationTimer = 0.0f;
+
 	/*std::string tempStr;
 	tempStr = std::to_string(mRect.left);
 	tempStr += " ";

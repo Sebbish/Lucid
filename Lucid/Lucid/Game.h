@@ -8,6 +8,7 @@
 #include <string>
 #include "FilHanterare.h"
 #include "Map.h"
+#include "Effects.h"
 
 typedef std::vector<Entity*> EntiyVector;
 typedef std::vector<Object*> ObjectVector;
@@ -42,6 +43,7 @@ private:
 	sf::Shader mShader;
 	sf::RenderTexture mRenderTexture;
 	Entity *mControlledEntity;
+	Effects *mEffects;
 };
 
 #endif

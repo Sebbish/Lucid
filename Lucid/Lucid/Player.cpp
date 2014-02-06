@@ -49,7 +49,7 @@ sf::FloatRect Player::getLastRect()const
 	return mLastRect;
 }
 
-void Player::getFunc()
+void Player::getFunc(Entity* entity)
 {
 
 }
@@ -57,6 +57,7 @@ void Player::getFunc()
 void Player::setRect(sf::FloatRect rect)
 {
 	mRect = rect;
+	mAnimationTimer = 0;
 }
 
 void Player::setPosition(sf::FloatRect rect)
@@ -148,7 +149,7 @@ void Player::resetTargetX()
 
 }
 
-void Player::tick(Entity *player)
+void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 {
 	mLastRect = mRect;
 	if(mMove && mKnockWidth == 0 && !mHiding)
