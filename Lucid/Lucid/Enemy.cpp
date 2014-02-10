@@ -359,7 +359,12 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 	tempStr += " ";
 	tempStr += std::to_string(mWaitTimer);
 	mText.setString(tempStr);*/
-
+	mWalkSound.setMinDistance(1000);
+	mWalkSound.setAttenuation(10);
+	if(player->getRect().top+100 >= mRect.top && player->getRect().top-100 <= mRect.top)
+		mWalkSound.setPosition(player->getRect().left-mRect.left,0,0);
+	else
+		mWalkSound.setPosition(player->getRect().left-mRect.left,999999,0);
 	if(mMove)
 	{
 		if(mWalkSound.getStatus() != sf::Sound::Playing)
@@ -378,6 +383,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 		}
 	}else
 		mJagaSound.stop();
+
 
 }
 

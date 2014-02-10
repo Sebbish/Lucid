@@ -9,6 +9,7 @@
 #include "FilHanterare.h"
 #include "Map.h"
 #include "Effects.h"
+#include "Dialog.h"
 
 typedef std::vector<Entity*> EntiyVector;
 typedef std::vector<Object*> ObjectVector;
@@ -45,6 +46,7 @@ private:
 	Entity *mControlledEntity;
 	Effects *mEffects;
 	sf::Sound mDeathSound;
+	Dialog *mDialog;
 };
 
 #endif

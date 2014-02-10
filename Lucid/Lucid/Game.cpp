@@ -18,7 +18,7 @@ Game::Game()
 
 	//fixar edge shader*/
 	//mShader.setParameter("texture", sf::Shader::CurrentTexture);
-
+	mDialog = new Dialog();
 }
 
 Game::~Game()
@@ -137,6 +137,7 @@ void Game::render()
 			i->render(&mRenderTexture);
 	}
 	mRenderTexture.display();
+	mDialog->render(&mRenderTexture);
 	const sf::Texture& s = mRenderTexture.getTexture();
 	sf::Sprite ss;
 	ss.setTexture(s);
@@ -169,6 +170,7 @@ void Game::tick()
 		i->tick(mEntities[0], mEntities);
 	}
 	camera->tick();
+	mDialog->tick(camera->getView());
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
 	mIsQPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
 }
@@ -253,7 +255,7 @@ void Game::loadMap(std::string filename, int mapID)
 	delete camera;
 	mMap = new Map(mapID);
 	mMap->setTexture(mFH->getTexture(mapID));
-	mRenderTexture.create(mFH->getTexture(mapID)->getSize().x,mFH->getTexture(mapID)->getSize().y);
+	mRenderTexture.create(mFH->getTexture(mapID)->getSize().x,mFH->getTexture(mapID)->getSize().y+500);
 	std::ifstream stream;
 	stream.open(filename);
 	std::string output;
