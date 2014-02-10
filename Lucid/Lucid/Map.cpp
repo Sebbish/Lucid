@@ -24,7 +24,6 @@ Map::~Map()
 
 	while (!mSuperPortalList.empty())
 	{
-		delete mSuperPortalList[mSuperPortalList.size()-1];
 		mSuperPortalList.pop_back();
 	}
 

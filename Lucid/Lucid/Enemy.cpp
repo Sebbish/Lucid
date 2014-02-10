@@ -63,15 +63,15 @@ void Enemy::setDirection(direction d)
 
 void Enemy::getFunc(Entity* entity)
 {
-	if (entity->getTypeID() == 6 && mTypeID == 2)
+	if (entity->getTypeID() == 22 && mTypeID == 21)
 	{
 		mRect.left = -5000;
 		mRect.top = -5000;
 	}
-	if (entity->getTypeID() == 0 && (mTypeID == 2 || mTypeID == 6) && (!entity->getHiding() || mHunting))
+	/*if (entity->getTypeID() == 0 && (mTypeID == 2 || mTypeID == 6) && (!entity->getHiding() || mHunting))
 	{
 
-	}
+	}*/
 }
 
 Entity::direction Enemy::getDirection()const
@@ -259,7 +259,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 		}
 		for (auto i:entityVector)
 		{
-			if (i->getTypeID() == 2 && mTypeID == 6)
+			if (i->getTypeID() == 21 && mTypeID == 22)
 			{
 				checkSight(i);
 			}

@@ -9,9 +9,11 @@ Wall::~Wall()
 {
 }
 
-void Wall::getFunc(Entity* player)
+int Wall::getFunc(Entity* player)
 {
 	player->setRect(player->getLastRect());
+	player->resetTargetX();
+	return 0;
 }
 
 sf::FloatRect Wall::getRect()const

@@ -9,9 +9,17 @@ Portal::~Portal()
 {
 }
 
-void Portal::getFunc(Entity* player)
+int Portal::getFunc(Entity* player)
 {
-	player->setPosition(mTargetPortal->getRect());
+	if (mTargetPortalID != 0)
+	{
+		player->setPosition(mTargetPortal->getRect());
+		return 0;
+	}
+	else
+	{
+		return mTargetMapID;
+	}
 }
 
 sf::FloatRect Portal::getRect()const

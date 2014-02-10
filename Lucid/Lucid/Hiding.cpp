@@ -9,9 +9,10 @@ Hiding::~Hiding()
 {
 }
 
-void Hiding::getFunc(Entity* player)
+int Hiding::getFunc(Entity* player)
 {
 	player->toggleHiding();
+	return 0;
 }
 
 sf::FloatRect Hiding::getRect()const

@@ -112,7 +112,7 @@ void Game::input(Entity* entity)
 					}
 					}
 				}
-				if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getHunting() && enemie->getTypeID() == 2)
+				if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getHunting() && enemie->getTypeID() == 21)
 				{
 					mControlledEntity->setMove(false);
 					setControlledEntity(enemie);
@@ -211,6 +211,18 @@ void Game::collision()
 		}
 	}
 
+	for (auto j:enteties)
+	{
+		for (ObjectVector::size_type i = 0; i < walls.size(); i++)
+		{
+			Object *wallEntity = walls[i];
+			if (overlapsObjects(j, wallEntity))
+			{
+				walls[i] -> getFunc(j);
+			}
+		}
+	}
+
 	for (ObjectVector::size_type i = 0; i < objects.size(); i++)
 	{
 		Entity *controlledEntity = mControlledEntity;
@@ -220,20 +232,15 @@ void Game::collision()
 			//Visa E-symbol här
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
 			{
-				objects[i] -> getFunc(mControlledEntity);
+				int newMap = objects[i] -> getFunc(mControlledEntity);
+				if (newMap != 0 && controlledEntity == mEntities[0])
+				{
+					std::string mapName = "../Debug/map";
+					mapName += std::to_string(newMap);
+					mapName += ".txt";
+					loadMap(mapName, newMap);
+				}
 				break;
-			}
-		}
-	}
-
-	for (auto j:enteties)
-	{
-		for (ObjectVector::size_type i = 0; i < walls.size(); i++)
-		{
-			Object *wallEntity = walls[i];
-			if (overlapsObjects(j, wallEntity))
-			{
-				walls[i] -> getFunc(j);
 			}
 		}
 	}
@@ -247,6 +254,7 @@ void Game::loadMap(std::string filename, int mapID)
 		delete mEntities[mEntities.size()-1];
 		mEntities.pop_back();
 	}
+	delete camera;
 	mMap = new Map(mapID);
 	mMap->setTexture(mFH->getTexture(mapID));
 	mRenderTexture.create(mFH->getTexture(mapID)->getSize().x,mFH->getTexture(mapID)->getSize().y);
@@ -260,6 +268,8 @@ void Game::loadMap(std::string filename, int mapID)
 		stream >> output;
 		dataVector.push_back(atoi(output.c_str()));
 	}
+	stream.close();
+	stream.clear();
 	
 	for (int i = 0; i < dataVector.size(); i++)
 	{

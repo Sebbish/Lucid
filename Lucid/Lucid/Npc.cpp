@@ -9,9 +9,9 @@ Npc::~Npc()
 {
 }
 
-void Npc::getFunc(Entity* player)
+int Npc::getFunc(Entity* player)
 {
-
+	return 0;
 }
 
 sf::FloatRect Npc::getRect()const

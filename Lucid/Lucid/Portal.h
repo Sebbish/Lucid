@@ -15,7 +15,7 @@ public:
 	virtual sf::FloatRect getRect()const;
 	virtual void tick();
 	virtual void render(sf::RenderTexture* window);
-	virtual void getFunc(Entity* player);
+	virtual int getFunc(Entity* player);
 	void setTargetPortal(Portal* portal);
 private:
 	int mCurrentMapID;
