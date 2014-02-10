@@ -42,11 +42,12 @@ void Event::tick(Map* map, std::vector<Entity*> &entityVector)
 			bool1 = true;
 		}
 		
-		if (bool1 = true && entityVector[0]->getActive() == false)
+		if (bool1 == true && entityVector[0]->getActive() == false)
 		{
 			bool1 = false;
 			entityVector[1]->setActive(false);
 			entityVector[0]->setActive(true);
+			map->getSuperPortalList()[0]->setActive(true);
 		}
 	}
 }

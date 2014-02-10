@@ -1,9 +1,13 @@
 #include "Portal.h"
 
-Portal::Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID,sf::SoundBuffer* portalSound):
+Portal::Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID, int active, sf::SoundBuffer* portalSound):
 	mRect(rect), mCurrentMapID(currentMapID), mTargetMapID(targetMapID), mTargetPortalID(targetPortalID), mPortalID(portalID), mTexture(texture), mTypeID(typeID)
 {
 	mPortalSound.setBuffer(*portalSound);
+	if (active == 0)
+		mActive = false;
+	else
+		mActive = true;
 }
 
 Portal::~Portal()
@@ -12,16 +16,21 @@ Portal::~Portal()
 
 int Portal::getFunc(Entity* player)
 {
-	if (mTargetPortalID != 0)
+	if (mActive)
 	{
-		player->setPosition(mTargetPortal->getRect());
-		mPortalSound.play();
-		return 0;
+		if (mTargetPortalID != 0)
+		{
+			player->setPosition(mTargetPortal->getRect());
+			mPortalSound.play();
+			return 0;
+		}
+		else
+		{
+			return mTargetMapID;
+		}
 	}
 	else
-	{
-		return mTargetMapID;
-	}
+		return 0;
 }
 
 sf::FloatRect Portal::getRect()const
@@ -47,6 +56,11 @@ int Portal::getTargetPortalID()const
 int Portal::getPortalID()const
 {
 	return mPortalID;
+}
+
+void Portal::setActive(bool active)
+{
+	mActive = active;
 }
 
 void Portal::tick()

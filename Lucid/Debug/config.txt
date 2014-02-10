@@ -1,0 +1,15 @@
+<-ENEMY->
+SmallmonsterSpeed= 4
+BigmonsterSpeed= 2
+WaitTime(frames)= 60
+Frontview= 800
+Backview= 300
+AggroRange= 400
+
+<-PLAYER->
+Speed= 6
+
+<-CAMERA->
+Width= 1600
+Height= 900
+Acceleration= 100

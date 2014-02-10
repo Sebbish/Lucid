@@ -189,7 +189,7 @@ void Game::collision()
 		{
 			if (overlapsEntity(i,j) && i != j)
 			{
-				if (i == enteties[0] && (!i->getHiding() || j->getHunting()))
+				if (i == enteties[0] && (!i->getHiding() || j->getHunting()) && j->getActive())
 				{
 					// Man dör
 					mEntities[0]->setActive(false);
@@ -329,8 +329,9 @@ void Game::loadMap(std::string filename, int mapID)
 			targetPortalID = dataVector[i + 6];
 			portalID = dataVector[i +7];
 			typeID = dataVector[i + 8];
-			mMap->addPortal(new Portal(sf::FloatRect(x, y, width, height), mMap->getID(), targetMapID, targetPortalID, portalID, mFH->getTexture(typeID), typeID,mFH->getSound(2)));
-			i += 8;
+			active = dataVector[i + 9];
+			mMap->addPortal(new Portal(sf::FloatRect(x, y, width, height), mMap->getID(), targetMapID, targetPortalID, portalID, mFH->getTexture(typeID), typeID, active, mFH->getSound(2)));
+			i += 9;
 			break;
 		case 4://NPC
 			x = dataVector[i + 1];
