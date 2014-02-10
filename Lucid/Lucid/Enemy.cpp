@@ -20,9 +20,9 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	else
 		mMaxSpeed = dataVector[4];
 	mWaitTime = dataVector[6];
-	mViewBackRange = dataVector[8];
-	mViewFrontRange = dataVector[10];
-	mAggroRange = dataVector[14];
+	mViewFrontRange = dataVector[8];
+	mViewBackRange = dataVector[10];
+	mAggroRange = dataVector[12];
 
 
 

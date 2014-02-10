@@ -380,9 +380,9 @@ bool Game::overlapsEntity(Entity *playerEntity, Entity *otherEntity)
 	sf::FloatRect playerPosition = playerEntity ->getRect();
 	sf::FloatRect otherPosition = otherEntity ->getRect();
 	if (playerPosition.intersects(otherPosition))
-	return true;
+		return true;
 	else
-	return false;
+		return false;
 }
 
 bool Game::overlapsObjects(Entity *playerEntity, Object *objectEntity)
@@ -390,9 +390,9 @@ bool Game::overlapsObjects(Entity *playerEntity, Object *objectEntity)
 	sf::FloatRect playerPosition = playerEntity ->getRect();
 	sf::FloatRect otherPosition = objectEntity ->getRect();
 	if (playerPosition.intersects(otherPosition))
-	return true;
+		return true;
 	else
-	return false;
+		return false;
 }
 
 bool Game::overlapsMouse(Entity *entity)
@@ -403,9 +403,9 @@ bool Game::overlapsMouse(Entity *entity)
 	mousePosition.top  = mMousePosition.y;
 	sf::FloatRect otherPosition = entity ->getRect();
 	if (mousePosition.intersects(otherPosition))
-	return true;
+		return true;
 	else
-	return false;
+		return false;
 }
 
 void Game::mousePositionFunc()
