@@ -10,8 +10,8 @@ Game::Game()
 	mWindow->setVerticalSyncEnabled(true);
 	loadMap("../Debug/map1.txt", 1);
 	mEffects = new Effects();
-	
 
+	mDeathSound.setBuffer(*mFH->getSound(0));
 	//ladda shader
 	//mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/edge.frag",sf::Shader::Fragment);
 	//mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/wave.vert","P:/SFML-2.1/examples/shader/resources/blur.frag");
@@ -28,12 +28,6 @@ Game::~Game()
 
 void Game::run()
 {
-	/*sf::SoundBuffer mSound;
-	mSound.loadFromFile("P:/Downloads/LucidProject/Resources/Sound/a.wav");
-	sf::Sound sound;
-	sound.setBuffer(mSound);
-	sound.setLoop(true);
-	sound.play();*/
 
 	while (mWindow->isOpen())
     {
@@ -194,6 +188,8 @@ void Game::collision()
 				if (i == enteties[0] && (!i->getHiding() || j->getHunting()))
 				{
 					// Man dör
+					if(mDeathSound.getStatus() != sf::Sound::Playing)
+						mDeathSound.play();
 				}
 				else if (j != enteties[0] && i != enteties[0]) // 2 monster kolliderar
 				{
@@ -281,7 +277,7 @@ void Game::loadMap(std::string filename, int mapID)
 			width = dataVector[i + 3];
 			height = dataVector[i + 4];
 			speed = dataVector[i + 5];
-			mEntities.push_back(new Player(x, y, width, height, speed, mFH->getTexture(0), 4));
+			mEntities.push_back(new Player(x, y, width, height, speed, mFH->getTexture(0), 4,mFH->getSound(1)));
 			mControlledEntity = mEntities[0];
 			camera = new Camera(sf::Vector2f(mWindow->getSize()),mControlledEntity);
 			i += 5;
@@ -296,7 +292,7 @@ void Game::loadMap(std::string filename, int mapID)
 			patrolStart = dataVector[i + 7];
 			patrolStop = dataVector[i + 8];
 			typeID = dataVector[i + 9];
-			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, patrolStart, patrolStop, mFH->getTexture(typeID), typeID)); //skickar int men tar emot float == problem?
+			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, patrolStart, patrolStop, mFH->getTexture(typeID), typeID,mFH->getSound(1),mFH->getSound(3))); //skickar int men tar emot float == problem?
 			i += 9; //i += x där 'x' är antalet variabler
 			break;
 		case 2://Vägg
@@ -316,7 +312,7 @@ void Game::loadMap(std::string filename, int mapID)
 			targetPortalID = dataVector[i + 6];
 			portalID = dataVector[i +7];
 			typeID = dataVector[i + 8];
-			mMap->addPortal(new Portal(sf::FloatRect(x, y, width, height), mMap->getID(), targetMapID, targetPortalID, portalID, mFH->getTexture(typeID), typeID));
+			mMap->addPortal(new Portal(sf::FloatRect(x, y, width, height), mMap->getID(), targetMapID, targetPortalID, portalID, mFH->getTexture(typeID), typeID,mFH->getSound(2)));
 			i += 8;
 			break;
 		case 4://NPC

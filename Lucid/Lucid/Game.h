@@ -44,6 +44,7 @@ private:
 	sf::RenderTexture mRenderTexture;
 	Entity *mControlledEntity;
 	Effects *mEffects;
+	sf::Sound mDeathSound;
 };
 
 #endif

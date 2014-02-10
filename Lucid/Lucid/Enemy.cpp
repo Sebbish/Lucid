@@ -1,7 +1,7 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID):
+Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID,sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound):
 	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false),mControlled(false), mPatrolStart(patrolStart), mPatrolStop(patrolStop)
 {
 	mRect.left = x;
@@ -29,6 +29,8 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mAggroRange = 100;
 	mIsPlayerVisible = false;
 	mTargetX = mPatrolStop;
+	mWalkSound.setBuffer(*walkSound);
+	mJagaSound.setBuffer(*jagaSound);
 	mTeleportWaitTime = 300;
 	mTeleport = false;
 	mTeleportTimer = 0;
@@ -357,6 +359,25 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 	tempStr += " ";
 	tempStr += std::to_string(mWaitTimer);
 	mText.setString(tempStr);*/
+
+	if(mMove)
+	{
+		if(mWalkSound.getStatus() != sf::Sound::Playing)
+		{
+
+			mWalkSound.play();
+		}
+	}else
+		mWalkSound.stop();
+
+	if(mIsPlayerVisible)
+	{
+		if(mJagaSound.getStatus() != sf::Sound::Playing)
+		{
+			mJagaSound.play();
+		}
+	}else
+		mJagaSound.stop();
 
 }
 

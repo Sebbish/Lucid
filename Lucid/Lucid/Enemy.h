@@ -5,7 +5,7 @@ class Enemy :
 	public Entity
 {
 public:
-	Enemy(float x, float y, float width, float height, float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID);
+	Enemy(float x, float y, float width, float height, float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID,sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound);
 	~Enemy();
 	virtual sf::FloatRect getRect()const;
 	virtual void setKockBack(float width,float acc);
@@ -63,10 +63,14 @@ private:
 	int mPlayerX;
 	sf::Font mFont;
 	sf::Text mText;
+	sf::Sound mWalkSound;
+	sf::Sound mJagaSound;
+
 	sf::FloatRect mOriginalPosition;
 	bool mTeleport;
 	int mTeleportWaitTime;
 	int mTeleportTimer;
+
 
 	//sf::RenderWindow* mWindow;
 };

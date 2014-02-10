@@ -1,8 +1,9 @@
 #include "Portal.h"
 
-Portal::Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID):
+Portal::Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID,sf::SoundBuffer* portalSound):
 	mRect(rect), mCurrentMapID(currentMapID), mTargetMapID(targetMapID), mTargetPortalID(targetPortalID), mPortalID(portalID), mTexture(texture), mTypeID(typeID)
 {
+	mPortalSound.setBuffer(*portalSound);
 }
 
 Portal::~Portal()
@@ -14,6 +15,7 @@ int Portal::getFunc(Entity* player)
 	if (mTargetPortalID != 0)
 	{
 		player->setPosition(mTargetPortal->getRect());
+		mPortalSound.play();
 		return 0;
 	}
 	else

@@ -1,6 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 #include "SFML\Graphics.hpp"
+#include "SFML\Audio.hpp"
 
 class Entity
 {

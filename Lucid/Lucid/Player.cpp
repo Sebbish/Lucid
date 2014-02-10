@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(float x, float y, float width, float height,float speed,sf::Texture* texture,float anitmationPicX):
+Player::Player(float x, float y, float width, float height,float speed,sf::Texture* texture,float anitmationPicX,sf::SoundBuffer* walkSound):
 	mMaxSpeed(speed),mDirection(RIGHT),mTexture(texture),mAnimationPicX(anitmationPicX),mKnockWidth(0),mAcc(0)
 {
 	mRect.left = x;
@@ -11,6 +11,7 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mAnimationTimer = 0.0f;
 	mHiding = false;
 	mLayer = Front;
+	mWalkSound.setBuffer(*walkSound);
 }
 
 
@@ -162,9 +163,19 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 			mAnimationTimer = 0.0f;
 		else
 			mAnimationTimer += 0.1f;
+
+		if(mWalkSound.getStatus() != sf::Sound::Playing)
+		{
+
+			mWalkSound.play();
+		}
+
 	}
 	else
+	{
 		mAnimationTimer = 0.0f;
+		mWalkSound.stop();
+	}
 
 	if(mKnockWidth <= 1.9f && mKnockWidth >= -1.9f)
 		mKnockWidth = 0;
