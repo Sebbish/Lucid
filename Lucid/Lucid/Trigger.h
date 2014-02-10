@@ -1,22 +1,24 @@
-#ifndef WALL_H
-#define WALL_H
-
+#ifndef TRIGGER_H
+#define TRIGGER_H
 #include "object.h"
 
-class Wall :
+class Trigger :
 	public Object
 {
 public:
-	Wall(sf::FloatRect rect, int active);
-	~Wall();
+	Trigger(sf::FloatRect rect, int triggedByID, int active);
+	~Trigger(void);
 	virtual sf::FloatRect getRect()const;
+	virtual int getFunc(Entity* player);
 	virtual void tick();
 	virtual void render(sf::RenderTexture* window);
-	virtual int getFunc(Entity* player);
 	void setActive(bool active);
+	bool getTrigged();
 private:
 	sf::FloatRect mRect;
+	bool mTrigged;
 	bool mActive;
+	int mTriggedByID;
 };
 
 #endif

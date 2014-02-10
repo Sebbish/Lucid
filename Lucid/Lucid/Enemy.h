@@ -5,7 +5,7 @@ class Enemy :
 	public Entity
 {
 public:
-	Enemy(float x, float y, float width, float height, float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID,sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound);
+	Enemy(float x, float y, float width, float height, float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID, int active, sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound);
 	~Enemy();
 	virtual sf::FloatRect getRect()const;
 	virtual void setKockBack(float width,float acc);
@@ -34,7 +34,9 @@ public:
 	virtual void resetTargetX();
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
 	virtual void render(sf::RenderTexture* window);
-	void checkSight(Entity* entity);
+	virtual void setActive(bool active);
+	virtual bool getActive();
+	virtual void setTargetX(int x);
 	
 private:
 	float mLastSeenX;
@@ -65,6 +67,8 @@ private:
 	sf::Text mText;
 	sf::Sound mWalkSound;
 	sf::Sound mJagaSound;
+	bool mActive;
+	void checkSight(Entity* entity);
 
 	sf::FloatRect mOriginalPosition;
 	bool mTeleport;

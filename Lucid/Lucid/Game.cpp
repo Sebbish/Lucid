@@ -10,6 +10,7 @@ Game::Game()
 	mWindow->setVerticalSyncEnabled(true);
 	loadMap("../Debug/map1.txt", 1);
 	mEffects = new Effects();
+	mEvent = new Event();
 
 	mDeathSound.setBuffer(*mFH->getSound(0));
 	//ladda shader
@@ -163,11 +164,13 @@ void Game::tick()
 
 	mEffects->tick(clock);
 
-	collision();
+	//collision();
 	for(auto i:mEntities)
 	{
 		i->tick(mEntities[0], mEntities);
 	}
+	collision();
+	mEvent->tick(mMap, mEntities);
 	camera->tick();
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
 	mIsQPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
@@ -177,7 +180,8 @@ void Game::collision()
 {
 	EntiyVector enteties(mEntities);
 	ObjectVector objects(mMap->getObjectList());
-	ObjectVector walls(mMap->getWallList());
+	std::vector<Wall*> walls(mMap->getWallList());
+	std::vector<Trigger*> triggers(mMap->getTriggerList());
 
 	for (auto i:enteties)
 	{
@@ -188,6 +192,7 @@ void Game::collision()
 				if (i == enteties[0] && (!i->getHiding() || j->getHunting()))
 				{
 					// Man dör
+					mEntities[0]->setActive(false);
 					if(mDeathSound.getStatus() != sf::Sound::Playing)
 						mDeathSound.play();
 				}
@@ -214,12 +219,21 @@ void Game::collision()
 			Object *wallEntity = walls[i];
 			if (overlapsObjects(j, wallEntity))
 			{
-				walls[i] -> getFunc(j);
+				wallEntity -> getFunc(j);
+			}
+		}
+
+		for (ObjectVector::size_type i = 0; i < triggers.size(); i++)
+		{
+			Object *triggerEntity = triggers[i];
+			if (overlapsObjects(j, triggerEntity))
+			{
+				triggerEntity -> getFunc(j);
 			}
 		}
 	}
 
-	for (ObjectVector::size_type i = 0; i < objects.size(); i++)
+	for (ObjectVector::size_type i = 0; i < objects.size(); i++) //Objekt man måste trycka E på
 	{
 		Entity *controlledEntity = mControlledEntity;
 		Object *objectEntity = objects[i];
@@ -253,12 +267,13 @@ void Game::loadMap(std::string filename, int mapID)
 	delete camera;
 	mMap = new Map(mapID);
 	mMap->setTexture(mFH->getTexture(mapID));
-	mRenderTexture.create(mFH->getTexture(mapID)->getSize().x,mFH->getTexture(mapID)->getSize().y);
+	mRenderTexture.create(8000, 8000);
+	//mRenderTexture.create(mFH->getTexture(mapID)->getSize().x,mFH->getTexture(mapID)->getSize().y);
 	std::ifstream stream;
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -292,16 +307,18 @@ void Game::loadMap(std::string filename, int mapID)
 			patrolStart = dataVector[i + 7];
 			patrolStop = dataVector[i + 8];
 			typeID = dataVector[i + 9];
-			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, patrolStart, patrolStop, mFH->getTexture(typeID), typeID,mFH->getSound(1),mFH->getSound(3))); //skickar int men tar emot float == problem?
-			i += 9; //i += x där 'x' är antalet variabler
+			active = dataVector[i + 10];
+			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, patrolStart, patrolStop, mFH->getTexture(typeID), typeID, active, mFH->getSound(1),mFH->getSound(3))); //skickar int men tar emot float == problem?
+			i += 10; //i += x där 'x' är antalet variabler
 			break;
 		case 2://Vägg
 			x = dataVector[i + 1];
 			y = dataVector[i + 2];
 			width = dataVector[i + 3];
 			height = dataVector[i + 4];
-			mMap->addWall(new Wall(sf::FloatRect(x, y, width, height)));
-			i += 4;
+			active = dataVector[i + 5]; //0 == false
+			mMap->addWall(new Wall(sf::FloatRect(x, y, width, height), active));
+			i += 5;
 			break;
 		case 3://Portal
 			x = dataVector[i + 1];
@@ -333,6 +350,16 @@ void Game::loadMap(std::string filename, int mapID)
 			typeID = dataVector[i + 5];
 			mMap->addHiding(new Hiding(sf::FloatRect(x, y, width, height), mFH->getTexture(typeID), typeID));
 			i += 5;
+			break;
+		case 6://Trigger
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			active = dataVector[i + 5]; //0 == false
+			typeID = dataVector[i + 6]; //TriggedByID
+			mMap->addTrigger(new Trigger(sf::FloatRect(x, y, width, height), typeID, active));
+			i += 6;
 			break;
 		}
 	}

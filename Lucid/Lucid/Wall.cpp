@@ -1,8 +1,12 @@
 #include "Wall.h"
 
-Wall::Wall(sf::FloatRect rect):
+Wall::Wall(sf::FloatRect rect, int active):
 	mRect(rect)
 {
+	if (active == 0)
+		mActive = false;
+	else
+		mActive = true;
 }
 
 Wall::~Wall()
@@ -11,8 +15,11 @@ Wall::~Wall()
 
 int Wall::getFunc(Entity* player)
 {
-	player->setRect(player->getLastRect());
-	player->resetTargetX();
+	if (mActive)
+	{
+		player->setRect(player->getLastRect());
+		player->resetTargetX();
+	}
 	return 0;
 }
 
@@ -27,4 +34,9 @@ void Wall::tick()
 
 void Wall::render(sf::RenderTexture* window)
 {
+}
+
+void Wall::setActive(bool active)
+{
+	mActive = active;
 }

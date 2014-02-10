@@ -12,6 +12,7 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mHiding = false;
 	mLayer = Front;
 	mWalkSound.setBuffer(*walkSound);
+	mActive = true;
 }
 
 
@@ -148,6 +149,20 @@ void Player::setWait()
 void Player::resetTargetX()
 {
 
+}
+
+void Player::setActive(bool active)
+{
+	mActive = active;
+}
+
+bool Player::getActive()
+{
+	return mActive;
+}
+
+void Player::setTargetX(int x)
+{
 }
 
 void Player::tick(Entity *player, std::vector<Entity*> entityVector)

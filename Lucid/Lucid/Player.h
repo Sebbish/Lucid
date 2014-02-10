@@ -32,6 +32,9 @@ public:
 	virtual int getTypeID();
 	virtual void setWait();
 	virtual void resetTargetX();
+	virtual void setActive(bool active);
+	virtual bool getActive();
+	virtual void setTargetX(int x);
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
 	virtual void render(sf::RenderTexture* window);
 private:
@@ -50,7 +53,7 @@ private:
 	bool mHiding;
 	layer mLayer;
 	sf::Sound mWalkSound;
-
+	bool mActive;
 };
 #endif
 

@@ -38,6 +38,12 @@ Map::~Map()
 		delete mWallList[mWallList.size()-1];
 		mWallList.pop_back();
 	}
+
+	while (!mTriggerList.empty())
+	{
+		delete mTriggerList[mTriggerList.size()-1];
+		mTriggerList.pop_back();
+	}
 }
 
 void Map::addHiding(Hiding* hiding)
@@ -61,6 +67,11 @@ void Map::addWall(Wall* wall)
 	mWallList.push_back(wall);
 }
 
+void Map::addTrigger(Trigger* trigger)
+{
+	mTriggerList.push_back(trigger);
+}
+
 void Map::setTexture(sf::Texture *texture)
 {
 	mTexture = texture;
@@ -81,9 +92,14 @@ std::vector<Object*> Map::getPortalList()const
 	return mPortalList;
 }
 
-std::vector<Object*> Map::getWallList()const
+std::vector<Wall*> Map::getWallList()const
 {
 	return mWallList;
+}
+
+std::vector<Trigger*> Map::getTriggerList()const
+{
+	return mTriggerList;
 }
 
 std::vector<Object*> Map::getObjectList()const
