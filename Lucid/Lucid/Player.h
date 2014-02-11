@@ -36,7 +36,7 @@ public:
 	virtual bool getActive();
 	virtual void setTargetX(int x);
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
-	virtual void render(sf::RenderTexture* window);
+	virtual void render(sf::RenderTexture* window, bool visualizeValues);
 private:
 	float mLastSeenX;
 	sf::FloatRect mRect;

@@ -10,6 +10,6 @@ AggroRange= 400
 Speed= 6
 
 <-CAMERA->
-Width= 1600
-Height= 900
+Width= 1920
+Height= 1080
 Acceleration= 100

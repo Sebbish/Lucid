@@ -218,7 +218,7 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 
 }
 
-void Player::render(sf::RenderTexture* window)
+void Player::render(sf::RenderTexture* window, bool visualizeValues)
 {
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
@@ -230,8 +230,10 @@ void Player::render(sf::RenderTexture* window)
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
 
-
-	sf::CircleShape circle(6);
-	circle.setPosition(mRect.left - 3, mRect.top - 3);
-	window->draw(circle);
+	if (visualizeValues)
+	{
+		sf::CircleShape circle(6);
+		circle.setPosition(mRect.left - 3, mRect.top - 3);
+		window->draw(circle);
+	}
 }

@@ -20,10 +20,11 @@ Camera::Camera(sf::Vector2f size,Entity *CameraFollowThisEntity):
 	float tempY = dataVector[20];
 	float tempAcceleration = dataVector[22];
 	acc = tempAcceleration / 1000;
+	mView.setSize(sf::Vector2f(tempX, tempY));
 
 	mView.setCenter(sf::Vector2f(mFollowThisEntity->getRect().left+(mView.getSize().x/2)/6*2,mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2));
 	//mView.setSize(size);
-	mView.setSize(sf::Vector2f(16*100,9*100));
+	//mView.setSize(sf::Vector2f(1920,1080));
 }
 
 

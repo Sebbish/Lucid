@@ -37,7 +37,7 @@ public:
 	virtual sf::Texture* getTexture()const = 0;
 	virtual void setTexture(sf::Texture* texture) = 0;
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector) = 0;
-	virtual void render(sf::RenderTexture* window) = 0;
+	virtual void render(sf::RenderTexture* window, bool visualizeValues) = 0;
 	virtual void toggleHiding() = 0;
 	virtual layer getLayer() = 0;
 	virtual bool getHiding() = 0;

@@ -34,7 +34,7 @@ public:
 	virtual void setWait();
 	virtual void resetTargetX();
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
-	virtual void render(sf::RenderTexture* window);
+	virtual void render(sf::RenderTexture* window, bool visualizeValues);
 	virtual void setActive(bool active);
 	virtual bool getActive();
 	virtual void setTargetX(int x);

@@ -4,6 +4,9 @@ Game::Game()
 {
 	angle = 0;
 	mFH = new FilHanterare();
+	/*std::vector<sf::VideoMode, std::allocator<sf::VideoMode>> test;
+	test = sf::VideoMode::getFullscreenModes();
+	mWindow = new sf::RenderWindow(test[17], "Lucid", sf::Style::Fullscreen);*/
 	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
 	mWindow->setFramerateLimit(60);
@@ -11,6 +14,7 @@ Game::Game()
 	loadMap("../Debug/map1.txt", 1);
 	mEffects = new Effects();
 	mEvent = new Event();
+	mVisualizeValues = false;
 
 	mDeathSound.setBuffer(*mFH->getSound(0));
 	//ladda shader
@@ -82,6 +86,10 @@ void Game::input(Entity* entity)
 		{
 			mEffects->setNextShader(4);
 		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3))
+		{
+			mVisualizeValues = !mVisualizeValues;
+		}
     }
 	//kollar om Q trycktes ned och mindcontrollar då
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
@@ -130,12 +138,12 @@ void Game::render()
 	mMap->renderMap(&mRenderTexture);
 	for(auto i:mEntities){
 		if (i -> getLayer() == Entity::Back)
-			i->render(&mRenderTexture);
+			i->render(&mRenderTexture, mVisualizeValues);
 	}
 	mMap -> renderObjects(&mRenderTexture);
 	for(auto i:mEntities){
 		if (i -> getLayer() == Entity::Front)
-			i->render(&mRenderTexture);
+			i->render(&mRenderTexture, mVisualizeValues);
 	}
 	mRenderTexture.display();
 	const sf::Texture& s = mRenderTexture.getTexture();

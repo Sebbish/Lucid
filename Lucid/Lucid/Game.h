@@ -47,6 +47,7 @@ private:
 	Effects *mEffects;
 	sf::Sound mDeathSound;
 	Event* mEvent;
+	bool mVisualizeValues;
 };
 
 #endif
