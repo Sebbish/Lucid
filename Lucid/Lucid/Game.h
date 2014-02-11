@@ -52,6 +52,7 @@ private:
 	Event* mEvent;
 	bool mVisualizeValues;
 	SaveLoad* mSL;
+	bool mMenu;
 };
 
 #endif

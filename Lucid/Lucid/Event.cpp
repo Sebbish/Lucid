@@ -11,10 +11,23 @@ Event::~Event(void)
 {
 }
 
-void Event::tick(Map* map, std::vector<Entity*> &entityVector)
+int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 {
-	if (map->getID() == 2)
+	switch (map->getID())
 	{
+	case 1:
+		if (map->getTriggerList()[0]->getTrigged())
+		{
+			map->getTriggerList()[0]->setActive(false);
+			map->getSuperPortalList()[2]->setActive(true);
+		}
+		if (map->getTriggerList()[1]->getTrigged())
+		{
+			map->getTriggerList()[1]->setActive(false);
+			return 2;
+		}
+		break;
+	case 2:
 		if (map->getTriggerList()[0]->getTrigged())
 		{
 			map->getTriggerList()[0]->setActive(false);
@@ -49,5 +62,7 @@ void Event::tick(Map* map, std::vector<Entity*> &entityVector)
 			entityVector[0]->setActive(true);
 			map->getSuperPortalList()[0]->setActive(true);
 		}
+		break;
 	}
+	return 0;
 }

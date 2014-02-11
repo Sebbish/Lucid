@@ -15,6 +15,7 @@ Game::Game()
 	mEffects = new Effects();
 	mEvent = new Event();
 	mVisualizeValues = false;
+	mMenu = false;
 
 	mDeathSound.setBuffer(*mFH->getSound(0));
 	//ladda shader
@@ -50,85 +51,98 @@ void Game::run()
 
 void Game::input(Entity* entity)
 {
-	sf::Event event;
-    while (mWindow->pollEvent(event))
-    {
-		if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            mWindow->close();
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	switch (mMenu)
+	{
+	case false:
 		{
-			entity->setDirection(Entity::RIGHT);
-			entity->setMove(true);
-		}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		sf::Event event;
+		while (mWindow->pollEvent(event))
 		{
-			entity->setDirection(Entity::LEFT);
-			entity->setMove(true);
-		}else
-		{
-			entity->setMove(false);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
-		{
-			mEffects->setNextShader(0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-		{
-			mEffects->setNextShader(1);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-		{
-			mEffects->setNextShader(2);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-		{
-			mEffects->setNextShader(3);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-		{
-			mEffects->setNextShader(4);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3))
-		{
-			mVisualizeValues = !mVisualizeValues;
-		}
-    }
-	//kollar om Q trycktes ned och mindcontrollar då
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
-		{
-			//kontrollerar om den kontrollerade entiteten är spelaren
-			if(mControlledEntity == mEntities[0])
+			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				mWindow->close();
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
-				Entity* enemie = NULL;
-				//kollar alla entiteter och kollar vilken som är närmast av de som är på samma y-level och innom 200p range
-				for(auto i:mEntities)
-				{
-					if(mEntities[0]->getRect().top >= i->getRect().top-100 && mEntities[0]->getRect().top <= i->getRect().top+100 && i != mEntities[0])
-					{
-						if(mEntities[0]->getRect().left+mEntities[0]->getRect().width >= i->getRect().left-200 && mEntities[0]->getRect().left <= i->getRect().left+i->getRect().width+200)
-						{
-						if(enemie == NULL)
-							enemie = i;
-						else
-						{
-							if(mEntities[0]->getRect().left-i->getRect().left <= mEntities[0]->getRect().left-enemie->getRect().left)
-								enemie = i;
-						}
-					}
-					}
-				}
-				if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getHunting() && enemie->getTypeID() == 21)
-				{
-					mControlledEntity->setMove(false);
-					setControlledEntity(enemie);
-				}
-
+				entity->setDirection(Entity::RIGHT);
+				entity->setMove(true);
+			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			{
+				entity->setDirection(Entity::LEFT);
+				entity->setMove(true);
 			}else
 			{
-				mControlledEntity->resetTargetX();
-				mControlledEntity->setWait();
-				setControlledEntity(mEntities[0]);
+				entity->setMove(false);
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
+			{
+				mEffects->setNextShader(0);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+			{
+				mEffects->setNextShader(1);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+			{
+				mEffects->setNextShader(2);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+			{
+				mEffects->setNextShader(3);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+			{
+				mEffects->setNextShader(4);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3))
+			{
+				mVisualizeValues = !mVisualizeValues;
 			}
 		}
+		//kollar om Q trycktes ned och mindcontrollar då
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
+			{
+				//kontrollerar om den kontrollerade entiteten är spelaren
+				if(mControlledEntity == mEntities[0])
+				{
+					Entity* enemie = NULL;
+					//kollar alla entiteter och kollar vilken som är närmast av de som är på samma y-level och innom 200p range
+					for(auto i:mEntities)
+					{
+						if(mEntities[0]->getRect().top >= i->getRect().top-100 && mEntities[0]->getRect().top <= i->getRect().top+100 && i != mEntities[0])
+						{
+							if(mEntities[0]->getRect().left+mEntities[0]->getRect().width >= i->getRect().left-200 && mEntities[0]->getRect().left <= i->getRect().left+i->getRect().width+200)
+							{
+							if(enemie == NULL)
+								enemie = i;
+							else
+							{
+								if(mEntities[0]->getRect().left-i->getRect().left <= mEntities[0]->getRect().left-enemie->getRect().left)
+									enemie = i;
+							}
+						}
+						}
+					}
+					if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getHunting() && enemie->getTypeID() == 21)
+					{
+						mControlledEntity->setMove(false);
+						setControlledEntity(enemie);
+					}
+
+				}else
+				{
+					mControlledEntity->resetTargetX();
+					mControlledEntity->setWait();
+					setControlledEntity(mEntities[0]);
+				}
+			}
+		}
+		break;
+
+
+	case true:
+		{
+			break;
+		}
+	}
 }
 
 
@@ -180,7 +194,16 @@ void Game::tick()
 		i->tick(mEntities[0], mEntities);
 	}
 	collision();
-	mEvent->tick(mMap, mEntities);
+
+	int newMap = mEvent->tick(mMap, mEntities);
+	if (newMap != 0)
+	{
+		std::string mapName = "../Debug/map";
+					mapName += std::to_string(newMap);
+					mapName += ".txt";
+					loadMap(mapName, newMap);
+	}
+
 	camera->tick();
 	mDialog->tick(camera->getView());
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);

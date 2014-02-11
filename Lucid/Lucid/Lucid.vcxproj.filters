@@ -67,7 +67,7 @@
     <ClCompile Include="SaveLoad.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="\\hsnas3\StudentHome\2013\a13ronka\Downloads\Source.cpp">
+    <ClCompile Include="Source.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
   </ItemGroup>

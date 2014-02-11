@@ -104,9 +104,9 @@
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Sanity.cpp" />
     <ClCompile Include="SaveLoad.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="Wall.cpp" />
-    <ClCompile Include="\\hsnas3\StudentHome\2013\a13ronka\Downloads\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

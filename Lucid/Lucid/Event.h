@@ -7,7 +7,7 @@ class Event
 public:
 	Event(void);
 	~Event(void);
-	void tick(Map* map, std::vector<Entity*> &entityVector);
+	int tick(Map* map, std::vector<Entity*> &entityVector);
 private:
 	bool bool1;
 };
