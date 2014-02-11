@@ -4,6 +4,28 @@
 Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID, int active, sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound):
 	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false),mControlled(false), mPatrolStart(patrolStart), mPatrolStop(patrolStop)
 {
+	std::ifstream stream;
+	stream.open("../Debug/config.txt");
+	std::string output;
+	std::vector<int> dataVector;
+	while(!stream.eof())
+	{
+		stream >> output;
+		dataVector.push_back(atoi(output.c_str()));
+	}
+	stream.close();
+	stream.clear();
+	if (mTypeID == 21)
+		mMaxSpeed = dataVector[2];
+	else
+		mMaxSpeed = dataVector[4];
+	mWaitTime = dataVector[6];
+	mViewFrontRange = dataVector[8];
+	mViewBackRange = dataVector[10];
+	mAggroRange = dataVector[12];
+
+
+
 	mRect.left = x;
 	mRect.top = y;
 	mRect.width = width;
@@ -23,10 +45,10 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mAnimationTimer = 0;
 	mWaitTimer = 0;
 	mWait = false;
-	mWaitTime = 60;
-	mViewBackRange = 300;
+	//mWaitTime = 60;
+	/*mViewBackRange = 300;
 	mViewFrontRange = 800;
-	mAggroRange = 400;
+	mAggroRange = 400;*/
 	mIsPlayerVisible = false;
 	mTargetX = mPatrolStop;
 	mWalkSound.setBuffer(*walkSound);
@@ -437,4 +459,42 @@ void Enemy::render(sf::RenderTexture* window)
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);*/
+
+	sf::RectangleShape aggroRangeLine(sf::Vector2f(mAggroRange, 2));
+	aggroRangeLine.setFillColor(sf::Color::White);
+	if (mDirection == RIGHT)
+		aggroRangeLine.setPosition(mRect.left, mRect.top);
+	else
+		aggroRangeLine.setPosition(mRect.left - mAggroRange, mRect.top);
+
+	sf::RectangleShape viewFrontRangeLine(sf::Vector2f(mViewFrontRange, 2));
+	viewFrontRangeLine.setFillColor(sf::Color::Red);
+	if (mDirection == RIGHT)
+		viewFrontRangeLine.setPosition(mRect.left, mRect.top+10);
+	else
+		viewFrontRangeLine.setPosition(mRect.left - mViewFrontRange, mRect.top+10);
+
+	sf::RectangleShape viewBackRangeLine(sf::Vector2f(mViewBackRange, 2));
+	viewBackRangeLine.setFillColor(sf::Color::Green);
+	if (mDirection == RIGHT)
+		viewBackRangeLine.setPosition(mRect.left - mViewBackRange, mRect.top+20);
+	else
+		viewBackRangeLine.setPosition(mRect.left, mRect.top+20);
+
+	sf::CircleShape startTriangle(10, 3);
+	startTriangle.setPosition(mPatrolStart, mRect.top);
+
+	sf::CircleShape stopTriangle(10, 3);
+	stopTriangle.setPosition(mPatrolStop, mRect.top);
+
+	sf::CircleShape targetSquare(10, 3);
+	targetSquare.setFillColor(sf::Color::Blue);
+	targetSquare.setPosition(mTargetX, mRect.top);
+
+	window->draw(aggroRangeLine);
+	window->draw(viewFrontRangeLine);
+	window->draw(viewBackRangeLine);
+	window->draw(startTriangle);
+	window->draw(stopTriangle);
+	window->draw(targetSquare);
 }

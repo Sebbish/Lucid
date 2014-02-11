@@ -1,12 +1,31 @@
+<<<<<<< HEAD
 ﻿Build started 2014-02-11 13:48:35.
+=======
+﻿Build started 2014-02-10 16:54:25.
+>>>>>>> 2d102d6de142807998aade1c941e86acfb80c227
      1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Enemy.cpp
          Enemy.cpp
+<<<<<<< HEAD
      1>p:\lucid\lucid\lucid\enemy.cpp(194): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>p:\lucid\lucid\lucid\enemy.cpp(199): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
      1>p:\lucid\lucid\lucid\enemy.cpp(423): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
      1>p:\lucid\lucid\lucid\enemy.cpp(425): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+=======
+     1>p:\lucid\lucid\lucid\enemy.cpp(19): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(21): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(216): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(221): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(437): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(439): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(455): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(462): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(469): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(477): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(480): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(484): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+>>>>>>> 2d102d6de142807998aade1c941e86acfb80c227
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"P:\Lucid\Lucid\Debug\Lucid.exe" /INCREMENTAL /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" "sfml-audio-d.lib" "sfml-graphics-d.lib" "sfml-main-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"P:\Lucid\Lucid\Debug\Lucid.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"P:\Lucid\Lucid\Debug\Lucid.lib" /MACHINE:X86 Debug\Camera.obj
          Debug\Dialog.obj
@@ -36,4 +55,8 @@
 
 Build succeeded.
 
+<<<<<<< HEAD
 Time Elapsed 00:00:11.92
+=======
+Time Elapsed 00:00:18.29
+>>>>>>> 2d102d6de142807998aade1c941e86acfb80c227

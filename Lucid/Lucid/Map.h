@@ -23,6 +23,7 @@ public:
 	std::vector<Object*> getHidingList()const;
 	std::vector<Object*> getNpcList()const;
 	std::vector<Object*> getPortalList()const;
+	std::vector<Portal*> getSuperPortalList()const;
 	std::vector<Wall*> getWallList()const;
 	std::vector<Trigger*> getTriggerList()const;
 	std::vector<Object*> getObjectList()const;

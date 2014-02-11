@@ -92,6 +92,11 @@ std::vector<Object*> Map::getPortalList()const
 	return mPortalList;
 }
 
+std::vector<Portal*> Map::getSuperPortalList()const
+{
+	return mSuperPortalList;
+}
+
 std::vector<Wall*> Map::getWallList()const
 {
 	return mWallList;

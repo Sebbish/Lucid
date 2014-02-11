@@ -3,6 +3,9 @@
 #include "SFML\Graphics.hpp"
 #include "SFML\Audio.hpp"
 
+#include <fstream>
+#include <string>
+
 class Entity
 {
 public:

@@ -4,6 +4,20 @@
 Player::Player(float x, float y, float width, float height,float speed,sf::Texture* texture,float anitmationPicX,sf::SoundBuffer* walkSound):
 	mMaxSpeed(speed),mDirection(RIGHT),mTexture(texture),mAnimationPicX(anitmationPicX),mKnockWidth(0),mAcc(0)
 {
+	std::ifstream stream;
+	stream.open("../Debug/config.txt");
+	std::string output;
+	std::vector<int> dataVector;
+	while(!stream.eof())
+	{
+		stream >> output;
+		dataVector.push_back(atoi(output.c_str()));
+	}
+	stream.close();
+	stream.clear();
+	mMaxSpeed = dataVector[15];
+
+
 	mRect.left = x;
 	mRect.top = y;
 	mRect.width = width;
@@ -215,4 +229,9 @@ void Player::render(sf::RenderTexture* window)
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
+
+
+	sf::CircleShape circle(6);
+	circle.setPosition(mRect.left - 3, mRect.top - 3);
+	window->draw(circle);
 }
