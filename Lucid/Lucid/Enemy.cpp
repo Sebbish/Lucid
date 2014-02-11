@@ -398,26 +398,33 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 			else
 				mAnimationTimer = 0.0f;
 
-		/*std::string tempStr;
-		tempStr = std::to_string(mRect.left);
-		tempStr += " ";
-		tempStr += std::to_string(mTargetX);
-		tempStr += " ";
-		tempStr += std::to_string(mWaitTimer);
-		mText.setString(tempStr);*/
 
-		if(mMove)
+	/*std::string tempStr;
+	tempStr = std::to_string(mRect.left);
+	tempStr += " ";
+	tempStr += std::to_string(mTargetX);
+	tempStr += " ";
+	tempStr += std::to_string(mWaitTimer);
+	mText.setString(tempStr);*/
+	mWalkSound.setMinDistance(1000);
+	mWalkSound.setAttenuation(10);
+	if(player->getRect().top+100 >= mRect.top && player->getRect().top-100 <= mRect.top)
+		mWalkSound.setPosition(mRect.left-player->getRect().left,0,0);
+	else
+		mWalkSound.setPosition(mRect.left-player->getRect().left,999999,0);
+	if(mMove)
+	{
+		if(mWalkSound.getStatus() != sf::Sound::Playing)
 		{
-			if(mWalkSound.getStatus() != sf::Sound::Playing)
-			{
 
-				mWalkSound.play();
-			}
+			mWalkSound.play();
+		}
 		}else
 			mWalkSound.stop();
 
 		if(mIsPlayerVisible)
 		{
+
 			if(mJagaSound.getStatus() != sf::Sound::Playing)
 			{
 				mJagaSound.play();
@@ -425,6 +432,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 		}else
 			mJagaSound.stop();
 	}
+
 }
 
 void Enemy::render(sf::RenderTexture* window, bool visualizeValues)

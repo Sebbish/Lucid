@@ -23,7 +23,8 @@ Game::Game()
 
 	//fixar edge shader*/
 	//mShader.setParameter("texture", sf::Shader::CurrentTexture);
-
+	mDialog = new Dialog();
+	mSL = new SaveLoad();
 }
 
 Game::~Game()
@@ -146,6 +147,7 @@ void Game::render()
 			i->render(&mRenderTexture, mVisualizeValues);
 	}
 	mRenderTexture.display();
+	mDialog->render(&mRenderTexture);
 	const sf::Texture& s = mRenderTexture.getTexture();
 	sf::Sprite ss;
 	ss.setTexture(s);
@@ -171,7 +173,7 @@ void Game::tick()
 	mShader.bind(&mShader);*/
 
 	mEffects->tick(clock);
-
+	mMap->tick();
 	//collision();
 	for(auto i:mEntities)
 	{
@@ -180,6 +182,7 @@ void Game::tick()
 	collision();
 	mEvent->tick(mMap, mEntities);
 	camera->tick();
+	mDialog->tick(camera->getView());
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
 	mIsQPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
 }
@@ -281,7 +284,7 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -348,8 +351,9 @@ void Game::loadMap(std::string filename, int mapID)
 			height = dataVector[i + 4];
 			dialogueID = dataVector[i + 5];
 			typeID = dataVector[i + 6];
-			mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID));
-			i += 6;
+			animationPic = dataVector[i + 7];
+			mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID,animationPic,mDialog,mEntities[0]));
+			i += 8;
 			break;
 		case 5://Hiding
 			x = dataVector[i + 1];

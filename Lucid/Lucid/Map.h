@@ -27,6 +27,7 @@ public:
 	std::vector<Wall*> getWallList()const;
 	std::vector<Trigger*> getTriggerList()const;
 	std::vector<Object*> getObjectList()const;
+	void tick();
 	void renderMap(sf::RenderTexture* window);
 	void renderObjects(sf::RenderTexture* window);
 	int getID();

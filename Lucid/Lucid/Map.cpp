@@ -119,6 +119,12 @@ std::vector<Object*> Map::getObjectList()const
 	return objects;
 }
 
+void Map::tick()
+{
+	for(auto i:mNpcList)
+		i->tick();
+}
+
 void Map::renderMap(sf::RenderTexture* window)
 {
 	sf::RectangleShape r;
