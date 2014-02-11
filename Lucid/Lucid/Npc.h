@@ -2,12 +2,13 @@
 #define NPC_H
 
 #include "object.h"
+#include "Dialog.h"
 
 class Npc :
 	public Object
 {
 public:
-	Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID);
+	Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,int animationPicX,Dialog* dialog,Entity* player);
 	~Npc();
 	int getDialogueID();
 	virtual sf::FloatRect getRect()const;
@@ -19,6 +20,14 @@ private:
 	sf::FloatRect mRect;
 	int mTypeID;
 	sf::Texture* mTexture;
+	int mAnimationPicX;
+	float mAnimationSpeed;
+	float mCurrentAnimationPic;
+	Dialog* mDialog;
+	bool mLookLeft;
+	bool mChatting;
+	Entity* mPlayer;
+	std::string mDialogFile;//endast namnet på filen utan .txt
 };
 
 #endif

@@ -13,10 +13,12 @@ FilHanterare::FilHanterare(void)
 		mTexture[i] = new sf::Texture();
 	for(int i = 0; i < 4;i++)
 		mSoundBuffer[i] = new sf::SoundBuffer();
-
+	
 	mTexture[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis_Insane_Spritesheet.png",sf::IntRect(0,0,1024,768));
 	mTexture[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/DubbelMap.jpg",sf::IntRect(0,0,1152,1296));
 	mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level2.png",sf::IntRect(0,0,8000,340));
+	mTexture[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Ryan_Spritesheet.png",sf::IntRect(0,0,1024,256));
+	mTexture[4]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Magda_SpriteSheet.png",sf::IntRect(0,0,2048,256));
 	mTexture[21]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/enemy.png",sf::IntRect(0,0,960,240));
 	mTexture[22]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/enemy2.png",sf::IntRect(0,0,1024,256));
 	mTexture[23]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Dörr.png",sf::IntRect(0,0,256,256));

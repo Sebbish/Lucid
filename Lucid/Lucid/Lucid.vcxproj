@@ -89,6 +89,7 @@
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Event.cpp" />
     <ClCompile Include="FilHanterare.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hiding.cpp" />
@@ -102,7 +103,10 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Sanity.cpp" />
+    <ClCompile Include="SaveLoad.cpp" />
+    <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="\\hsnas3\StudentHome\2013\a13ronka\Downloads\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -110,6 +114,7 @@
     <ClInclude Include="Effects.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="FilHanterare.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Hiding.h" />
@@ -121,6 +126,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Sanity.h" />
+    <ClInclude Include="SaveLoad.h" />
+    <ClInclude Include="Trigger.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>

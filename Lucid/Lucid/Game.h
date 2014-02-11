@@ -10,6 +10,8 @@
 #include "Map.h"
 #include "Effects.h"
 #include "Dialog.h"
+#include "Event.h"
+#include "SaveLoad.h"
 
 typedef std::vector<Entity*> EntiyVector;
 typedef std::vector<Object*> ObjectVector;
@@ -47,6 +49,8 @@ private:
 	Effects *mEffects;
 	sf::Sound mDeathSound;
 	Dialog *mDialog;
+	Event* mEvent;
+	SaveLoad* mSL;
 };
 
 #endif

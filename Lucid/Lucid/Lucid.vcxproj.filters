@@ -2,133 +2,154 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Hiding.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Npc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FilHanterare.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sanity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LightMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LightManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Effects.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Dialog.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="FilHanterare.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Hiding.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="LightMain.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Sanity.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Trigger.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveLoad.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="\\hsnas3\StudentHome\2013\a13ronka\Downloads\Source.cpp">
+      <Filter>.cpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Hiding.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Npc.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Wall.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="FilHanterare.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Sanity.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="LightManager.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects.h">
-      <Filter>Headers</Filter>
+      <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Dialog.h">
-      <Filter>Headers</Filter>
+      <Filter>.h</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{28bf26b7-2165-41d7-8f51-582f099050ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{ca6dc2e8-8ae5-4151-901c-5104e2885319}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects">
-      <UniqueIdentifier>{36eafa42-51a2-44c4-872b-b0994d3f782c}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="Effects.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="FilHanterare.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Hiding.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Npc.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Sanity.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Trigger.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveLoad.h">
+      <Filter>.h</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png">
-      <Filter>Objects</Filter>
+      <Filter>annat</Filter>
     </Image>
     <Image Include="glow.png">
-      <Filter>Objects</Filter>
+      <Filter>annat</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include=".h">
+      <UniqueIdentifier>{8c2567bb-785b-4d12-b77a-43622fef8a7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".cpp">
+      <UniqueIdentifier>{87c7f509-81f9-45d1-ae56-704356abd3d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="annat">
+      <UniqueIdentifier>{072ea4cc-1ed0-49c5-9982-c19a18c0ee20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

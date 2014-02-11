@@ -1,7 +1,7 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID,sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound):
+Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID, int active, sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound):
 	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false),mControlled(false), mPatrolStart(patrolStart), mPatrolStop(patrolStop)
 {
 	mRect.left = x;
@@ -24,9 +24,9 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mWaitTimer = 0;
 	mWait = false;
 	mWaitTime = 60;
-	mViewBackRange = 50;
-	mViewFrontRange = 300;
-	mAggroRange = 100;
+	mViewBackRange = 300;
+	mViewFrontRange = 800;
+	mAggroRange = 400;
 	mIsPlayerVisible = false;
 	mTargetX = mPatrolStop;
 	mWalkSound.setBuffer(*walkSound);
@@ -34,6 +34,10 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mTeleportWaitTime = 300;
 	mTeleport = false;
 	mTeleportTimer = 0;
+	if (active == 0)
+		mActive = false;
+	else
+		mActive = true;
 
 	/*mFont.loadFromFile("../Debug/ariblk.ttf");
 	mText.setFont(mFont);
@@ -65,15 +69,18 @@ void Enemy::setDirection(direction d)
 
 void Enemy::getFunc(Entity* entity)
 {
-	if (entity->getTypeID() == 22 && mTypeID == 21)
+	if (mActive)
 	{
-		mRect.left = -5000;
-		mRect.top = -5000;
-	}
-	/*if (entity->getTypeID() == 0 && (mTypeID == 2 || mTypeID == 6) && (!entity->getHiding() || mHunting))
-	{
+		if (entity->getTypeID() == 22 && mTypeID == 21)
+		{
+			mRect.left = -5000;
+			mRect.top = -5000;
+		}
+		/*if (entity->getTypeID() == 0 && (mTypeID == 2 || mTypeID == 6) && (!entity->getHiding() || mHunting))
+		{
 
-	}*/
+		}*/
+	}
 }
 
 Entity::direction Enemy::getDirection()const
@@ -250,107 +257,125 @@ void Enemy::checkSight(Entity *entity)
 	}
 }
 
+void Enemy::setActive(bool active)
+{
+	mActive = active;
+}
+
+bool Enemy::getActive()
+{
+	return mActive;
+}
+
+void Enemy::setTargetX(int x)
+{
+	mTargetX = x;
+}
+
 void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 {
-	mLastRect = mRect;
-	if(!mControlled)
+	if (mActive)
 	{
-		if (mRect.top != mOriginalPosition.top)
+		mLastRect = mRect;
+		if(!mControlled)
 		{
-			mTeleport = true;
-		}
-		for (auto i:entityVector)
-		{
-			if (i->getTypeID() == 21 && mTypeID == 22)
+			if (mRect.top != mOriginalPosition.top)
 			{
-				checkSight(i);
+				mTeleport = true;
 			}
-		}
-		checkSight(player);
+			for (auto i:entityVector)
+			{
+				if (i->getTypeID() == 21 && mTypeID == 22)
+				{
+					checkSight(i);
+				}
+			}
+			checkSight(player);
 		
 
-		if (mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5)
-		{
-			mWait = true;
-			if (!mTeleport)//Patrullerar inte om den ska teleportera, då jagar den spelaren eller står still
+			if (mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5)
 			{
-				if (mTargetX == mPatrolStart)
-					mTargetX = mPatrolStop;
-				else
-					mTargetX = mPatrolStart;
-			}
-		}
-
-		if (mWait)
-		{
-			mMove = false;
-			mWaitTimer++;
-			if (mWaitTimer >= mWaitTime)
-			{
-				mWait = false;
-				mWaitTimer = 0;
-			}
-			
-		}
-		else
-		{
-			if(mTargetX < mRect.left)
-			{
-				mRect.left -= mMaxSpeed;
-				mDirection = LEFT;
-				mMove = true;
-			}
-			else if(mTargetX > mRect.left)
-			{
-				mRect.left += mMaxSpeed;
-				mDirection = RIGHT;
-				mMove = true;
-			}
-			else
-				mMove = false;
-		}
-
-		if (mTeleport)
-		{
-			mTeleportTimer++;
-			if (mTeleportTimer >= mTeleportWaitTime)
-			{
-				mRect = mOriginalPosition;
-				mTeleportTimer = 0;
-				mTeleport = false;
 				mWait = true;
-				mTargetX = mPatrolStop;
-				mWaitTimer = 0;
+				if (!mTeleport)//Patrullerar inte om den ska teleportera, då jagar den spelaren eller står still
+				{
+					if (mTargetX == mPatrolStart)
+						mTargetX = mPatrolStop;
+					else
+						mTargetX = mPatrolStart;
+				}
 			}
-		}
-	}
 
-	else
-	{
-		if (mMove)
-		{
-			if (mDirection == LEFT)
+			if (mWait)
 			{
-				mRect.left -= mMaxSpeed;
+				mMove = false;
+				mWaitTimer++;
+				if (mWaitTimer >= mWaitTime)
+				{
+					mWait = false;
+					mWaitTimer = 0;
+				}
+			
 			}
 			else
 			{
-				mRect.left += mMaxSpeed;
+				if(mTargetX < mRect.left)
+				{
+					mRect.left -= mMaxSpeed;
+					mDirection = LEFT;
+					mMove = true;
+				}
+				else if(mTargetX > mRect.left)
+				{
+					mRect.left += mMaxSpeed;
+					mDirection = RIGHT;
+					mMove = true;
+				}
+				else
+					mMove = false;
 			}
-		}
-	}
 
-	if(mMove)
-		{
-			if(mAnimationTimer >= mAnimationPicX - 0.1f)
+			if (mTeleport)
 			{
-				mAnimationTimer = 0.0f;
+				mTeleportTimer++;
+				if (mTeleportTimer >= mTeleportWaitTime)
+				{
+					mRect = mOriginalPosition;
+					mTeleportTimer = 0;
+					mTeleport = false;
+					mWait = true;
+					mTargetX = mPatrolStop;
+					mWaitTimer = 0;
+				}
 			}
-			else
-				mAnimationTimer += 0.1f;
 		}
+
 		else
-			mAnimationTimer = 0.0f;
+		{
+			if (mMove)
+			{
+				if (mDirection == LEFT)
+				{
+					mRect.left -= mMaxSpeed;
+				}
+				else
+				{
+					mRect.left += mMaxSpeed;
+				}
+			}
+		}
+
+		if(mMove)
+			{
+				if(mAnimationTimer >= mAnimationPicX - 0.1f)
+				{
+					mAnimationTimer = 0.0f;
+				}
+				else
+					mAnimationTimer += 0.1f;
+			}
+			else
+				mAnimationTimer = 0.0f;
+
 
 	/*std::string tempStr;
 	tempStr = std::to_string(mRect.left);
@@ -362,9 +387,9 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 	mWalkSound.setMinDistance(1000);
 	mWalkSound.setAttenuation(10);
 	if(player->getRect().top+100 >= mRect.top && player->getRect().top-100 <= mRect.top)
-		mWalkSound.setPosition(player->getRect().left-mRect.left,0,0);
+		mWalkSound.setPosition(mRect.left-player->getRect().left,0,0);
 	else
-		mWalkSound.setPosition(player->getRect().left-mRect.left,999999,0);
+		mWalkSound.setPosition(mRect.left-player->getRect().left,999999,0);
 	if(mMove)
 	{
 		if(mWalkSound.getStatus() != sf::Sound::Playing)
@@ -372,37 +397,40 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 
 			mWalkSound.play();
 		}
-	}else
-		mWalkSound.stop();
+		}else
+			mWalkSound.stop();
 
-	if(mIsPlayerVisible)
-	{
-		if(mJagaSound.getStatus() != sf::Sound::Playing)
+		if(mIsPlayerVisible)
 		{
-			mJagaSound.play();
-		}
-	}else
-		mJagaSound.stop();
 
+			if(mJagaSound.getStatus() != sf::Sound::Playing)
+			{
+				mJagaSound.play();
+			}
+		}else
+			mJagaSound.stop();
+	}
 
 }
 
 void Enemy::render(sf::RenderTexture* window)
 {
-	sf::RectangleShape r;
-	r.setTexture(mTexture);
-	if(mDirection == RIGHT)
-		r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer,0,mRect.width,mRect.height));
-	else if(mDirection == LEFT)
-		r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
-	r.setPosition(mRect.left,mRect.top);
-	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+	if (mActive)
+	{
+		sf::RectangleShape r;
+		r.setTexture(mTexture);
+		if(mDirection == RIGHT)
+			r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer,0,mRect.width,mRect.height));
+		else if(mDirection == LEFT)
+			r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
+		r.setPosition(mRect.left,mRect.top);
+		r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	
-	/*mWindow->clear(sf::Color(255, 0, 255));
-	mWindow->draw(mText);
-	mWindow->display();*/
-	window->draw(r);
-
+		/*mWindow->clear(sf::Color(255, 0, 255));
+		mWindow->draw(mText);
+		mWindow->display();*/
+		window->draw(r);
+	}
 	/*sf::RectangleShape r;
 	r.setTexture(mTexture);
 	r.setTextureRect(sf::IntRect(mRect.width,0,-mRect.width,mRect.height));
