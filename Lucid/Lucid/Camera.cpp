@@ -21,6 +21,8 @@ Camera::Camera(sf::Vector2f size,Entity *CameraFollowThisEntity):
 	float tempAcceleration = dataVector[22];
 	acc = tempAcceleration / 1000;
 	mView.setSize(sf::Vector2f(tempX, tempY));
+	mOriginalSize = sf::Vector2f(tempX, tempY);
+	mZoom = false;
 
 	mView.setCenter(sf::Vector2f(mFollowThisEntity->getRect().left+(mView.getSize().x/2)/6*2,mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2));
 	//mView.setSize(size);
@@ -35,6 +37,23 @@ Camera::~Camera(void)
 void Camera::tick()
 {
 	
+	if (mZoom)
+	{
+		if (mView.getSize().x > mOriginalSize.x * 0.9)
+			mView.zoom(0.99);
+	}
+	else
+	{
+		if (mView.getSize().x < mOriginalSize.x)
+		{
+			mView.zoom(1.01);
+		}
+		else
+		{
+			mView.setSize(mOriginalSize);
+		}
+	}
+
 	if(mFollowThisEntity->getDirection() == Entity::RIGHT)
 	{
 		float distance = ((mFollowThisEntity->getRect().left+mFollowThisEntity->getRect().width/2)-(mView.getCenter().x-mView.getSize().x/6))*acc;
@@ -45,6 +64,8 @@ void Camera::tick()
 		float distance = ((mFollowThisEntity->getRect().left+mFollowThisEntity->getRect().width/2)-(mView.getCenter().x+mView.getSize().x/6))*acc;
 		mView.setCenter(mView.getCenter().x+distance,mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2);
 	}
+
+	
 }
 
 sf::View* Camera::getView()
@@ -55,4 +76,9 @@ sf::View* Camera::getView()
 void Camera::setTarget(Entity *entity)
 {
 	mFollowThisEntity = entity;
+}
+
+void Camera::zoom(bool zoom)
+{
+	mZoom = zoom;
 }

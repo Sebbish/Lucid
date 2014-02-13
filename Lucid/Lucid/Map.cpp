@@ -44,6 +44,12 @@ Map::~Map()
 		delete mTriggerList[mTriggerList.size()-1];
 		mTriggerList.pop_back();
 	}
+
+	while (!mParallaxList.empty())
+	{
+		delete mParallaxList[mParallaxList.size()-1];
+		mParallaxList.pop_back();
+	}
 }
 
 void Map::addHiding(Hiding* hiding)
@@ -70,6 +76,11 @@ void Map::addWall(Wall* wall)
 void Map::addTrigger(Trigger* trigger)
 {
 	mTriggerList.push_back(trigger);
+}
+
+void Map::addParallax(Parallax* parallax)
+{
+	mParallaxList.push_back(parallax);
 }
 
 void Map::setTexture(sf::Texture *texture)
@@ -107,6 +118,11 @@ std::vector<Trigger*> Map::getTriggerList()const
 	return mTriggerList;
 }
 
+std::vector<Object*> Map::getParallaxList()const
+{
+	return mParallaxList;
+}
+
 std::vector<Object*> Map::getObjectList()const
 {
 	std::vector<Object*> objects;
@@ -142,6 +158,8 @@ void Map::renderObjects(sf::RenderTexture* window)
 	for (auto i:mPortalList)
 		i->render(window);
 	for (auto i:mNpcList)
+		i->render(window);
+	for (auto i:mParallaxList)
 		i->render(window);
 }
 

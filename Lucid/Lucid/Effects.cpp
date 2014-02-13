@@ -95,12 +95,15 @@ void Effects::tick(sf::Clock clock)
 
 void Effects::setNextShader(int number)
 {
-	if (number == 3)
-	{
-		mEdgeValue = 1;
+	if (mPreviousShader != mCurrentShader && number != mNextShader)
+		{
+		if (number == 3)
+		{
+			mEdgeValue = 1;
+		}
+		mNextShader = number;
+		mPreviousShader = mCurrentShader;
 	}
-	mNextShader = number;
-	mPreviousShader = mCurrentShader;
 }
 
 sf::Shader& Effects::getShader()

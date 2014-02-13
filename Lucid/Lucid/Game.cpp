@@ -96,6 +96,13 @@ void Game::input(Entity* entity)
 			{
 				mVisualizeValues = !mVisualizeValues;
 			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+			{
+				mEntities[0]->setMaxSpeed(24);
+			}
+			else
+				mEntities[0]->setMaxSpeed(6);
 		}
 		//kollar om Q trycktes ned och mindcontrollar då
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
@@ -156,6 +163,9 @@ void Game::render()
 			i->render(&mRenderTexture, mVisualizeValues);
 	}
 	mMap -> renderObjects(&mRenderTexture);
+
+	//Render event här
+
 	for(auto i:mEntities){
 		if (i -> getLayer() == Entity::Front)
 			i->render(&mRenderTexture, mVisualizeValues);
@@ -189,10 +199,25 @@ void Game::tick()
 	mEffects->tick(clock);
 	mMap->tick();
 	//collision();
+	/*bool canSee = false;*/
 	for(auto i:mEntities)
 	{
 		i->tick(mEntities[0], mEntities);
+		/*if (i->getCanSeePlayer() || i->getHunting())
+		{
+			canSee = true;
+		}*/
 	}
+	/*if (canSee)
+	{
+		mEffects->setNextShader(3);
+		camera->zoom(true);
+	}
+	else
+	{
+		mEffects->setNextShader(1);
+		camera->zoom(false);
+	}*/
 	collision();
 
 	int newMap = mEvent->tick(mMap, mEntities);
@@ -223,7 +248,8 @@ void Game::collision()
 		{
 			if (overlapsEntity(i,j) && i != j)
 			{
-				if (i == enteties[0] && (!i->getHiding() || j->getHunting()) && j->getActive())
+				//if (i == enteties[0] && (!i->getHiding() || j->getHunting()) && j->getActive())
+				if (i == enteties[0] && !i->getHiding() && j->getActive() && i->getActive())
 				{
 					// Man dör
 					mEntities[0]->setActive(false);
@@ -396,6 +422,13 @@ void Game::loadMap(std::string filename, int mapID)
 			typeID = dataVector[i + 6]; //TriggedByID
 			mMap->addTrigger(new Trigger(sf::FloatRect(x, y, width, height), typeID, active));
 			i += 6;
+			break;
+		case 7://Parallax
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			typeID = dataVector[i + 3];
+			mMap->addHiding(new Hiding(sf::FloatRect(x, y, 0, 0), mFH->getTexture(typeID), typeID));
+			i += 3;
 			break;
 		}
 	}

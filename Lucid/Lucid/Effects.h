@@ -5,7 +5,7 @@
 class Effects
 {
 public:
-	Effects(void);
+	Effects();
 	~Effects(void);
 	void tick(sf::Clock clock);
 	void setNextShader(int number);

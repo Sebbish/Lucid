@@ -16,9 +16,15 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	stream.close();
 	stream.clear();
 	if (mTypeID == 21)
+	{
 		mMaxSpeed = dataVector[2];
+		mHuntingSpeed = 8;
+	}
 	else
+	{
 		mMaxSpeed = dataVector[4];
+		mHuntingSpeed = 4;
+	}
 	mWaitTime = dataVector[6];
 	mViewFrontRange = dataVector[8];
 	mViewBackRange = dataVector[10];
@@ -239,6 +245,11 @@ void Enemy::checkSight(Entity *entity)
 				mWait = false;
 				mWaitTimer = 0;
 				mTeleportTimer = 0; //Väntar med teleport om spelaren syns
+
+				if (mPlayerX > mRect.left && mPlayerX < mRect.left + mAggroRange)
+					{
+						mHunting = true;
+					}
 			}
 			else if (mPlayerX < mRect.left + mViewBackRange && mPlayerX > mRect.left - mViewFrontRange && mDirection == LEFT)
 			{
@@ -255,6 +266,11 @@ void Enemy::checkSight(Entity *entity)
 				mWait = false;
 				mWaitTimer = 0;
 				mTeleportTimer = 0;
+
+				if (mPlayerX < mRect.left && mPlayerX > mRect.left - mAggroRange)
+					{
+						mHunting = true;
+					}
 			}
 			else
 			{
@@ -262,7 +278,7 @@ void Enemy::checkSight(Entity *entity)
 			}
 		}
 	}
-	else
+	/*else
 	{
 		if (mIsPlayerVisible == true)
 		{
@@ -276,7 +292,7 @@ void Enemy::checkSight(Entity *entity)
 			}
 		}
 		mIsPlayerVisible = false;
-	}
+	}*/
 }
 
 void Enemy::setActive(bool active)
@@ -317,6 +333,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 
 			if (mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5)
 			{
+				mHunting = false;
 				mWait = true;
 				if (!mTeleport)//Patrullerar inte om den ska teleportera, då jagar den spelaren eller står still
 				{
@@ -342,13 +359,19 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 			{
 				if(mTargetX < mRect.left)
 				{
-					mRect.left -= mMaxSpeed;
+					if (mHunting)
+						mRect.left -= mHuntingSpeed;
+					else
+						mRect.left -= mMaxSpeed;
 					mDirection = LEFT;
 					mMove = true;
 				}
 				else if(mTargetX > mRect.left)
 				{
-					mRect.left += mMaxSpeed;
+					if (mHunting)
+						mRect.left += mHuntingSpeed;
+					else
+						mRect.left += mMaxSpeed;
 					mDirection = RIGHT;
 					mMove = true;
 				}
@@ -377,11 +400,12 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 			{
 				if (mDirection == LEFT)
 				{
-					mRect.left -= mMaxSpeed;
+					
+						mRect.left -= mHuntingSpeed;
 				}
 				else
 				{
-					mRect.left += mMaxSpeed;
+					mRect.left += mHuntingSpeed;
 				}
 			}
 		}

@@ -44,6 +44,7 @@ private:
 	sf::FloatRect mRect;
 	sf::FloatRect mLastRect;
 	float mMaxSpeed;
+	float mHuntingSpeed;
 	sf::Texture* mTexture;
 	bool mMove;
 	direction mDirection;
