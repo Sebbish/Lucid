@@ -49,6 +49,7 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mAnimationPicX = 4;
 	mLayer = Front;
 	mAnimationTimer = 0;
+	mAnimationSpeed = 0.2;
 	mWaitTimer = 0;
 	mWait = false;
 	//mWaitTime = 60;
@@ -66,6 +67,8 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 		mActive = false;
 	else
 		mActive = true;
+	mCurrentForm = SLIME;
+	mNextForm = SLIME;
 
 	/*mFont.loadFromFile("../Debug/ariblk.ttf");
 	mText.setFont(mFont);
@@ -242,6 +245,7 @@ void Enemy::checkSight(Entity *entity)
 					mTargetX -= mAggroRange;
 				}
 				mIsPlayerVisible = true;
+				mSearching = true;
 				mWait = false;
 				mWaitTimer = 0;
 				mTeleportTimer = 0; //Väntar med teleport om spelaren syns
@@ -263,6 +267,7 @@ void Enemy::checkSight(Entity *entity)
 					mTargetX -= mAggroRange;
 				}
 				mIsPlayerVisible = true;
+				mSearching = true;
 				mWait = false;
 				mWaitTimer = 0;
 				mTeleportTimer = 0;
@@ -277,6 +282,10 @@ void Enemy::checkSight(Entity *entity)
 				mIsPlayerVisible = false;
 			}
 		}
+	}
+	else
+	{
+		mIsPlayerVisible = false;
 	}
 	/*else
 	{
@@ -334,6 +343,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 			if (mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5)
 			{
 				mHunting = false;
+				mSearching = false;
 				mWait = true;
 				if (!mTeleport)//Patrullerar inte om den ska teleportera, då jagar den spelaren eller står still
 				{
@@ -410,17 +420,19 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 			}
 		}
 
-		if(mMove)
+		setAnimation();
+
+		/*if(mMove)
+		{
+			if(mAnimationTimer >= mAnimationPicX - 0.1f)
 			{
-				if(mAnimationTimer >= mAnimationPicX - 0.1f)
-				{
-					mAnimationTimer = 0.0f;
-				}
-				else
-					mAnimationTimer += 0.1f;
+				mAnimationTimer = 0.0f;
 			}
 			else
-				mAnimationTimer = 0.0f;
+				mAnimationTimer += 0.1f;
+		}
+		else
+			mAnimationTimer = 0.0f;*/
 
 
 	/*std::string tempStr;
@@ -459,6 +471,74 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 
 }
 
+void Enemy::setAnimation()
+{
+	if (mCurrentForm == mNextForm)
+	{
+		if (getCanSeePlayer() && mCurrentForm != MONSTER)
+		{
+			mAnimationPicX = 4;
+			mAnimationY = 6;
+			mAnimationTimer = 0.0f;
+			mNextForm = MONSTER;
+		}
+		else if (!mSearching && mCurrentForm != SLIME)
+		{
+			mNextForm = SLIME;
+			mAnimationPicX = 4;
+			mAnimationTimer = mAnimationPicX - mAnimationSpeed;
+			mAnimationY = 6;
+		}
+		else
+		{
+			if (mCurrentForm == SLIME)
+			{
+				if (mMove)
+				{
+					mAnimationY = 5;
+				}
+				else
+				{
+					mAnimationY = 4;
+				}
+			}
+			if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed)
+			{
+				mAnimationTimer = 0.0f;
+			}
+			else
+				mAnimationTimer += mAnimationSpeed;
+		}
+	}
+	else
+	{
+		if (mCurrentForm == MONSTER && mNextForm == SLIME)
+		{
+			if(mAnimationTimer <= mAnimationSpeed)
+			{
+				mAnimationTimer = 0.0f;
+				mCurrentForm = SLIME;
+				mAnimationPicX = 4;
+			}
+			else
+				mAnimationTimer -= mAnimationSpeed;
+		}
+		else
+		{
+			
+			if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed)
+			{
+				mAnimationTimer = 0.0f;
+				mCurrentForm = MONSTER;
+				mAnimationY = 3;
+				mAnimationPicX = 6;
+			}
+			else
+				mAnimationTimer += mAnimationSpeed;
+		}
+	}
+}
+
 void Enemy::render(sf::RenderTexture* window, bool visualizeValues)
 {
 	if (mActive)
@@ -466,9 +546,9 @@ void Enemy::render(sf::RenderTexture* window, bool visualizeValues)
 		sf::RectangleShape r;
 		r.setTexture(mTexture);
 		if(mDirection == RIGHT)
-			r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer,0,mRect.width,mRect.height));
+			r.setTextureRect(sf::IntRect(mRect.width * (int)mAnimationTimer, mRect.height * mAnimationY, mRect.width, mRect.height));
 		else if(mDirection == LEFT)
-			r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
+			r.setTextureRect(sf::IntRect(mRect.width * ((int)mAnimationTimer+1), mRect.height * mAnimationY, -mRect.width, mRect.height));
 		r.setPosition(mRect.left,mRect.top);
 		r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	

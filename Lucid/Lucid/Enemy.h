@@ -52,6 +52,7 @@ private:
 	bool mTempCollideWithPlayer;
 	float mAnimationTimer;
 	float mAnimationPicX;
+	float mAnimationSpeed;
 	bool mControlled;
 	int mPatrolStart;
 	int mPatrolStop;
@@ -59,6 +60,7 @@ private:
 	bool mWait;
 	bool mHunting;
 	bool mIsPlayerVisible;
+	bool mSearching;
 	int mWaitTimer;
 	int mWaitTime;
 	int mTargetX;
@@ -71,13 +73,20 @@ private:
 	sf::Sound mJagaSound;
 	bool mActive;
 	void checkSight(Entity* entity);
+	void setAnimation();
 
 	sf::FloatRect mOriginalPosition;
 	bool mTeleport;
 	int mTeleportWaitTime;
 	int mTeleportTimer;
-
-
+	enum form
+	{
+		SLIME,
+		MONSTER
+	};
+	form mCurrentForm;
+	form mNextForm;
+	int mAnimationY;
 	//sf::RenderWindow* mWindow;
 };
 #endif
