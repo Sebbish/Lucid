@@ -3,14 +3,20 @@
 Game::Game()
 {
 	angle = 0;
+	mAmbientRed = 0;
+	mAmbientGreen = 4;
+	mAmbientBlue = 6;
+	testLight = sf::Color(255, 255, 255, 178);
 	mFH = new FilHanterare();
+	mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	/*std::vector<sf::VideoMode, std::allocator<sf::VideoMode>> test;
 	test = sf::VideoMode::getFullscreenModes();
 	mWindow = new sf::RenderWindow(test[17], "Lucid", sf::Style::Fullscreen);*/
-	mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
+	//mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
-	mWindow->setFramerateLimit(60);
-	mWindow->setVerticalSyncEnabled(true);
+	mWindow.setFramerateLimit(60);
+	mWindow.setVerticalSyncEnabled(true);
+	lm = new db::LightManager(sf::Vector2i(10000, 10000));
 	loadMap("../Debug/map1.txt", 1);
 	mEffects = new Effects();
 	mEvent = new Event();
@@ -30,22 +36,23 @@ Game::Game()
 
 Game::~Game()
 {
-	delete mWindow;
 }
 
 void Game::run()
 {
-
-	while (mWindow->isOpen())
+	sf::Color ambient(4, 4, 6, 255);
+	lm->setAmbient(ambient);
+	while (mWindow.isOpen())
     {
 		input(mControlledEntity);
 		tick();
 		
-		mWindow->clear(sf::Color(255, 0, 255));
-		mWindow->setView(*camera->getView());
+		mWindow.clear(sf::Color(255, 0, 255));
+		mWindow.setView(*camera->getView());
 		render();
 		//mousePositionFunc();
-        mWindow->display();
+		lm->render(mWindow);
+        mWindow.display();
     }
 }
 
@@ -56,10 +63,10 @@ void Game::input(Entity* entity)
 	case false:
 		{
 		sf::Event event;
-		while (mWindow->pollEvent(event))
+		while (mWindow.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				mWindow->close();
+				mWindow.close();
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
 				entity->setDirection(Entity::RIGHT);
@@ -176,7 +183,7 @@ void Game::render()
 	sf::Sprite ss;
 	ss.setTexture(s);
 	//mWindow->draw(ss,&mShader);
-	mWindow->draw(ss,&mEffects->getShader());
+	mWindow.draw(ss,&mEffects->getShader());
 }
 
 void Game::tick()
@@ -231,6 +238,19 @@ void Game::tick()
 
 	camera->tick();
 	mDialog->tick(camera->getView());
+
+	if (mEntities[0]->getDirection() == Entity::LEFT)
+	{
+		mLights[0]->flipSprite(0);
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left, mEntities[0]->getRect().top));
+	}
+	else
+	{
+		mLights[0]->flipSprite(1);
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width), mEntities[0]->getRect().top));
+	}
+
+
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
 	mIsQPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
 }
@@ -252,6 +272,7 @@ void Game::collision()
 				if (i == enteties[0] && !i->getHiding() && j->getActive() && i->getActive())
 				{
 					// Man dör
+					j->getFunc(i);
 					mEntities[0]->setActive(false);
 					if(mDeathSound.getStatus() != sf::Sound::Playing)
 						mDeathSound.play();
@@ -319,6 +340,22 @@ void Game::collision()
 void Game::loadMap(std::string filename, int mapID)
 {
 	delete mMap;
+	
+	for (LightVector::size_type i = 0; i < mLights.size(); i++)
+	{
+		lm->remove(&*mLights[i]);
+	}
+	while (!mLights.empty())
+	{
+		delete mLights[mLights.size()-1];
+		mLights.pop_back();
+	}
+	while (!mLightSources.empty())
+	{
+		delete mLightSources[mLightSources.size()-1];
+		mLightSources.pop_back();
+	}
+
 	while (!mEntities.empty())
 	{
 		delete mEntities[mEntities.size()-1];
@@ -327,13 +364,13 @@ void Game::loadMap(std::string filename, int mapID)
 	delete camera;
 	mMap = new Map(mapID);
 	mMap->setTexture(mFH->getTexture(mapID));
-	mRenderTexture.create(8000, 8000);
+	mRenderTexture.create(10000, 10000);
 	//mRenderTexture.create(mFH->getTexture(mapID)->getSize().x,mFH->getTexture(mapID)->getSize().y);
 	std::ifstream stream;
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, color;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -354,7 +391,7 @@ void Game::loadMap(std::string filename, int mapID)
 			speed = dataVector[i + 5];
 			mEntities.push_back(new Player(x, y, width, height, speed, mFH->getTexture(0), 4,mFH->getSound(1)));
 			mControlledEntity = mEntities[0];
-			camera = new Camera(sf::Vector2f(mWindow->getSize()),mControlledEntity);
+			camera = new Camera(sf::Vector2f(mWindow.getSize()),mControlledEntity);
 			i += 5;
 			break;
 		case 1://Fiende
@@ -430,9 +467,18 @@ void Game::loadMap(std::string filename, int mapID)
 			mMap->addHiding(new Hiding(sf::FloatRect(x, y, 0, 0), mFH->getTexture(typeID), typeID));
 			i += 3;
 			break;
+		case 8:
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			color = dataVector[i + 3];
+			typeID = dataVector[i + 4];
+			mLightSources.push_back(new Flashlight(x, y, testLight, mFH->getTexture(typeID)));
+			i += 4;
+			break;
 		}
 	}
 	mMap->setupPortals();
+	addLights();
 }
 
 void Game::setControlledEntity(Entity* entity)
@@ -481,7 +527,19 @@ void Game::mousePositionFunc()
 	int mouseX = 0;
 	int mouseY = 0;
 	sf::RectangleShape mouseRect;
-	mouseRect.setPosition(mMousePosition.x-mWindow->getSize().x/2,mMousePosition.y - mouseY);
+	mouseRect.setPosition(mMousePosition.x-mWindow.getSize().x/2,mMousePosition.y - mouseY);
 	mouseRect.setSize(sf::Vector2f(15,15));
-	mWindow -> draw(mouseRect);
+	mWindow.draw(mouseRect);
+}
+
+void Game::addLights()
+{
+	for (auto i:mLightSources)
+	{
+		mLights.push_back(i->render());
+	}
+	for (LightVector::size_type i = 0; i < mLights.size(); i++)
+	{
+		lm->add(&*mLights[i]);
+	}
 }

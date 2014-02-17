@@ -9,12 +9,14 @@ namespace db
 		mSprite.setPosition( position );
 		mSprite.setColor( color );
 		mSprite.setScale(3,3);
+		
 		mColor = color;
 		mAddBlend = addBlend;
 	}
 
 	void Light::render( sf::RenderTexture& target ) const
 	{
+
 		if(mAddBlend)
 		{
 			target.draw( mSprite, sf::BlendAdd );
@@ -43,5 +45,17 @@ namespace db
 	void Light::setColor( sf::Color& color )
 	{
 		mSprite.setColor( color );
+	}
+
+	void Light::flipSprite(int direction)
+	{
+		if (direction == 0)
+		{
+			mSprite.setScale(-3,3);
+		}
+		else
+		{
+			mSprite.setScale(3,3);
+		}
 	}
 }

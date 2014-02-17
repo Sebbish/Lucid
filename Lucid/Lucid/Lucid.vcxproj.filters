@@ -70,7 +70,15 @@
     <ClCompile Include="Source.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Parallax.cpp" />
+    <ClCompile Include="Flashlight.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="LightSource.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Parallax.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -133,13 +141,18 @@
     <ClInclude Include="SaveLoad.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="Parallax.h" />
+    <ClInclude Include="Flashlight.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="LightSource.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Parallax.h">
+      <Filter>.h</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png">
-      <Filter>annat</Filter>
-    </Image>
-    <Image Include="glow.png">
       <Filter>annat</Filter>
     </Image>
   </ItemGroup>

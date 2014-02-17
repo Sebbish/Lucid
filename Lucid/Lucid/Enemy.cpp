@@ -49,7 +49,7 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mAnimationPicX = 4;
 	mLayer = Front;
 	mAnimationTimer = 0;
-	mAnimationSpeed = 0.2;
+	mAnimationSpeed = 0.15;
 	mWaitTimer = 0;
 	mWait = false;
 	//mWaitTime = 60;
@@ -102,6 +102,7 @@ void Enemy::getFunc(Entity* entity)
 {
 	if (mActive)
 	{
+		mNextForm = EAT;
 		if (entity->getTypeID() == 22 && mTypeID == 21)
 		{
 			mRect.left = -5000;
@@ -342,8 +343,17 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 
 			if (mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5)
 			{
+				if (mSearching)
+				{
+					mSearching = false;
+				}
+				else
+				{
+					mWalkTransition = true;
+					mAnimationTimer = 0.0f;
+				}
+
 				mHunting = false;
-				mSearching = false;
 				mWait = true;
 				if (!mTeleport)//Patrullerar inte om den ska teleportera, då jagar den spelaren eller står still
 				{
@@ -360,12 +370,14 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				mWaitTimer++;
 				if (mWaitTimer >= mWaitTime)
 				{
+					mWalkTransition = true;
+					mAnimationTimer = 0.0f;
 					mWait = false;
 					mWaitTimer = 0;
 				}
 			
 			}
-			else
+			else if (mNextForm != EAT)
 			{
 				if(mTargetX < mRect.left)
 				{
@@ -475,14 +487,14 @@ void Enemy::setAnimation()
 {
 	if (mCurrentForm == mNextForm)
 	{
-		if (getCanSeePlayer() && mCurrentForm != MONSTER)
+		if (getCanSeePlayer() && mCurrentForm == SLIME)
 		{
 			mAnimationPicX = 4;
 			mAnimationY = 6;
 			mAnimationTimer = 0.0f;
 			mNextForm = MONSTER;
 		}
-		else if (!mSearching && mCurrentForm != SLIME)
+		else if (!mSearching && mCurrentForm == MONSTER)
 		{
 			mNextForm = SLIME;
 			mAnimationPicX = 4;
@@ -493,21 +505,50 @@ void Enemy::setAnimation()
 		{
 			if (mCurrentForm == SLIME)
 			{
-				if (mMove)
+				if (mWalkTransition)
 				{
-					mAnimationY = 5;
+					mAnimationPicX = 1;
+					mAnimationY = 7;
+					if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed)
+					{
+						mAnimationTimer = 0.0f;
+						mWalkTransition = false;
+					}
+					else
+						mAnimationTimer += mAnimationSpeed;
 				}
 				else
 				{
-					mAnimationY = 4;
+					mAnimationPicX = 4;
+					mAnimationY = 6;
+					if (mMove)
+					{
+						mAnimationY = 5;
+					}
+					else
+					{
+						mAnimationY = 4;
+					}
+
+					if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed)
+					{
+						mAnimationTimer = 0.0f;
+					}
+					else
+						mAnimationTimer += mAnimationSpeed;
 				}
 			}
-			if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed)
-			{
-				mAnimationTimer = 0.0f;
-			}
 			else
-				mAnimationTimer += mAnimationSpeed;
+			{
+				if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed)
+				{
+					mAnimationTimer = 0.0f;
+					if (mCurrentForm == EAT)
+						mNextForm = MONSTER;
+				}
+				else
+					mAnimationTimer += mAnimationSpeed;
+			}
 		}
 	}
 	else
@@ -523,18 +564,38 @@ void Enemy::setAnimation()
 			else
 				mAnimationTimer -= mAnimationSpeed;
 		}
-		else
+		else if (mCurrentForm == SLIME)
 		{
 			
 			if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed)
 			{
 				mAnimationTimer = 0.0f;
-				mCurrentForm = MONSTER;
-				mAnimationY = 3;
+				mCurrentForm = mNextForm;
+				if (mNextForm == MONSTER)
+				{
+					mAnimationY = 3;
+				}
+				else
+				{
+					mAnimationY = 2;
+				}
 				mAnimationPicX = 6;
+
 			}
 			else
 				mAnimationTimer += mAnimationSpeed;
+		}
+		else if (mNextForm == EAT)
+		{
+			mAnimationY = 2;
+			mAnimationTimer = 0.0f;
+			mCurrentForm = mNextForm;
+		}
+		else if (mNextForm == MONSTER)
+		{
+			mAnimationY = 3;
+			mAnimationTimer = 0.0f;
+			mCurrentForm = mNextForm;
 		}
 	}
 }

@@ -12,9 +12,14 @@
 #include "Dialog.h"
 #include "Event.h"
 #include "SaveLoad.h"
+#include "LightManager.h"
+#include "Flashlight.h"
+#include "Light.h"
 
 typedef std::vector<Entity*> EntiyVector;
 typedef std::vector<Object*> ObjectVector;
+typedef std::vector<db::Light*> LightVector;
+typedef std::vector<LightSource*> LightSourceVector;
 
 class Game
 {
@@ -30,13 +35,17 @@ private:
 	void collision();
 	void input(Entity* entity);
 	void loadMap(std::string filename, int mapID);
+	void addLights();
 	static bool overlapsEntity(Entity *playerEntity, Entity *otherEntity);
 	static bool overlapsObjects(Entity *playerEntity, Object *objectEntity);
 	static bool overlapsMouse(Entity *entity);
 	void mousePositionFunc();
-	sf::RenderWindow *mWindow;
+	sf::RenderWindow mWindow;
 	sf::Vector2i mMousePosition;
+	db::LightManager *lm;
 	EntiyVector mEntities;
+	LightSourceVector mLightSources;
+	LightVector mLights;
 	Camera *camera;
 	Map* mMap;
 	FilHanterare* mFH;
@@ -52,6 +61,10 @@ private:
 	Event* mEvent;
 	bool mVisualizeValues;
 	SaveLoad* mSL;
+	int mAmbientRed;
+	int mAmbientGreen;
+	int mAmbientBlue;
+	sf::Color testLight;
 	bool mMenu;
 };
 

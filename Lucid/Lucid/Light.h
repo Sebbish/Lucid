@@ -42,6 +42,8 @@ namespace db
 		// Retrives the color of the light.
 		// @param color: Color of the light, alpha is intensity.
 		void setColor( sf::Color& color );
+
+		void flipSprite(int direction);
 	private:
 		sf::Sprite mSprite;
 		sf::Color mColor;

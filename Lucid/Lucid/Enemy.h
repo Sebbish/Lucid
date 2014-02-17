@@ -61,6 +61,7 @@ private:
 	bool mHunting;
 	bool mIsPlayerVisible;
 	bool mSearching;
+	bool mWalkTransition;
 	int mWaitTimer;
 	int mWaitTime;
 	int mTargetX;
@@ -82,7 +83,8 @@ private:
 	enum form
 	{
 		SLIME,
-		MONSTER
+		MONSTER,
+		EAT
 	};
 	form mCurrentForm;
 	form mNextForm;
