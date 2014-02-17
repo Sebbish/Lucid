@@ -49,7 +49,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 		if (map->getTriggerList()[3]->getTrigged())
 		{
 			map->getTriggerList()[3]->setActive(false);
-			entityVector[1]->setPosition(sf::FloatRect(5800, 83, 1, 1));
+			entityVector[1]->setPosition(sf::FloatRect(5800, 84, 1, 1));
 			entityVector[1]->setTargetX(8000);
 			bool1 = true;
 		}

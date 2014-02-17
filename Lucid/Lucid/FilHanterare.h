@@ -13,7 +13,7 @@ public:
 	sf::Texture* getTexture(int ID)const;
 	sf::SoundBuffer* getSound(int ID);
 private:
-	sf::Texture *mTexture[26];
+	sf::Texture *mTexture[27];
 	sf::SoundBuffer *mSoundBuffer[4];
 };
 #endif
