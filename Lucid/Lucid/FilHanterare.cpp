@@ -1,6 +1,5 @@
 #include "FilHanterare.h"
 
-
 FilHanterare::FilHanterare(void)
 {
 	

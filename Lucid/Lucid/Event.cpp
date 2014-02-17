@@ -1,6 +1,5 @@
 #include "Event.h"
 
-
 Event::Event(void)
 {
 	bool1 = false;
@@ -55,7 +54,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 			bool1 = true;
 		}
 		
-		if (bool1 == true && entityVector[0]->getActive() == false)
+		if (bool1 == true && entityVector[0]->getActive() == false && entityVector[1]->isEating() == false)
 		{
 			bool1 = false;
 			entityVector[1]->setActive(false);

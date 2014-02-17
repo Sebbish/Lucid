@@ -1,6 +1,5 @@
 #include "Player.h"
 
-
 Player::Player(float x, float y, float width, float height,float speed,sf::Texture* texture,float anitmationPicX,sf::SoundBuffer* walkSound):
 	mMaxSpeed(speed),mDirection(RIGHT),mTexture(texture),mAnimationPicX(anitmationPicX),mKnockWidth(0),mAcc(0)
 {
@@ -177,6 +176,11 @@ bool Player::getActive()
 
 void Player::setTargetX(int x)
 {
+}
+
+bool Player::isEating()
+{
+	return false;
 }
 
 void Player::tick(Entity *player, std::vector<Entity*> entityVector)

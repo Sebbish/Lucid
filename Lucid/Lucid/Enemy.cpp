@@ -1,6 +1,5 @@
 #include "Enemy.h"
 
-
 Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID, int active, sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound):
 	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false),mControlled(false), mPatrolStart(patrolStart), mPatrolStop(patrolStop)
 {
@@ -320,6 +319,14 @@ void Enemy::setTargetX(int x)
 	mTargetX = x;
 }
 
+bool Enemy::isEating()
+{
+	if (mCurrentForm == EAT || mNextForm == EAT)
+		return true;
+	else
+		return false;
+}
+
 void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 {
 	if (mActive)
@@ -423,11 +430,11 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				if (mDirection == LEFT)
 				{
 					
-						mRect.left -= mHuntingSpeed;
+						mRect.left -= mMaxSpeed;
 				}
 				else
 				{
-					mRect.left += mHuntingSpeed;
+					mRect.left += mMaxSpeed;
 				}
 			}
 		}

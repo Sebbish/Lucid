@@ -38,6 +38,7 @@ public:
 	virtual void setActive(bool active);
 	virtual bool getActive();
 	virtual void setTargetX(int x);
+	virtual bool isEating();
 	
 private:
 	float mLastSeenX;

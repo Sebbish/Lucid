@@ -1,6 +1,5 @@
 #include "Parallax.h"
 
-
 Parallax::Parallax(sf::FloatRect rect, sf::Texture* texture, int typeID, Camera* camera):
 	mRect(rect), mTexture(texture), mTypeID(typeID), mCamera(camera)
 {

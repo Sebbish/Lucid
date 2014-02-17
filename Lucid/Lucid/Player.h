@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "entity.h"
+
 class Player :
 	public Entity
 {
@@ -35,6 +36,7 @@ public:
 	virtual void setActive(bool active);
 	virtual bool getActive();
 	virtual void setTargetX(int x);
+	virtual bool isEating();
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
 	virtual void render(sf::RenderTexture* window, bool visualizeValues);
 private:

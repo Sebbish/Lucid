@@ -40,7 +40,7 @@ Game::~Game()
 
 void Game::run()
 {
-	sf::Color ambient(4, 4, 6, 255);
+	sf::Color ambient(255, 255, 255, 255);
 	lm->setAmbient(ambient);
 	while (mWindow.isOpen())
     {

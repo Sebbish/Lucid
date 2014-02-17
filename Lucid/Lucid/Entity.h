@@ -49,6 +49,7 @@ public:
 	virtual void setActive(bool active) = 0;
 	virtual bool getActive() = 0;
 	virtual void setTargetX(int x) = 0;
+	virtual bool isEating() = 0;
 };
 #endif
 
