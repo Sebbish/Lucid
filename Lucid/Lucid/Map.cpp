@@ -139,6 +139,8 @@ void Map::tick()
 {
 	for(auto i:mNpcList)
 		i->tick();
+	for (auto i:mParallaxList)
+		i->tick();
 }
 
 void Map::renderMap(sf::RenderTexture* window)

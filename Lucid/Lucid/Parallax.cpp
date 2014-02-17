@@ -6,8 +6,8 @@ Parallax::Parallax(sf::FloatRect rect, sf::Texture* texture, int typeID, Camera*
 	mRect.width = texture->getSize().x;
 	mRect.height = texture->getSize().y;
 	mOriginX = rect.left;
-	/*if (typeID == något)
-		mVariabel = något annat*/
+	if (typeID == 24)
+		mVariabel = 0.25f;
 }
 
 Parallax::~Parallax(void)
@@ -27,7 +27,7 @@ int Parallax::getFunc(Entity* player)
 
 void Parallax::tick()
 {
-	mRect.left = mOriginX + (mCamera->getView()->getCenter().x - (mOriginX + mTexture->getSize().x / 2)) * mVariabel;
+	mRect.left = mOriginX + (mCamera->getView()->getCenter().x - mOriginX) * mVariabel - mTexture->getSize().x / 2;
 }
 
 void Parallax::render(sf::RenderTexture* window)

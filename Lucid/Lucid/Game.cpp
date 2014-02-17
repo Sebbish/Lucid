@@ -464,7 +464,7 @@ void Game::loadMap(std::string filename, int mapID)
 			x = dataVector[i + 1];
 			y = dataVector[i + 2];
 			typeID = dataVector[i + 3];
-			mMap->addHiding(new Hiding(sf::FloatRect(x, y, 0, 0), mFH->getTexture(typeID), typeID));
+			mMap->addParallax(new Parallax(sf::FloatRect(x, y, 0, 0), mFH->getTexture(typeID), typeID, camera));
 			i += 3;
 			break;
 		case 8:
