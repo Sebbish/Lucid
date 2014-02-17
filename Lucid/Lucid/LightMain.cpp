@@ -49,7 +49,7 @@ void maisdfgn()
 		It's possible to mix different lights. However I haven't examined the result closely.
 	*/
 	/* NOTE: Drawing a light multiple times (in add mode) will give it more of a bloom feel. This will need a slight source alteration */
-	db::Light light( lightMask, sf::Vector2f(400,300), greenLight );
+	db::Light light( lightMask, sf::Vector2f(400,300), greenLight, true );
 
 
 	/* Add it to the light manager */

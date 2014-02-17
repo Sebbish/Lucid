@@ -50,7 +50,7 @@ private:
 	Map* mMap;
 	FilHanterare* mFH;
 	float angle;
-	bool mIsEPressed,mIsQPressed;
+	bool mIsEPressed,mIsQPressed,mIsFPressed;
 	sf::Clock clock;
 	sf::Shader mShader;
 	sf::RenderTexture mRenderTexture;
@@ -61,10 +61,11 @@ private:
 	Event* mEvent;
 	bool mVisualizeValues;
 	SaveLoad* mSL;
-	int mAmbientRed;
-	int mAmbientGreen;
-	int mAmbientBlue;
+	float mAmbientRed;
+	float mAmbientGreen;
+	float mAmbientBlue;
 	sf::Color testLight;
+	sf::Color mAmbient;
 	bool mMenu;
 };
 
