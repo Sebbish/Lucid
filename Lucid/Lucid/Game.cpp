@@ -3,10 +3,11 @@
 Game::Game()
 {
 	angle = 0;
-	mAmbientRed = 0;
+	mAmbientRed = 4;
 	mAmbientGreen = 4;
 	mAmbientBlue = 6;
-	testLight = sf::Color(255, 255, 255, 178);
+	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
+	testLight = sf::Color(100, 100, 100, 178);
 	mFH = new FilHanterare();
 	mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mWindow.setMouseCursorVisible(false);
@@ -28,10 +29,10 @@ Game::Game()
 	
 
 	mDeathSound.setBuffer(*mFH->getSound(0));
+
 	//ladda shader
 	//mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/edge.frag",sf::Shader::Fragment);
 	//mShader.loadFromFile("P:/SFML-2.1/examples/shader/resources/wave.vert","P:/SFML-2.1/examples/shader/resources/blur.frag");
-
 	//fixar edge shader*/
 	//mShader.setParameter("texture", sf::Shader::CurrentTexture);
 	
@@ -47,8 +48,7 @@ Game::~Game()
 
 void Game::run()
 {
-	sf::Color ambient(255, 255, 255, 255);
-	lm->setAmbient(ambient);
+	lm->setAmbient(mAmbient);
 	while (mWindow.isOpen())
     {
 		input(mControlledEntity);
@@ -116,7 +116,12 @@ void Game::input(Entity* entity)
 			}
 			else
 				mEntities[0]->setMaxSpeed(6);
+
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mIsFPressed)//OnOff för ficklampa
+			{
+				mLights[0]->setOnOff(!mLights[0]->getOnOff());
+			}
 		//kollar om Q trycktes ned och mindcontrollar då
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
 			{
@@ -246,6 +251,7 @@ bool Game::mMobilActivateApp()
 
 void Game::render()
 {
+	
 	mRenderTexture.clear();
 	mMap->renderMap(&mRenderTexture);
 	for(auto i:mEntities){
@@ -268,8 +274,22 @@ void Game::render()
 	sf::Sprite ss;
 	ss.setTexture(s);
 	//mWindow->draw(ss,&mShader);
-	mWindow.draw(ss,&mEffects->getShader());
+	mWindow.draw(ss,&mEffects->getShader());//Sköter ljust styrka baserat på om ficklampa är på eller ej.
+	if (mLights[0]->getOnOff() == false && mAmbientBlue < 7 && mAmbientGreen < 4 && mAmbientRed < 4)
+	{
+		mAmbientBlue += 0.025;
+		mAmbientGreen += 0.025;
+		mAmbientRed += 0.05;
+	}
+	else if (mLights[0]->getOnOff() == true)
+	{
+		mAmbientBlue = 1;
+		mAmbientGreen = 1;
+		mAmbientRed = 2;
+	}
 
+	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
+	lm->setAmbient(mAmbient);
 	lm->render(mWindow);
 	mDialog->render(&mWindow);
 	mMobil->render(&mWindow);
@@ -343,6 +363,7 @@ void Game::tick()
 	mAmbiance->tick();
 
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
+	mIsFPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::F);
 	mIsQPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
 	mIsMPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::M);
 }
@@ -462,7 +483,7 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, color, layer;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, color, layer, onOff;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -559,13 +580,14 @@ void Game::loadMap(std::string filename, int mapID)
 			mMap->addParallax(new Parallax(sf::FloatRect(x, y, 0, 0), mFH->getTexture(typeID), typeID, camera));
 			i += 3;
 			break;
-		case 8://Light
+		case 8://Ljuskälla
 			x = dataVector[i + 1];
 			y = dataVector[i + 2];
 			color = dataVector[i + 3];
-			typeID = dataVector[i + 4];
-			mLightSources.push_back(new Flashlight(x, y, testLight, mFH->getTexture(typeID)));
-			i += 4;
+			onOff = dataVector[i + 4];
+			typeID = dataVector[i + 5];
+			mLightSources.push_back(new Flashlight(x, y, testLight, onOff, mFH->getTexture(typeID)));
+			i += 5;
 			break;
 		case 9://AnimatedObject
 			x = dataVector[i + 1];

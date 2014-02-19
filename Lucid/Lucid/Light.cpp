@@ -3,7 +3,7 @@
 
 namespace db 
 {
-	Light::Light( sf::Texture& texture, sf::Vector2f& position, sf::Color& color, bool addBlend ) 
+	Light::Light( sf::Texture& texture, sf::Vector2f& position, sf::Color& color, bool onOff, bool addBlend ) 
 	{
 		mSprite.setTexture( texture );
 		mSprite.setPosition( position );
@@ -12,18 +12,21 @@ namespace db
 		
 		mColor = color;
 		mAddBlend = addBlend;
+		mOnOff = onOff;
 	}
 
 	void Light::render( sf::RenderTexture& target ) const
 	{
-
-		if(mAddBlend)
+		if (mOnOff == true)
 		{
-			target.draw( mSprite, sf::BlendAdd );
-		}
-		else
-		{
-			target.draw( mSprite );
+			if(mAddBlend)
+			{
+				target.draw( mSprite, sf::BlendAdd );
+			}
+			else
+			{
+				target.draw( mSprite );
+			}
 		}
 	}
 
@@ -57,5 +60,15 @@ namespace db
 		{
 			mSprite.setScale(3,3);
 		}
+	}
+
+	void Light::setOnOff(bool onOff)
+	{
+		mOnOff = onOff;
+	}
+
+	bool Light::getOnOff()
+	{
+		return mOnOff;
 	}
 }
