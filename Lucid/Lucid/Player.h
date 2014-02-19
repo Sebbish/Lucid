@@ -56,6 +56,8 @@ private:
 	layer mLayer;
 	sf::Sound mWalkSound;
 	bool mActive;
+	int mAnimationY;
+	float mAnimationSpeed;
 };
 #endif
 

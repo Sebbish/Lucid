@@ -15,13 +15,14 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	stream.close();
 	stream.clear();
 	mMaxSpeed = dataVector[15];
-
+	int mAnimationY = 0;
 
 	mRect.left = x;
 	mRect.top = y;
 	mRect.width = width;
 	mRect.height = height;
 	mAnimationTimer = 0.0f;
+	mAnimationSpeed = 0.15f;
 	mHiding = false;
 	mLayer = Front;
 	mWalkSound.setBuffer(*walkSound);
@@ -188,25 +189,31 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 	mLastRect = mRect;
 	if(mMove && mKnockWidth == 0 && !mHiding)
 	{
+		mAnimationY = 0;
+		mAnimationPicX = 8;
 		if(mDirection == Entity::RIGHT)
 			mRect.left += mMaxSpeed;
 		if(mDirection == Entity::LEFT)
 			mRect.left -= mMaxSpeed;
-		if(mAnimationTimer >= mAnimationPicX-0.1f)
+		if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
 			mAnimationTimer = 0.0f;
 		else
-			mAnimationTimer += 0.1f;
+			mAnimationTimer += mAnimationSpeed;
 
 		if(mWalkSound.getStatus() != sf::Sound::Playing)
 		{
 
 			mWalkSound.play();
 		}
-
 	}
 	else
 	{
-		mAnimationTimer = 0.0f;
+		mAnimationY = 1;
+		mAnimationPicX = 4;
+		if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
+			mAnimationTimer = 0.0f;
+		else
+			mAnimationTimer += mAnimationSpeed;
 		mWalkSound.stop();
 	}
 
@@ -227,9 +234,9 @@ void Player::render(sf::RenderTexture* window, bool visualizeValues)
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
 	if(mDirection == RIGHT)
-		r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer,0,mRect.width,mRect.height));
+		r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
 	else if(mDirection == LEFT)
-		r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),0,-mRect.width,mRect.height));
+		r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),mAnimationY * mRect.height,-mRect.width,mRect.height));
 	r.setPosition(mRect.left,mRect.top);
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);

@@ -50,6 +50,12 @@ Map::~Map()
 		delete mParallaxList[mParallaxList.size()-1];
 		mParallaxList.pop_back();
 	}
+
+	while (!mAnimatedObjectList.empty())
+	{
+		delete mAnimatedObjectList[mAnimatedObjectList.size()-1];
+		mAnimatedObjectList.pop_back();
+	}
 }
 
 void Map::addHiding(Hiding* hiding)
@@ -81,6 +87,11 @@ void Map::addTrigger(Trigger* trigger)
 void Map::addParallax(Parallax* parallax)
 {
 	mParallaxList.push_back(parallax);
+}
+
+void Map::addAnimatedObject(AnimatedObject* animatedObject)
+{
+	mAnimatedObjectList.push_back(animatedObject);
 }
 
 void Map::setTexture(sf::Texture *texture)
@@ -123,6 +134,11 @@ std::vector<Object*> Map::getParallaxList()const
 	return mParallaxList;
 }
 
+std::vector<AnimatedObject*> Map::getAnimatedObjectList()const
+{
+	return mAnimatedObjectList;
+}
+
 std::vector<Object*> Map::getObjectList()const
 {
 	std::vector<Object*> objects;
@@ -131,6 +147,8 @@ std::vector<Object*> Map::getObjectList()const
 	for (auto i:mNpcList)
 		objects.push_back(i);
 	for (auto i:mHidingList)
+		objects.push_back(i);
+	for (auto i:mAnimatedObjectList)
 		objects.push_back(i);
 	return objects;
 }
@@ -141,10 +159,14 @@ void Map::tick()
 		i->tick();
 	for (auto i:mParallaxList)
 		i->tick();
+	for (auto i:mAnimatedObjectList)
+		i->tick();
 }
 
 void Map::renderMap(sf::RenderTexture* window)
 {
+	for (auto i:mParallaxList)
+		i->render(window);
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
 	//r.setTextureRect(sf::IntRect(0,0,window->getSize().x,window->getSize().y));
@@ -155,14 +177,31 @@ void Map::renderMap(sf::RenderTexture* window)
 
 void Map::renderObjects(sf::RenderTexture* window)
 {
+	for (auto i:mAnimatedObjectList)
+	{
+		if (i->getLayer() == AnimatedObject::BehindObjects)
+			i->render(window);
+	}
 	for (auto i:mHidingList)
 		i->render(window);
 	for (auto i:mPortalList)
 		i->render(window);
 	for (auto i:mNpcList)
 		i->render(window);
-	for (auto i:mParallaxList)
-		i->render(window);
+	for (auto i:mAnimatedObjectList)
+	{
+		if (i->getLayer() == AnimatedObject::InFrontOfObjects)
+			i->render(window);
+	}
+}
+
+void Map::renderForeground(sf::RenderTexture* window)
+{
+	for (auto i:mAnimatedObjectList)
+	{
+		if (i->getLayer() == AnimatedObject::Foreground)
+			i->render(window);
+	}
 }
 
 int Map::getID()

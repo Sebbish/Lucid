@@ -9,6 +9,7 @@
 #include "Wall.h"
 #include "Trigger.h"
 #include "Parallax.h"
+#include "AnimatedObject.h"
 
 class Map
 {
@@ -21,6 +22,7 @@ public:
 	void addWall(Wall* wall);
 	void addTrigger(Trigger* trigger);
 	void addParallax(Parallax* parallax);
+	void addAnimatedObject(AnimatedObject* animatedObject);
 	void setTexture(sf::Texture *texture);
 	std::vector<Object*> getHidingList()const;
 	std::vector<Object*> getNpcList()const;
@@ -29,10 +31,12 @@ public:
 	std::vector<Wall*> getWallList()const;
 	std::vector<Trigger*> getTriggerList()const;
 	std::vector<Object*> getParallaxList()const;
+	std::vector<AnimatedObject*> getAnimatedObjectList()const;
 	std::vector<Object*> getObjectList()const;
 	void tick();
 	void renderMap(sf::RenderTexture* window);
 	void renderObjects(sf::RenderTexture* window);
+	void renderForeground(sf::RenderTexture* window);
 	int getID();
 	void setupPortals();
 private:
@@ -42,6 +46,7 @@ private:
 	std::vector<Portal*> mSuperPortalList;
 	std::vector<Wall*> mWallList;
 	std::vector<Trigger*> mTriggerList;
+	std::vector<AnimatedObject*> mAnimatedObjectList;
 };
 
 #endif

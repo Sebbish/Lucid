@@ -9,6 +9,7 @@ Game::Game()
 	testLight = sf::Color(255, 255, 255, 178);
 	mFH = new FilHanterare();
 	mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
+	mWindow.setMouseCursorVisible(false);
 	/*std::vector<sf::VideoMode, std::allocator<sf::VideoMode>> test;
 	test = sf::VideoMode::getFullscreenModes();
 	mWindow = new sf::RenderWindow(test[17], "Lucid", sf::Style::Fullscreen);*/
@@ -17,11 +18,13 @@ Game::Game()
 	mWindow.setFramerateLimit(60);
 	mWindow.setVerticalSyncEnabled(true);
 	lm = new db::LightManager(sf::Vector2i(10000, 10000));
+	mRenderTexture.create(10000, 10000);
 	loadMap("../Debug/map1.txt", 1);
 	mEffects = new Effects();
 	mEvent = new Event();
 	mVisualizeValues = false;
 	mMenu = false;
+	
 
 	mDeathSound.setBuffer(*mFH->getSound(0));
 	//ladda shader
@@ -40,7 +43,7 @@ Game::~Game()
 
 void Game::run()
 {
-	sf::Color ambient(4, 4, 6, 255);
+	sf::Color ambient(255, 255, 255, 255);
 	lm->setAmbient(ambient);
 	while (mWindow.isOpen())
     {
@@ -177,6 +180,9 @@ void Game::render()
 		if (i -> getLayer() == Entity::Front)
 			i->render(&mRenderTexture, mVisualizeValues);
 	}
+
+	mMap->renderForeground(&mRenderTexture);
+
 	mRenderTexture.display();
 	mDialog->render(&mRenderTexture);
 	const sf::Texture& s = mRenderTexture.getTexture();
@@ -364,13 +370,13 @@ void Game::loadMap(std::string filename, int mapID)
 	delete camera;
 	mMap = new Map(mapID);
 	mMap->setTexture(mFH->getTexture(mapID));
-	mRenderTexture.create(10000, 10000);
+	//mRenderTexture.create(10000, 10000);
 	//mRenderTexture.create(mFH->getTexture(mapID)->getSize().x,mFH->getTexture(mapID)->getSize().y);
 	std::ifstream stream;
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, color;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, color, layer;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -389,7 +395,7 @@ void Game::loadMap(std::string filename, int mapID)
 			width = dataVector[i + 3];
 			height = dataVector[i + 4];
 			speed = dataVector[i + 5];
-			mEntities.push_back(new Player(x, y, width, height, speed, mFH->getTexture(0), 4,mFH->getSound(1)));
+			mEntities.push_back(new Player(x, y, width, height, speed, mFH->getTexture(0), 8,mFH->getSound(1)));
 			mControlledEntity = mEntities[0];
 			camera = new Camera(sf::Vector2f(mWindow.getSize()),mControlledEntity);
 			i += 5;
@@ -467,7 +473,7 @@ void Game::loadMap(std::string filename, int mapID)
 			mMap->addParallax(new Parallax(sf::FloatRect(x, y, 0, 0), mFH->getTexture(typeID), typeID, camera));
 			i += 3;
 			break;
-		case 8:
+		case 8://Light
 			x = dataVector[i + 1];
 			y = dataVector[i + 2];
 			color = dataVector[i + 3];
@@ -475,6 +481,14 @@ void Game::loadMap(std::string filename, int mapID)
 			mLightSources.push_back(new Flashlight(x, y, testLight, mFH->getTexture(typeID)));
 			i += 4;
 			break;
+		case 9://AnimatedObject
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			typeID = dataVector[i + 3];
+			active = dataVector[i + 4];
+			layer = dataVector[i + 5]; //0 == BehindObjects, 1 == InFrontOfObjects, 2 == Foreground
+			mMap->addAnimatedObject(new AnimatedObject(sf::FloatRect(x, y, 0, 0), mFH->getTexture(typeID), typeID, active, layer));
+			i += 5;
 		}
 	}
 	mMap->setupPortals();

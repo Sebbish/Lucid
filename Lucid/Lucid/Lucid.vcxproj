@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedObject.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Dialog.cpp" />
     <ClCompile Include="Effects.cpp" />
@@ -112,6 +113,7 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedObject.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Dialog.h" />
     <ClInclude Include="Effects.h" />

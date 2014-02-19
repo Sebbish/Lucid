@@ -79,6 +79,9 @@
     <ClCompile Include="Parallax.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="AnimatedObject.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -148,6 +151,9 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Parallax.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedObject.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

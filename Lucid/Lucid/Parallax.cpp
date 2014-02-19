@@ -6,8 +6,13 @@ Parallax::Parallax(sf::FloatRect rect, sf::Texture* texture, int typeID, Camera*
 	mRect.width = texture->getSize().x;
 	mRect.height = texture->getSize().y;
 	mOriginX = rect.left;
-	if (typeID == 24)
+	if (typeID == 32)
+		mVariabel = 0.20f;
+	else if (typeID == 33)
+		mVariabel = 0.15f;
+	else
 		mVariabel = 0.25f;
+
 }
 
 Parallax::~Parallax(void)
