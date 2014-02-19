@@ -1,6 +1,6 @@
 #include "Dialog.h"
 
-
+//laddar in font,sätter färg och tillfällig position
 Dialog::Dialog():
 	mDraw(false)
 {
@@ -11,7 +11,6 @@ Dialog::Dialog():
 	mText.setFont(mFont);
 	mText.setPosition(0,0);
 	mText.setColor(sf::Color::Red);
-	getLine(2);
 }
 
 
@@ -19,6 +18,7 @@ Dialog::~Dialog()
 {
 }
 
+//laddar angivna text filen och lägger den i en string "vector" och börjar visa dialogen
 void Dialog::loadFile(std::string name)
 {
 	for(int i = mStrings.size()-1; i >= 0; i--)
@@ -32,6 +32,7 @@ void Dialog::loadFile(std::string name)
 	mDraw = true;
 }
 
+//går till nästa "rad" i dialogen
 void Dialog::nextLine()
 {
 	mLineNumber++;
@@ -41,44 +42,26 @@ void Dialog::nextLine()
 		mDraw = false;
 }
 
-void Dialog::getLine(int line)
-{
-	std::fstream mFStream("P:/Downloads/LucidProject/Resources/Dialog/Dialog.txt");
-	std::string mTempText,mTemp;
-	mFStream.seekg(std::ios::beg);
-    for(int i=0; i < line - 1; ++i){
-        mFStream.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-    }
-	std::getline(mFStream,mTempText);
-
-
-	std::stringstream ss(mTempText.c_str());
-	while(std::getline(ss,mTempText,','))
-	{
-		if(mTemp == "")
-			mTemp = mTempText;
-		else
-			mTemp = mTemp+'\n'+mTempText;
-	}
-	mText.setString(mTemp);
-}
-
+//bool för om dialogen ska ritas eller inte
 void Dialog::setDraw(bool draw)
 {
 	mDraw = draw;
 }
 
+//retunerar om dialogen ritas
 bool Dialog::getDraw()const
 {
 	return mDraw;
 }
 
+//sätter positionen utfrån cameran
 void Dialog::tick(sf::View* view)
 {
 	mText.setPosition(view->getCenter().x-view->getSize().x/4,view->getCenter().y+view->getSize().y/3);
 }
 
-void Dialog::render(sf::RenderTexture* target)
+//renderar dialogen på en vit rectangel
+void Dialog::render(sf::RenderWindow* target)
 {
 	if(mDraw)
 	{

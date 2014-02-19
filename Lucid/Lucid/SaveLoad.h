@@ -8,15 +8,20 @@ class SaveLoad
 {
 	struct saveLoadData
 	{
+	public:
 		std::string text;
 		int mapID;
 	};
 public:
 	SaveLoad();
 	~SaveLoad();
+	void save(int activeSlot, std::string name, int mapID);
+	int load(int activeSlot)const;
+	std::string loadText(int slot);
 private:
-	//std::vector<saveLoadData> mSaveInfo;
 	saveLoadData mSLD[5];
+	std::ofstream sstream;
+	std::fstream stream;
 };
 #endif
 

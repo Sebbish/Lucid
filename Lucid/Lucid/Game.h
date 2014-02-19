@@ -15,6 +15,8 @@
 #include "LightManager.h"
 #include "Flashlight.h"
 #include "Light.h"
+#include "Mobil.h"
+#include "ambiance.h"
 
 typedef std::vector<Entity*> EntiyVector;
 typedef std::vector<Object*> ObjectVector;
@@ -47,10 +49,11 @@ private:
 	LightSourceVector mLightSources;
 	LightVector mLights;
 	Camera *camera;
+	Mobil *mMobil;
 	Map* mMap;
 	FilHanterare* mFH;
 	float angle;
-	bool mIsEPressed,mIsQPressed;
+	bool mIsEPressed,mIsQPressed,mIsMPressed;
 	sf::Clock clock;
 	sf::Shader mShader;
 	sf::RenderTexture mRenderTexture;
@@ -66,6 +69,9 @@ private:
 	int mAmbientBlue;
 	sf::Color testLight;
 	bool mMenu;
+	bool mMobilActivateApp();
+	sf::Event event;
+	ambiance *mAmbiance;
 };
 
 #endif

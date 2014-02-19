@@ -8,7 +8,7 @@ FilHanterare::FilHanterare(void)
 	mTexture.push_back(t);
 	assert(t->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/hej.png",sf::IntRect(0,0,1152,648)) != NULL);
 	mTexture.push_back(t);*/
-	for(int i = 0; i <= 33;i++)
+	for(int i = 0; i <= 34;i++)
 		mTexture[i] = new sf::Texture();
 	for(int i = 0; i < 4;i++)
 		mSoundBuffer[i] = new sf::SoundBuffer();
@@ -38,6 +38,7 @@ FilHanterare::FilHanterare(void)
 	mTexture[31]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/Förgrundsprops.png",sf::IntRect(0,0,7140,1080));
 	mTexture[32]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/HusParallax1.png",sf::IntRect(0,0,1308,1080));
 	mTexture[33]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/HusParallax2.png",sf::IntRect(0,0,887,1080));
+	mTexture[34]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/GUI/StaticGUI/mobil.png",sf::IntRect(0,0,354,177));
 
 	mSoundBuffer[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/death.wav");
 	mSoundBuffer[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/walk.wav");
@@ -57,7 +58,7 @@ FilHanterare::~FilHanterare(void)
 
 sf::Texture* FilHanterare::getTexture(int ID)const
 {
-	if(ID <= 33)
+	if(ID <= 34)
 		return mTexture[ID];
 }
 

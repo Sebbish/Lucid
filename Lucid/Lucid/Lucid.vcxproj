@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ambiance.cpp" />
     <ClCompile Include="AnimatedObject.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Dialog.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="LightSource.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Mobil.cpp" />
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Parallax.cpp" />
@@ -113,6 +115,7 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ambiance.h" />
     <ClInclude Include="AnimatedObject.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Dialog.h" />
@@ -128,6 +131,7 @@
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="LightSource.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Mobil.h" />
     <ClInclude Include="Npc.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Parallax.h" />

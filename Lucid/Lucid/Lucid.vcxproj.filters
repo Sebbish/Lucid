@@ -82,6 +82,8 @@
     <ClCompile Include="AnimatedObject.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="ambiance.cpp" />
+    <ClCompile Include="Mobil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -156,6 +158,8 @@
     <ClInclude Include="AnimatedObject.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="ambiance.h" />
+    <ClInclude Include="Mobil.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png">

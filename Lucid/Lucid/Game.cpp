@@ -19,6 +19,7 @@ Game::Game()
 	mWindow.setVerticalSyncEnabled(true);
 	lm = new db::LightManager(sf::Vector2i(10000, 10000));
 	mRenderTexture.create(10000, 10000);
+	mDialog = new Dialog();
 	loadMap("../Debug/map1.txt", 1);
 	mEffects = new Effects();
 	mEvent = new Event();
@@ -33,8 +34,11 @@ Game::Game()
 
 	//fixar edge shader*/
 	//mShader.setParameter("texture", sf::Shader::CurrentTexture);
-	mDialog = new Dialog();
+	
 	mSL = new SaveLoad();
+
+	mMobil = new Mobil(mFH->getTexture(34),mSL,mMap->getID());
+	mAmbiance = new ambiance();
 }
 
 Game::~Game()
@@ -54,7 +58,7 @@ void Game::run()
 		mWindow.setView(*camera->getView());
 		render();
 		//mousePositionFunc();
-		lm->render(mWindow);
+		
         mWindow.display();
     }
 }
@@ -65,7 +69,6 @@ void Game::input(Entity* entity)
 	{
 	case false:
 		{
-		sf::Event event;
 		while (mWindow.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -157,12 +160,89 @@ void Game::input(Entity* entity)
 
 	case true:
 		{
+			if(mMobil->getSkriver())
+			{
+				if(event.type == sf::Event::TextEntered)
+					mMobil->addTextToSaveSlot((char)event.text.unicode);
+			}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				mMobil->nextApp();
+			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				mMobil->lastApp();
+			}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
+			{
+				if(mMobilActivateApp())
+					break;
+			}
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mMobil->getSkriver())
+			{
+				mMobil->save(mMap->getID());
+				mMobil->setWritingText(false);
+				mMobil->reset();
+			}
 			break;
+		}
+	}
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && !mIsMPressed)
+	{
+		if(mMobil->getActivate())
+		{
+			mMobil->deactivate();
+			mMenu = false;
+		}else
+		{
+			mControlledEntity->setMove(false);
+			mMobil->activate(camera->getView(),mMap->getID());
+			mMenu = true;
 		}
 	}
 }
 
+bool Game::mMobilActivateApp()
+{
+	if(mMobil->getActiveAppID() == 3)
+		{
+			mWindow.close();
+		}else if(mMobil->getActiveAppID() == 4)
+		{
+				mMobil->deactivate();
+				loadMap("../Debug/map1.txt", 1);
+				return true;
+		}else if(mMobil->IWantToLoad())
+		{
+			if(mMobil->getActiveAppID() == 7)
+			{
+				std::stringstream a;//gör en typ string
+				a << mSL->load(0); // gör om int till string
+				loadMap("../Debug/map"+a.str()+".txt",mSL->load(0));
+				mMobil->reset();
+				mMobil->deactivate();
+				return true;
+			}else if(mMobil->getActiveAppID() == 8)
+			{
+				std::stringstream a;//gör en typ string
+				a << mSL->load(1); // gör om int till string
+				loadMap("../Debug/map"+a.str()+".txt",mSL->load(1));
+				mMobil->reset();
+				mMobil->deactivate();
+				return true;
+			}else if(mMobil->getActiveAppID() == 9)
+			{
+				std::stringstream a;//gör en typ string
+				a << mSL->load(2); // gör om int till string
+				loadMap("../Debug/map"+a.str()+".txt",mSL->load(2));
+				mMobil->reset();
+				mMobil->deactivate();
+				return true;
+			}
+		}
 
+		return false;
+}
 
 void Game::render()
 {
@@ -184,12 +264,15 @@ void Game::render()
 	mMap->renderForeground(&mRenderTexture);
 
 	mRenderTexture.display();
-	mDialog->render(&mRenderTexture);
 	const sf::Texture& s = mRenderTexture.getTexture();
 	sf::Sprite ss;
 	ss.setTexture(s);
 	//mWindow->draw(ss,&mShader);
 	mWindow.draw(ss,&mEffects->getShader());
+
+	lm->render(mWindow);
+	mDialog->render(&mWindow);
+	mMobil->render(&mWindow);
 }
 
 void Game::tick()
@@ -244,6 +327,7 @@ void Game::tick()
 
 	camera->tick();
 	mDialog->tick(camera->getView());
+	mMobil->tick();
 
 	if (mEntities[0]->getDirection() == Entity::LEFT)
 	{
@@ -256,9 +340,11 @@ void Game::tick()
 		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width), mEntities[0]->getRect().top));
 	}
 
+	mAmbiance->tick();
 
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
 	mIsQPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
+	mIsMPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::M);
 }
 
 void Game::collision()
@@ -445,7 +531,7 @@ void Game::loadMap(std::string filename, int mapID)
 			typeID = dataVector[i + 6];
 			animationPic = dataVector[i + 7];
 			mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID,animationPic,mDialog,mEntities[0]));
-			i += 8;
+			i += 7;
 			break;
 		case 5://Hiding
 			x = dataVector[i + 1];

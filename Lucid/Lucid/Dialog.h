@@ -11,7 +11,7 @@ public:
 	Dialog();
 	~Dialog();
 	void tick(sf::View* view);
-	void render(sf::RenderTexture* target);
+	void render(sf::RenderWindow* target);
 	void loadFile(std::string name);
 	void nextLine();
 	void getLine(int line);
