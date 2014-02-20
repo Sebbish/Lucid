@@ -17,6 +17,7 @@
 #include "Light.h"
 #include "Mobil.h"
 #include "ambiance.h"
+#include "Sanity.h"
 
 typedef std::vector<Entity*> EntiyVector;
 typedef std::vector<Object*> ObjectVector;
@@ -73,6 +74,8 @@ private:
 	bool mMobilActivateApp();
 	sf::Event event;
 	ambiance *mAmbiance;
+	Sanity *mSanity;
+	sf::Text mSanityMeter;
 };
 
 #endif
