@@ -297,9 +297,9 @@ void Game::render()
 	}
 	else if (mLights[0]->getOnOff() == true)
 	{
-		mAmbientBlue = 1;
-		mAmbientGreen = 1;
-		mAmbientRed = 2;
+		mAmbientBlue = 200;
+		mAmbientGreen = 200;
+		mAmbientRed = 200;
 	}
 
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
@@ -506,7 +506,7 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, color, layer, onOff;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -615,11 +615,16 @@ void Game::loadMap(std::string filename, int mapID)
 		case 9://AnimatedObject
 			x = dataVector[i + 1];
 			y = dataVector[i + 2];
-			typeID = dataVector[i + 3];
-			active = dataVector[i + 4];
-			layer = dataVector[i + 5]; //0 == BehindObjects, 1 == InFrontOfObjects, 2 == Foreground
-			mMap->addAnimatedObject(new AnimatedObject(sf::FloatRect(x, y, 0, 0), mFH->getTexture(typeID), typeID, active, layer));
-			i += 5;
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			typeID = dataVector[i + 5];
+			active = dataVector[i + 6];
+			layer = dataVector[i + 7]; //0 == BehindObjects, 1 == InFrontOfObjects, 2 == Foreground
+			animationY = dataVector[i + 8];
+			animationPic = dataVector[i + 9];
+			direction = dataVector[i + 10];
+			mMap->addAnimatedObject(new AnimatedObject(sf::FloatRect(x, y, width, height), mFH->getTexture(typeID), typeID, active, layer, animationY, animationPic, direction));
+			i += 10;
 		}
 	}
 	mMap->setupPortals();

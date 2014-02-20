@@ -8,20 +8,20 @@ FilHanterare::FilHanterare(void)
 	mTexture.push_back(t);
 	assert(t->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/hej.png",sf::IntRect(0,0,1152,648)) != NULL);
 	mTexture.push_back(t);*/
-	for(int i = 0; i <= 34;i++)
+	for(int i = 0; i <= 99;i++)
 		mTexture[i] = new sf::Texture();
 	for(int i = 0; i < 4;i++)
 		mSoundBuffer[i] = new sf::SoundBuffer();
 	
-	mTexture[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Spritesheet.png",sf::IntRect(0,0,2116,529));
-	mTexture[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/Bakgrund och korridor.png",sf::IntRect(0,0,7140,1080));
-	mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level11.png",sf::IntRect(0,0,8864,1860));
+	mTexture[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Spritesheet v1.png",sf::IntRect(0,0,2116,529));
+	mTexture[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Prologue korridor v2.png",sf::IntRect(0,0,7140,1080));
+	//mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level11.png",sf::IntRect(0,0,8864,1860));
 	mTexture[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level2.png",sf::IntRect(0,0,8000,340));
 
 
 	
 	
-	mTexture[21]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Monster1/Monster1_Spritesheet.png",sf::IntRect(0,0,2048,2048));
+	mTexture[21]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Monster 1/Monster1_Spritesheet.png",sf::IntRect(0,0,2048,2048));
 	mTexture[22]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/enemy2.png",sf::IntRect(0,0,1024,256));
 	mTexture[23]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Dörr.png",sf::IntRect(0,0,256,256));
 	mTexture[24]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Trashcan.png",sf::IntRect(0,0,256,256));
@@ -39,6 +39,8 @@ FilHanterare::FilHanterare(void)
 	mTexture[32]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/HusParallax1.png",sf::IntRect(0,0,1308,1080));
 	mTexture[33]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/HusParallax2.png",sf::IntRect(0,0,887,1080));
 	mTexture[34]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/GUI/StaticGUI/mobil.png",sf::IntRect(0,0,354,177));
+	mTexture[35]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Dörrar/Dörrar SpriteSheet.png",sf::IntRect(0,0,2048,512));
+	mTexture[36]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Dörrar/Hiss Spritesheet.png",sf::IntRect(0,0,8192,256));
 
 	mSoundBuffer[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/death.wav");
 	mSoundBuffer[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/walk.wav");
@@ -58,7 +60,7 @@ FilHanterare::~FilHanterare(void)
 
 sf::Texture* FilHanterare::getTexture(int ID)const
 {
-	if(ID <= 34)
+	if(ID <= 99)
 		return mTexture[ID];
 }
 

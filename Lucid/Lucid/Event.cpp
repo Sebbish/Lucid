@@ -17,6 +17,11 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 		if (map->getTriggerList()[0]->getTrigged()) //Byter bana
 		{
 			map->getTriggerList()[0]->setActive(false);
+			map->getAnimatedObjectList()[1]->setAnimate(true);
+		}
+		if (map->getTriggerList()[1]->getTrigged()) //Byter bana
+		{
+			map->getTriggerList()[1]->setActive(false);
 			return 2;
 		}
 		break;

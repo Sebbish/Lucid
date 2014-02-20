@@ -11,7 +11,12 @@ public:
 		BehindObjects,
 		InFrontOfObjects
 	};
-	AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typeID, int active, int layer);
+	enum AnimationDirection
+	{
+		Forward,
+		Backward
+	};
+	AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typeID, int active, int layer, int animationY, int animationPicX, int direction);
 	~AnimatedObject(void);
 	virtual sf::FloatRect getRect()const;
 	virtual int getFunc(Entity* player);
@@ -21,6 +26,8 @@ public:
 	Layer getLayer();
 	int getAlpha();
 	void setAlpha(int alpha);
+	void setAnimate(bool animate);
+	void setLoop(bool loop);
 private:
 	sf::FloatRect mRect;
 	int mTypeID;
@@ -28,6 +35,13 @@ private:
 	bool mActive;
 	Layer mLayer;
 	int mAlpha;
+	float mAnimationTimer;
+	int mAnimationPicX;
+	int mAnimationY;
+	float mAnimationSpeed;
+	bool mAnimate;
+	bool mLoop;
+	AnimationDirection mAnimationDirection;
 };
 
 #endif
