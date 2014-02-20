@@ -15,7 +15,7 @@ FilHanterare::FilHanterare(void)
 	
 	mTexture[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis_Spritesheet.png",sf::IntRect(0,0,2116,529));
 	mTexture[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/Bakgrund och korridor.png",sf::IntRect(0,0,7140,1080));
-	mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level1.png",sf::IntRect(0,0,8864,3240));
+	mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level11.png",sf::IntRect(0,0,8864,1860));
 	mTexture[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level2.png",sf::IntRect(0,0,8000,340));
 
 

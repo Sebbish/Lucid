@@ -453,7 +453,6 @@ void Game::collision()
 void Game::loadMap(std::string filename, int mapID)
 {
 	delete mMap;
-	
 	for (LightVector::size_type i = 0; i < mLights.size(); i++)
 	{
 		lm->remove(&*mLights[i]);

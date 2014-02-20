@@ -33,6 +33,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 		}
 		break;
 	case 3:
+		//return 2;
 		if (map->getTriggerList()[0]->getTrigged()) //Man går igenom första dörren som låses och monstret spawnar
 		{
 			map->getTriggerList()[0]->setActive(false);
