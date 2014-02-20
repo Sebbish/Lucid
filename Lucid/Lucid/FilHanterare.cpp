@@ -13,7 +13,7 @@ FilHanterare::FilHanterare(void)
 	for(int i = 0; i < 4;i++)
 		mSoundBuffer[i] = new sf::SoundBuffer();
 	
-	mTexture[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis_Spritesheet.png",sf::IntRect(0,0,2116,529));
+	mTexture[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Spritesheet.png",sf::IntRect(0,0,2116,529));
 	mTexture[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/Bakgrund och korridor.png",sf::IntRect(0,0,7140,1080));
 	mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level11.png",sf::IntRect(0,0,8864,1860));
 	mTexture[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level2.png",sf::IntRect(0,0,8000,340));
@@ -21,7 +21,7 @@ FilHanterare::FilHanterare(void)
 
 	
 	
-	mTexture[21]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Monster1_Spritesheet.png",sf::IntRect(0,0,2048,2048));
+	mTexture[21]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Monster1/Monster1_Spritesheet.png",sf::IntRect(0,0,2048,2048));
 	mTexture[22]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/enemy2.png",sf::IntRect(0,0,1024,256));
 	mTexture[23]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Dörr.png",sf::IntRect(0,0,256,256));
 	mTexture[24]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Trashcan.png",sf::IntRect(0,0,256,256));
@@ -30,8 +30,8 @@ FilHanterare::FilHanterare(void)
 	mTexture[25]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/glow.png",sf::IntRect(0,0,161,129));
 	mTexture[26]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/VendingMachine1.png",sf::IntRect(0,0,256,256));
 	mTexture[27]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/black.png",sf::IntRect(0,0,1920,1080));
-	mTexture[28]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Ryan_Spritesheet.png",sf::IntRect(0,0,1024,256));
-	mTexture[29]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Magda_SpriteSheet.png",sf::IntRect(0,0,2048,256));
+	mTexture[28]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Ryan/Ryan_Spritesheet.png",sf::IntRect(0,0,1024,256));
+	mTexture[29]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Magda/Magda_SpriteSheet.png",sf::IntRect(0,0,2048,256));
 
 	//Intro
 	mTexture[30]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/Bakgrundsprops.png",sf::IntRect(0,0,7140,1080));

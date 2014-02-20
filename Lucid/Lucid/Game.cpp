@@ -9,6 +9,7 @@ Game::Game()
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	testLight = sf::Color(100, 100, 100, 178);
 	mFH = new FilHanterare();
+	mSanity = new Sanity();
 	mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mWindow.setMouseCursorVisible(false);
 	/*std::vector<sf::VideoMode, std::allocator<sf::VideoMode>> test;
@@ -48,6 +49,17 @@ Game::~Game()
 
 void Game::run()
 {
+	sf::Font MyFont;
+		if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+		{
+			// Error...
+		}
+		
+		//mSanityMeter.setString("Hello");
+		mSanityMeter.setFont(MyFont);
+		mSanityMeter.setScale(1,1);
+		
+		mSanityMeter.setColor(sf::Color(128, 128, 0));
 	lm->setAmbient(mAmbient);
 	while (mWindow.isOpen())
     {
@@ -58,7 +70,9 @@ void Game::run()
 		mWindow.setView(*camera->getView());
 		render();
 		//mousePositionFunc();
-		
+		mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
+		mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
+		mWindow.draw(mSanityMeter);
         mWindow.display();
     }
 }
@@ -358,6 +372,16 @@ void Game::tick()
 	{
 		mLights[0]->flipSprite(1);
 		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width), mEntities[0]->getRect().top));
+	}
+	if (mControlledEntity != mEntities[0])
+	{
+		mSanity->setSanity(-0.002);
+	}
+	for(auto i:mEntities){
+			if (i->getCanSeePlayer() == true)
+			{
+				mSanity->setSanity(-0.01);
+			}
 	}
 
 	mAmbiance->tick();
