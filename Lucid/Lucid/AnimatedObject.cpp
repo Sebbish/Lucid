@@ -26,6 +26,10 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 	{
 		mAnimationSpeed = 0.2f;
 	}
+	if (typeID == 36)
+	{
+		mAnimationSpeed = 0.75f;
+	}
 	else
 		mAnimationSpeed = 0.15f;
 
@@ -42,13 +46,6 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 
 	mAnimate = false;
 	mLoop = false;
-
-	if (typeID == 36)
-	{
-		mAnimationSpeed = 1.0f;
-		mAnimate = true;
-		mLoop = true;
-	}
 }
 
 
@@ -100,7 +97,7 @@ void AnimatedObject::tick()
 {
 	if (mAnimate)
 	{
-		if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed || mAnimationTimer <= 0.0f - mAnimationSpeed)
+		if((mAnimationTimer >= mAnimationPicX - mAnimationSpeed && mAnimationDirection == Forward) || (mAnimationTimer <= 0.0f - mAnimationSpeed && mAnimationDirection == Backward))
 		{
 			if (mLoop)
 			{
@@ -109,7 +106,7 @@ void AnimatedObject::tick()
 				else
 					mAnimationTimer = mAnimationPicX + mAnimationSpeed;
 
-				if (mTypeID == 36)
+				/*if (mTypeID == 36)
 				{
 					if (mAnimationDirection == Forward)
 					{
@@ -123,7 +120,7 @@ void AnimatedObject::tick()
 						mAnimationTimer = 0.0f;
 						mAnimationSpeed = -mAnimationSpeed;
 					}
-				}
+				}*/
 			}
 			else
 			{

@@ -50,6 +50,8 @@ public:
 	virtual bool getActive() = 0;
 	virtual void setTargetX(int x) = 0;
 	virtual bool isEating() = 0;
+	virtual void toggleRoofStance() = 0;
+	virtual void hitRoof() = 0;
 };
 #endif
 

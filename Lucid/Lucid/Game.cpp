@@ -19,8 +19,8 @@ Game::Game()
 	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
 	mWindow.setFramerateLimit(60);
 	mWindow.setVerticalSyncEnabled(true);
-	lm = new db::LightManager(sf::Vector2i(10000, 10000));
-	mRenderTexture.create(10000, 10000);
+	lm = new db::LightManager(sf::Vector2i(9000, 4000));
+	mRenderTexture.create(9000, 4000);
 	mDialog = new Dialog();
 	loadMap("../Debug/map1.txt", 1);
 	mEffects = new Effects();
@@ -131,13 +131,13 @@ void Game::input(Entity* entity)
 			else
 				mEntities[0]->setMaxSpeed(6);
 
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mIsFPressed)//OnOff för ficklampa
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mIsFPressed)//OnOff för ficklampa
 			{
 				mLights[0]->setOnOff(!mLights[0]->getOnOff());
 			}
-		//kollar om Q trycktes ned och mindcontrollar då
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
+			//kollar om Q trycktes ned och mindcontrollar då
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
 			{
 				//kontrollerar om den kontrollerade entiteten är spelaren
 				if(mControlledEntity == mEntities[0])
@@ -158,23 +158,32 @@ void Game::input(Entity* entity)
 									enemie = i;
 							}
 						}
-						}
 					}
-					if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getHunting() && enemie->getTypeID() == 21)
-					{
-						mControlledEntity->setMove(false);
-						setControlledEntity(enemie);
-					}
-
-				}else
-				{
-					mControlledEntity->resetTargetX();
-					mControlledEntity->setWait();
-					setControlledEntity(mEntities[0]);
 				}
+				if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getHunting() && enemie->getTypeID() == 21)
+				{
+					mControlledEntity->setMove(false);
+					setControlledEntity(enemie);
+				}
+
+			}else
+			{
+				mControlledEntity->resetTargetX();
+				mControlledEntity->setWait();
+				setControlledEntity(mEntities[0]);
 			}
 		}
-		break;
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && mControlledEntity != mEntities[0])
+		{
+			mControlledEntity->toggleRoofStance();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::H) && mControlledEntity != mEntities[0])
+		{
+			mControlledEntity->hitRoof();
+		}
+	}
+	break;
 
 
 	case true:

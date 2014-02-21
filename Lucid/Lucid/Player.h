@@ -37,6 +37,8 @@ public:
 	virtual bool getActive();
 	virtual void setTargetX(int x);
 	virtual bool isEating();
+	virtual void toggleRoofStance();
+	virtual void hitRoof();
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
 	virtual void render(sf::RenderTexture* window, bool visualizeValues);
 private:
@@ -58,6 +60,7 @@ private:
 	bool mActive;
 	int mAnimationY;
 	float mAnimationSpeed;
+	//int mBreatheDelay, mUpperBreatheDelay, mBreatheTimer, mUpperBreatheTimer;
 };
 #endif
 

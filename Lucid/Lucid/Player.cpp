@@ -27,6 +27,11 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mLayer = Front;
 	mWalkSound.setBuffer(*walkSound);
 	mActive = true;
+
+	/*mBreatheDelay = 60 * 4;
+	mUpperBreatheDelay = 60;
+	mBreatheTimer = 0;
+	mUpperBreatheTimer = 0;*/
 }
 
 
@@ -184,6 +189,14 @@ bool Player::isEating()
 	return false;
 }
 
+void Player::toggleRoofStance()
+{
+}
+
+void Player::hitRoof()
+{
+}
+
 void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 {
 	mLastRect = mRect;
@@ -211,9 +224,20 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 		mAnimationY = 1;
 		mAnimationPicX = 4;
 		if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
+		{
 			mAnimationTimer = 0.0f;
-		else
+			//mBreatheTimer = 0;
+		}
+		/*if(mAnimationTimer == mAnimationPicX / 2)
+		{
+			mUpperBreatheTimer = 0;
+		}*/
+		else //if (mBreatheTimer >= mBreatheDelay && mUpperBreatheTimer >= mUpperBreatheDelay)
+		{
 			mAnimationTimer += mAnimationSpeed;
+		}
+		//mBreatheTimer++;
+		//mUpperBreatheTimer++;
 		mWalkSound.stop();
 	}
 

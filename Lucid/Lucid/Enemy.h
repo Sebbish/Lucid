@@ -39,6 +39,8 @@ public:
 	virtual bool getActive();
 	virtual void setTargetX(int x);
 	virtual bool isEating();
+	virtual void toggleRoofStance();
+	virtual void hitRoof();
 	
 private:
 	float mLastSeenX;
@@ -85,11 +87,16 @@ private:
 	{
 		SLIME,
 		MONSTER,
-		EAT
+		EAT,
+		ROOFCHANGING,
+		ROOFTRAVEL,
+		ROOFCHANGINGBACK,
+		ROOF
 	};
 	form mCurrentForm;
 	form mNextForm;
 	int mAnimationY;
 	//sf::RenderWindow* mWindow;
+	bool upsidedown;
 };
 #endif
