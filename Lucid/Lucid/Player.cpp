@@ -146,7 +146,7 @@ bool Player::getHiding()
 	return mHiding;
 }
 
-bool Player::getHunting()
+bool Player::getSearching()
 {
 	return false;
 }
@@ -194,6 +194,10 @@ void Player::toggleRoofStance()
 }
 
 void Player::hitRoof()
+{
+}
+
+void Player::shortYStepBack()
 {
 }
 

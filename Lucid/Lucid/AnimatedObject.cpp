@@ -1,8 +1,8 @@
 #include "AnimatedObject.h"
 
 
-AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typeID, int active, int layer, int animationY, int animationPicX, int direction):
-	mRect(rect), mTexture(texture), mTypeID(typeID)
+AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typeID, int active, int layer, int animationY, int animationPicX, int direction, int alpha):
+	mRect(rect), mTexture(texture), mTypeID(typeID), mAlpha(alpha)
 {
 	/*mRect.width = texture->getSize().x;
 	mRect.height = texture->getSize().y;*/
@@ -16,7 +16,6 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 		mLayer = InFrontOfObjects;
 	else
 		mLayer = Foreground;
-	mAlpha = 255;
 
 	mAnimationY = animationY;
 	mAnimationPicX = animationPicX;
@@ -46,6 +45,9 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 
 	mAnimate = false;
 	mLoop = false;
+	mFadeIn = false;
+	mFadeOut = false;
+	mFadeSpeed = 20;
 }
 
 
@@ -93,6 +95,18 @@ void AnimatedObject::setLoop(bool loop)
 	mLoop = loop;
 }
 
+void AnimatedObject::fadeout()
+{
+	mFadeOut = true;
+	mFadeIn = false;
+}
+
+void AnimatedObject::fadein()
+{
+	mFadeIn = true;
+	mFadeOut = false;
+}
+
 void AnimatedObject::tick()
 {
 	if (mAnimate)
@@ -132,6 +146,21 @@ void AnimatedObject::tick()
 			mAnimationTimer += mAnimationSpeed;
 		}
 	}
+
+	//Fade
+	if (mFadeOut && mAlpha > 0)
+		mAlpha -= mFadeSpeed;
+	else
+		mFadeOut = false;
+	if (mAlpha < 0)
+		mAlpha = 0;
+
+	if (mFadeIn && mAlpha < 255)
+		mAlpha += mFadeSpeed;
+	else
+		mFadeIn = false;
+	if (mAlpha > 255)
+		mAlpha = 255;
 }
 
 void AnimatedObject::render(sf::RenderTexture* window)

@@ -14,9 +14,9 @@ FilHanterare::FilHanterare(void)
 		mSoundBuffer[i] = new sf::SoundBuffer();
 	
 	mTexture[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Spritesheet v1.png",sf::IntRect(0,0,2116,529));
-	mTexture[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Prologue korridor v2.png",sf::IntRect(0,0,7140,1080));
-	mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level11.png",sf::IntRect(0,0,8864,1860));
-	mTexture[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level2.png",sf::IntRect(0,0,8000,340));
+	mTexture[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/3 - Inomhus Bg.png",sf::IntRect(0,0,7140,1080));
+	mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level1/Level1.png",sf::IntRect(0,0,8864,3240));
+	mTexture[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level2/Level2.png",sf::IntRect(0,0,8000,340));
 
 
 	
@@ -34,13 +34,19 @@ FilHanterare::FilHanterare(void)
 	mTexture[29]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Magda/Magda_SpriteSheet.png",sf::IntRect(0,0,2048,256));
 
 	//Intro
-	mTexture[30]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/Bakgrundsprops.png",sf::IntRect(0,0,7140,1080));
-	mTexture[31]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/Förgrundsprops.png",sf::IntRect(0,0,7140,1080));
-	mTexture[32]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/HusParallax1.png",sf::IntRect(0,0,1308,1080));
-	mTexture[33]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Intro/HusParallax2.png",sf::IntRect(0,0,887,1080));
+	mTexture[30]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/1 - Utomhus 1.png",sf::IntRect(0,0,7140,1080));
+	mTexture[31]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Förgrundsprops.png",sf::IntRect(0,0,7140,1080));
+	mTexture[32]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Parallax 1.png",sf::IntRect(0,0,1536,1080));
+	mTexture[33]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Parallax 2.png",sf::IntRect(0,0,3471,1080));
+
 	mTexture[34]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/GUI/StaticGUI/mobil.png",sf::IntRect(0,0,354,177));
 	mTexture[35]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Dörrar/Dörrar SpriteSheet.png",sf::IntRect(0,0,2048,512));
 	mTexture[36]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Dörrar/Hiss Spritesheet.png",sf::IntRect(0,0,8192,256));
+
+	//Intro fors.
+	mTexture[37]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/2 - Utomhus 2.png",sf::IntRect(0,0,7140,1080));
+	mTexture[38]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Svart Lager.png",sf::IntRect(0,0,7140,1080));
+	mTexture[39]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Desk.png",sf::IntRect(0,0,198,160));
 
 	mSoundBuffer[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/death.wav");
 	mSoundBuffer[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/walk.wav");

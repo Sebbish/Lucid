@@ -28,7 +28,7 @@ public:
 	virtual void toggleHiding();
 	virtual layer getLayer();
 	virtual bool getHiding();
-	virtual bool getHunting();
+	virtual bool getSearching();
 	virtual bool getCanSeePlayer();
 	virtual int getTypeID();
 	virtual void setWait();
@@ -41,6 +41,7 @@ public:
 	virtual bool isEating();
 	virtual void toggleRoofStance();
 	virtual void hitRoof();
+	virtual void shortYStepBack();
 	
 private:
 	float mLastSeenX;

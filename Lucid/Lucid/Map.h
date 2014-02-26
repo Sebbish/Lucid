@@ -10,6 +10,7 @@
 #include "Trigger.h"
 #include "Parallax.h"
 #include "AnimatedObject.h"
+#include "Roof.h"
 
 class Map
 {
@@ -23,6 +24,7 @@ public:
 	void addTrigger(Trigger* trigger);
 	void addParallax(Parallax* parallax);
 	void addAnimatedObject(AnimatedObject* animatedObject);
+	void addRoof(Roof* roof);
 	void setTexture(sf::Texture *texture);
 	std::vector<Object*> getHidingList()const;
 	std::vector<Object*> getNpcList()const;
@@ -32,6 +34,7 @@ public:
 	std::vector<Trigger*> getTriggerList()const;
 	std::vector<Object*> getParallaxList()const;
 	std::vector<AnimatedObject*> getAnimatedObjectList()const;
+	std::vector<Object*> getRoofList()const;
 	std::vector<Object*> getObjectList()const;
 	void tick();
 	void renderMap(sf::RenderTexture* window);
@@ -41,7 +44,7 @@ public:
 	void setupPortals();
 private:
 	sf::Texture* mTexture;
-	std::vector<Object*> mHidingList, mNpcList, mPortalList, mParallaxList;
+	std::vector<Object*> mHidingList, mNpcList, mPortalList, mParallaxList, mRoofList;
 	int mMapID;
 	std::vector<Portal*> mSuperPortalList;
 	std::vector<Wall*> mWallList;

@@ -56,6 +56,11 @@ Map::~Map()
 		delete mAnimatedObjectList[mAnimatedObjectList.size()-1];
 		mAnimatedObjectList.pop_back();
 	}
+	while (!mRoofList.empty())
+	{
+		delete mRoofList[mRoofList.size()-1];
+		mRoofList.pop_back();
+	}
 }
 
 void Map::addHiding(Hiding* hiding)
@@ -92,6 +97,11 @@ void Map::addParallax(Parallax* parallax)
 void Map::addAnimatedObject(AnimatedObject* animatedObject)
 {
 	mAnimatedObjectList.push_back(animatedObject);
+}
+
+void Map::addRoof(Roof* roof)
+{
+	mRoofList.push_back(roof);
 }
 
 void Map::setTexture(sf::Texture *texture)
@@ -139,7 +149,12 @@ std::vector<AnimatedObject*> Map::getAnimatedObjectList()const
 	return mAnimatedObjectList;
 }
 
-std::vector<Object*> Map::getObjectList()const
+std::vector<Object*> Map::getRoofList()const
+{
+	return mRoofList;
+}
+
+std::vector<Object*> Map::getObjectList()const//De man kan trycka E på
 {
 	std::vector<Object*> objects;
 	for (auto i:mPortalList)
@@ -148,8 +163,8 @@ std::vector<Object*> Map::getObjectList()const
 		objects.push_back(i);
 	for (auto i:mHidingList)
 		objects.push_back(i);
-	for (auto i:mAnimatedObjectList)
-		objects.push_back(i);
+	/*for (auto i:mAnimatedObjectList)
+		objects.push_back(i);*/
 	return objects;
 }
 
@@ -160,6 +175,8 @@ void Map::tick()
 	for (auto i:mParallaxList)
 		i->tick();
 	for (auto i:mAnimatedObjectList)
+		i->tick();
+	for(auto i:mTriggerList)
 		i->tick();
 }
 

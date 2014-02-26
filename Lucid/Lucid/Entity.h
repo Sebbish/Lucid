@@ -41,7 +41,7 @@ public:
 	virtual void toggleHiding() = 0;
 	virtual layer getLayer() = 0;
 	virtual bool getHiding() = 0;
-	virtual bool getHunting() = 0;
+	virtual bool getSearching() = 0;
 	virtual bool getCanSeePlayer() = 0;
 	virtual int getTypeID() = 0;
 	virtual void setWait() = 0;
@@ -52,6 +52,7 @@ public:
 	virtual bool isEating() = 0;
 	virtual void toggleRoofStance() = 0;
 	virtual void hitRoof() = 0;
+	virtual void shortYStepBack() = 0;
 };
 #endif
 

@@ -17,7 +17,7 @@ Game::Game()
 	mWindow = new sf::RenderWindow(test[17], "Lucid", sf::Style::Fullscreen);*/
 	//mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
-	mWindow.setFramerateLimit(60);
+	//mWindow.setFramerateLimit(60);
 	mWindow.setVerticalSyncEnabled(true);
 	lm = new db::LightManager(sf::Vector2i(9000, 4000));
 	mRenderTexture.create(9000, 4000);
@@ -63,6 +63,7 @@ void Game::run()
 	lm->setAmbient(mAmbient);
 	while (mWindow.isOpen())
     {
+		clock.restart();
 		input(mControlledEntity);
 		tick();
 		
@@ -74,6 +75,8 @@ void Game::run()
 		mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
 		mWindow.draw(mSanityMeter);
         mWindow.display();
+		while(clock.getElapsedTime().asMicroseconds() < 16666)
+		{}
     }
 }
 
@@ -160,7 +163,7 @@ void Game::input(Entity* entity)
 						}
 					}
 				}
-				if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getHunting() && enemie->getTypeID() == 21)
+				if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getSearching() && enemie->getTypeID() == 21)
 				{
 					mControlledEntity->setMove(false);
 					setControlledEntity(enemie);
@@ -407,6 +410,7 @@ void Game::collision()
 	ObjectVector objects(mMap->getObjectList());
 	std::vector<Wall*> walls(mMap->getWallList());
 	std::vector<Trigger*> triggers(mMap->getTriggerList());
+	std::vector<Object*> roofs(mMap->getRoofList());
 
 	for (auto i:enteties)
 	{
@@ -456,6 +460,19 @@ void Game::collision()
 			if (overlapsObjects(j, triggerEntity))
 			{
 				triggerEntity -> getFunc(j);
+			}
+		}
+
+		for (ObjectVector::size_type i = 0; i < roofs.size(); i++)
+		{
+			Object *roofEntity = roofs[i];
+			if (overlapsObjects(j, roofEntity))
+			{
+				roofEntity -> getFunc(j);
+				while (overlapsObjects(j, roofEntity))
+				{
+					j->shortYStepBack();
+				}
 			}
 		}
 	}
@@ -515,7 +532,7 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -632,8 +649,18 @@ void Game::loadMap(std::string filename, int mapID)
 			animationY = dataVector[i + 8];
 			animationPic = dataVector[i + 9];
 			direction = dataVector[i + 10];
-			mMap->addAnimatedObject(new AnimatedObject(sf::FloatRect(x, y, width, height), mFH->getTexture(typeID), typeID, active, layer, animationY, animationPic, direction));
-			i += 10;
+			alpha = dataVector[i + 11];
+			mMap->addAnimatedObject(new AnimatedObject(sf::FloatRect(x, y, width, height), mFH->getTexture(typeID), typeID, active, layer, animationY, animationPic, direction, alpha));
+			i += 11;
+			break;
+		case 10:// Tak/Golv
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			mMap->addRoof(new Roof(sf::FloatRect(x, y, width, height)));
+			i += 4;
+			break;
 		}
 	}
 	mMap->setupPortals();

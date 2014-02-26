@@ -88,6 +88,9 @@
     <ClCompile Include="Mobil.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="Roof.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -166,6 +169,9 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="ambiance.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Roof.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

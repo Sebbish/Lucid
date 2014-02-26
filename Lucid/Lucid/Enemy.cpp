@@ -69,6 +69,8 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mCurrentForm = SLIME;
 	mNextForm = SLIME;
 
+	mSearching = false;
+
 	upsidedown = false;
 
 	/*mFont.loadFromFile("../Debug/ariblk.ttf");
@@ -197,9 +199,9 @@ bool Enemy::getHiding()
 	return false;
 }
 
-bool Enemy::getHunting()
+bool Enemy::getSearching()
 {
-	return mHunting;
+	return mSearching;
 }
 
 bool Enemy::getCanSeePlayer()
@@ -357,7 +359,19 @@ void Enemy::hitRoof()
 		mCurrentForm = ROOFCHANGINGBACK;
 		mAnimationTimer = mAnimationPicX - mAnimationSpeed;
 		mAnimationY = 0;
+		mWalkTransition = false;
+		mWait = true;
+		mWaitTimer = 0;
 	}
+}
+
+void Enemy::shortYStepBack()
+{
+	if (mRect.top > mLastRect.top)
+		mRect.top--;
+
+	else if (mRect.top < mLastRect.top)
+		mRect.top++;
 }
 
 void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
@@ -367,9 +381,18 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 		mLastRect = mRect;
 		if(!mControlled)
 		{
+			if (mCurrentForm == ROOF && mNextForm == ROOF)
+			{
+				toggleRoofStance();
+			}
 			if (mRect.top != mOriginalPosition.top)
 			{
 				mTeleport = true;
+				mTeleportTimer = 0;
+			}
+			else
+			{
+				mTeleport = false;
 			}
 			for (auto i:entityVector)
 			{
@@ -387,10 +410,10 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				{
 					mSearching = false;
 				}
-				else
+				if (!mWait)
 				{
 					mWalkTransition = true;
-					mAnimationTimer = 0.0f;
+					mAnimationTimer = 0;
 				}
 
 				mHunting = false;
@@ -404,7 +427,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				}
 			}
 
-			if (mWait)
+			if (mWait && mNextForm != ROOF)
 			{
 				mMove = false;
 				mWaitTimer++;
@@ -417,7 +440,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				}
 			
 			}
-			else if (mNextForm != EAT)
+			else if (mNextForm != EAT && mNextForm != ROOF)
 			{
 				if(mTargetX < mRect.left)
 				{
@@ -458,7 +481,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 
 		else
 		{
-			if (mMove)
+			if (mMove && (mNextForm != ROOF || mCurrentForm == ROOF))
 			{
 				if (mDirection == LEFT)
 				{
@@ -527,7 +550,11 @@ void Enemy::setAnimation()
 {
 	if (mCurrentForm == mNextForm)
 	{
-		if (getCanSeePlayer() && mCurrentForm == SLIME)
+		if (getCanSeePlayer() && mCurrentForm == ROOF)
+		{
+			toggleRoofStance();
+		}
+		else if (getCanSeePlayer() && mCurrentForm == SLIME)
 		{
 			mAnimationPicX = 4;
 			mAnimationY = 6;
@@ -543,7 +570,7 @@ void Enemy::setAnimation()
 		}
 		else
 		{
-			if (mCurrentForm == SLIME)
+			if (mCurrentForm == SLIME || mCurrentForm == ROOF)
 			{
 				if (mWalkTransition)
 				{
@@ -628,7 +655,13 @@ void Enemy::setAnimation()
 				if(mAnimationTimer <= 0)
 				{
 					mAnimationTimer = 0;
-					mCurrentForm = ROOF;
+					if (upsidedown)
+						mCurrentForm = ROOF;
+					else
+					{
+						mCurrentForm = SLIME;
+						mNextForm = SLIME;
+					}
 					mAnimationY = 4;
 				}
 				else
