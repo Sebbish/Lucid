@@ -3,41 +3,35 @@
 #include "SFML\Graphics.hpp"
 #include "vector"
 #include "SaveLoad.h"
+#include "snake.h"
 class Mobil
 {
 public:
-	Mobil(sf::Texture* texture,SaveLoad* SL, int mapID);
+	Mobil(sf::Texture* texture,sf::Texture* lines);
 	~Mobil();
-	void activate(sf::View* view,int mapID);
+	void activate(sf::View* view);
 	void deactivate();
 	void nextApp();
 	void lastApp();
 	int getActiveAppID();
 	bool getActivate()const;
 	void tick();
-	void render(sf::RenderWindow* target);
-	void save(int mapID);
-	bool getSkriver()const;
-	void addTextToSaveSlot(char tecken);
-	bool IWantToLoad();
-	void setWritingText(bool text);
+	void render(sf::RenderWindow& target);
 	void reset();
+	bool snakes;
 private:
 	void save();
 
+	void ActivateSnakes();
 	sf::Texture* mTexture;
+	sf::Texture* mLines;
 	sf::FloatRect mRect;
 	sf::FloatRect mApp[10];
 
 	bool mActivated;
-	bool mLoad;
-	bool mSave;
-	bool mSkriverSaveSlotText;
 	int mActiveAppID;
-	int mMapID;
-	std::string mSaveName;
+	snake *s;
 
-	SaveLoad* mSL;
 };
 #endif
 

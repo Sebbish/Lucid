@@ -64,12 +64,25 @@ string path = "P:/Downloads/LucidProject/Resources/Sound/Ambiance/";
 
 ambiance::ambiance()
 {
+
+	for(int i = 0; i < 10; i++)
+		mAmbAA[i].openFromFile(path+ambAAFile[i]);
+
+	for(int i = 0; i < 10; i++)
+		mAmbAB[i].openFromFile(path+ambABFile[i]);
+
+	for(int i = 0; i < 7; i++)
+		mAmbBA[i].openFromFile(path+ambBAFile[i]);
+
+	for(int i = 0; i < 9; i++)
+		mAmbBB[i].openFromFile(path+ambBBFile[i]);
+
 		// GLOBAL VARIABLES //
 	frameCounter = 0; // <----------------------------------------------------- LINK TO THE GAME? :)
-	ambMaxVolume = 70; // <--------------------------------------------------- LINK TO THE GAME
-	ambMadness = 90; // <----------------------------------------------------- LINK TO THE GAME
+	ambMaxVolume = 50; // <--------------------------------------------------- LINK TO THE GAME
+	ambMadness = 100; // <----------------------------------------------------- LINK TO THE GAME
 	//int frameRate = 60; ////////// <<<<<<<<<<< LINK TO FADESPEED?
-
+	
 	// VARIABLES AA //
 	ambAAVolume = 0;
 	ambAADynamics = 0;
@@ -161,10 +174,11 @@ void ambiance::tick()
 			{
 				// FILE SELECTOR //
 				ambAARandom = rand()% ARRAY_SIZE(ambAAFile);
-				ambAA.openFromFile(path+ambAAFile[ambAARandom]);
+				//ambAA.openFromFile(path+ambAAFile[ambAARandom]);
+				//ambAA = mAmbAA[ambAARandom];
 
 				// VOLUME RESET //
-				ambAA.setVolume(0);
+				mAmbAA[ambAARandom].setVolume(0);
 				ambAAVolume = 0;
 				ambAADynamics = 100000; //TRIGGER
 
@@ -179,10 +193,10 @@ void ambiance::tick()
 				// PITCH //
 				ambAAPitch = rand() % 100;
 				ambAAPitch = ambAAPitch/200+0.75;
-				ambAA.setPitch(ambAAPitch);
+				mAmbAA[ambAARandom].setPitch(ambAAPitch);
 				
 				// PLAY //
-				ambAA.play();
+				mAmbAA[ambAARandom].play();
 			}
 
 			// IF NOT PLAYING AB /////////////////////////////////////////////////////////
@@ -190,10 +204,11 @@ void ambiance::tick()
 			{
 				// FILE SELECTOR //
 				ambABRandom = rand()% ARRAY_SIZE(ambABFile);
-				ambAB.openFromFile(path+ambABFile[ambABRandom]);
+				//ambAB.openFromFile(path+ambABFile[ambABRandom]);
+				//ambAB = mAmbAB[ambABRandom];
 
 				// VOLUME RESET //
-				ambAB.setVolume(0);
+				mAmbAB[ambABRandom].setVolume(0);
 				ambABVolume = 0;
 				ambABDynamics = 100000; //TRIGGER
 
@@ -208,27 +223,28 @@ void ambiance::tick()
 				// PITCH //
 				ambABPitch = rand() % 100;
 				ambABPitch = ambABPitch/200+0.75;
-				ambAB.setPitch(ambABPitch);
+				mAmbAB[ambABRandom].setPitch(ambABPitch);
 				
 				// PLAY //
-				ambAB.play();
+				mAmbAB[ambABRandom].play();
 			}
 			
 			// IF NOT PLAYING BA /////////////////////////////////////////////////////////
 
-			if (ambBA.getStatus() == 0 && ambMadness > 50)
+			if (ambBA.getStatus() == 0 && ambMadness > 50 && rand() % 20 == 0 && ambBASecCounter > rand()%20+20)
 			{
 				// FILE SELECTOR //
 				ambBARandom = rand()% ARRAY_SIZE(ambBAFile);
-				ambBA.openFromFile(path+ambBAFile[ambBARandom]);
+				//ambBA.openFromFile(path+ambBAFile[ambBARandom]);
+				//ambBA = mAmbBA[ambBARandom];
 
 				// VOLUME RESET //
-				ambBA.setVolume(0);
+				mAmbBA[ambBARandom].setVolume(0);
 				ambBAVolume = 0;
 				ambBADynamics = 100000; //TRIGGER
 
 				// LENGTH //
-				ambBALength = rand() % 30 + 15;
+				ambBALength = rand() % 20 + 20;
 				ambBASecCounter = 0;
 
 				// FADE //
@@ -238,43 +254,39 @@ void ambiance::tick()
 				// PITCH //
 				ambBAPitch = rand() % 100;
 				ambBAPitch = ambBAPitch/200+0.75;
-				ambBA.setPitch(ambBAPitch);
+				mAmbBA[ambBARandom].setPitch(ambBAPitch);
 
 				// PLAY //
-				ambBA.play();
-			}
+				mAmbBA[ambBARandom].play();
 
-			// IF NOT PLAYING BB /////////////////////////////////////////////////////////
+				// BB /////////////////////////////////////////////////////////
 
-			if (ambBB.getStatus() == 0 && ambMadness > 75)
-			{
 				// FILE SELECTOR //
 				ambBBRandom = rand()% ARRAY_SIZE(ambBBFile);
-				ambBB.openFromFile(path+ambBBFile[ambBBRandom]);
-
+				//ambBB.openFromFile(path+ambBBFile[ambBBRandom]);
+				//ambBB = mAmbBB[ambBBRandom];
 
 				// VOLUME RESET //
-				ambBB.setVolume(0);
+				mAmbBB[ambBBRandom].setVolume(0);
 				ambBBVolume = 0;
 				ambBBDynamics = 100000; //TRIGGER
 
 				// LENGTH //
-				ambBBLength = rand() % 15 + 15;
+				ambBBLength = ambAALength - 5 - rand()% 5;
 				ambBBSecCounter = 0;
 
 				// FADE //
-				ambBBFadeSpeed = rand()% 3 + 3;
+				ambBBFadeSpeed = ambBAFadeSpeed * 0.75;
 				ambBBFadeOut = false;
 
 				// PITCH //
 				ambBBPitch = rand() % 100;
 				ambBBPitch = ambBBPitch/200+0.75;
-				ambBB.setPitch(ambBBPitch);
+				mAmbBB[ambBBRandom].setPitch(ambBBPitch);
 				
 				// PLAY //
-				ambBB.play();
+				mAmbBB[ambBBRandom].play();
 			}
-
 		}
 
 		// FADE AA ////////////////////////////////////////////////////////////////
@@ -285,7 +297,7 @@ void ambiance::tick()
 
 			ambAAIntToFloat = ambAAVolume;
 			ambAAIntToFloat = ambAAIntToFloat/100*(ambMaxVolume/100);
-			ambAA.setVolume(ambAAIntToFloat);
+			mAmbAA[ambAARandom].setVolume(ambAAIntToFloat);
 
 			ambAADynamics = 10000*(ambMadness*0.25/100) + 2500;
 		}
@@ -296,7 +308,7 @@ void ambiance::tick()
 
 			ambAAIntToFloat = ambAAVolume;
 			ambAAIntToFloat = ambAAIntToFloat/100*(ambMaxVolume/100);
-			ambAA.setVolume(ambAAIntToFloat);
+			mAmbAA[ambAARandom].setVolume(ambAAIntToFloat);
 
 			ambAADynamics = 10000*(ambMadness*0.25/100) + 2500;
 		}
@@ -310,15 +322,15 @@ void ambiance::tick()
 
 				ambAAIntToFloat = ambAAVolume;
 				ambAAIntToFloat = ambAAIntToFloat/100*(ambMaxVolume/100);
-				ambAA.setVolume(ambAAIntToFloat);
+				mAmbAA[ambAARandom].setVolume(ambAAIntToFloat);
 			}
 
 			if (ambAAVolume <= ambAAFadeSpeed*2)
 			{
 				ambAAVolume = 0;
 				ambAAFadeOut = false;
-				ambAA.setVolume(0);
-				ambAA.stop();
+				mAmbAA[ambAARandom].setVolume(0);
+				mAmbAA[ambAARandom].stop();
 			}
 		}
 
@@ -330,7 +342,7 @@ void ambiance::tick()
 
 			ambABIntToFloat = ambABVolume;
 			ambABIntToFloat = ambABIntToFloat/100*(ambMaxVolume/100);
-			ambAB.setVolume(ambABIntToFloat);
+			mAmbAB[ambABRandom].setVolume(ambABIntToFloat);
 
 			ambABDynamics = 10000*(ambMadness*0.4/100) + 1000;
 		}
@@ -341,7 +353,7 @@ void ambiance::tick()
 
 			ambABIntToFloat = ambABVolume;
 			ambABIntToFloat = ambABIntToFloat/100*(ambMaxVolume/100);
-			ambAB.setVolume(ambABIntToFloat);
+			mAmbAB[ambABRandom].setVolume(ambABIntToFloat);
 
 			ambABDynamics = 10000*(ambMadness*0.4/100) + 1000;
 		}
@@ -356,15 +368,15 @@ void ambiance::tick()
 
 				ambABIntToFloat = ambABVolume;
 				ambABIntToFloat = ambABIntToFloat/100*(ambMaxVolume/100);
-				ambAB.setVolume(ambABIntToFloat);
+				mAmbAB[ambABRandom].setVolume(ambABIntToFloat);
 			}
 
 			if (ambABVolume <= ambABFadeSpeed*2)
 			{
 				ambABVolume = 0;
 				ambABFadeOut = false;
-				ambAB.setVolume(0);
-				ambAB.stop();
+				mAmbAB[ambABRandom].setVolume(0);
+				mAmbAB[ambABRandom].stop();
 			}
 		}
 
@@ -376,9 +388,9 @@ void ambiance::tick()
 
 			ambBAIntToFloat = ambBAVolume;
 			ambBAIntToFloat = ambBAIntToFloat/100*(ambMaxVolume/100);
-			ambBA.setVolume(ambBAIntToFloat);
+			mAmbBA[ambBARandom].setVolume(ambBAIntToFloat);
 
-			ambBADynamics = 10000*(ambMadness*0.60/100) + 500;
+			ambBADynamics = 10000*((ambMadness-50)*0.60/100) + 500;
 		}
 
 		else if (ambBAVolume >  ambBADynamics && ambBAFadeOut == false)
@@ -387,9 +399,9 @@ void ambiance::tick()
 
 			ambBAIntToFloat = ambBAVolume;
 			ambBAIntToFloat = ambBAIntToFloat/100*(ambMaxVolume/100);
-			ambBA.setVolume(ambBAIntToFloat);
+			mAmbBA[ambBARandom].setVolume(ambBAIntToFloat);
 
-			ambBADynamics = 10000*(ambMadness*0.50/100) + 1000;
+			ambBADynamics = 10000*((ambMadness-50)*0.50/100) + 1000;
 		}
 
 		if (ambBASecCounter > ambBALength)
@@ -402,15 +414,15 @@ void ambiance::tick()
 
 				ambBAIntToFloat = ambBAVolume;
 				ambBAIntToFloat = ambBAIntToFloat/100*(ambMaxVolume/100);
-				ambBA.setVolume(ambBAIntToFloat);
+				mAmbBA[ambBARandom].setVolume(ambBAIntToFloat);
 			}
 
 			if (ambBAVolume <= ambBAFadeSpeed*2)
 			{
 				ambBAVolume = 0;
 				ambBAFadeOut = false;
-				ambBA.setVolume(0);
-				ambBA.stop();
+				mAmbBA[ambBARandom].setVolume(0);
+				mAmbBA[ambBARandom].stop();
 			}
 		}
 
@@ -422,9 +434,9 @@ void ambiance::tick()
 
 			ambBBIntToFloat = ambBBVolume;
 			ambBBIntToFloat = ambBBIntToFloat/100*((float)ambMaxVolume/100);
-			ambBB.setVolume(ambBBIntToFloat);
+			mAmbBB[ambBBRandom].setVolume(ambBBIntToFloat);
 
-			ambBBDynamics = 10000*(ambMadness*0.75/100) + 500;
+			ambBBDynamics = 10000*((ambMadness-75)*0.75/100) + 500;
 		}
 
 		else if (ambBBVolume > ambBBDynamics && ambBBFadeOut == false)
@@ -433,9 +445,9 @@ void ambiance::tick()
 
 			ambBBIntToFloat = ambBBVolume;
 			ambBBIntToFloat = ambBBIntToFloat/100*(ambMaxVolume/100);
-			ambBB.setVolume(ambBBIntToFloat);
+			mAmbBB[ambBBRandom].setVolume(ambBBIntToFloat);
 
-			ambBBDynamics = 10000*(ambMadness*0.75/100) + 500;
+			ambBBDynamics = 10000*((ambMadness-75)*0.75/100) + 500;
 		}
 
 		if (ambBBSecCounter > ambBBLength)
@@ -455,8 +467,8 @@ void ambiance::tick()
 			{
 				ambBBVolume = 0;
 				ambBBFadeOut = false;
-				ambBB.setVolume(0);
-				ambBB.stop();
+				mAmbBB[ambBBRandom].setVolume(0);
+				mAmbBB[ambBBRandom].stop();
 			}
 		}
 }

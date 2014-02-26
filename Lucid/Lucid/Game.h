@@ -54,7 +54,7 @@ private:
 	Map* mMap;
 	FilHanterare* mFH;
 	float angle;
-	bool mIsEPressed,mIsQPressed,mIsMPressed,mIsFPressed;
+	bool mIsEPressed,mIsQPressed,mIsMPressed,mIsFPressed,mIsLeftPressed,mIsRightPressed;
 	sf::Clock clock;
 	sf::Shader mShader;
 	sf::RenderTexture mRenderTexture;

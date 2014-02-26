@@ -43,7 +43,7 @@ Game::Game()
 	
 	mSL = new SaveLoad();
 
-	mMobil = new Mobil(mFH->getTexture(34),mSL,mMap->getID());
+	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42));
 	mAmbiance = new ambiance();
 }
 
@@ -53,6 +53,7 @@ Game::~Game()
 
 void Game::run()
 {
+	clock.restart();
 	sf::Font MyFont;
 		if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
 		{
@@ -67,7 +68,13 @@ void Game::run()
 	lm->setAmbient(mAmbient);
 	while (mWindow.isOpen())
     {
-		clock.restart();
+		if(mMobil->snakes)
+		{
+			mAmbiance->tick();
+			mMobil->tick();
+			mMobil->render(mWindow);
+		}else
+		{
 		input(mControlledEntity);
 		tick();
 		
@@ -79,8 +86,12 @@ void Game::run()
 		mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
 		mWindow.draw(mSanityMeter);
         mWindow.display();
+
+		}
+
 		while(clock.getElapsedTime().asMicroseconds() < 16666)
 		{}
+
     }
 }
 
@@ -205,16 +216,11 @@ void Game::input(Entity* entity)
 
 
 	case true:
-		{
-			if(mMobil->getSkriver())
-			{
-				if(event.type == sf::Event::TextEntered)
-					mMobil->addTextToSaveSlot((char)event.text.unicode);
-			}
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{                                                                                                                                                                                                                                                                                                                                                            
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !mIsRightPressed)
 			{
 				mMobil->nextApp();
-			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !mIsLeftPressed)
 			{
 				mMobil->lastApp();
 			}
@@ -222,12 +228,6 @@ void Game::input(Entity* entity)
 			{
 				if(mMobilActivateApp())
 					break;
-			}
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mMobil->getSkriver())
-			{
-				mMobil->save(mMap->getID());
-				mMobil->setWritingText(false);
-				mMobil->reset();
 			}
 			break;
 		}
@@ -242,7 +242,7 @@ void Game::input(Entity* entity)
 		}else
 		{
 			mControlledEntity->setMove(false);
-			mMobil->activate(camera->getView(),mMap->getID());
+			mMobil->activate(camera->getView());
 			mMenu = true;
 		}
 	}
@@ -253,38 +253,22 @@ bool Game::mMobilActivateApp()
 	if(mMobil->getActiveAppID() == 3)
 		{
 			mWindow.close();
-		}else if(mMobil->getActiveAppID() == 4)
+		}else if(mMobil->getActiveAppID() == 0)
 		{
 				mMobil->deactivate();
+				mMenu = false;
 				loadMap("../Debug/map1.txt", 1);
+				mIsEPressed = true;
 				return true;
-		}else if(mMobil->IWantToLoad())
+		}else if(mMobil->getActiveAppID() == 1)
 		{
-			if(mMobil->getActiveAppID() == 7)
-			{
-				std::stringstream a;//gör en typ string
-				a << mSL->load(0); // gör om int till string
-				loadMap("../Debug/map"+a.str()+".txt",mSL->load(0));
+				loadMap("../Debug/map"+std::to_string(mSL->load(0))+".txt",mSL->load(0));
 				mMobil->reset();
 				mMobil->deactivate();
+				mEntities[0]->setMove(false);
+				mMenu = false;
+				mIsEPressed = true;
 				return true;
-			}else if(mMobil->getActiveAppID() == 8)
-			{
-				std::stringstream a;//gör en typ string
-				a << mSL->load(1); // gör om int till string
-				loadMap("../Debug/map"+a.str()+".txt",mSL->load(1));
-				mMobil->reset();
-				mMobil->deactivate();
-				return true;
-			}else if(mMobil->getActiveAppID() == 9)
-			{
-				std::stringstream a;//gör en typ string
-				a << mSL->load(2); // gör om int till string
-				loadMap("../Debug/map"+a.str()+".txt",mSL->load(2));
-				mMobil->reset();
-				mMobil->deactivate();
-				return true;
-			}
 		}
 
 		return false;
@@ -338,9 +322,10 @@ void Game::render()
 
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
-	lm->render(mWindow);
+	//lm->render(mWindow);
 	mDialog->render(&mWindow);
-	mMobil->render(&mWindow);
+	if(mMobil->getActivate())
+		mMobil->render(mWindow);
 }
 
 void Game::tick()
@@ -395,7 +380,8 @@ void Game::tick()
 
 	camera->tick();
 	mDialog->tick(camera->getView());
-	mMobil->tick();
+	if(mMobil->getActivate())
+		mMobil->tick();
 	mLights[0]->setOnOff(mFlashlightOnOff);
 
 	if (mEntities[0]->getDirection() == Entity::LEFT)
@@ -448,6 +434,8 @@ void Game::tick()
 	mIsFPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::F);
 	mIsQPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
 	mIsMPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::M);
+	mIsLeftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+	mIsRightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
 }
 
 void Game::collision()

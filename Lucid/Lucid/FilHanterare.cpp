@@ -10,14 +10,14 @@ FilHanterare::FilHanterare(void)
 	mTexture.push_back(t);*/
 	for(int i = 0; i <= 99;i++)
 		mTexture[i] = new sf::Texture();
-	for(int i = 0; i < 4;i++)
+	for(int i = 0; i < 9;i++)
 		mSoundBuffer[i] = new sf::SoundBuffer();
 	
 
 	mTexture[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Normal_Spritesheet.png",sf::IntRect(0,0,4096,1024));
 	mTexture[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/3 - Inomhus Bg.png",sf::IntRect(0,0,7140,1080));
 	mTexture[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level1/Level1.png",sf::IntRect(0,0,8864,3240));
-	mTexture[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level2/Level2.png",sf::IntRect(0,0,8000,340));
+	mTexture[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Level2/Level2.png",sf::IntRect(0,0,8000,300));
 
 	
 	
@@ -50,12 +50,19 @@ FilHanterare::FilHanterare(void)
 	mTexture[38]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Svart Lager.png",sf::IntRect(0,0,7140,1080));
 	mTexture[39]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Desk.png",sf::IntRect(0,0,198,160));
 	mTexture[40]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/CharLight.png",sf::IntRect(0,0,512,256));
+		mTexture[41]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/GUI/AnimatedGUI/Cellphone_GUI.png",sf::IntRect(0,0,1024,1080));
+	mTexture[42]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/GUI/AnimatedGUI/Cellphone_lines_GUI.png",sf::IntRect(0,0,1024,1080));
 
-
-	mSoundBuffer[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/death.wav");
-	mSoundBuffer[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/walk.wav");
-	mSoundBuffer[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/protal.wav");
-	mSoundBuffer[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/jaga.wav");
+	
+		mSoundBuffer[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");
+	mSoundBuffer[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/lewis hall walking slow 2(with clothing).wav");
+	mSoundBuffer[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2 0,75sec.wav");
+	mSoundBuffer[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/monster 1 attack 1 new1.wav");
+	mSoundBuffer[4]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/monster 1 slime walk1 new1.wav");
+	mSoundBuffer[5]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/monster 1 walk 2 new 1.wav");
+	mSoundBuffer[6]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/monster 1 morph 1 new1.wav");
+	mSoundBuffer[7]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/ryan idle1 new 1.wav");
+	mSoundBuffer[8]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/magda bed idle 1.wav");
 }
 
 
@@ -76,6 +83,6 @@ sf::Texture* FilHanterare::getTexture(int ID)const
 
 sf::SoundBuffer* FilHanterare::getSound(int ID)
 {
-	if(ID <= 3)
+	if(ID <= 8)
 		return mSoundBuffer[ID];
 }
