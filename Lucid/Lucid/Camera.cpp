@@ -54,16 +54,31 @@ void Camera::tick()
 		}
 	}
 
-	if(mFollowThisEntity->getDirection() == Entity::RIGHT)
+	float playerpos = mFollowThisEntity->getRect().left + mFollowThisEntity->getRect().width / 2;
+	float distance = mView.getSize().x / 6;
+	float targetPos;
+	if (mFollowThisEntity->getDirection() == Entity::RIGHT)
+	{
+		targetPos = playerpos + distance;
+	}
+	else
+	{
+		targetPos = playerpos - distance;
+	}
+	float currentPos = mView.getCenter().x;
+	float move = (targetPos - currentPos) * acc;
+	mView.setCenter(currentPos + move, mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2 + 44);
+
+	/*if(mFollowThisEntity->getDirection() == Entity::RIGHT)
 	{
 		float distance = ((mFollowThisEntity->getRect().left+mFollowThisEntity->getRect().width/2)-(mView.getCenter().x-mView.getSize().x/6))*acc;
-		mView.setCenter(mView.getCenter().x+distance,mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2);
+		mView.setCenter(mView.getCenter().x+distance,mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2 + 44);
 			
 	}else if(mFollowThisEntity->getDirection() == Entity::LEFT)
 	{
 		float distance = ((mFollowThisEntity->getRect().left+mFollowThisEntity->getRect().width/2)-(mView.getCenter().x+mView.getSize().x/6))*acc;
-		mView.setCenter(mView.getCenter().x+distance,mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2);
-	}
+		mView.setCenter(mView.getCenter().x+distance,mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2 + 44);
+	}*/
 
 	
 }

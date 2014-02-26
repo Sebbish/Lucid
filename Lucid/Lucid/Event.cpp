@@ -17,7 +17,33 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 		if (map->getTriggerList()[0]->getTrigged()) //Byter bana
 		{
 			map->getTriggerList()[0]->setActive(false);
+			map->getAnimatedObjectList()[4]->setAnimate(true);
+		}
+		if (map->getTriggerList()[1]->getTrigged()) //Byter bana
+		{
+			map->getTriggerList()[1]->setActive(false);
+			map->getAnimatedObjectList()[5]->setAnimate(true);
+		}
+		if (map->getTriggerList()[2]->getTrigged()) //Byter bana
+		{
+			map->getTriggerList()[2]->setActive(false);
 			return 2;
+		}
+		if (map->getTriggerList()[3]->getTrigged()) //Fade out första bilden
+		{
+			map->getTriggerList()[3]->setActive(false);
+			map->getTriggerList()[4]->setActive(true);
+			map->getAnimatedObjectList()[0]->fadeout();
+			map->getAnimatedObjectList()[1]->fadein();
+			map->getAnimatedObjectList()[3]->fadein();
+		}
+		if (map->getTriggerList()[4]->getTrigged()) //Fade out första bilden
+		{
+			map->getTriggerList()[4]->setActive(false);
+			map->getTriggerList()[3]->setActive(true);
+			map->getAnimatedObjectList()[0]->fadein();
+			map->getAnimatedObjectList()[1]->fadeout();
+			map->getAnimatedObjectList()[3]->fadeout();
 		}
 		break;
 	case 2:
@@ -33,6 +59,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 		}
 		break;
 	case 3:
+		//return 2;
 		if (map->getTriggerList()[0]->getTrigged()) //Man går igenom första dörren som låses och monstret spawnar
 		{
 			map->getTriggerList()[0]->setActive(false);

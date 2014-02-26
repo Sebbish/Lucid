@@ -21,7 +21,7 @@ Game::Game()
 	mWindow = new sf::RenderWindow(test[17], "Lucid", sf::Style::Fullscreen);*/
 	//mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
-	mWindow.setFramerateLimit(60);
+	//mWindow.setFramerateLimit(60);
 	mWindow.setVerticalSyncEnabled(true);
 	lm = new db::LightManager(sf::Vector2i(9000, 4000));
 	mRenderTexture.create(9000, 4000);
@@ -67,6 +67,7 @@ void Game::run()
 	lm->setAmbient(mAmbient);
 	while (mWindow.isOpen())
     {
+		clock.restart();
 		input(mControlledEntity);
 		tick();
 		
@@ -78,6 +79,8 @@ void Game::run()
 		mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
 		mWindow.draw(mSanityMeter);
         mWindow.display();
+		while(clock.getElapsedTime().asMicroseconds() < 16666)
+		{}
     }
 }
 
@@ -135,8 +138,10 @@ void Game::input(Entity* entity)
 			else
 				mEntities[0]->setMaxSpeed(6);
 
+
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mIsFPressed && mControlledEntity == mEntities[0] && mEntities[0]->getHiding() == false)//OnOff för ficklampa
+
 			{
 				if (mFlashlightOnOff == true)
 				{
@@ -147,8 +152,8 @@ void Game::input(Entity* entity)
 					mFlashlightOnOff = true;
 				}
 			}
-		//kollar om Q trycktes ned och mindcontrollar då
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
+			//kollar om Q trycktes ned och mindcontrollar då
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
 			{
 				
 				//kontrollerar om den kontrollerade entiteten är spelaren
@@ -171,24 +176,32 @@ void Game::input(Entity* entity)
 									enemie = i;
 							}
 						}
-
-						}
 					}
-					if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getHunting() && enemie->getTypeID() == 21)
-					{
-						mControlledEntity->setMove(false);
-						setControlledEntity(enemie);
-					}
-
-				}else
-				{
-					mControlledEntity->resetTargetX();
-					mControlledEntity->setWait();
-					setControlledEntity(mEntities[0]);
 				}
+				if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getSearching() && enemie->getTypeID() == 21)
+				{
+					mControlledEntity->setMove(false);
+					setControlledEntity(enemie);
+				}
+
+			}else
+			{
+				mControlledEntity->resetTargetX();
+				mControlledEntity->setWait();
+				setControlledEntity(mEntities[0]);
 			}
 		}
-		break;
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && mControlledEntity != mEntities[0])
+		{
+			mControlledEntity->toggleRoofStance();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::H) && mControlledEntity != mEntities[0])
+		{
+			mControlledEntity->hitRoof();
+		}
+	}
+	break;
 
 
 	case true:
@@ -305,10 +318,23 @@ void Game::render()
 	mWindow.draw(ss,&mEffects->getShader());//Sköter ljust styrka baserat på om ficklampa är på eller ej.
 	/*else
 	{
+<<<<<<< HEAD
 		mAmbientRed = 200;
 		mAmbientGreen = 200;
 		mAmbientBlue = 205;
-	}*/
+	
+=======
+		mAmbientBlue += 0.025;
+		mAmbientGreen += 0.025;
+		mAmbientRed += 0.05;
+	}
+	else if (mLights[0]->getOnOff() == true)
+	{
+		mAmbientBlue = 200;
+		mAmbientGreen = 200;
+		mAmbientRed = 200;
+	}
+>>>>>>> 44b07b43702e926e10bb17ddab5df80af631b139}*/
 
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
@@ -430,6 +456,7 @@ void Game::collision()
 	ObjectVector objects(mMap->getObjectList());
 	std::vector<Wall*> walls(mMap->getWallList());
 	std::vector<Trigger*> triggers(mMap->getTriggerList());
+	std::vector<Object*> roofs(mMap->getRoofList());
 
 	for (auto i:enteties)
 	{
@@ -481,6 +508,19 @@ void Game::collision()
 				triggerEntity -> getFunc(j);
 			}
 		}
+
+		for (ObjectVector::size_type i = 0; i < roofs.size(); i++)
+		{
+			Object *roofEntity = roofs[i];
+			if (overlapsObjects(j, roofEntity))
+			{
+				roofEntity -> getFunc(j);
+				while (overlapsObjects(j, roofEntity))
+				{
+					j->shortYStepBack();
+				}
+			}
+		}
 	}
 
 	for (ObjectVector::size_type i = 0; i < objects.size(); i++) //Objekt man måste trycka E på
@@ -509,7 +549,6 @@ void Game::collision()
 void Game::loadMap(std::string filename, int mapID)
 {
 	delete mMap;
-	
 	for (LightVector::size_type i = 0; i < mLights.size(); i++)
 	{
 		lm->remove(&*mLights[i]);
@@ -539,7 +578,7 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, color, layer, onOff;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -649,11 +688,26 @@ void Game::loadMap(std::string filename, int mapID)
 		case 9://AnimatedObject
 			x = dataVector[i + 1];
 			y = dataVector[i + 2];
-			typeID = dataVector[i + 3];
-			active = dataVector[i + 4];
-			layer = dataVector[i + 5]; //0 == BehindObjects, 1 == InFrontOfObjects, 2 == Foreground
-			mMap->addAnimatedObject(new AnimatedObject(sf::FloatRect(x, y, 0, 0), mFH->getTexture(typeID), typeID, active, layer));
-			i += 5;
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			typeID = dataVector[i + 5];
+			active = dataVector[i + 6];
+			layer = dataVector[i + 7]; //0 == BehindObjects, 1 == InFrontOfObjects, 2 == Foreground
+			animationY = dataVector[i + 8];
+			animationPic = dataVector[i + 9];
+			direction = dataVector[i + 10];
+			alpha = dataVector[i + 11];
+			mMap->addAnimatedObject(new AnimatedObject(sf::FloatRect(x, y, width, height), mFH->getTexture(typeID), typeID, active, layer, animationY, animationPic, direction, alpha));
+			i += 11;
+			break;
+		case 10:// Tak/Golv
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			mMap->addRoof(new Roof(sf::FloatRect(x, y, width, height)));
+			i += 4;
+			break;
 		}
 	}
 	mMap->setupPortals();

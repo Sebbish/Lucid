@@ -28,7 +28,7 @@ public:
 	virtual void toggleHiding();
 	virtual layer getLayer();
 	virtual bool getHiding();
-	virtual bool getHunting();
+	virtual bool getSearching();
 	virtual bool getCanSeePlayer();
 	virtual int getTypeID();
 	virtual void setWait();
@@ -39,6 +39,9 @@ public:
 	virtual bool getActive();
 	virtual void setTargetX(int x);
 	virtual bool isEating();
+	virtual void toggleRoofStance();
+	virtual void hitRoof();
+	virtual void shortYStepBack();
 	
 private:
 	float mLastSeenX;
@@ -85,11 +88,16 @@ private:
 	{
 		SLIME,
 		MONSTER,
-		EAT
+		EAT,
+		ROOFCHANGING,
+		ROOFTRAVEL,
+		ROOFCHANGINGBACK,
+		ROOF
 	};
 	form mCurrentForm;
 	form mNextForm;
 	int mAnimationY;
 	//sf::RenderWindow* mWindow;
+	bool upsidedown;
 };
 #endif

@@ -69,6 +69,10 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mCurrentForm = SLIME;
 	mNextForm = SLIME;
 
+	mSearching = false;
+
+	upsidedown = false;
+
 	/*mFont.loadFromFile("../Debug/ariblk.ttf");
 	mText.setFont(mFont);
 	mText.setCharacterSize(24);
@@ -195,9 +199,9 @@ bool Enemy::getHiding()
 	return false;
 }
 
-bool Enemy::getHunting()
+bool Enemy::getSearching()
 {
-	return mHunting;
+	return mSearching;
 }
 
 bool Enemy::getCanSeePlayer()
@@ -327,6 +331,49 @@ bool Enemy::isEating()
 		return false;
 }
 
+void Enemy::toggleRoofStance()
+{
+	if (mCurrentForm != ROOF && mNextForm != ROOF)
+	{
+		mNextForm = ROOF;
+		mCurrentForm = ROOFCHANGING;
+		mAnimationTimer = 0;
+		mAnimationPicX = 4;
+		mAnimationY = 0;
+	}
+	else if (mCurrentForm == ROOF)
+	{
+		mNextForm = ROOF;
+		mCurrentForm = ROOFCHANGING;
+		mAnimationTimer = 0;
+		mAnimationPicX = 4;
+		mAnimationY = 0;
+	}
+}
+
+void Enemy::hitRoof()
+{
+	if (mCurrentForm == ROOFTRAVEL)
+	{
+		upsidedown = !upsidedown;
+		mCurrentForm = ROOFCHANGINGBACK;
+		mAnimationTimer = mAnimationPicX - mAnimationSpeed;
+		mAnimationY = 0;
+		mWalkTransition = false;
+		mWait = true;
+		mWaitTimer = 0;
+	}
+}
+
+void Enemy::shortYStepBack()
+{
+	if (mRect.top > mLastRect.top)
+		mRect.top--;
+
+	else if (mRect.top < mLastRect.top)
+		mRect.top++;
+}
+
 void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 {
 	if (mActive)
@@ -334,9 +381,18 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 		mLastRect = mRect;
 		if(!mControlled)
 		{
+			if (mCurrentForm == ROOF && mNextForm == ROOF)
+			{
+				toggleRoofStance();
+			}
 			if (mRect.top != mOriginalPosition.top)
 			{
 				mTeleport = true;
+				mTeleportTimer = 0;
+			}
+			else
+			{
+				mTeleport = false;
 			}
 			for (auto i:entityVector)
 			{
@@ -354,10 +410,10 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				{
 					mSearching = false;
 				}
-				else
+				if (!mWait)
 				{
 					mWalkTransition = true;
-					mAnimationTimer = 0.0f;
+					mAnimationTimer = 0;
 				}
 
 				mHunting = false;
@@ -371,7 +427,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				}
 			}
 
-			if (mWait)
+			if (mWait && mNextForm != ROOF)
 			{
 				mMove = false;
 				mWaitTimer++;
@@ -384,7 +440,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				}
 			
 			}
-			else if (mNextForm != EAT)
+			else if (mNextForm != EAT && mNextForm != ROOF)
 			{
 				if(mTargetX < mRect.left)
 				{
@@ -425,7 +481,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 
 		else
 		{
-			if (mMove)
+			if (mMove && (mNextForm != ROOF || mCurrentForm == ROOF))
 			{
 				if (mDirection == LEFT)
 				{
@@ -494,7 +550,11 @@ void Enemy::setAnimation()
 {
 	if (mCurrentForm == mNextForm)
 	{
-		if (getCanSeePlayer() && mCurrentForm == SLIME)
+		if (getCanSeePlayer() && mCurrentForm == ROOF)
+		{
+			toggleRoofStance();
+		}
+		else if (getCanSeePlayer() && mCurrentForm == SLIME)
 		{
 			mAnimationPicX = 4;
 			mAnimationY = 6;
@@ -510,7 +570,7 @@ void Enemy::setAnimation()
 		}
 		else
 		{
-			if (mCurrentForm == SLIME)
+			if (mCurrentForm == SLIME || mCurrentForm == ROOF)
 			{
 				if (mWalkTransition)
 				{
@@ -560,9 +620,57 @@ void Enemy::setAnimation()
 	}
 	else
 	{
-		if (mCurrentForm == MONSTER && mNextForm == SLIME)
+		if (mNextForm == ROOF && mCurrentForm != ROOF)
 		{
-			if(mAnimationTimer <= mAnimationSpeed)
+			if (mCurrentForm == ROOFCHANGING)
+			{
+				if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed)
+				{
+					mAnimationTimer = 0;
+					mCurrentForm = ROOFTRAVEL;
+					mAnimationY = 1;
+				}
+				else
+				{
+					mAnimationTimer += mAnimationSpeed;
+				}
+			}
+			if (mCurrentForm == ROOFTRAVEL)
+			{
+				if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed)
+					mAnimationTimer = 0;
+				else
+					mAnimationTimer += mAnimationSpeed;
+				if (!upsidedown)
+				{
+					mRect.top -= mMaxSpeed;
+				}
+				else
+				{
+					mRect.top += mMaxSpeed;
+				}
+			}
+			if (mCurrentForm == ROOFCHANGINGBACK)
+			{
+				if(mAnimationTimer <= 0)
+				{
+					mAnimationTimer = 0;
+					if (upsidedown)
+						mCurrentForm = ROOF;
+					else
+					{
+						mCurrentForm = SLIME;
+						mNextForm = SLIME;
+					}
+					mAnimationY = 4;
+				}
+				else
+					mAnimationTimer -= mAnimationSpeed;
+			}
+		}
+		else if (mCurrentForm == MONSTER && mNextForm == SLIME)
+		{
+			if(mAnimationTimer <= 0)
 			{
 				mAnimationTimer = 0.0f;
 				mCurrentForm = SLIME;
@@ -613,10 +721,20 @@ void Enemy::render(sf::RenderTexture* window, bool visualizeValues)
 	{
 		sf::RectangleShape r;
 		r.setTexture(mTexture);
-		if(mDirection == RIGHT)
-			r.setTextureRect(sf::IntRect(mRect.width * (int)mAnimationTimer, mRect.height * mAnimationY, mRect.width, mRect.height));
-		else if(mDirection == LEFT)
-			r.setTextureRect(sf::IntRect(mRect.width * ((int)mAnimationTimer+1), mRect.height * mAnimationY, -mRect.width, mRect.height));
+		if (upsidedown)
+		{
+			if(mDirection == RIGHT)
+				r.setTextureRect(sf::IntRect(mRect.width * (int)mAnimationTimer, mRect.height * (mAnimationY + 1), mRect.width, -mRect.height));
+			else if(mDirection == LEFT)
+				r.setTextureRect(sf::IntRect(mRect.width * ((int)mAnimationTimer+1), mRect.height * (mAnimationY + 1), -mRect.width, -mRect.height));
+		}
+		else
+		{
+			if(mDirection == RIGHT)
+				r.setTextureRect(sf::IntRect(mRect.width * (int)mAnimationTimer, mRect.height * mAnimationY, mRect.width, mRect.height));
+			else if(mDirection == LEFT)
+				r.setTextureRect(sf::IntRect(mRect.width * ((int)mAnimationTimer+1), mRect.height * mAnimationY, -mRect.width, mRect.height));
+		}
 		r.setPosition(mRect.left,mRect.top);
 		r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	

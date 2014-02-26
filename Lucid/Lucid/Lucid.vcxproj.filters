@@ -82,8 +82,15 @@
     <ClCompile Include="AnimatedObject.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="ambiance.cpp" />
-    <ClCompile Include="Mobil.cpp" />
+    <ClCompile Include="ambiance.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Mobil.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Roof.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -158,8 +165,15 @@
     <ClInclude Include="AnimatedObject.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="ambiance.h" />
-    <ClInclude Include="Mobil.h" />
+    <ClInclude Include="Mobil.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="ambiance.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Roof.h">
+      <Filter>.h</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png">
