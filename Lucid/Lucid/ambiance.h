@@ -9,7 +9,7 @@ public:
 	~ambiance();
 	void tick();
 private:
-	int ambMaxVolume;
+	float ambMaxVolume;
 	int ambMadness;
 
 	// VARIABLES AA //
@@ -59,5 +59,9 @@ private:
 	int frameCounter;
 
 	sf::Music ambAA,ambAB,ambBA,ambBB;
+	sf::Music mAmbAA[10];
+	sf::Music mAmbAB[10];
+	sf::Music mAmbBA[7];
+	sf::Music mAmbBB[9];
 };
 #endif

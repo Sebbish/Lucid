@@ -54,7 +54,7 @@ private:
 	Map* mMap;
 	FilHanterare* mFH;
 	float angle;
-	bool mIsEPressed,mIsQPressed,mIsMPressed,mIsFPressed;
+	bool mIsEPressed,mIsQPressed,mIsMPressed,mIsFPressed,mIsLeftPressed,mIsRightPressed;
 	sf::Clock clock;
 	sf::Shader mShader;
 	sf::RenderTexture mRenderTexture;
@@ -76,6 +76,10 @@ private:
 	ambiance *mAmbiance;
 	Sanity *mSanity;
 	sf::Text mSanityMeter;
+	bool mLightLevel;
+	float mAtmospherScaleX;
+	float mAtmospherScaleY;
+	bool mFlashlightOnOff;
 };
 
 #endif

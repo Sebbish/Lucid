@@ -206,8 +206,8 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 	mLastRect = mRect;
 	if(mMove && mKnockWidth == 0 && !mHiding)
 	{
-		mAnimationY = 0;
-		mAnimationPicX = 8;
+		mAnimationY = 1;
+		mAnimationPicX = 11;
 		if(mDirection == Entity::RIGHT)
 			mRect.left += mMaxSpeed;
 		if(mDirection == Entity::LEFT)
@@ -225,7 +225,7 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 	}
 	else
 	{
-		mAnimationY = 1;
+		mAnimationY = 2;
 		mAnimationPicX = 4;
 		if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
 		{

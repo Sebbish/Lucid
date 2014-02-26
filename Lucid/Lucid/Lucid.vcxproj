@@ -87,6 +87,7 @@
     <ClCompile Include="ambiance.cpp" />
     <ClCompile Include="AnimatedObject.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Dialog.cpp" />
     <ClCompile Include="Effects.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -111,6 +112,7 @@
     <ClCompile Include="Roof.cpp" />
     <ClCompile Include="Sanity.cpp" />
     <ClCompile Include="SaveLoad.cpp" />
+    <ClCompile Include="snake.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -119,6 +121,7 @@
     <ClInclude Include="ambiance.h" />
     <ClInclude Include="AnimatedObject.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="Dialog.h" />
     <ClInclude Include="Effects.h" />
     <ClInclude Include="Enemy.h" />
@@ -141,6 +144,7 @@
     <ClInclude Include="Roof.h" />
     <ClInclude Include="Sanity.h" />
     <ClInclude Include="SaveLoad.h" />
+    <ClInclude Include="snake.h" />
     <ClInclude Include="Trigger.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>

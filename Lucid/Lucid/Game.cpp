@@ -3,13 +3,17 @@
 Game::Game()
 {
 	angle = 0;
-	mAmbientRed = 4;
-	mAmbientGreen = 4;
-	mAmbientBlue = 6;
+	mAmbientRed = 0;
+	mAmbientGreen = 0;
+	mAmbientBlue = 0;
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	testLight = sf::Color(100, 100, 100, 178);
 	mFH = new FilHanterare();
+	mAtmospherScaleX = 1;
+	mAtmospherScaleY = 1;
 	mSanity = new Sanity();
+	mLightLevel = false;
+	mFlashlightOnOff = false;
 	mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mWindow.setMouseCursorVisible(false);
 	/*std::vector<sf::VideoMode, std::allocator<sf::VideoMode>> test;
@@ -39,7 +43,7 @@ Game::Game()
 	
 	mSL = new SaveLoad();
 
-	mMobil = new Mobil(mFH->getTexture(34),mSL,mMap->getID());
+	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42));
 	mAmbiance = new ambiance();
 }
 
@@ -49,6 +53,7 @@ Game::~Game()
 
 void Game::run()
 {
+	clock.restart();
 	sf::Font MyFont;
 		if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
 		{
@@ -63,11 +68,17 @@ void Game::run()
 	lm->setAmbient(mAmbient);
 	while (mWindow.isOpen())
     {
-		clock.restart();
+		if(mMobil->snakes)
+		{
+			mAmbiance->tick();
+			mMobil->tick();
+			mMobil->render(mWindow);
+		}else
+		{
 		input(mControlledEntity);
 		tick();
 		
-		mWindow.clear(sf::Color(255, 0, 255));
+		mWindow.clear(sf::Color(0, 0, 0));
 		mWindow.setView(*camera->getView());
 		render();
 		//mousePositionFunc();
@@ -75,8 +86,12 @@ void Game::run()
 		mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
 		mWindow.draw(mSanityMeter);
         mWindow.display();
+
+		}
+
 		while(clock.getElapsedTime().asMicroseconds() < 16666)
 		{}
+
     }
 }
 
@@ -134,18 +149,29 @@ void Game::input(Entity* entity)
 			else
 				mEntities[0]->setMaxSpeed(6);
 
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mIsFPressed)//OnOff för ficklampa
+
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mIsFPressed && mControlledEntity == mEntities[0] && mEntities[0]->getHiding() == false)//OnOff för ficklampa
+
 			{
-				mLights[0]->setOnOff(!mLights[0]->getOnOff());
+				if (mFlashlightOnOff == true)
+				{
+					mFlashlightOnOff = false;
+				}
+				else
+				{
+					mFlashlightOnOff = true;
+				}
 			}
 			//kollar om Q trycktes ned och mindcontrollar då
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
 			{
+				
 				//kontrollerar om den kontrollerade entiteten är spelaren
 				if(mControlledEntity == mEntities[0])
 				{
 					Entity* enemie = NULL;
+
 					//kollar alla entiteter och kollar vilken som är närmast av de som är på samma y-level och innom 200p range
 					for(auto i:mEntities)
 					{
@@ -190,16 +216,11 @@ void Game::input(Entity* entity)
 
 
 	case true:
-		{
-			if(mMobil->getSkriver())
-			{
-				if(event.type == sf::Event::TextEntered)
-					mMobil->addTextToSaveSlot((char)event.text.unicode);
-			}
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{                                                                                                                                                                                                                                                                                                                                                            
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !mIsRightPressed)
 			{
 				mMobil->nextApp();
-			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !mIsLeftPressed)
 			{
 				mMobil->lastApp();
 			}
@@ -207,12 +228,6 @@ void Game::input(Entity* entity)
 			{
 				if(mMobilActivateApp())
 					break;
-			}
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && mMobil->getSkriver())
-			{
-				mMobil->save(mMap->getID());
-				mMobil->setWritingText(false);
-				mMobil->reset();
 			}
 			break;
 		}
@@ -227,7 +242,7 @@ void Game::input(Entity* entity)
 		}else
 		{
 			mControlledEntity->setMove(false);
-			mMobil->activate(camera->getView(),mMap->getID());
+			mMobil->activate(camera->getView());
 			mMenu = true;
 		}
 	}
@@ -238,38 +253,22 @@ bool Game::mMobilActivateApp()
 	if(mMobil->getActiveAppID() == 3)
 		{
 			mWindow.close();
-		}else if(mMobil->getActiveAppID() == 4)
+		}else if(mMobil->getActiveAppID() == 0)
 		{
 				mMobil->deactivate();
+				mMenu = false;
 				loadMap("../Debug/map1.txt", 1);
+				mIsEPressed = true;
 				return true;
-		}else if(mMobil->IWantToLoad())
+		}else if(mMobil->getActiveAppID() == 1)
 		{
-			if(mMobil->getActiveAppID() == 7)
-			{
-				std::stringstream a;//gör en typ string
-				a << mSL->load(0); // gör om int till string
-				loadMap("../Debug/map"+a.str()+".txt",mSL->load(0));
+				loadMap("../Debug/map"+std::to_string(mSL->load(0))+".txt",mSL->load(0));
 				mMobil->reset();
 				mMobil->deactivate();
+				mEntities[0]->setMove(false);
+				mMenu = false;
+				mIsEPressed = true;
 				return true;
-			}else if(mMobil->getActiveAppID() == 8)
-			{
-				std::stringstream a;//gör en typ string
-				a << mSL->load(1); // gör om int till string
-				loadMap("../Debug/map"+a.str()+".txt",mSL->load(1));
-				mMobil->reset();
-				mMobil->deactivate();
-				return true;
-			}else if(mMobil->getActiveAppID() == 9)
-			{
-				std::stringstream a;//gör en typ string
-				a << mSL->load(2); // gör om int till string
-				loadMap("../Debug/map"+a.str()+".txt",mSL->load(2));
-				mMobil->reset();
-				mMobil->deactivate();
-				return true;
-			}
 		}
 
 		return false;
@@ -301,8 +300,14 @@ void Game::render()
 	ss.setTexture(s);
 	//mWindow->draw(ss,&mShader);
 	mWindow.draw(ss,&mEffects->getShader());//Sköter ljust styrka baserat på om ficklampa är på eller ej.
-	if (mLights[0]->getOnOff() == false && mAmbientBlue < 7 && mAmbientGreen < 4 && mAmbientRed < 4)
+	/*else
 	{
+<<<<<<< HEAD
+		mAmbientRed = 200;
+		mAmbientGreen = 200;
+		mAmbientBlue = 205;
+	
+=======
 		mAmbientBlue += 0.025;
 		mAmbientGreen += 0.025;
 		mAmbientRed += 0.05;
@@ -313,12 +318,14 @@ void Game::render()
 		mAmbientGreen = 200;
 		mAmbientRed = 200;
 	}
+>>>>>>> 44b07b43702e926e10bb17ddab5df80af631b139}*/
 
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
 	lm->render(mWindow);
 	mDialog->render(&mWindow);
-	mMobil->render(&mWindow);
+	if(mMobil->getActivate())
+		mMobil->render(mWindow);
 }
 
 void Game::tick()
@@ -373,18 +380,39 @@ void Game::tick()
 
 	camera->tick();
 	mDialog->tick(camera->getView());
-	mMobil->tick();
+	if(mMobil->getActivate())
+		mMobil->tick();
+	mLights[0]->setOnOff(mFlashlightOnOff);
 
 	if (mEntities[0]->getDirection() == Entity::LEFT)
 	{
 		mLights[0]->flipSprite(0);
-		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left, mEntities[0]->getRect().top));
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left - mLights[0]->getXSize() + 145, mEntities[0]->getRect().top));
+		
 	}
 	else
 	{
 		mLights[0]->flipSprite(1);
-		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width), mEntities[0]->getRect().top));
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width) - 145, mEntities[0]->getRect().top));
 	}
+	if (mFlashlightOnOff == false && mAtmospherScaleX <= 3)
+	{
+		mAtmospherScaleX += 0.003;
+	}
+	else if (mFlashlightOnOff == true && mAtmospherScaleX >= 1)
+	{
+		mAtmospherScaleX -= 0.06;
+	}
+	if (mControlledEntity != mEntities[0] || mEntities[0]->getHiding() == true)
+	{
+		if (mFlashlightOnOff == true)//Stänger av ficklampan när man tar kontrol.
+		{
+			mFlashlightOnOff = false;
+		}
+	}
+	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
+	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top));
+
 	if (mControlledEntity != mEntities[0])
 	{
 		mSanity->setSanity(-0.002);
@@ -395,13 +423,19 @@ void Game::tick()
 				mSanity->setSanity(-0.01);
 			}
 	}
+	for(auto i:mLights)
+	{
+		i->tick();
 
+	}
 	mAmbiance->tick();
 
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
 	mIsFPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::F);
 	mIsQPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
 	mIsMPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::M);
+	mIsLeftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+	mIsRightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
 }
 
 void Game::collision()
@@ -635,8 +669,9 @@ void Game::loadMap(std::string filename, int mapID)
 			color = dataVector[i + 3];
 			onOff = dataVector[i + 4];
 			typeID = dataVector[i + 5];
-			mLightSources.push_back(new Flashlight(x, y, testLight, onOff, mFH->getTexture(typeID)));
-			i += 5;
+			animationPic = dataVector[i + 6];
+			mLightSources.push_back(new Flashlight(x, y, testLight, onOff, mFH->getTexture(typeID), animationPic));
+			i += 6;
 			break;
 		case 9://AnimatedObject
 			x = dataVector[i + 1];
@@ -728,4 +763,8 @@ void Game::addLights()
 	{
 		lm->add(&*mLights[i]);
 	}
+	sf::Color atmosfär(20,20,24,255);
+	mLights[1]->setColor(atmosfär);
+	mLights[0]->setScale(1,1);
+	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 }
