@@ -3,13 +3,17 @@
 Game::Game()
 {
 	angle = 0;
-	mAmbientRed = 4;
-	mAmbientGreen = 4;
-	mAmbientBlue = 6;
+	mAmbientRed = 0;
+	mAmbientGreen = 0;
+	mAmbientBlue = 0;
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	testLight = sf::Color(100, 100, 100, 178);
 	mFH = new FilHanterare();
+	mAtmospherScaleX = 1;
+	mAtmospherScaleY = 1;
 	mSanity = new Sanity();
+	mLightLevel = false;
+	mFlashlightOnOff = false;
 	mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	mWindow.setMouseCursorVisible(false);
 	/*std::vector<sf::VideoMode, std::allocator<sf::VideoMode>> test;
@@ -19,8 +23,8 @@ Game::Game()
 	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
 	mWindow.setFramerateLimit(60);
 	mWindow.setVerticalSyncEnabled(true);
-	lm = new db::LightManager(sf::Vector2i(10000, 10000));
-	mRenderTexture.create(10000, 10000);
+	lm = new db::LightManager(sf::Vector2i(9000, 4000));
+	mRenderTexture.create(9000, 4000);
 	mDialog = new Dialog();
 	loadMap("../Debug/map1.txt", 1);
 	mEffects = new Effects();
@@ -66,7 +70,7 @@ void Game::run()
 		input(mControlledEntity);
 		tick();
 		
-		mWindow.clear(sf::Color(255, 0, 255));
+		mWindow.clear(sf::Color(0, 0, 0));
 		mWindow.setView(*camera->getView());
 		render();
 		//mousePositionFunc();
@@ -132,17 +136,26 @@ void Game::input(Entity* entity)
 				mEntities[0]->setMaxSpeed(6);
 
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mIsFPressed)//OnOff för ficklampa
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mIsFPressed && mControlledEntity == mEntities[0] && mEntities[0]->getHiding() == false)//OnOff för ficklampa
 			{
-				mLights[0]->setOnOff(!mLights[0]->getOnOff());
+				if (mFlashlightOnOff == true)
+				{
+					mFlashlightOnOff = false;
+				}
+				else
+				{
+					mFlashlightOnOff = true;
+				}
 			}
 		//kollar om Q trycktes ned och mindcontrollar då
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
 			{
+				
 				//kontrollerar om den kontrollerade entiteten är spelaren
 				if(mControlledEntity == mEntities[0])
 				{
 					Entity* enemie = NULL;
+
 					//kollar alla entiteter och kollar vilken som är närmast av de som är på samma y-level och innom 200p range
 					for(auto i:mEntities)
 					{
@@ -158,6 +171,7 @@ void Game::input(Entity* entity)
 									enemie = i;
 							}
 						}
+
 						}
 					}
 					if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getHunting() && enemie->getTypeID() == 21)
@@ -289,18 +303,12 @@ void Game::render()
 	ss.setTexture(s);
 	//mWindow->draw(ss,&mShader);
 	mWindow.draw(ss,&mEffects->getShader());//Sköter ljust styrka baserat på om ficklampa är på eller ej.
-	if (mLights[0]->getOnOff() == false && mAmbientBlue < 7 && mAmbientGreen < 4 && mAmbientRed < 4)
+	/*else
 	{
-		mAmbientBlue += 0.025;
-		mAmbientGreen += 0.025;
-		mAmbientRed += 0.05;
-	}
-	else if (mLights[0]->getOnOff() == true)
-	{
-		mAmbientBlue = 1;
-		mAmbientGreen = 1;
-		mAmbientRed = 2;
-	}
+		mAmbientRed = 200;
+		mAmbientGreen = 200;
+		mAmbientBlue = 205;
+	}*/
 
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
@@ -362,17 +370,37 @@ void Game::tick()
 	camera->tick();
 	mDialog->tick(camera->getView());
 	mMobil->tick();
+	mLights[0]->setOnOff(mFlashlightOnOff);
 
 	if (mEntities[0]->getDirection() == Entity::LEFT)
 	{
 		mLights[0]->flipSprite(0);
-		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left, mEntities[0]->getRect().top));
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left - mLights[0]->getXSize() + 145, mEntities[0]->getRect().top));
+		
 	}
 	else
 	{
 		mLights[0]->flipSprite(1);
-		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width), mEntities[0]->getRect().top));
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width) - 145, mEntities[0]->getRect().top));
 	}
+	if (mFlashlightOnOff == false && mAtmospherScaleX <= 3)
+	{
+		mAtmospherScaleX += 0.003;
+	}
+	else if (mFlashlightOnOff == true && mAtmospherScaleX >= 1)
+	{
+		mAtmospherScaleX -= 0.06;
+	}
+	if (mControlledEntity != mEntities[0] || mEntities[0]->getHiding() == true)
+	{
+		if (mFlashlightOnOff == true)//Stänger av ficklampan när man tar kontrol.
+		{
+			mFlashlightOnOff = false;
+		}
+	}
+	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
+	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top));
+
 	if (mControlledEntity != mEntities[0])
 	{
 		mSanity->setSanity(-0.002);
@@ -383,7 +411,11 @@ void Game::tick()
 				mSanity->setSanity(-0.01);
 			}
 	}
+	for(auto i:mLights)
+	{
+		i->tick();
 
+	}
 	mAmbiance->tick();
 
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
@@ -610,8 +642,9 @@ void Game::loadMap(std::string filename, int mapID)
 			color = dataVector[i + 3];
 			onOff = dataVector[i + 4];
 			typeID = dataVector[i + 5];
-			mLightSources.push_back(new Flashlight(x, y, testLight, onOff, mFH->getTexture(typeID)));
-			i += 5;
+			animationPic = dataVector[i + 6];
+			mLightSources.push_back(new Flashlight(x, y, testLight, onOff, mFH->getTexture(typeID), animationPic));
+			i += 6;
 			break;
 		case 9://AnimatedObject
 			x = dataVector[i + 1];
@@ -688,4 +721,8 @@ void Game::addLights()
 	{
 		lm->add(&*mLights[i]);
 	}
+	sf::Color atmosfär(20,20,24,255);
+	mLights[1]->setColor(atmosfär);
+	mLights[0]->setScale(1,1);
+	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 }

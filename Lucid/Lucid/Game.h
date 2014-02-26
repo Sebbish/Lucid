@@ -76,6 +76,10 @@ private:
 	ambiance *mAmbiance;
 	Sanity *mSanity;
 	sf::Text mSanityMeter;
+	bool mLightLevel;
+	float mAtmospherScaleX;
+	float mAtmospherScaleY;
+	bool mFlashlightOnOff;
 };
 
 #endif

@@ -7,25 +7,29 @@ namespace sf
 	class RenderTexture;
 }
 
-#include <SFML\Graphics\Color.hpp>
-#include <SFML\Graphics\Sprite.hpp>
+#include "SFML\Graphics.hpp"
 #include <SFML\System\Vector2.hpp>
 
 namespace db 
 {
 	class Light
 	{
+		
 	public:
+		enum direction {
+		LEFT,
+		RIGHT
+		};
 		// Initializes the light.
 		// @param texture: Masking texture for the light.
 		// @param position: Position of where to draw the light.
 		// @param color: Color of the light, alpha is intensity.
 		// @param addBlend: Draw light with addaptive blending or not.
-		Light( sf::Texture& texture, sf::Vector2f& position, sf::Color& color, bool onOff, bool addBlend = true);
+		Light( sf::Texture& texture, sf::Vector2f& position, sf::Color& color, float anitmationPicX, bool onOff, bool addBlend = true);
 
 		// Renders the light.
 		// @param target: The texture of which to render onto.
-		void render( sf::RenderTexture& target ) const;
+		void render( sf::RenderTexture& target );
 
 		// Retrives the light position.
 		// @return: A vector containing position, expressed in float.
@@ -49,11 +53,26 @@ namespace db
 
 		bool getOnOff();
 
+		void setScale(float x, float y);
+
+		void tick();
+
+		int getXSize();
+
 	private:
 		sf::Sprite mSprite;
 		sf::Color mColor;
+		sf::FloatRect mRect;
+		//const sf::IntRect &mIntRect;
+		direction mDirection;
+		float mScaleX;
+		float mScaleY;
+		float mAnimationPicX;
+		float mAnimationTimer;
+		float mAnimationSpeed;
 		bool mAddBlend;
 		bool mOnOff;
+
 	};
 }
 

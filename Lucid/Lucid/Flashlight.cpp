@@ -1,7 +1,7 @@
 #include "Flashlight.h"
 
-Flashlight::Flashlight(float x, float y,sf::Color color, int onOff, sf::Texture *texture):
-	mTexture(*texture),mColor(color) //mLight(mTexture,sf::Vector2f(0,0), mColor)
+Flashlight::Flashlight(float x, float y,sf::Color color, int onOff, sf::Texture *texture, float anitmationPicX):
+	mTexture(*texture),mColor(color),mAnimationPicX(anitmationPicX) //mLight(mTexture,sf::Vector2f(0,0), mColor)
 {
 
 	mRect.left = x;
@@ -14,7 +14,7 @@ Flashlight::Flashlight(float x, float y,sf::Color color, int onOff, sf::Texture 
 	{
 		mOnOff = true;
 	}
-	mLight = new db::Light(mTexture,sf::Vector2f(mRect.left, mRect.top),mColor,mOnOff);
+	mLight = new db::Light(mTexture,sf::Vector2f(mRect.left, mRect.top),mColor,mAnimationPicX,mOnOff);
 //	mLight.setPosition( sf::Vector2f(mRect.left, mRect.top) );
 }
 

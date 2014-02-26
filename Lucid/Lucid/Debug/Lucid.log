@@ -1,34 +1,29 @@
-﻿Build started 2014-02-20 13:12:30.
+﻿Build started 2014-02-26 11:05:45.
      1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FilHanterare.cpp Game.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
          Game.cpp
      1>p:\lucid\lucid\lucid\game.cpp(9): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(294): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>p:\lucid\lucid\lucid\game.cpp(295): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>p:\lucid\lucid\lucid\game.cpp(296): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>p:\lucid\lucid\lucid\game.cpp(305): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(378): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>p:\lucid\lucid\lucid\game.cpp(383): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>p:\lucid\lucid\lucid\game.cpp(519): warning C4018: '<' : signed/unsigned mismatch
-     1>p:\lucid\lucid\lucid\game.cpp(529): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(545): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(554): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(567): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(578): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(587): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(597): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(604): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(613): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(622): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(662): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(663): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(676): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>p:\lucid\lucid\lucid\game.cpp(676): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-         FilHanterare.cpp
-         Generating Code...
-     1>p:\lucid\lucid\lucid\filhanterare.cpp(63): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\filhanterare.cpp(69): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\game.cpp(313): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(388): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\game.cpp(392): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\game.cpp(406): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\game.cpp(411): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\game.cpp(551): warning C4018: '<' : signed/unsigned mismatch
+     1>p:\lucid\lucid\lucid\game.cpp(561): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(577): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(586): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(599): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(610): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(619): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(629): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(636): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(646): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(655): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(695): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(696): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(709): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(709): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"P:\Lucid\Lucid\Debug\Lucid.exe" /INCREMENTAL /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" "sfml-audio-d.lib" "sfml-graphics-d.lib" "sfml-main-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"P:\Lucid\Lucid\Debug\Lucid.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"P:\Lucid\Lucid\Debug\Lucid.lib" /MACHINE:X86 Debug\ambiance.obj
          Debug\AnimatedObject.obj
@@ -64,4 +59,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:25.10
+Time Elapsed 00:00:21.07

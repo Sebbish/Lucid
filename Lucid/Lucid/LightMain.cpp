@@ -1,18 +1,18 @@
-/* The two important headers */
+/* The two important headers *//*
 #include "Light.h"
 #include "LightManager.h"
 
 #include <SFML\Graphics.hpp>
 
-/* DEMO OF LIGHT ENGINE */
+/* DEMO OF LIGHT ENGINE *//*
 void maisdfgn()
 {
-	/* Create a lightmanager and give it an initial screensize. */
+	/* Create a lightmanager and give it an initial screensize. *//*
 	db::LightManager lm( sf::Vector2i(800,600) );
 
 	/* Load the lightmask texture and the background. */
 	/* The quality of the lightmask is basically what defines how "good" the light will look */
-	/* One teq. is to SCALE the lightmask x2 or x3 times to give it a better pixelated feel this is not done here though. */
+	/* One teq. is to SCALE the lightmask x2 or x3 times to give it a better pixelated feel this is not done here though. *//*
 	sf::Texture lightMask;
 	sf::Texture backgroundTexture;
 
@@ -29,7 +29,7 @@ void maisdfgn()
 		Alpha should always be full (255) on ambient light!
 		Low color values gives a darker light!
 		A tiny bit more blue gives a more "real" darkness.
-	*/
+	*//*
 	sf::Color ambient(4,4,6,255); 
 	lm.setAmbient( ambient );
 	/*
@@ -38,7 +38,7 @@ void maisdfgn()
 		The alpha channel is corresponding to the light intensity.
 		178 is a good middle ground, it gives a nice blending but is not to dark.
 		Favor brighter colors over brighter light. Tweak for best result.
-	*/
+	*//*
 	sf::Color greenLight(55,255,55,178);
 
 	/* Create a light, texture, position and light color. Default value is Add-blending mode. */
@@ -49,12 +49,12 @@ void maisdfgn()
 		It's possible to mix different lights. However I haven't examined the result closely.
 	*/
 	/* NOTE: Drawing a light multiple times (in add mode) will give it more of a bloom feel. This will need a slight source alteration */
-	db::Light light( lightMask, sf::Vector2f(400,300), greenLight, true );
+	//db::Light light( lightMask, sf::Vector2f(400,300), greenLight, true );
 
 
 	/* Add it to the light manager */
-	lm.add( &light );
-
+	//lm.add( &light );
+/*
 	sf::RenderWindow window( sf::VideoMode( 800, 600, 32 ), "Light Engine DEMO" );
 	window.setFramerateLimit(60);
 	sf::Event event;
@@ -65,7 +65,7 @@ void maisdfgn()
 		{
 		}
 
-		auto pos = light.getPosition();
+		//auto pos = light.getPosition();
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) )
 		{
 			pos.y -= 5;
@@ -88,7 +88,7 @@ void maisdfgn()
 
 		window.clear(sf::Color::White);
 		window.draw( background );
-		/* Draw the lightmap LAST */
+		/* Draw the lightmap LAST *//*
 		lm.render( window );
 		window.display();
 	}
@@ -96,4 +96,4 @@ void maisdfgn()
 
 
 	//return 0;
-}
+}*/
