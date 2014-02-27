@@ -34,6 +34,11 @@ sf::FloatRect Npc::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Npc::getHitBox()const
+{
+	return mRect;
+}
+
 int Npc::getDialogueID()
 {
 	return mDialogueID;

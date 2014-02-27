@@ -128,6 +128,11 @@ sf::FloatRect Enemy::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Enemy::getHitBox()const
+{
+	return mRect;
+}
+
 sf::FloatRect Enemy::getLastRect()const
 {
 	return mLastRect;

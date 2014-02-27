@@ -23,6 +23,11 @@ sf::FloatRect Roof::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Roof::getHitBox()const
+{
+	return mRect;
+}
+
 void Roof::tick()
 {
 }

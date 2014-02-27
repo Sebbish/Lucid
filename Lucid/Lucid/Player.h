@@ -9,6 +9,7 @@ public:
 	Player(float x, float y, float width, float height, float speed,sf::Texture* texture,float anitmationPicX,sf::SoundBuffer* walkSound);
 	~Player();
 	virtual sf::FloatRect getRect()const;
+	virtual sf::FloatRect getHitBox()const;
 	virtual void setKockBack(float width,float acc);
 	virtual sf::FloatRect getLastRect()const;
 	virtual void getFunc(Entity* entity);

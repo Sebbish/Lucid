@@ -38,6 +38,11 @@ sf::FloatRect Portal::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Portal::getHitBox()const
+{
+	return mRect;
+}
+
 void Portal::setTargetPortal(Portal* portal)
 {
 	mTargetPortal = portal;

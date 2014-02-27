@@ -62,6 +62,11 @@ sf::FloatRect AnimatedObject::getRect()const
 	return mRect;
 }
 
+sf::FloatRect AnimatedObject::getHitBox()const
+{
+	return mRect;
+}
+
 int AnimatedObject::getFunc(Entity* player)
 {
 	return 0;

@@ -130,7 +130,10 @@ void Mobil::tick()
 
 	if(snakes)
 		if(s->exitPls())
+		{
 			snakes = false;
+			delete s;
+		}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::O) && sf::Keyboard::isKeyPressed(sf::Keyboard::P) && !snakes)
 		ActivateSnakes();

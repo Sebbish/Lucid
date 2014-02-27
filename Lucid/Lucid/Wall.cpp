@@ -28,6 +28,11 @@ sf::FloatRect Wall::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Wall::getHitBox()const
+{
+	return mRect;
+}
+
 void Wall::tick()
 {
 }

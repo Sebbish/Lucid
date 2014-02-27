@@ -9,6 +9,7 @@ public:
 	Trigger(sf::FloatRect rect, int triggedByID, int active);
 	~Trigger(void);
 	virtual sf::FloatRect getRect()const;
+	virtual sf::FloatRect getHitBox()const;
 	virtual int getFunc(Entity* player);
 	virtual void tick();
 	virtual void render(sf::RenderTexture* window);

@@ -21,6 +21,7 @@ public:
 	virtual ~Entity() = 0;
 	virtual void setKockBack(float width,float acc) = 0;
 	virtual sf::FloatRect getRect()const = 0;
+	virtual sf::FloatRect getHitBox()const = 0;
 	virtual sf::FloatRect getLastRect()const = 0;
 	virtual void getFunc(Entity* entity) = 0;
 	virtual void controlled(bool controlled) = 0;

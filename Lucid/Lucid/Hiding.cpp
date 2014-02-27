@@ -20,6 +20,12 @@ sf::FloatRect Hiding::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Hiding::getHitBox()const
+{
+	return mRect;
+}
+
+
 void Hiding::tick()
 {
 }

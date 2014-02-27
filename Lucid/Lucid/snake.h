@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "SFML\Audio.hpp"
 
 #include <iostream>
 
@@ -43,7 +44,8 @@ private:
 	bool mRender;
 
 	sf::Texture t,l;
-	
+	sf::Music mMusic;
+
 	int mScore;
 
 	sf::Font mFont;
