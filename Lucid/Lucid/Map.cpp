@@ -184,6 +184,11 @@ void Map::renderMap(sf::RenderTexture* window)
 {
 	for (auto i:mParallaxList)
 		i->render(window);
+	for (auto i:mAnimatedObjectList)
+	{
+		if (i->getLayer() == AnimatedObject::BehindBackground)
+			i->render(window);
+	}
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
 	//r.setTextureRect(sf::IntRect(0,0,window->getSize().x,window->getSize().y));

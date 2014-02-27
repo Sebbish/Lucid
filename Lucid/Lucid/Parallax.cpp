@@ -25,6 +25,11 @@ sf::FloatRect Parallax::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Parallax::getHitBox()const
+{
+	return mRect;
+}
+
 int Parallax::getFunc(Entity* player)
 {
 	return 0;

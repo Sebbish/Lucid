@@ -20,6 +20,17 @@ sf::FloatRect Hiding::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Hiding::getHitBox()const
+{
+	sf::FloatRect hitBoxRect = mRect;
+	hitBoxRect.left += 125;
+	hitBoxRect.top += 26;
+	hitBoxRect.height = 230;
+	hitBoxRect.width = 6;
+	return hitBoxRect;
+}
+
+
 void Hiding::tick()
 {
 }

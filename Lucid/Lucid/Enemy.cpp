@@ -128,6 +128,21 @@ sf::FloatRect Enemy::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Enemy::getHitBox()const
+{
+	if (mCurrentForm == ROOFTRAVEL || mCurrentForm == ROOFCHANGINGBACK)
+		return mRect;
+	else
+	{
+		sf::FloatRect hitBoxRect = mRect;
+		hitBoxRect.left += 80;
+		hitBoxRect.top += 100;
+		hitBoxRect.height = 156;
+		hitBoxRect.width = 96;
+		return hitBoxRect;
+	}
+}
+
 sf::FloatRect Enemy::getLastRect()const
 {
 	return mLastRect;

@@ -30,6 +30,12 @@ sf::FloatRect Trigger::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Trigger::getHitBox()const
+{
+	return mRect;
+}
+
+
 void Trigger::tick()
 {
 	mTrigged = false;

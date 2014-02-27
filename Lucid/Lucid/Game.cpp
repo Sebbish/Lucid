@@ -54,31 +54,32 @@ Game::~Game()
 
 void Game::run()
 {
-	clock.restart();
 	sf::Font MyFont;
-		if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
-		{
-			// Error...
-		}
+	if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+	{
+		// Error...
+	}
 		
-		//mSanityMeter.setString("Hello");
-		mSanityMeter.setFont(MyFont);
-		mSanityMeter.setScale(1,1);
+	//mSanityMeter.setString("Hello");
+	mSanityMeter.setFont(MyFont);
+	mSanityMeter.setScale(1,1);
 		
-		mSanityMeter.setColor(sf::Color(128, 128, 0));
+	mSanityMeter.setColor(sf::Color(128, 128, 0));
 	lm->setAmbient(mAmbient);
 	while (mWindow.isOpen())
     {
+		clock.restart();
 		if(mMobil->snakes)
 		{
-			mAmbiance->tick();
 			mMobil->tick();
 			mMobil->render(mWindow);
+			mIsEscapePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
 		}else
 		{
-		input(mControlledEntity);
-		tick();
+			input(mControlledEntity);
+			tick();
 		
+<<<<<<< HEAD
 		mWindow.clear(sf::Color(0, 0, 0));
 		mWindow.setView(*camera->getView());
 		render();
@@ -87,6 +88,16 @@ void Game::run()
 		mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
 		//mWindow.draw(mSanityMeter);
         mWindow.display();
+=======
+			mWindow.clear(sf::Color(0, 0, 0));
+			mWindow.setView(*camera->getView());
+			render();
+			//mousePositionFunc();
+			mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
+			mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
+			mWindow.draw(mSanityMeter);
+			mWindow.display();
+>>>>>>> 5ffa1adc89aec33f5386fe841a696aaa5f6e9b4a
 
 		}
 
@@ -104,7 +115,7 @@ void Game::input(Entity* entity)
 		{
 		while (mWindow.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			if (event.type == sf::Event::Closed || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed))
 				mWindow.close();
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
@@ -141,6 +152,18 @@ void Game::input(Entity* entity)
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3))
 			{
 				mVisualizeValues = !mVisualizeValues;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F5))
+			{
+					mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid");
+					mWindow.setVerticalSyncEnabled(true);
+					mWindow.setMouseCursorVisible(false);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F6))
+			{
+					mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
+					mWindow.setVerticalSyncEnabled(true);
+					mWindow.setMouseCursorVisible(false);
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
@@ -225,13 +248,19 @@ void Game::input(Entity* entity)
 			{
 				mMobil->lastApp();
 			}
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed || sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 			{
 				if(mMobilActivateApp())
 					break;
 			}
 			break;
 		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed)
+	{
+		mMobil->deactivate();
+		mMenu = false;
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && !mIsMPressed)
@@ -454,6 +483,7 @@ void Game::tick()
 	mIsMPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::M);
 	mIsLeftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
 	mIsRightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+	mIsEscapePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
 }
 
 void Game::collision()
@@ -736,8 +766,8 @@ void Game::setControlledEntity(Entity* entity)
 
 bool Game::overlapsEntity(Entity *playerEntity, Entity *otherEntity)
 {
-	sf::FloatRect playerPosition = playerEntity ->getRect();
-	sf::FloatRect otherPosition = otherEntity ->getRect();
+	sf::FloatRect playerPosition = playerEntity ->getHitBox();
+	sf::FloatRect otherPosition = otherEntity ->getHitBox();
 	if (playerPosition.intersects(otherPosition))
 		return true;
 	else
@@ -746,8 +776,8 @@ bool Game::overlapsEntity(Entity *playerEntity, Entity *otherEntity)
 
 bool Game::overlapsObjects(Entity *playerEntity, Object *objectEntity)
 {
-	sf::FloatRect playerPosition = playerEntity ->getRect();
-	sf::FloatRect otherPosition = objectEntity ->getRect();
+	sf::FloatRect playerPosition = playerEntity ->getHitBox();
+	sf::FloatRect otherPosition = objectEntity ->getHitBox();
 	if (playerPosition.intersects(otherPosition))
 		return true;
 	else
@@ -760,7 +790,7 @@ bool Game::overlapsMouse(Entity *entity)
 	sf::FloatRect mousePosition;
 	mousePosition.left = mMousePosition.x;
 	mousePosition.top  = mMousePosition.y;
-	sf::FloatRect otherPosition = entity ->getRect();
+	sf::FloatRect otherPosition = entity ->getHitBox();
 	if (mousePosition.intersects(otherPosition))
 		return true;
 	else

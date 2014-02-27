@@ -11,8 +11,10 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 	else
 		mActive = true;
 	if (layer == 0)
-		mLayer = BehindObjects;
+		mLayer = BehindBackground;
 	else if (layer == 1)
+		mLayer = BehindObjects;
+	else if (layer == 2)
 		mLayer = InFrontOfObjects;
 	else
 		mLayer = Foreground;
@@ -56,6 +58,11 @@ AnimatedObject::~AnimatedObject(void)
 }
 
 sf::FloatRect AnimatedObject::getRect()const
+{
+	return mRect;
+}
+
+sf::FloatRect AnimatedObject::getHitBox()const
 {
 	return mRect;
 }

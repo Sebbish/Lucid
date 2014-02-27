@@ -9,6 +9,7 @@ public:
 	Enemy(float x, float y, float width, float height, float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID, int active, sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound);
 	~Enemy();
 	virtual sf::FloatRect getRect()const;
+	virtual sf::FloatRect getHitBox()const;
 	virtual void setKockBack(float width,float acc);
 	virtual sf::FloatRect getLastRect()const;
 	virtual void getFunc(Entity* entity);

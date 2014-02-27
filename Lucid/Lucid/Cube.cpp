@@ -7,6 +7,7 @@ Cube::Cube(sf::FloatRect& rec,bool leader,bool fruit,sf::Texture& t,sf::FloatRec
 	mRect = rec;
 	this->maxSize = maxSize;
 	mD = RIGHT;
+	mNextD = RIGHT;
 }
 
 
@@ -20,19 +21,19 @@ void Cube::setDirection(direction d)
 	{
 	case 0:
 		if(mD != 1)
-			mD = UP;
+			mNextD = UP;
 		break;
 	case 1:
 		if(mD != 0)
-			mD = DOWN;
+			mNextD = DOWN;
 		break;
 	case 2:
 		if(mD != 3)
-			mD = LEFT;
+			mNextD = LEFT;
 		break;
 	case  3:
 		if(mD != 2)
-			mD = RIGHT;
+			mNextD = RIGHT;
 		break;
 	}
 }
@@ -50,6 +51,7 @@ void Cube::setRect(sf::FloatRect& rect)
 
 void Cube::tick(sf::FloatRect& rect)
 {
+	mD = mNextD;
 	if(mLeader)
 	{
 		switch(mD)

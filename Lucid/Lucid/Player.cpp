@@ -60,6 +60,16 @@ sf::FloatRect Player::getRect()const
 	return mRect;
 }
 
+sf::FloatRect Player::getHitBox()const
+{
+	sf::FloatRect hitBoxRect = mRect;
+	hitBoxRect.left += 100;
+	hitBoxRect.top += 50;
+	hitBoxRect.height = 206;
+	hitBoxRect.width = 56;
+	return hitBoxRect;
+}
+
 void Player::setKockBack(float width,float acc)
 {
 	mKnockWidth = width;
