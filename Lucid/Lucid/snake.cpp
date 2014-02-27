@@ -34,13 +34,7 @@ void snake::exit()
 void snake::init()
 {
 	srand(time(NULL));
-<<<<<<< HEAD
-	mTime = 1
-		
-		00;
-=======
 	mTime = 1000/10;
->>>>>>> 5ffa1adc89aec33f5386fe841a696aaa5f6e9b4a
 	mState = GAME;
 	mScore = 0;
 	cubes.push_back(new Cube(sf::FloatRect(mRect.left+80,mRect.top+90,40,40),true,false,t,mRect));

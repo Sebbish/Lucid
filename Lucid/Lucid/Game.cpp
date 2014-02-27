@@ -79,16 +79,7 @@ void Game::run()
 			input(mControlledEntity);
 			tick();
 		
-<<<<<<< HEAD
-		mWindow.clear(sf::Color(0, 0, 0));
-		mWindow.setView(*camera->getView());
-		render();
-		//mousePositionFunc();
-		mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
-		mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
-		//mWindow.draw(mSanityMeter);
-        mWindow.display();
-=======
+
 			mWindow.clear(sf::Color(0, 0, 0));
 			mWindow.setView(*camera->getView());
 			render();
@@ -97,7 +88,7 @@ void Game::run()
 			mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
 			mWindow.draw(mSanityMeter);
 			mWindow.display();
->>>>>>> 5ffa1adc89aec33f5386fe841a696aaa5f6e9b4a
+
 
 		}
 
