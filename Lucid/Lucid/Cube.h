@@ -22,7 +22,7 @@ public:
 	void tick(sf::FloatRect& rect);
 	void render(sf::RenderWindow& target);
 private:
-	direction mD;
+	direction mD, mNextD;
 	sf::FloatRect mRect;
 	sf::FloatRect maxSize;
 	bool mLeader;

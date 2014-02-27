@@ -322,7 +322,7 @@ void Game::render()
 
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
-	lm->render(mWindow);
+	//lm->render(mWindow);
 	mDialog->render(&mWindow);
 	if(mMobil->getActivate())
 		mMobil->render(mWindow);

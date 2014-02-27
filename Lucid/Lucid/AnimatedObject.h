@@ -9,7 +9,8 @@ public:
 	{
 		Foreground,
 		BehindObjects,
-		InFrontOfObjects
+		InFrontOfObjects,
+		BehindBackground
 	};
 	enum AnimationDirection
 	{
