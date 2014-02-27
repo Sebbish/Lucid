@@ -53,21 +53,21 @@ Game::~Game()
 
 void Game::run()
 {
-	clock.restart();
 	sf::Font MyFont;
-		if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
-		{
-			// Error...
-		}
+	if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+	{
+		// Error...
+	}
 		
-		//mSanityMeter.setString("Hello");
-		mSanityMeter.setFont(MyFont);
-		mSanityMeter.setScale(1,1);
+	//mSanityMeter.setString("Hello");
+	mSanityMeter.setFont(MyFont);
+	mSanityMeter.setScale(1,1);
 		
-		mSanityMeter.setColor(sf::Color(128, 128, 0));
+	mSanityMeter.setColor(sf::Color(128, 128, 0));
 	lm->setAmbient(mAmbient);
 	while (mWindow.isOpen())
     {
+		clock.restart();
 		if(mMobil->snakes)
 		{
 			mMobil->tick();
@@ -75,17 +75,17 @@ void Game::run()
 			mIsEscapePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
 		}else
 		{
-		input(mControlledEntity);
-		tick();
+			input(mControlledEntity);
+			tick();
 		
-		mWindow.clear(sf::Color(0, 0, 0));
-		mWindow.setView(*camera->getView());
-		render();
-		//mousePositionFunc();
-		mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
-		mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
-		mWindow.draw(mSanityMeter);
-        mWindow.display();
+			mWindow.clear(sf::Color(0, 0, 0));
+			mWindow.setView(*camera->getView());
+			render();
+			//mousePositionFunc();
+			mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
+			mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
+			mWindow.draw(mSanityMeter);
+			mWindow.display();
 
 		}
 
@@ -140,6 +140,18 @@ void Game::input(Entity* entity)
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3))
 			{
 				mVisualizeValues = !mVisualizeValues;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F5))
+			{
+					mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid");
+					mWindow.setVerticalSyncEnabled(true);
+					mWindow.setMouseCursorVisible(false);
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F6))
+			{
+					mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
+					mWindow.setVerticalSyncEnabled(true);
+					mWindow.setMouseCursorVisible(false);
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))

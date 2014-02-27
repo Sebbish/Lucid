@@ -40,7 +40,12 @@ sf::FloatRect Portal::getRect()const
 
 sf::FloatRect Portal::getHitBox()const
 {
-	return mRect;
+	sf::FloatRect hitBoxRect = mRect;
+	hitBoxRect.left += 125;
+	hitBoxRect.top += 26;
+	hitBoxRect.height = 230;
+	hitBoxRect.width = 6;
+	return hitBoxRect;
 }
 
 void Portal::setTargetPortal(Portal* portal)
