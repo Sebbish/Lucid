@@ -42,6 +42,7 @@ public:
 	virtual void shortYStepBack();
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
 	virtual void render(sf::RenderTexture* window, bool visualizeValues);
+	virtual void flashlight(bool flash);
 private:
 	float mLastSeenX;
 	sf::FloatRect mRect;
@@ -60,6 +61,7 @@ private:
 	sf::Sound mWalkSound;
 	bool mActive;
 	int mAnimationY;
+	bool mFlashlightMode;
 	float mAnimationSpeed;
 	//int mBreatheDelay, mUpperBreatheDelay, mBreatheTimer, mUpperBreatheTimer;
 };

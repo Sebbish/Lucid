@@ -80,6 +80,7 @@ private:
 	float mAtmospherScaleX;
 	float mAtmospherScaleY;
 	bool mFlashlightOnOff;
+	bool mCharFlash;
 };
 
 #endif

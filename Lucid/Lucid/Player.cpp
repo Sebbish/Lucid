@@ -27,6 +27,7 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mLayer = Front;
 	mWalkSound.setBuffer(*walkSound);
 	mActive = true;
+	mFlashlightMode = false;
 
 	/*mBreatheDelay = 60 * 4;
 	mUpperBreatheDelay = 60;
@@ -206,8 +207,16 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 	mLastRect = mRect;
 	if(mMove && mKnockWidth == 0 && !mHiding)
 	{
-		mAnimationY = 1;
-		mAnimationPicX = 11;
+		if (mFlashlightMode == true)
+		{
+			mAnimationY = 1;
+			mAnimationPicX = 11;
+		}
+		else
+		{
+			mAnimationY = 0;
+			mAnimationPicX = 8;
+		}
 		if(mDirection == Entity::RIGHT)
 			mRect.left += mMaxSpeed;
 		if(mDirection == Entity::LEFT)
@@ -225,7 +234,14 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 	}
 	else
 	{
-		mAnimationY = 2;
+		if (mFlashlightMode == true)
+		{
+			mAnimationY = 3;
+		}
+		else
+		{
+			mAnimationY = 2;
+		}
 		mAnimationPicX = 4;
 		if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
 		{
@@ -275,4 +291,9 @@ void Player::render(sf::RenderTexture* window, bool visualizeValues)
 		circle.setPosition(mRect.left - 3, mRect.top - 3);
 		window->draw(circle);
 	}
+}
+
+void Player::flashlight(bool flash)
+{
+	mFlashlightMode = flash;
 }

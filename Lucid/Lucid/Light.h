@@ -55,7 +55,7 @@ namespace db
 
 		void setScale(float x, float y);
 
-		void tick();
+		void tick(bool moveOnOff);
 
 		int getXSize();
 
@@ -68,6 +68,7 @@ namespace db
 		float mScaleX;
 		float mScaleY;
 		float mAnimationPicX;
+		float mAnimationPicY;
 		float mAnimationTimer;
 		float mAnimationSpeed;
 		bool mAddBlend;

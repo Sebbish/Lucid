@@ -53,6 +53,7 @@ public:
 	virtual void toggleRoofStance() = 0;
 	virtual void hitRoof() = 0;
 	virtual void shortYStepBack() = 0;
+	virtual void flashlight(bool flash) = 0;
 };
 #endif
 

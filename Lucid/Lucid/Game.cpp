@@ -31,6 +31,7 @@ Game::Game()
 	mEvent = new Event();
 	mVisualizeValues = false;
 	mMenu = false;
+	mCharFlash = false;
 	
 
 	mDeathSound.setBuffer(*mFH->getSound(0));
@@ -84,7 +85,7 @@ void Game::run()
 		//mousePositionFunc();
 		mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
 		mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
-		mWindow.draw(mSanityMeter);
+		//mWindow.draw(mSanityMeter);
         mWindow.display();
 
 		}
@@ -151,7 +152,7 @@ void Game::input(Entity* entity)
 
 
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mIsFPressed && mControlledEntity == mEntities[0] && mEntities[0]->getHiding() == false)//OnOff för ficklampa
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mIsFPressed && mControlledEntity == mEntities[0] && mEntities[0]->getHiding() == false && mCharFlash == true)//OnOff för ficklampa
 
 			{
 				if (mFlashlightOnOff == true)
@@ -322,7 +323,7 @@ void Game::render()
 
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
-	//lm->render(mWindow);
+	lm->render(mWindow);
 	mDialog->render(&mWindow);
 	if(mMobil->getActivate())
 		mMobil->render(mWindow);
@@ -383,7 +384,6 @@ void Game::tick()
 	if(mMobil->getActivate())
 		mMobil->tick();
 	mLights[0]->setOnOff(mFlashlightOnOff);
-
 	if (mEntities[0]->getDirection() == Entity::LEFT)
 	{
 		mLights[0]->flipSprite(0);
@@ -395,6 +395,19 @@ void Game::tick()
 		mLights[0]->flipSprite(1);
 		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width) - 145, mEntities[0]->getRect().top));
 	}
+
+
+	if (mAmbientRed <= 50 && mAmbientGreen <= 50 && mAmbientBlue <= 55)//Sett Player walk sprite
+	{
+		mCharFlash = true;
+	}
+	else
+	{
+		mCharFlash = false;
+	}
+	mEntities[0]->flashlight(mCharFlash);
+
+
 	if (mFlashlightOnOff == false && mAtmospherScaleX <= 3)
 	{
 		mAtmospherScaleX += 0.003;
@@ -423,11 +436,16 @@ void Game::tick()
 				mSanity->setSanity(-0.01);
 			}
 	}
+	int hopp = 0;
 	for(auto i:mLights)
 	{
-		i->tick();
-
+		if (hopp > 2)
+		{
+			i->tick(true);
+		}
+		hopp ++;
 	}
+	mLights[0]->tick(mEntities[0]->getMove());
 	mAmbiance->tick();
 
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
@@ -695,6 +713,12 @@ void Game::loadMap(std::string filename, int mapID)
 			height = dataVector[i + 4];
 			mMap->addRoof(new Roof(sf::FloatRect(x, y, width, height)));
 			i += 4;
+			break;
+		case 11:// Map Stats
+			mAmbientRed = dataVector[i + 1];
+			mAmbientGreen = dataVector[i + 2];
+			mAmbientBlue = dataVector[i + 3];
+			i += 3;
 			break;
 		}
 	}

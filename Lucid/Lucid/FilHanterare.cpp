@@ -27,7 +27,7 @@ FilHanterare::FilHanterare(void)
 	mTexture[24]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Trashcan.png",sf::IntRect(0,0,256,256));
 	//mTexture[24]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Trashcan2.png",sf::IntRect(0,0,1796,720));
 	//mTexture[24]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/kruka.png",sf::IntRect(0,0,256,256));
-	mTexture[25]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/glow.png",sf::IntRect(0,0,4096,256));
+	mTexture[25]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Lightsheet.png",sf::IntRect(0,0,4096,512));
 	//mTexture[25]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/glow.png",sf::IntRect(0,0,161,129));
 	mTexture[26]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/VendingMachine1.png",sf::IntRect(0,0,256,256));
 	mTexture[27]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/black.png",sf::IntRect(0,0,1920,1080));
@@ -50,11 +50,11 @@ FilHanterare::FilHanterare(void)
 	mTexture[38]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Svart Lager.png",sf::IntRect(0,0,7140,1080));
 	mTexture[39]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Desk.png",sf::IntRect(0,0,198,160));
 	mTexture[40]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/CharLight.png",sf::IntRect(0,0,512,256));
-		mTexture[41]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/GUI/AnimatedGUI/Cellphone_GUI.png",sf::IntRect(0,0,1024,1080));
+	mTexture[41]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/GUI/AnimatedGUI/Cellphone_GUI.png",sf::IntRect(0,0,1024,1080));
 	mTexture[42]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/GUI/AnimatedGUI/Cellphone_lines_GUI.png",sf::IntRect(0,0,1024,1080));
 
 	
-		mSoundBuffer[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");
+	mSoundBuffer[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");
 	mSoundBuffer[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/lewis hall walking slow 2(with clothing).wav");
 	mSoundBuffer[2]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2 0,75sec.wav");
 	mSoundBuffer[3]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/monster 1 attack 1 new1.wav");

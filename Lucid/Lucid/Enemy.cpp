@@ -791,3 +791,7 @@ void Enemy::render(sf::RenderTexture* window, bool visualizeValues)
 		window->draw(targetSquare);
 	}
 }
+
+void Enemy::flashlight(bool flash)
+{
+}

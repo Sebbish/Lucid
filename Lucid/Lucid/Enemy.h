@@ -42,6 +42,7 @@ public:
 	virtual void toggleRoofStance();
 	virtual void hitRoof();
 	virtual void shortYStepBack();
+	virtual void flashlight(bool flash);
 	
 private:
 	float mLastSeenX;
