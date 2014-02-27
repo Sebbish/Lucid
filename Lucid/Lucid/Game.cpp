@@ -70,7 +70,6 @@ void Game::run()
     {
 		if(mMobil->snakes)
 		{
-			mAmbiance->tick();
 			mMobil->tick();
 			mMobil->render(mWindow);
 		}else
@@ -322,7 +321,7 @@ void Game::render()
 
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
-	//lm->render(mWindow);
+	lm->render(mWindow);
 	mDialog->render(&mWindow);
 	if(mMobil->getActivate())
 		mMobil->render(mWindow);
@@ -712,8 +711,8 @@ void Game::setControlledEntity(Entity* entity)
 
 bool Game::overlapsEntity(Entity *playerEntity, Entity *otherEntity)
 {
-	sf::FloatRect playerPosition = playerEntity ->getRect();
-	sf::FloatRect otherPosition = otherEntity ->getRect();
+	sf::FloatRect playerPosition = playerEntity ->getHitBox();
+	sf::FloatRect otherPosition = otherEntity ->getHitBox();
 	if (playerPosition.intersects(otherPosition))
 		return true;
 	else
@@ -722,8 +721,8 @@ bool Game::overlapsEntity(Entity *playerEntity, Entity *otherEntity)
 
 bool Game::overlapsObjects(Entity *playerEntity, Object *objectEntity)
 {
-	sf::FloatRect playerPosition = playerEntity ->getRect();
-	sf::FloatRect otherPosition = objectEntity ->getRect();
+	sf::FloatRect playerPosition = playerEntity ->getHitBox();
+	sf::FloatRect otherPosition = objectEntity ->getHitBox();
 	if (playerPosition.intersects(otherPosition))
 		return true;
 	else
@@ -736,7 +735,7 @@ bool Game::overlapsMouse(Entity *entity)
 	sf::FloatRect mousePosition;
 	mousePosition.left = mMousePosition.x;
 	mousePosition.top  = mMousePosition.y;
-	sf::FloatRect otherPosition = entity ->getRect();
+	sf::FloatRect otherPosition = entity ->getHitBox();
 	if (mousePosition.intersects(otherPosition))
 		return true;
 	else

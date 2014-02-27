@@ -19,6 +19,7 @@ public:
 	AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typeID, int active, int layer, int animationY, int animationPicX, int direction, int alpha);
 	~AnimatedObject(void);
 	virtual sf::FloatRect getRect()const;
+	virtual sf::FloatRect getHitBox()const;
 	virtual int getFunc(Entity* player);
 	virtual void tick();
 	virtual void render(sf::RenderTexture* window);

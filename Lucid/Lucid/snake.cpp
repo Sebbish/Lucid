@@ -11,6 +11,9 @@ snake::snake(sf::FloatRect &rect):
 	mRect.width = 720;
 	mRect.height = 520;
 	init();
+	mMusic.openFromFile("P:/Downloads/LucidProject/Resources/Music/Lucid Chiptuna 01.ogg");
+	mMusic.setLoop(true);
+	mMusic.play();
 }
 
 
@@ -31,7 +34,7 @@ void snake::exit()
 void snake::init()
 {
 	srand(time(NULL));
-	mTime = 50;
+	mTime = 100;
 	mState = GAME;
 	mScore = 0;
 	cubes.push_back(new Cube(sf::FloatRect(mRect.left+80,mRect.top+90,40,40),true,false,t,mRect));
@@ -45,6 +48,7 @@ void snake::init()
 	mText.setCharacterSize(32);
 	mText.setColor(sf::Color::Black);
 	mRender = true;
+	
 }
 
 
@@ -108,6 +112,7 @@ bool snake::snakeCollideWithSnake()
 
 void snake::tick()
 {
+
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	mState = EXIT;
 
