@@ -72,6 +72,7 @@ void Game::run()
 		{
 			mMobil->tick();
 			mMobil->render(mWindow);
+			mIsEscapePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
 		}else
 		{
 		input(mControlledEntity);
@@ -102,7 +103,7 @@ void Game::input(Entity* entity)
 		{
 		while (mWindow.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			if (event.type == sf::Event::Closed || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed))
 				mWindow.close();
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
@@ -223,13 +224,19 @@ void Game::input(Entity* entity)
 			{
 				mMobil->lastApp();
 			}
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed || sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 			{
 				if(mMobilActivateApp())
 					break;
 			}
 			break;
 		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed)
+	{
+		mMobil->deactivate();
+		mMenu = false;
 	}
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::M) && !mIsMPressed)
@@ -435,6 +442,7 @@ void Game::tick()
 	mIsMPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::M);
 	mIsLeftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
 	mIsRightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+	mIsEscapePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
 }
 
 void Game::collision()
