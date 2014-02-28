@@ -294,7 +294,6 @@ bool Game::mMobilActivateApp()
 
 void Game::render()
 {
-	
 	mRenderTexture.clear();
 	mMap->renderMap(&mRenderTexture);
 	for(auto i:mEntities){
@@ -340,7 +339,7 @@ void Game::render()
 
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
-	lm->render(mWindow);
+	//lm->render(mWindow);
 	mDialog->render(&mWindow);
 	if(mMobil->getActivate())
 		mMobil->render(mWindow);
@@ -555,6 +554,27 @@ void Game::collision()
 
 void Game::loadMap(std::string filename, int mapID)
 {
+	sf::RectangleShape r;
+	r.setTexture(mFH->getTexture(27));
+	r.setTextureRect(sf::IntRect(0, 0, 1920, 1080));
+	r.setPosition(0, 0);
+	r.setSize(sf::Vector2f(mRenderTexture.getSize().x, mRenderTexture.getSize().y));
+	if (mapID != 1)
+	{
+		int tempAlpha = 0;
+		while (tempAlpha < 255)
+		{
+			tempAlpha += 20;
+			if (tempAlpha > 255)
+				tempAlpha = 255;
+			r.setFillColor(sf::Color(255, 255, 255, tempAlpha));
+			mWindow.clear(sf::Color(0, 0, 0));
+			render();
+			mWindow.draw(r);
+			mWindow.display();
+		}
+	}
+
 	delete mMap;
 	for (LightVector::size_type i = 0; i < mLights.size(); i++)
 	{
@@ -585,7 +605,7 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha, useTexture;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -642,8 +662,9 @@ void Game::loadMap(std::string filename, int mapID)
 			portalID = dataVector[i +7];
 			typeID = dataVector[i + 8];
 			active = dataVector[i + 9];
-			mMap->addPortal(new Portal(sf::FloatRect(x, y, width, height), mMap->getID(), targetMapID, targetPortalID, portalID, mFH->getTexture(typeID), typeID, active, mFH->getSound(2)));
-			i += 9;
+			useTexture = dataVector[i + 10];
+			mMap->addPortal(new Portal(sf::FloatRect(x, y, width, height), mMap->getID(), targetMapID, targetPortalID, portalID, mFH->getTexture(typeID), typeID, active, useTexture, mFH->getSound(2)));
+			i += 10;
 			break;
 		case 4://NPC
 			x = dataVector[i + 1];
@@ -719,6 +740,24 @@ void Game::loadMap(std::string filename, int mapID)
 	}
 	mMap->setupPortals();
 	addLights();
+
+	if (mapID != 1)
+	{
+		tick();
+		mWindow.setView(*camera->getView());
+		int tempAlpha = 255;
+		while (tempAlpha > 0)
+		{
+			tempAlpha -= 20;
+			if (tempAlpha < 0)
+				tempAlpha = 0;
+			r.setFillColor(sf::Color(255, 255, 255, tempAlpha));
+			mWindow.clear(sf::Color(0, 0, 0));
+			render();
+			mWindow.draw(r);
+			mWindow.display();
+		}
+	}
 }
 
 void Game::setControlledEntity(Entity* entity)
