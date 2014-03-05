@@ -23,6 +23,7 @@ private:
 	void save();
 
 	void ActivateSnakes();
+	void ActivateSnakesAI();
 	sf::Texture* mTexture;
 	sf::Texture* mLines;
 	sf::FloatRect mRect;

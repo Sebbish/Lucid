@@ -17,7 +17,7 @@ public:
 		Forward,
 		Backward
 	};
-	AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typeID, int active, int layer, int animationY, int animationPicX, int direction, int alpha);
+	AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typeID, int active, int layer, int animationY, int animationPicX, int direction, int alpha, int animate, int loop);
 	~AnimatedObject(void);
 	virtual sf::FloatRect getRect()const;
 	virtual sf::FloatRect getHitBox()const;

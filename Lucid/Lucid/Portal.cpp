@@ -24,7 +24,7 @@ int Portal::getFunc(Entity* player)
 	{
 		if (mTargetPortalID != 0)
 		{
-			player->setPosition(mTargetPortal->getRect());
+			//player->setPosition(mTargetPortal->getRect());
 			mPortalSound.play();
 			return 0;
 		}
@@ -75,6 +75,16 @@ int Portal::getPortalID()const
 void Portal::setActive(bool active)
 {
 	mActive = active;
+}
+
+Portal* Portal::getTargetPortal()
+{
+	return mTargetPortal;
+}
+
+bool Portal::getActive()
+{
+	return mActive;
 }
 
 void Portal::tick()

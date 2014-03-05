@@ -19,6 +19,8 @@ public:
 	virtual int getFunc(Entity* player);
 	void setTargetPortal(Portal* portal);
 	void setActive(bool active);
+	Portal* getTargetPortal();
+	bool getActive();
 private:
 	int mCurrentMapID;
 	int mTargetMapID;

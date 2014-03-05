@@ -18,6 +18,8 @@
 #include "Mobil.h"
 #include "ambiance.h"
 #include "Sanity.h"
+#include "Fade.h"
+#include "PortalFade.h"
 
 typedef std::vector<Entity*> EntiyVector;
 typedef std::vector<Object*> ObjectVector;
@@ -55,7 +57,7 @@ private:
 	FilHanterare* mFH;
 	float angle;
 	bool mIsEPressed,mIsQPressed,mIsMPressed,mIsFPressed,mIsLeftPressed,mIsRightPressed, mIsEscapePressed;
-	sf::Clock clock;
+	sf::Clock FPSclock, clock;
 	sf::Shader mShader;
 	sf::RenderTexture mRenderTexture;
 	Entity *mControlledEntity;
@@ -80,6 +82,9 @@ private:
 	float mAtmospherScaleX;
 	float mAtmospherScaleY;
 	bool mFlashlightOnOff;
+	bool mCharFlash;
+	Fade* mFade;
+	PortalFade* mPortalFade;
 };
 
 #endif

@@ -9,6 +9,7 @@ namespace db
 		mScaleX = 1;
 		mScaleY = 1;
 		mAnimationPicX = anitmationPicX;
+		mAnimationPicY = 0.0f;
 		mAnimationTimer = 0.0f;
 		mAnimationSpeed = 0.15f;
 		mColor = color;
@@ -31,9 +32,9 @@ namespace db
 		if (mOnOff == true)
 		{
 			if(mDirection == RIGHT)
-				mSprite.setTextureRect(sf::IntRect (mRect.width/mAnimationPicX*(int)mAnimationTimer, 0,mRect.width/mAnimationPicX,mRect.height));
+				mSprite.setTextureRect(sf::IntRect (mRect.width/mAnimationPicX*(int)mAnimationTimer, mAnimationPicY * mRect.height/2,mRect.width/mAnimationPicX,mRect.height));
 			else if(mDirection == LEFT)
-				mSprite.setTextureRect(sf::IntRect(mRect.width/mAnimationPicX*((int)mAnimationTimer+1),0,-mRect.width/mAnimationPicX,mRect.height));
+				mSprite.setTextureRect(sf::IntRect(mRect.width/mAnimationPicX*((int)mAnimationTimer+1),mAnimationPicY * mRect.height/2,-mRect.width/mAnimationPicX,mRect.height));
 
 			if(mAddBlend)
 			{
@@ -95,12 +96,21 @@ namespace db
 		mSprite.setScale(mScaleX,mScaleY);
 	}
 
-	void Light::tick()
+	void Light::tick(bool moveOnOff)
 	{
-		if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
-			mAnimationTimer = 0.0f;
+		if (moveOnOff == true)
+		{
+			if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
+				mAnimationTimer = 0.0f;
+			else
+				mAnimationTimer += mAnimationSpeed;
+			mAnimationPicY = 0.0f;
+		}
 		else
-			mAnimationTimer += mAnimationSpeed;
+		{
+			mAnimationTimer = 0.0f;
+			mAnimationPicY = 1.0f;
+		}
 
 	}
 

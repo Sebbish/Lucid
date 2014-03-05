@@ -1,11 +1,12 @@
 #include "snake.h"
 
 
-snake::snake(sf::FloatRect &rect):
-	mRect(rect)
+snake::snake(sf::FloatRect &rect, bool cheat):
+	mRect(rect), mCheat(cheat)
 {
 	t.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/kladd.png");
-	l.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/l_snake.png");
+	//l.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/l_snake.png");
+	l.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/Todocat2.png");
 	mRect.left += 160;
 	mRect.top += 200;
 	mRect.width = 720;
@@ -14,6 +15,7 @@ snake::snake(sf::FloatRect &rect):
 	mMusic.openFromFile("P:/Downloads/LucidProject/Resources/Music/Lucid Chiptuna 01.ogg");
 	mMusic.setLoop(true);
 	mMusic.play();
+	animationX = 0;
 }
 
 
@@ -34,13 +36,17 @@ void snake::exit()
 void snake::init()
 {
 	srand(time(NULL));
-	mTime = 1000/10;
+	if (mCheat)
+		mTime = 1000/1000;
+	else
+		mTime = 1000/10;
 	mState = GAME;
 	mScore = 0;
-	cubes.push_back(new Cube(sf::FloatRect(mRect.left+80,mRect.top+90,40,40),true,false,t,mRect));
-	cubes.push_back(new Cube(sf::FloatRect(mRect.left+40,mRect.top+90,40,40),false,false,t,mRect));
-	cubes.push_back(new Cube(sf::FloatRect(mRect.left+0,mRect.top+90,40,40),false,false,t,mRect));
-	mFruit = new Cube(sf::FloatRect(mRect.left+((rand() % (680))/30)*30,mRect.top+((rand() % (490))/30)*30,10,62),false,true,l,mRect);
+	cubes.push_back(new Cube(sf::FloatRect(mRect.left+80,mRect.top+80,40,40),true,false,t,mRect));
+	cubes.push_back(new Cube(sf::FloatRect(mRect.left+40,mRect.top+80,40,40),false,false,t,mRect));
+	cubes.push_back(new Cube(sf::FloatRect(mRect.left+0,mRect.top+80,40,40),false,false,t,mRect));
+	//mFruit = new Cube(sf::FloatRect(mRect.left+((rand() % (680))/40)*40,mRect.top+((rand() % (490))/40)*40,10,62),false,true,l,mRect);
+	mFruit = new Cube(sf::FloatRect(mRect.left+((rand() % (680))/40)*40,mRect.top+((rand() % (490))/40)*40,40,40),false,true,l,mRect);
 	
 	mFont.loadFromFile("BuxtonSketch.ttf");
 	mText.setFont(mFont);
@@ -48,7 +54,10 @@ void snake::init()
 	mText.setCharacterSize(32);
 	mText.setColor(sf::Color::Black);
 	mRender = true;
-	
+
+	autoTick = 0;
+	start = true;
+	lap = 0;
 }
 
 
@@ -71,7 +80,8 @@ bool snake::gameOVER()const
 
 void snake::spawnNewFruit()
 {
-	sf::FloatRect rect(mRect.left+((rand() % (680))/30)*30,mRect.top+((rand() % (490))/30)*30,10,49);
+	sf::FloatRect rect(mRect.left+((rand() % (680))/40)*40,mRect.top+((rand() % (490))/40)*40,40,40);
+	//sf::FloatRect rect(mRect.left+((rand() % (680))/40)*40,mRect.top+((rand() % (490))/40)*40,10,40);
 	mFruit->setRect(rect);
 	if(snakeCollideWithFruit())
 		spawnNewFruit();
@@ -79,10 +89,11 @@ void snake::spawnNewFruit()
 
 void snake::collide()
 {
-	if(snakeCollideWithFruit())
+	if(frontSnakeCollideWithFruit())
 	{
 		cubes.push_back(new Cube(cubes[cubes.size()-1]->getRect(),false,false,t,mRect));
-		spawnNewFruit();
+		if (mScore < 23100)
+			spawnNewFruit();
 		mScore += 100;
 	}
 	if(snakeCollideWithSnake())
@@ -99,6 +110,14 @@ bool snake::snakeCollideWithFruit()
 	return false;
 }
 
+bool snake::frontSnakeCollideWithFruit()
+{
+	if(mFruit->getRect().intersects(cubes[0]->getRect()))
+		return true;
+	else
+		return false;
+}
+
 bool snake::snakeCollideWithSnake()
 {
 	for(auto i:cubes)
@@ -112,7 +131,6 @@ bool snake::snakeCollideWithSnake()
 
 void snake::tick()
 {
-
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	mState = EXIT;
 
@@ -131,9 +149,59 @@ void snake::tick()
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 			cubes[0]->setDirection(Cube::DOWN);
 
-
 	if(mClock.getElapsedTime().asMilliseconds() >= mTime)
 	{
+		if (animationX == 0)
+			animationX = 1;
+		else
+			animationX = 0;
+		if (mCheat)
+		{
+			autoTick++;
+			if (start)
+			{
+				if (autoTick == 1)
+					cubes[0]->setDirection(Cube::DOWN);
+				if (autoTick == 11)
+					cubes[0]->setDirection(Cube::LEFT);
+				if (autoTick == 13)
+				{
+					cubes[0]->setDirection(Cube::UP);
+					autoTick = -1;
+					start = false;
+				}
+			}
+			else if (lap == 8)
+			{
+				if (autoTick == 11)
+					cubes[0]->setDirection(Cube::RIGHT);
+				else if (autoTick == 12)
+					cubes[0]->setDirection(Cube::DOWN);
+				else if (autoTick == 24)
+					cubes[0]->setDirection(Cube::LEFT);
+				else if (autoTick == 41)
+				{
+					cubes[0]->setDirection(Cube::UP);
+					autoTick = -1;
+					lap = 0;
+				}
+			}
+			else
+			{
+				if (autoTick == 11)
+					cubes[0]->setDirection(Cube::RIGHT);
+				else if (autoTick == 12)
+					cubes[0]->setDirection(Cube::DOWN);
+				else if (autoTick == 23)
+					cubes[0]->setDirection(Cube::RIGHT);
+				else if (autoTick == 24)
+				{
+					cubes[0]->setDirection(Cube::UP);
+					autoTick = 0;
+					lap++;
+				}
+			}
+		}
 
 		for(int i = cubes.size()-1; i >= 0 ;i--)
 			if(i > 0)
@@ -165,9 +233,9 @@ void snake::render(sf::RenderWindow& target)
 {
 	if(mRender)
 	{
-	mFruit->render(target);
+	mFruit->render(target, animationX);
 	for(auto i:cubes)
-		i->render(target);
+		i->render(target, 2);
 
 	mText.setOrigin(0,0);
 	mText.setPosition(mRect.left,mRect.top);
@@ -186,5 +254,5 @@ void snake::render(sf::RenderWindow& target)
 
 	}
 
-
+	cubes[0]->render(target, 2);
 }

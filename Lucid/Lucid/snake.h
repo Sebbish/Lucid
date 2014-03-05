@@ -12,7 +12,7 @@
 class snake
 {
 public:
-	snake(sf::FloatRect &rect);
+	snake(sf::FloatRect &rect, bool cheat);
 	~snake();
 	bool exitPls()const;
 	bool gameOVER()const;
@@ -32,6 +32,7 @@ private:
 	void spawnNewFruit();
 	void collide();
 	bool snakeCollideWithFruit();
+	bool frontSnakeCollideWithFruit();
 	bool snakeCollideWithSnake();
 
 	sf::Event mEvent;
@@ -50,5 +51,11 @@ private:
 
 	sf::Font mFont;
 	sf::Text mText;
+
+	int autoTick;
+	bool start;
+	bool mCheat;
+	int lap;
+	int animationX;
 };
 #endif;

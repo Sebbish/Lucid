@@ -11,80 +11,84 @@ Event::~Event(void)
 
 int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 {
+	std::vector<Trigger*> triggers = map->getTriggerList();
+	std::vector<AnimatedObject*> animatedObjects = map->getAnimatedObjectList();
+	std::vector<Wall*> walls = map->getWallList();
+
 	switch (map->getID())
 	{
 	case 1:
-		if (map->getTriggerList()[0]->getTrigged()) //Byter bana
+		if (triggers[0]->getTrigged()) //Öppnar dörren
 		{
-			map->getTriggerList()[0]->setActive(false);
-			map->getAnimatedObjectList()[4]->setAnimate(true);
+			triggers[0]->setActive(false);
+			animatedObjects[4]->setAnimate(true);
 		}
-		if (map->getTriggerList()[1]->getTrigged()) //Byter bana
+		if (triggers[1]->getTrigged()) //Öppnar hissen
 		{
-			map->getTriggerList()[1]->setActive(false);
-			map->getAnimatedObjectList()[5]->setAnimate(true);
+			triggers[1]->setActive(false);
+			animatedObjects[5]->setAnimate(true);
 		}
-		if (map->getTriggerList()[2]->getTrigged()) //Byter bana
+		if (triggers[2]->getTrigged()) //Byter bana
 		{
-			map->getTriggerList()[2]->setActive(false);
+			triggers[2]->setActive(false);
 			return 2;
 		}
-		if (map->getTriggerList()[3]->getTrigged()) //Fade out första bilden
+		if (triggers[3]->getTrigged()) //Fade out första bilden
 		{
-			map->getTriggerList()[3]->setActive(false);
-			map->getTriggerList()[4]->setActive(true);
-			map->getAnimatedObjectList()[0]->fadeout();
-			map->getAnimatedObjectList()[1]->fadein();
-			map->getAnimatedObjectList()[3]->fadein();
+			triggers[3]->setActive(false);
+			triggers[4]->setActive(true);
+			animatedObjects[0]->fadeout();
+			animatedObjects[1]->fadein();
+			animatedObjects[3]->fadein();
 		}
-		if (map->getTriggerList()[4]->getTrigged()) //Fade out första bilden
+		if (map->getTriggerList()[4]->getTrigged()) //Fade out andra bilden
 		{
-			map->getTriggerList()[4]->setActive(false);
-			map->getTriggerList()[3]->setActive(true);
-			map->getAnimatedObjectList()[0]->fadein();
-			map->getAnimatedObjectList()[1]->fadeout();
-			map->getAnimatedObjectList()[3]->fadeout();
+			triggers[4]->setActive(false);
+			triggers[3]->setActive(true);
+			animatedObjects[0]->fadein();
+			animatedObjects[1]->fadeout();
+			animatedObjects[3]->fadeout();
 		}
 		break;
 	case 2:
-		if (map->getTriggerList()[0]->getTrigged()) //Om spelaren går på keycard låses dörren upp
+		if (triggers[0]->getTrigged()) //Om spelaren går på keycard låses dörren upp
 		{
-			map->getTriggerList()[0]->setActive(false);
+			triggers[0]->setActive(false);
 			map->getSuperPortalList()[2]->setActive(true);
 		}
-		if (map->getTriggerList()[1]->getTrigged()) //Man når slutet av banan
+		if (triggers[1]->getTrigged()) //Man når slutet av banan
 		{
-			map->getTriggerList()[1]->setActive(false);
+			triggers[1]->setActive(false);
 			return 3;
 		}
 		break;
 	case 3:
 		//return 2;
-		if (map->getTriggerList()[0]->getTrigged()) //Man går igenom första dörren som låses och monstret spawnar
+		if (triggers[0]->getTrigged()) //Man går igenom första dörren som låses och monstret spawnar
 		{
-			map->getTriggerList()[0]->setActive(false);
-			map->getWallList()[0]->setActive(true);
+			triggers[0]->setActive(false);
+			walls[0]->setActive(true);
 			entityVector[1]->setActive(true);
-			map->getAnimatedObjectList()[0]->setActive(true);
+			animatedObjects[0]->setActive(true);
 		}
 
-		if (map->getTriggerList()[1]->getTrigged()) //Monstret låser upp första dörren
+		if (triggers[1]->getTrigged()) //Monstret låser upp första dörren
 		{
-			map->getTriggerList()[1]->setActive(false);
-			map->getWallList()[0]->setActive(false);
-			map->getAnimatedObjectList()[0]->setActive(false);
+			triggers[1]->setActive(false);
+			walls[0]->setActive(false);
+			animatedObjects[0]->setActive(false);
 		}
 
-		if (map->getTriggerList()[2]->getTrigged()) //Monstret låser upp andra dörren
+		if (triggers[2]->getTrigged()) //Monstret låser upp andra dörren
 		{
-			map->getTriggerList()[2]->setActive(false);
-			map->getWallList()[1]->setActive(false);
-			map->getAnimatedObjectList()[1]->setActive(false);
+			triggers[2]->setActive(false);
+			walls[1]->setActive(false);
+			animatedObjects[1]->setActive(false);
 		}
 
-		if (map->getTriggerList()[3]->getTrigged()) //Man når slutet av banan och monstret flyttas närmare och springer mot slutet
+		if (triggers[3]->getTrigged()) //Man når slutet av banan och monstret flyttas närmare och springer mot slutet
 		{
-			map->getTriggerList()[3]->setActive(false);
+			triggers[3]->setActive(false);
 			entityVector[1]->setPosition(sf::FloatRect(5800, 84, 1, 1));
 			entityVector[1]->setTargetX(8000);
 			bool1 = true;
@@ -96,6 +100,15 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 			entityVector[1]->setActive(false);
 			entityVector[0]->setActive(true);
 			map->getSuperPortalList()[0]->setActive(true);
+		}
+		break;
+	case 4:
+		if (triggers[0]->getTrigged()) //Man går igenom första dörren som låses och monstret spawnar
+		{
+			triggers[0]->setActive(false);
+			entityVector[1]->setActive(true);
+			entityVector[1]->setForm(Entity::ROOFTRAVEL, Entity::ROOF, true);
+			entityVector[1]->setPosition(sf::FloatRect(6666, 0, 256, 256));
 		}
 		break;
 	}

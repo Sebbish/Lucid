@@ -97,6 +97,8 @@
     <ClCompile Include="Cube.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="Fade.cpp" />
+    <ClCompile Include="PortalFade.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -186,6 +188,8 @@
     <ClInclude Include="snake.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="Fade.h" />
+    <ClInclude Include="PortalFade.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png">

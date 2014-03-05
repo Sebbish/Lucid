@@ -109,7 +109,13 @@ void Mobil::reset()
 
 void Mobil::ActivateSnakes()
 {
-	s = new snake(mRect);
+	s = new snake(mRect, false);
+	snakes = true;
+}
+
+void Mobil::ActivateSnakesAI()
+{
+	s = new snake(mRect, true);
 	snakes = true;
 }
 
@@ -137,6 +143,9 @@ void Mobil::tick()
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::O) && sf::Keyboard::isKeyPressed(sf::Keyboard::P) && !snakes)
 		ActivateSnakes();
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&  !snakes)
+		ActivateSnakesAI();
 
 }
 
