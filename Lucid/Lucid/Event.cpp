@@ -85,7 +85,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 		if (map->getTriggerList()[3]->getTrigged()) //Man når slutet av banan och monstret flyttas närmare och springer mot slutet
 		{
 			map->getTriggerList()[3]->setActive(false);
-			entityVector[1]->setPosition(sf::FloatRect(5800, 84, 1, 1));
+			entityVector[1]->setPosition(sf::FloatRect(5800, 44, 1, 1));
 			entityVector[1]->setTargetX(8000);
 			bool1 = true;
 		}

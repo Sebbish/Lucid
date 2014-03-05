@@ -1,11 +1,13 @@
 #include "Flashlight.h"
 
-Flashlight::Flashlight(float x, float y,sf::Color color, int onOff, sf::Texture *texture, float anitmationPicX):
-	mTexture(*texture),mColor(color),mAnimationPicX(anitmationPicX) //mLight(mTexture,sf::Vector2f(0,0), mColor)
+Flashlight::Flashlight(float x, float y,float width, float height, sf::Color color, int onOff, sf::Texture *texture, float anitmationPicX, float animationPicY, bool playerBased):
+	mTexture(*texture),mColor(color),mAnimationPicX(anitmationPicX), mAnimationPicY(animationPicY) //mLight(mTexture,sf::Vector2f(0,0), mColor)
 {
 
 	mRect.left = x;
 	mRect.top = y;
+	mRect.width = width;
+	mRect.height = height;
 	if (onOff == 0)
 	{
 		mOnOff = false;
@@ -14,7 +16,16 @@ Flashlight::Flashlight(float x, float y,sf::Color color, int onOff, sf::Texture 
 	{
 		mOnOff = true;
 	}
-	mLight = new db::Light(mTexture,sf::Vector2f(mRect.left, mRect.top),mColor,mAnimationPicX,mOnOff);
+
+	if (playerBased == 0)
+	{
+		mPlayerBased = false;
+	}
+	else
+	{
+		mPlayerBased = true;
+	}
+	mLight = new db::Light(mTexture,sf::Vector2f(mRect.left, mRect.top), mRect.width, mRect.height ,mColor,mAnimationPicX, mAnimationPicY, mOnOff, mPlayerBased);
 //	mLight.setPosition( sf::Vector2f(mRect.left, mRect.top) );
 }
 
