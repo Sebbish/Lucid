@@ -41,6 +41,10 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 	{
 		mAnimationSpeed = 0.75f;
 	}
+	if (typeID == 44)
+	{
+		mAnimationSpeed = 0.15f;
+	}
 	else
 		mAnimationSpeed = 0.15f;
 
@@ -55,8 +59,8 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 		mAnimationTimer = mAnimationPicX + mAnimationSpeed;
 	}
 
-	mAnimate = false;
-	mLoop = false;
+	//mAnimate = false;
+	//mLoop = false;
 	mFadeIn = false;
 	mFadeOut = false;
 	mFadeSpeed = 20;

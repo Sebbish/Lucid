@@ -482,6 +482,7 @@ void Game::tick()
 			mFlashlightOnOff = false;
 		}
 	}
+
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
 
@@ -495,16 +496,13 @@ void Game::tick()
 				mSanity->setSanity(-0.01);
 			}
 	}
-	int hopp = 0;
+	
+	mLights[0]->setMoveOnOff(mEntities[0]->getMove());
 	for(auto i:mLights)
 	{
-		if (hopp > 2)
-		{
-			i->tick(true);
-		}
-		hopp ++;
+			i->tick();
 	}
-	mLights[0]->tick(mEntities[0]->getMove());
+	
 	mAmbiance->tick();
 
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
@@ -688,7 +686,7 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha, useTexture, animate, loop;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha, useTexture, animate, loop, playerBased;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -789,12 +787,16 @@ void Game::loadMap(std::string filename, int mapID)
 		case 8://Ljuskälla
 			x = dataVector[i + 1];
 			y = dataVector[i + 2];
-			color = dataVector[i + 3];
-			onOff = dataVector[i + 4];
-			typeID = dataVector[i + 5];
-			animationPic = dataVector[i + 6];
-			mLightSources.push_back(new Flashlight(x, y, testLight, onOff, mFH->getTexture(typeID), animationPic));
-			i += 6;
+			width = dataVector[i + 3];
+			height = dataVector[i + 4];
+			color = dataVector[i + 5];
+			onOff = dataVector[i + 6];
+			typeID = dataVector[i + 7];
+			animationPic = dataVector[i + 8];
+			animationY = dataVector[i + 9];
+			playerBased = dataVector[i + 10];
+			mLightSources.push_back(new Flashlight(x, y, width, height, testLight, onOff, mFH->getTexture(typeID), animationPic, animationY, playerBased));
+			i += 10;
 			break;
 		case 9://AnimatedObject
 			x = dataVector[i + 1];
@@ -919,4 +921,8 @@ void Game::addLights()
 	mLights[1]->setColor(atmosfär);
 	mLights[0]->setScale(1,1);
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
+	for(auto i:mLights)
+	{
+			i->setMoveOnOff(true);
+	}
 }

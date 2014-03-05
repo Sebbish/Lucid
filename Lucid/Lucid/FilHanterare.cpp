@@ -54,6 +54,8 @@ FilHanterare::FilHanterare(void)
 	mTexture[41]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/GUI/AnimatedGUI/Cellphone_GUI.png",sf::IntRect(0,0,1024,1080));
 	mTexture[42]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/GUI/AnimatedGUI/Cellphone_lines_GUI.png",sf::IntRect(0,0,1024,1080));
 
+	mTexture[43]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lamp/Level2_Lamp_Lightsheet.png",sf::IntRect(0,0,4096,300));
+	mTexture[44]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lamp/Level2_Lamp_Spritesheet.png",sf::IntRect(0,0,4096,300));
 	
 	mSoundBuffer[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");
 	mSoundBuffer[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/lewis hall walking slow 2(with clothing).wav");
