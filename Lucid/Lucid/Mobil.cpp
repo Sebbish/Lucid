@@ -98,7 +98,13 @@ void Mobil::reset()
 
 void Mobil::ActivateSnakes()
 {
-	s = new snake(mRect);
+	s = new snake(mRect, false);
+	snakes = true;
+}
+
+void Mobil::ActivateSnakesAI()
+{
+	s = new snake(mRect, true);
 	snakes = true;
 }
 
@@ -131,6 +137,9 @@ void Mobil::tick()
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::O) && sf::Keyboard::isKeyPressed(sf::Keyboard::P) && !snakes)
 		ActivateSnakes();
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&  !snakes)
+		ActivateSnakesAI();
 
 }
 
@@ -182,7 +191,7 @@ void Mobil::render(sf::RenderWindow& target)
 			}else if(!snakes && mVoiceMail)
 			{
 				sf::Font f;
-				f.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
+				f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
 				sf::Text t;
 				t.setColor(sf::Color(0,0,0));
 				t.setCharacterSize(60);

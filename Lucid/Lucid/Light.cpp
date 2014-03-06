@@ -3,21 +3,27 @@
 
 namespace db 
 {
-	Light::Light( sf::Texture& texture, sf::Vector2f& position, sf::Color& color, float anitmationPicX, bool onOff, bool addBlend ) 
+	Light::Light( sf::Texture& texture, sf::Vector2f& position, float width, float height, sf::Color& color, float anitmationPicX, float animationPicY, bool onOff, bool playerBased, bool addBlend ) 
 	{
 		
 		mScaleX = 1;
 		mScaleY = 1;
 		mAnimationPicX = anitmationPicX;
+		mAnimationPicY = animationPicY;
 		mAnimationTimer = 0.0f;
 		mAnimationSpeed = 0.15f;
 		mColor = color;
 		mAddBlend = addBlend;
 		mOnOff = onOff;
+		mMoveOnOff = false;
+		mPlayerBased = playerBased;
 		mRect.height = texture.getSize().y;
 		mRect.width = texture.getSize().x;
 		mRect.left = position.x;
 		mRect.top = position.y;
+		mRect.width = width;
+		mRect.height = height;
+		mDirection = RIGHT;
 
 		mSprite.setTexture( texture );
 		mSprite.setPosition( position );
@@ -31,9 +37,9 @@ namespace db
 		if (mOnOff == true)
 		{
 			if(mDirection == RIGHT)
-				mSprite.setTextureRect(sf::IntRect (mRect.width/mAnimationPicX*(int)mAnimationTimer, 0,mRect.width/mAnimationPicX,mRect.height));
+				mSprite.setTextureRect(sf::IntRect (mRect.width*(int)mAnimationTimer, mAnimationPicY * mRect.height,mRect.width,mRect.height));
 			else if(mDirection == LEFT)
-				mSprite.setTextureRect(sf::IntRect(mRect.width/mAnimationPicX*((int)mAnimationTimer+1),0,-mRect.width/mAnimationPicX,mRect.height));
+				mSprite.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),mAnimationPicY * mRect.height,-mRect.width,mRect.height));
 
 			if(mAddBlend)
 			{
@@ -83,6 +89,11 @@ namespace db
 		mOnOff = onOff;
 	}
 
+	void Light::setMoveOnOff(bool moveOnOff)
+	{
+		mMoveOnOff = moveOnOff;
+	}
+
 	bool Light::getOnOff()
 	{
 		return mOnOff;
@@ -97,15 +108,51 @@ namespace db
 
 	void Light::tick()
 	{
-		if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
-			mAnimationTimer = 0.0f;
+		if (mPlayerBased == true)
+		{
+			if (mMoveOnOff == true )
+			{
+				mAnimationPicY = 0;
+				if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
+					mAnimationTimer = 0.0f;
+				else
+					mAnimationTimer += mAnimationSpeed;
+				
+			}
+			else
+			{
+				mAnimationPicY = 1;
+				mAnimationTimer = 0.0f;
+				
+			}
+		}
+		else if (mPlayerBased == false)
+		{
+			if (mMoveOnOff == true )
+			{
+				mAnimationPicY = 0;
+				if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
+					mAnimationTimer = 0.0f;
+				else
+					mAnimationTimer += mAnimationSpeed;
+			}
+			else
+			{
+				mAnimationPicY = 0;
+				mAnimationTimer = 0.0f;
+			}
+			
+		}
 		else
-			mAnimationTimer += mAnimationSpeed;
+		{
+			mAnimationPicY = 0;
+			mAnimationTimer = 0.0f;
+		}
 
 	}
 
 	int Light::getXSize()
 	{
-		return mRect.width/mAnimationPicX;
+		return mRect.width;
 	}
 }

@@ -1,7 +1,7 @@
 #include "AnimatedObject.h"
 
 
-AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typeID, int active, int layer, int animationY, int animationPicX, int direction, int alpha):
+AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typeID, int active, int layer, int animationY, int animationPicX, int direction, int alpha, int animate, int loop):
 	mRect(rect), mTexture(texture), mTypeID(typeID), mAlpha(alpha)
 {
 	/*mRect.width = texture->getSize().x;
@@ -11,11 +11,23 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 	else
 		mActive = true;
 	if (layer == 0)
-		mLayer = BehindObjects;
+		mLayer = BehindBackground;
 	else if (layer == 1)
+		mLayer = BehindObjects;
+	else if (layer == 2)
 		mLayer = InFrontOfObjects;
 	else
 		mLayer = Foreground;
+
+	if (animate == 0)
+		mAnimate = false;
+	else
+		mAnimate = true;
+	if (loop == 0)
+		mLoop = false;
+	else
+		mLoop = true;
+
 
 	mAnimationY = animationY;
 	mAnimationPicX = animationPicX;
@@ -28,6 +40,10 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 	if (typeID == 36)
 	{
 		mAnimationSpeed = 0.75f;
+	}
+	if (typeID == 44)
+	{
+		mAnimationSpeed = 0.15f;
 	}
 	else
 		mAnimationSpeed = 0.15f;
@@ -43,8 +59,8 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 		mAnimationTimer = mAnimationPicX + mAnimationSpeed;
 	}
 
-	mAnimate = false;
-	mLoop = false;
+	//mAnimate = false;
+	//mLoop = false;
 	mFadeIn = false;
 	mFadeOut = false;
 	mFadeSpeed = 20;

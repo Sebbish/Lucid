@@ -97,7 +97,12 @@
     <ClCompile Include="Cube.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="VoiceMail.cpp" />
+=======
+    <ClCompile Include="Fade.cpp" />
+    <ClCompile Include="PortalFade.cpp" />
+>>>>>>> ee901350d6de39d939997c4def5d386e422df7c6
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -187,7 +192,12 @@
     <ClInclude Include="snake.h">
       <Filter>.h</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="VoiceMail.h" />
+=======
+    <ClInclude Include="Fade.h" />
+    <ClInclude Include="PortalFade.h" />
+>>>>>>> ee901350d6de39d939997c4def5d386e422df7c6
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png">

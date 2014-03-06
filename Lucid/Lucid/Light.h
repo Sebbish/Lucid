@@ -25,7 +25,7 @@ namespace db
 		// @param position: Position of where to draw the light.
 		// @param color: Color of the light, alpha is intensity.
 		// @param addBlend: Draw light with addaptive blending or not.
-		Light( sf::Texture& texture, sf::Vector2f& position, sf::Color& color, float anitmationPicX, bool onOff, bool addBlend = true);
+		Light( sf::Texture& texture, sf::Vector2f& position, float width, float height, sf::Color& color, float anitmationPicX, float animationPicY, bool onOff, bool playerBased, bool addBlend = true);
 
 		// Renders the light.
 		// @param target: The texture of which to render onto.
@@ -51,6 +51,8 @@ namespace db
 
 		void setOnOff(bool onOff);
 
+		void setMoveOnOff(bool moveOnOff);
+
 		bool getOnOff();
 
 		void setScale(float x, float y);
@@ -68,10 +70,13 @@ namespace db
 		float mScaleX;
 		float mScaleY;
 		float mAnimationPicX;
+		float mAnimationPicY;
 		float mAnimationTimer;
 		float mAnimationSpeed;
 		bool mAddBlend;
 		bool mOnOff;
+		bool mMoveOnOff;
+		bool mPlayerBased;
 
 	};
 }

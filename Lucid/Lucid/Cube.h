@@ -20,9 +20,9 @@ public:
 	void setRect(sf::FloatRect& rect);
 	void setDirection(direction d);
 	void tick(sf::FloatRect& rect);
-	void render(sf::RenderWindow& target);
+	void render(sf::RenderWindow& target, int animationX);
 private:
-	direction mD;
+	direction mD, mNextD;
 	sf::FloatRect mRect;
 	sf::FloatRect maxSize;
 	bool mLeader;

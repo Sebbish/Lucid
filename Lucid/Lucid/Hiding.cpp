@@ -22,7 +22,12 @@ sf::FloatRect Hiding::getRect()const
 
 sf::FloatRect Hiding::getHitBox()const
 {
-	return mRect;
+	sf::FloatRect hitBoxRect = mRect;
+	hitBoxRect.left += 125;
+	hitBoxRect.top += 26;
+	hitBoxRect.height = 230;
+	hitBoxRect.width = 6;
+	return hitBoxRect;
 }
 
 

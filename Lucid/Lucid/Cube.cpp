@@ -7,6 +7,7 @@ Cube::Cube(sf::FloatRect& rec,bool leader,bool fruit,sf::Texture& t,sf::FloatRec
 	mRect = rec;
 	this->maxSize = maxSize;
 	mD = RIGHT;
+	mNextD = RIGHT;
 }
 
 
@@ -20,19 +21,19 @@ void Cube::setDirection(direction d)
 	{
 	case 0:
 		if(mD != 1)
-			mD = UP;
+			mNextD = UP;
 		break;
 	case 1:
 		if(mD != 0)
-			mD = DOWN;
+			mNextD = DOWN;
 		break;
 	case 2:
 		if(mD != 3)
-			mD = LEFT;
+			mNextD = LEFT;
 		break;
 	case  3:
 		if(mD != 2)
-			mD = RIGHT;
+			mNextD = RIGHT;
 		break;
 	}
 }
@@ -50,6 +51,7 @@ void Cube::setRect(sf::FloatRect& rect)
 
 void Cube::tick(sf::FloatRect& rect)
 {
+	mD = mNextD;
 	if(mLeader)
 	{
 		switch(mD)
@@ -88,15 +90,26 @@ void Cube::tick(sf::FloatRect& rect)
 	}
 }
 
-void Cube::render(sf::RenderWindow& target)
+void Cube::render(sf::RenderWindow& target, int animationX)
 {
-	
+	/*sf::RectangleShape r;
+	r.setTexture(mTexture);
+	if(mDirection == RIGHT)
+		r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+	else if(mDirection == LEFT)
+		r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),mAnimationY * mRect.height,-mRect.width,mRect.height));
+	r.setPosition(mRect.left,mRect.top);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+	window->draw(r);*/
 
 	sf::RectangleShape rs;
-	if(mLeader)
+	if (mLeader)
 		rs.setFillColor(sf::Color::Red);
+	rs.setTexture(&t);
+	if (animationX != 2)
+		rs.setTextureRect(sf::IntRect(animationX * 256, 0, 256, 256));
 	rs.setPosition(mRect.left,mRect.top);
 	rs.setSize(sf::Vector2f(mRect.width,mRect.height));
-	rs.setTexture(&t);
+	
 	target.draw(rs);
 }

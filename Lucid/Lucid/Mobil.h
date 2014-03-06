@@ -25,6 +25,7 @@ private:
 	void save();
 	bool mVoiceMail;
 	void ActivateSnakes();
+	void ActivateSnakesAI();
 	sf::Texture* mTexture;
 	sf::Texture* mLines;
 	sf::FloatRect mRect;

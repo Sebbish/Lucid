@@ -18,6 +18,16 @@ public:
 		Front,
 		Back
 	};
+	enum form
+	{
+		SLIME,
+		MONSTER,
+		EAT,
+		ROOFCHANGING,
+		ROOFTRAVEL,
+		ROOFCHANGINGBACK,
+		ROOF
+	};
 	virtual ~Entity() = 0;
 	virtual void setKockBack(float width,float acc) = 0;
 	virtual sf::FloatRect getRect()const = 0;
@@ -54,6 +64,8 @@ public:
 	virtual void toggleRoofStance() = 0;
 	virtual void hitRoof() = 0;
 	virtual void shortYStepBack() = 0;
+	virtual void flashlight(bool flash) = 0;
+	virtual void setForm(form currentForm, form nextForm, bool upsidedown) = 0;
 };
 #endif
 

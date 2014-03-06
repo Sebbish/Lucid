@@ -6,7 +6,7 @@ class Flashlight :
 	public LightSource
 {
 public:
-	Flashlight(float x, float y,sf::Color color, int onOff, sf::Texture *texture, float anitmationPicX);
+	Flashlight(float x, float y,float width, float height,sf::Color color, int onOff, sf::Texture *texture, float anitmationPicX, float animationPicY, bool playerBased);
 	~Flashlight();
 	virtual sf::FloatRect getRect()const;
 	virtual db::Light* render();
@@ -20,6 +20,8 @@ private:
 	db::Light* mLight;
 	bool mOnOff;
 	float mAnimationPicX;
+	float mAnimationPicY;
+	bool mPlayerBased;
 };
 
 #endif // !FLASHLIGHT_H
