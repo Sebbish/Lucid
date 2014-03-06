@@ -33,6 +33,10 @@ namespace db
 		// @param light: A light object.
 		void remove( Light* light );
 
+
+		void setView(sf::View& v);
+
+
 		// Fills the lightmap with ambient, renders all lights onto it, then renders it to screen.
 		// @param window: A RenderWindow to render onto.
 		void render( sf::RenderWindow& window );

@@ -4,16 +4,26 @@
 snake::snake(sf::FloatRect &rect):
 	mRect(rect)
 {
-	t.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/kladd.png");
-	l.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/l_snake.png");
-	mRect.left += 160;
-	mRect.top += 200;
+	mSnakeTexture.loadFromFile("../../../LucidProject/Resources/Graphics/Animations/kladd.png");
+	mLewisTexture.loadFromFile("../../../LucidProject/Resources/Graphics/Animations/l_snake.png");
+	mRect.left += 155;
+	mRect.top += 205;
 	mRect.width = 720;
 	mRect.height = 520;
 	init();
-	mMusic.openFromFile("P:/Downloads/LucidProject/Resources/Music/Lucid Chiptuna 01.ogg");
+	mMusic.openFromFile("../../../LucidProject/Resources/Music/Lucid Chiptuna 01.ogg");
 	mMusic.setLoop(true);
 	mMusic.play();
+	mBorder[0] = sf::Vector2f(mRect.left,mRect.top);
+	mBorder[1] = sf::Vector2f(mRect.left+mRect.width,mRect.top);
+	mBorder[2] = sf::Vector2f(mRect.left+mRect.width,mRect.top);
+	mBorder[3] = sf::Vector2f(mRect.left+mRect.width,mRect.top+mRect.height);
+	mBorder[4] = sf::Vector2f(mRect.left+mRect.width,mRect.top+mRect.height);
+	mBorder[5] = sf::Vector2f(mRect.left,mRect.top+mRect.height);
+	mBorder[6] = sf::Vector2f(mRect.left,mRect.top+mRect.height);
+	mBorder[7] = sf::Vector2f(mRect.left,mRect.top);
+	for(int i = 0; i < 8; i++)
+		mBorder[i].color = sf::Color::Black;
 }
 
 
@@ -34,13 +44,13 @@ void snake::exit()
 void snake::init()
 {
 	srand(time(NULL));
-	mTime = 100;
+	mTime = 1000/10;
 	mState = GAME;
 	mScore = 0;
-	cubes.push_back(new Cube(sf::FloatRect(mRect.left+80,mRect.top+90,40,40),true,false,t,mRect));
-	cubes.push_back(new Cube(sf::FloatRect(mRect.left+40,mRect.top+90,40,40),false,false,t,mRect));
-	cubes.push_back(new Cube(sf::FloatRect(mRect.left+0,mRect.top+90,40,40),false,false,t,mRect));
-	mFruit = new Cube(sf::FloatRect(mRect.left+((rand() % (680))/30)*30,mRect.top+((rand() % (490))/30)*30,10,62),false,true,l,mRect);
+	cubes.push_back(new Cube(sf::FloatRect(mRect.left+80,mRect.top+90,40,40),true,false,mSnakeTexture,mRect));
+	cubes.push_back(new Cube(sf::FloatRect(mRect.left+40,mRect.top+90,40,40),false,false,mSnakeTexture,mRect));
+	cubes.push_back(new Cube(sf::FloatRect(mRect.left+0,mRect.top+90,40,40),false,false,mSnakeTexture,mRect));
+	mFruit = new Cube(sf::FloatRect(mRect.left+((rand() % (680))/40)*40,mRect.top+((rand() % (490))/40)*40,10,40),false,true,mLewisTexture,mRect);
 	
 	mFont.loadFromFile("BuxtonSketch.ttf");
 	mText.setFont(mFont);
@@ -71,7 +81,7 @@ bool snake::gameOVER()const
 
 void snake::spawnNewFruit()
 {
-	sf::FloatRect rect(mRect.left+((rand() % (680))/30)*30,mRect.top+((rand() % (490))/30)*30,10,49);
+	sf::FloatRect rect(mRect.left+((rand() % (680))/40)*40,mRect.top+((rand() % (490))/40)*40,10,40);
 	mFruit->setRect(rect);
 	if(snakeCollideWithFruit())
 		spawnNewFruit();
@@ -81,7 +91,7 @@ void snake::collide()
 {
 	if(snakeCollideWithFruit())
 	{
-		cubes.push_back(new Cube(cubes[cubes.size()-1]->getRect(),false,false,t,mRect));
+		cubes.push_back(new Cube(cubes[cubes.size()-1]->getRect(),false,false,mSnakeTexture,mRect));
 		spawnNewFruit();
 		mScore += 100;
 	}
@@ -114,7 +124,7 @@ void snake::tick()
 {
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-	mState = EXIT;
+		mState = EXIT;
 
 	if(mState == GAME)
 	{
@@ -132,7 +142,7 @@ void snake::tick()
 			cubes[0]->setDirection(Cube::DOWN);
 
 
-	if(mClock.getElapsedTime().asMilliseconds() >= mTime)
+		if(mClock.getElapsedTime().asMilliseconds() >= mTime)
 	{
 
 		for(int i = cubes.size()-1; i >= 0 ;i--)
@@ -165,24 +175,25 @@ void snake::render(sf::RenderWindow& target)
 {
 	if(mRender)
 	{
-	mFruit->render(target);
-	for(auto i:cubes)
-		i->render(target);
+		target.draw(mBorder,8,sf::Lines);
+		mFruit->render(target);
+		for(auto i:cubes)
+			i->render(target);
 
-	mText.setOrigin(0,0);
-	mText.setPosition(mRect.left,mRect.top);
-	mText.setCharacterSize(32);
-	mText.setString("SCORE: " + std::to_string(mScore));
-	target.draw(mText);
-
-	if(mState == OVER)
-	{
-		mText.setCharacterSize(72);
-		mText.setString("GAME\nOVER");
-		mText.setOrigin(mText.getLocalBounds().left+mText.getLocalBounds().height/2.0f,mText.getLocalBounds().top+mText.getLocalBounds().width/2.0f);
-		mText.setPosition(mRect.left+mRect.width/2,mRect.top+mRect.height/2);
+		mText.setOrigin(0,0);
+		mText.setPosition(mRect.left,mRect.top);
+		mText.setCharacterSize(32);
+		mText.setString("SCORE: " + std::to_string(mScore));
 		target.draw(mText);
-	}
+
+		if(mState == OVER)
+		{
+			mText.setCharacterSize(72);
+			mText.setString("GAME\nOVER");
+			mText.setOrigin(mText.getLocalBounds().left+mText.getLocalBounds().height/2.0f,mText.getLocalBounds().top+mText.getLocalBounds().width/2.0f);
+			mText.setPosition(mRect.left+mRect.width/2,mRect.top+mRect.height/2);
+			target.draw(mText);
+		}
 
 	}
 

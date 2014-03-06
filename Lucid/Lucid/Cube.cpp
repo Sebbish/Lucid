@@ -93,6 +93,8 @@ void Cube::render(sf::RenderWindow& target)
 	
 
 	sf::RectangleShape rs;
+	if(mLeader)
+		rs.setFillColor(sf::Color::Red);
 	rs.setPosition(mRect.left,mRect.top);
 	rs.setSize(sf::Vector2f(mRect.width,mRect.height));
 	rs.setTexture(&t);

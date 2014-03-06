@@ -4,12 +4,13 @@
 #include "vector"
 #include "SaveLoad.h"
 #include "snake.h"
+#include "VoiceMail.h"
 class Mobil
 {
 public:
-	Mobil(sf::Texture* texture,sf::Texture* lines);
+	Mobil(sf::Texture* texture,sf::Texture* lines,int mapID);
 	~Mobil();
-	void activate(sf::View* view);
+	void activate(sf::RenderWindow* view);
 	void deactivate();
 	void nextApp();
 	void lastApp();
@@ -19,9 +20,10 @@ public:
 	void render(sf::RenderWindow& target);
 	void reset();
 	bool snakes;
+	void newMap(int mapID);
 private:
 	void save();
-
+	bool mVoiceMail;
 	void ActivateSnakes();
 	sf::Texture* mTexture;
 	sf::Texture* mLines;
@@ -31,6 +33,7 @@ private:
 	bool mActivated;
 	int mActiveAppID;
 	snake *s;
+	VoiceMail *mVM;
 
 };
 #endif

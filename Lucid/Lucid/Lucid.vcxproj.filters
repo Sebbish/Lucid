@@ -97,6 +97,7 @@
     <ClCompile Include="Cube.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="VoiceMail.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -186,6 +187,7 @@
     <ClInclude Include="snake.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="VoiceMail.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png">

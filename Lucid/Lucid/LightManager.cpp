@@ -31,6 +31,12 @@ namespace db
 		}
 	}
 
+
+	void LightManager::setView(sf::View& v)
+	{
+		mLightMap.setView(v);
+	}
+
 	void LightManager::render( sf::RenderWindow& window )
 	{
 		mLightMap.clear( mAmbient );
