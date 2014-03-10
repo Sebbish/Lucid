@@ -41,10 +41,13 @@ public:
 	virtual void setTargetX(int x);
 	virtual bool isEating();
 	virtual void setForm(form currentForm, form nextForm, bool upsidedown);
+	virtual form getForm();
 	virtual void toggleRoofStance();
 	virtual void hitRoof();
 	virtual void shortYStepBack();
 	virtual void flashlight(bool flash);
+	virtual void setImortal(bool imortal);
+	virtual bool getImortal();
 	
 private:
 	float mLastSeenX;
@@ -84,6 +87,7 @@ private:
 	bool mActive;
 	void checkSight(Entity* entity);
 	void setAnimation();
+	bool mImortal;
 
 	sf::FloatRect mOriginalPosition;
 	bool mTeleport;

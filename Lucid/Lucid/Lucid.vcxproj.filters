@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="ambiance.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
@@ -215,5 +216,79 @@
     <Filter Include=".h">
       <UniqueIdentifier>{e285921e-8642-4d23-9055-b2ef58aa5930}</UniqueIdentifier>
     </Filter>
+=======
+    <ClCompile Include="ambiance.cpp" />
+    <ClCompile Include="AnimatedObject.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Dialog.cpp" />
+    <ClCompile Include="Effects.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="Fade.cpp" />
+    <ClCompile Include="FilHanterare.cpp" />
+    <ClCompile Include="Flashlight.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Hiding.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="LightMain.cpp" />
+    <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="LightSource.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Mobil.cpp" />
+    <ClCompile Include="Npc.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Parallax.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="PortalFade.cpp" />
+    <ClCompile Include="Roof.cpp" />
+    <ClCompile Include="Sanity.cpp" />
+    <ClCompile Include="SaveLoad.cpp" />
+    <ClCompile Include="snake.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Trigger.cpp" />
+    <ClCompile Include="VoiceMail.cpp" />
+    <ClCompile Include="Wall.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ambiance.h" />
+    <ClInclude Include="AnimatedObject.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="Dialog.h" />
+    <ClInclude Include="Effects.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="Fade.h" />
+    <ClInclude Include="FilHanterare.h" />
+    <ClInclude Include="Flashlight.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Hiding.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="LightManager.h" />
+    <ClInclude Include="LightSource.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Mobil.h" />
+    <ClInclude Include="Npc.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Parallax.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Portal.h" />
+    <ClInclude Include="PortalFade.h" />
+    <ClInclude Include="Roof.h" />
+    <ClInclude Include="Sanity.h" />
+    <ClInclude Include="SaveLoad.h" />
+    <ClInclude Include="snake.h" />
+    <ClInclude Include="Trigger.h" />
+    <ClInclude Include="VoiceMail.h" />
+    <ClInclude Include="Wall.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="background.png" />
+>>>>>>> 3409a7a12523c96e5bc454c15e07d3d8d6467396
   </ItemGroup>
 </Project>

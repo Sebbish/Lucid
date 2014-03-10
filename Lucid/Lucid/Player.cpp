@@ -24,12 +24,15 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mAnimationTimer = 0.0f;
 	mAnimationSpeed = 0.15f;
 	mHiding = false;
+	mImortal = false;
 	mLayer = Front;
 	mWalkSound.setBuffer(*walkSound);
 	mWalkSound.setPitch(1.4f);
 	mActive = true;
 	mFlashlightMode = false;
+	mSecondLastRect = mRect;
 	mMove = false;
+
 
 	/*mBreatheDelay = 60 * 4;
 	mUpperBreatheDelay = 60;
@@ -217,17 +220,29 @@ void Player::shortYStepBack()
 void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 {
 	mLastRect = mRect;
+	
+
 	if(mMove && mKnockWidth == 0 && !mHiding)
 	{
-		if (mFlashlightMode == true)
+		if (mFlashlightMode == true  && mSecondLastRect != mRect)
 		{
 			mAnimationY = 1;
 			mAnimationPicX = 11;
 		}
-		else
+		else if (mFlashlightMode == false  && mSecondLastRect != mRect)
 		{
 			mAnimationY = 0;
 			mAnimationPicX = 8;
+		}
+		else if ((mFlashlightMode == true  && mSecondLastRect == mRect))
+		{
+			mAnimationY = 3;
+			mAnimationPicX = 4;
+		}
+		else
+		{
+			mAnimationY = 2;
+			mAnimationPicX = 4;
 		}
 		if(mDirection == Entity::RIGHT)
 			mRect.left += mMaxSpeed;
@@ -281,7 +296,8 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 		mKnockWidth = mKnockWidth*mAcc;
 		mRect.left += mKnockWidth;
 	}
-
+	
+	mSecondLastRect = mLastRect;
 
 }
 
@@ -310,6 +326,21 @@ void Player::flashlight(bool flash)
 	mFlashlightMode = flash;
 }
 
+void Player::setImortal(bool imortal)
+{
+	mImortal = imortal;
+}
+
+bool Player::getImortal()
+{
+	return mImortal;
+}
+
 void Player::setForm(form currentForm, form nextForm, bool upsidedown)
 {
+}
+
+Entity::form Player::getForm()
+{
+	return NONE;
 }

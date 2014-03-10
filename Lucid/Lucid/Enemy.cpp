@@ -51,6 +51,7 @@ Enemy::Enemy(float x, float y, float width, float height, float speed, int direc
 	mAnimationSpeed = 0.15;
 	mWaitTimer = 0;
 	mWait = false;
+	mImortal = false;
 	//mWaitTime = 60;
 	/*mViewBackRange = 300;
 	mViewFrontRange = 800;
@@ -349,9 +350,22 @@ bool Enemy::isEating()
 
 void Enemy::setForm(form currentForm, form nextForm, bool upsidedown)
 {
-	mCurrentForm = currentForm;
-	mNextForm = nextForm;
+	if (currentForm != NONE)
+		mCurrentForm = currentForm;
+	if (nextForm != NONE)
+		mNextForm = nextForm;
 	mUpsidedown = upsidedown;
+	if (mNextForm == EAT && mCurrentForm == SLIME)
+	{
+		mAnimationPicX = 4;
+		mAnimationY = 6;
+		mAnimationTimer = 0;
+	}
+}
+
+Entity::form Enemy::getForm()
+{
+	return mCurrentForm;
 }
 
 void Enemy::toggleRoofStance()
@@ -504,7 +518,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 
 		else
 		{
-			if (mMove && (mNextForm != ROOF || mCurrentForm == ROOF))
+			if (mMove && (mNextForm != ROOF || mCurrentForm == ROOF) && (mCurrentForm != EAT && mNextForm != EAT))
 			{
 				if (mDirection == LEFT)
 				{
@@ -808,4 +822,14 @@ void Enemy::render(sf::RenderTexture* window, bool visualizeValues)
 
 void Enemy::flashlight(bool flash)
 {
+}
+
+void Enemy::setImortal(bool imortal)
+{
+	mImortal = imortal;
+}
+
+bool Enemy::getImortal()
+{
+	return mImortal;
 }

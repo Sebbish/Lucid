@@ -14,6 +14,7 @@ public:
 	virtual void tick();
 	virtual void render(sf::RenderTexture* window);
 	void setActive(bool active);
+	bool getActive();
 	bool getTrigged();
 private:
 	sf::FloatRect mRect;

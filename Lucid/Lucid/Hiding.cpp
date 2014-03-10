@@ -11,8 +11,12 @@ Hiding::~Hiding()
 
 int Hiding::getFunc(Entity* player)
 {
+	sf::FloatRect rectSet;
 	player->toggleHiding();
-	return 0;
+	rectSet = player->getRect();
+	rectSet.left = mRect.left;
+	player->setPosition(rectSet);
+	return 0; 
 }
 
 sf::FloatRect Hiding::getRect()const
@@ -23,10 +27,10 @@ sf::FloatRect Hiding::getRect()const
 sf::FloatRect Hiding::getHitBox()const
 {
 	sf::FloatRect hitBoxRect = mRect;
-	hitBoxRect.left += 125;
+	hitBoxRect.left += 115;
 	hitBoxRect.top += 26;
 	hitBoxRect.height = 230;
-	hitBoxRect.width = 6;
+	hitBoxRect.width = 26;
 	return hitBoxRect;
 }
 

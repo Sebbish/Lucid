@@ -178,6 +178,8 @@ void Map::tick()
 		i->tick();
 	for(auto i:mTriggerList)
 		i->tick();
+	for (auto i:mPortalList)
+		i->tick();
 }
 
 void Map::renderMap(sf::RenderTexture* window)
