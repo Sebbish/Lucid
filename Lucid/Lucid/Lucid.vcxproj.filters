@@ -1,16 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="ambiance.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedObject.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
     <ClCompile Include="Camera.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Dialog.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    <ClCompile Include="Effects.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Effects.cpp">
+    <ClCompile Include="Enemy.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
@@ -19,7 +28,13 @@
     <ClCompile Include="Event.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
     <ClCompile Include="FilHanterare.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Flashlight.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -37,75 +52,72 @@
     <ClCompile Include="LightManager.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="LightSource.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Npc.cpp">
+    <ClCompile Include="Mobil.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="Npc.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Sanity.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Trigger.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="SaveLoad.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Flashlight.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="LightSource.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
     <ClCompile Include="Parallax.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="AnimatedObject.cpp">
+    <ClCompile Include="Player.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="ambiance.cpp">
+    <ClCompile Include="Portal.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Mobil.cpp">
+    <ClCompile Include="PortalFade.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Roof.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="Sanity.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveLoad.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
     <ClCompile Include="snake.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
+    <ClCompile Include="Source.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="VoiceMail.cpp" />
-=======
-    <ClCompile Include="Fade.cpp" />
-    <ClCompile Include="PortalFade.cpp" />
->>>>>>> ee901350d6de39d939997c4def5d386e422df7c6
+    <ClCompile Include="Trigger.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="VoiceMail.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ambiance.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedObject.h">
+      <Filter>.h</Filter>
+    </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Dialog.h">
@@ -123,7 +135,13 @@
     <ClInclude Include="Event.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>.h</Filter>
+    </ClInclude>
     <ClInclude Include="FilHanterare.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Flashlight.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -138,7 +156,13 @@
     <ClInclude Include="LightManager.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="LightSource.h">
+      <Filter>.h</Filter>
+    </ClInclude>
     <ClInclude Include="Map.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Mobil.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Npc.h">
@@ -147,72 +171,49 @@
     <ClInclude Include="Object.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="Parallax.h">
+      <Filter>.h</Filter>
+    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Portal.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="Sanity.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Trigger.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Wall.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="SaveLoad.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Flashlight.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="LightSource.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Parallax.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatedObject.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Mobil.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="ambiance.h">
+    <ClInclude Include="PortalFade.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Roof.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h">
+    <ClInclude Include="Sanity.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveLoad.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="snake.h">
       <Filter>.h</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="VoiceMail.h" />
-=======
-    <ClInclude Include="Fade.h" />
-    <ClInclude Include="PortalFade.h" />
->>>>>>> ee901350d6de39d939997c4def5d386e422df7c6
+    <ClInclude Include="Trigger.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="VoiceMail.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>.h</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="background.png">
-      <Filter>annat</Filter>
-    </Image>
+    <Image Include="background.png" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include=".h">
-      <UniqueIdentifier>{8c2567bb-785b-4d12-b77a-43622fef8a7f}</UniqueIdentifier>
-    </Filter>
     <Filter Include=".cpp">
-      <UniqueIdentifier>{87c7f509-81f9-45d1-ae56-704356abd3d8}</UniqueIdentifier>
+      <UniqueIdentifier>{192804b0-f20a-4324-ae43-93c73418ff8d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="annat">
-      <UniqueIdentifier>{072ea4cc-1ed0-49c5-9982-c19a18c0ee20}</UniqueIdentifier>
+    <Filter Include=".h">
+      <UniqueIdentifier>{e285921e-8642-4d23-9055-b2ef58aa5930}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

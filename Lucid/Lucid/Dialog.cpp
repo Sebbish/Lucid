@@ -1,10 +1,10 @@
 #include "Dialog.h"
 
 //laddar in font,sätter färg och tillfällig position
-Dialog::Dialog():
-	mDraw(false)
+Dialog::Dialog(sf::Texture &texture):
+	mDraw(false),mTexture(texture)
 {
-	if(!mFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+	if(!mFont.loadFromFile("P://Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
 	{
 		//Något fel
 	}
@@ -16,20 +16,48 @@ Dialog::Dialog():
 
 Dialog::~Dialog()
 {
+	while(mSounds.size() >= 1)
+	{
+		delete mSounds[mSounds.size()-1];
+		mSounds.pop_back();
+	}
 }
 
 //laddar angivna text filen och lägger den i en string "vector" och börjar visa dialogen
-void Dialog::loadFile(std::string name)
+void Dialog::loadFile(std::string name,int ID)
 {
 	for(int i = mStrings.size()-1; i >= 0; i--)
 		mStrings.pop_back();
-	std::fstream mFStream("P:/Downloads/LucidProject/Resources/Dialog/"+name+".txt");
+	std::fstream mFStream("P://Downloads/LucidProject/Resources/Dialog/"+name+".txt");
 	std::string temp;
 	while(getline(mFStream,temp))
 		mStrings.push_back(temp);
 	mLineNumber = 0;
 	mText.setString(mStrings[mLineNumber]);
 	mDraw = true;
+	playSound(ID);
+}
+
+void Dialog::newMap(int mapID)
+{
+	while(mSounds.size() >= 1)
+	{
+		delete mSounds[mSounds.size()-1];
+		mSounds.pop_back();
+	}
+	if(mapID == 3)
+	{
+		mSounds.push_back(new sf::Music);
+		mSounds[mSounds.size()-1]->openFromFile("P://Downloads/LucidProject/Resources/Sound/voicemail/boo 09 ( high sanity).ogg");
+	}
+}
+
+void Dialog::playSound(int ID)
+{
+	for(auto i:mSounds)
+		i->stop();
+	if(ID <= mSounds.size()-1 && ID >= 0)
+		mSounds[ID]->play();
 }
 
 //går till nästa "rad" i dialogen
@@ -46,6 +74,7 @@ void Dialog::nextLine()
 void Dialog::setDraw(bool draw)
 {
 	mDraw = draw;
+	
 }
 
 //retunerar om dialogen ritas
@@ -57,7 +86,9 @@ bool Dialog::getDraw()const
 //sätter positionen utfrån cameran
 void Dialog::tick(sf::View* view)
 {
-	mText.setPosition(view->getCenter().x-view->getSize().x/4,view->getCenter().y+view->getSize().y/3);
+	if(!mDraw)
+		for(auto i:mSounds)
+			i->stop();
 }
 
 //renderar dialogen på en vit rectangel
@@ -66,10 +97,12 @@ void Dialog::render(sf::RenderWindow* target)
 	if(mDraw)
 	{
 		sf::RectangleShape mRS;
-		mRS.setPosition(mText.getPosition().x-100,mText.getPosition().y);
 		mRS.setSize(sf::Vector2f(960,200));
+		mRS.setPosition(target->getPosition().x+target->getSize().x/2-mRS.getSize().x/2,target->getSize().y-mRS.getSize().y);
 		mRS.setFillColor(sf::Color::White);
+		mRS.setTexture(&mTexture);
 		target->draw(mRS);
+		mText.setPosition(mRS.getPosition().x+270,mRS.getPosition().y+50);
 		target->draw(mText);
 	}
 }

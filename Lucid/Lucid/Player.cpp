@@ -26,6 +26,7 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mHiding = false;
 	mLayer = Front;
 	mWalkSound.setBuffer(*walkSound);
+	mWalkSound.setPitch(1.4f);
 	mActive = true;
 	mFlashlightMode = false;
 	mMove = false;

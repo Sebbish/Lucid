@@ -7,7 +7,7 @@ class ambiance
 public:
 	ambiance();
 	~ambiance();
-	void tick();
+	void tick(int madness);
 private:
 	float ambMaxVolume;
 	int ambMadness;

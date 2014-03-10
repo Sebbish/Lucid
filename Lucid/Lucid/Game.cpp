@@ -21,15 +21,14 @@ Game::Game()
 	mWindow = new sf::RenderWindow(test[17], "Lucid", sf::Style::Fullscreen);*/
 	//mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
-	//mWindow.setFramerateLimit(60);
-                  
+	//mWindow.setFramerateLimit(60);           
 	mWindow.setVerticalSyncEnabled(true);
 	lm = new db::LightManager(sf::Vector2i(1920, 1080));
 	mRenderTexture.create(1920, 1080);
-	mDialog = new Dialog();
+	mDialog = new Dialog(*mFH->getTexture(45));
 	mSL = new SaveLoad();
 	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42),0);
-	loadMap("../Debug/map1.txt", 1);
+	loadMap("../Debug/map3.txt", 3);
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
 	mEffects = new Effects();
@@ -37,7 +36,8 @@ Game::Game()
 	mVisualizeValues = false;
 	mMenu = false;
 	mCharFlash = false;
-
+	mFlashlighSound.setBuffer(*mFH->getSound(9));
+	mFlashlighSound.setPitch(1.5f);
 	mDeathSound.setBuffer(*mFH->getSound(0));
 
 	//ladda shader
@@ -176,6 +176,8 @@ void Game::input(Entity* entity)
 				{
 					mFlashlightOnOff = true;
 				}
+				mFlashlighSound.stop();
+				mFlashlighSound.play();
 			}
 			//kollar om Q trycktes ned och mindcontrollar då
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
@@ -231,10 +233,10 @@ void Game::input(Entity* entity)
 
 	case true:
 		{                                                                                                                                                                                                                                                                                                                                                            
-				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !mIsRightPressed)
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !mIsRightPressed)
 			{
 				mMobil->nextApp();
-			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !mIsLeftPressed)
+			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !mIsLeftPressed)
 			{
 				mMobil->lastApp();
 			}
@@ -371,36 +373,20 @@ void Game::tick()
 		mControlledEntity->setPosition(rect);
 	}
 
-	//collision();
-	/*bool canSee = false;*/
+
 	for(auto i:mEntities)
 	{
 		i->tick(mEntities[0], mEntities);
-		/*if (i->getCanSeePlayer() || i->getHunting())
-		{
-			canSee = true;
-		}*/
+
 	}
-	/*if (canSee)
-	{
-		mEffects->setNextShader(3);
-		camera->zoom(true);
-	}
-	else
-	{
-		mEffects->setNextShader(1);
-		camera->zoom(false);
-	}*/
+
 	collision();
 
 	newMap = mEvent->tick(mMap, mEntities);
 	if (newMap != 0)
 	{
 		mFade->fadeOut(newMap);
-		/*std::string mapName = "../Debug/map";
-					mapName += std::to_string(newMap);
-					mapName += ".txt";
-					loadMap(mapName, newMap);*/
+
 	}
 
 	camera->tick();
@@ -488,14 +474,14 @@ void Game::tick()
 			i->tick();
 	}
 	
-	mAmbiance->tick();
+	mAmbiance->tick(mSanity->getSanity());
 
 	mIsEPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
 	mIsFPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::F);
 	mIsQPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
 	mIsMPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::M);
-	mIsLeftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
-	mIsRightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+	mIsLeftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+	mIsRightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
 	mIsEscapePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
 }
 
@@ -623,6 +609,7 @@ void Game::loadMap(std::string filename, int mapID)
 	if(mapID >= 2)	
 		mSL->save(0,"hej",mapID);
 	mMobil->newMap(mapID);
+	mDialog->newMap(mapID);
 	delete mMap;
 	for (LightVector::size_type i = 0; i < mLights.size(); i++)
 	{
@@ -688,7 +675,7 @@ void Game::loadMap(std::string filename, int mapID)
 			patrolStop = dataVector[i + 8];
 			typeID = dataVector[i + 9];
 			active = dataVector[i + 10];
-			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, patrolStart, patrolStop, mFH->getTexture(typeID), typeID, active, mFH->getSound(1),mFH->getSound(3))); //skickar int men tar emot float == problem?
+			mEntities.push_back(new Enemy(x, y, width, height, speed, direction, patrolStart, patrolStop, mFH->getTexture(typeID), typeID, active, mFH->getSound(4),mFH->getSound(3),mFH->getSound(6),mFH->getSound(5))); //skickar int men tar emot float == problem?
 			i += 10; //i += x där 'x' är antalet variabler
 			break;
 		case 2://Vägg
@@ -722,7 +709,10 @@ void Game::loadMap(std::string filename, int mapID)
 			dialogueID = dataVector[i + 5];
 			typeID = dataVector[i + 6];
 			animationPic = dataVector[i + 7];
-			mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID,animationPic,mDialog,mEntities[0]));
+			if(typeID == 28)
+				mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID,animationPic,mDialog,mEntities[0],mFH->getSound(7)));
+			else if(typeID == 29)
+				mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID,animationPic,mDialog,mEntities[0],mFH->getSound(8)));
 			i += 7;
 			break;
 		case 5://Hiding

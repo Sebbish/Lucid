@@ -149,16 +149,16 @@ void snake::tick()
 	if(mState == GAME)
 	{
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			cubes[0]->setDirection(Cube::RIGHT);
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			cubes[0]->setDirection(Cube::LEFT);
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 			cubes[0]->setDirection(Cube::UP);
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 			cubes[0]->setDirection(Cube::DOWN);
 
 

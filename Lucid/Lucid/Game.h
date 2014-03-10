@@ -63,6 +63,7 @@ private:
 	Entity *mControlledEntity;
 	Effects *mEffects;
 	sf::Sound mDeathSound;
+	sf::Sound mFlashlighSound;
 	Dialog *mDialog;
 	Event* mEvent;
 	bool mVisualizeValues;
