@@ -1,7 +1,7 @@
 #include "AnimatedObject.h"
 
 
-AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typeID, int active, int layer, int animationY, int animationPicX, int direction, int alpha):
+AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typeID, int active, int layer, int animationY, int animationPicX, int direction, int alpha, int animate, int loop):
 	mRect(rect), mTexture(texture), mTypeID(typeID), mAlpha(alpha)
 {
 	/*mRect.width = texture->getSize().x;
@@ -18,6 +18,16 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 		mLayer = InFrontOfObjects;
 	else
 		mLayer = Foreground;
+
+	if (animate == 0)
+		mAnimate = false;
+	else
+		mAnimate = true;
+	if (loop == 0)
+		mLoop = false;
+	else
+		mLoop = true;
+
 
 	mAnimationY = animationY;
 	mAnimationPicX = animationPicX;

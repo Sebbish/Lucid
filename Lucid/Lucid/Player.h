@@ -46,6 +46,7 @@ public:
 	virtual void flashlight(bool flash);
 	virtual void setImortal(bool imortal);
 	virtual bool getImortal();
+	virtual void setForm(form currentForm, form nextForm, bool upsidedown);
 private:
 	float mLastSeenX;
 	sf::FloatRect mRect;

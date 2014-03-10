@@ -157,8 +157,8 @@ std::vector<Object*> Map::getRoofList()const
 std::vector<Object*> Map::getObjectList()const//De man kan trycka E på
 {
 	std::vector<Object*> objects;
-	for (auto i:mPortalList)
-		objects.push_back(i);
+	/*for (auto i:mPortalList)
+		objects.push_back(i);*/
 	for (auto i:mNpcList)
 		objects.push_back(i);
 	for (auto i:mHidingList)

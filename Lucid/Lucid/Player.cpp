@@ -30,6 +30,8 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mActive = true;
 	mFlashlightMode = false;
 	mSecondLastRect = mRect;
+	mMove = false;
+
 
 	/*mBreatheDelay = 60 * 4;
 	mUpperBreatheDelay = 60;
@@ -332,3 +334,8 @@ bool Player::getImortal()
 {
 	return mImortal;
 }
+
+void Player::setForm(form currentForm, form nextForm, bool upsidedown)
+{
+}
+

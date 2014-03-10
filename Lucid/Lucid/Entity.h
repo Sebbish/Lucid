@@ -18,6 +18,16 @@ public:
 		Front,
 		Back
 	};
+	enum form
+	{
+		SLIME,
+		MONSTER,
+		EAT,
+		ROOFCHANGING,
+		ROOFTRAVEL,
+		ROOFCHANGINGBACK,
+		ROOF
+	};
 	virtual ~Entity() = 0;
 	virtual void setKockBack(float width,float acc) = 0;
 	virtual sf::FloatRect getRect()const = 0;
@@ -57,6 +67,8 @@ public:
 	virtual void flashlight(bool flash) = 0;
 	virtual void setImortal(bool imortal) = 0;
 	virtual bool getImortal() = 0;
+	virtual void setForm(form currentForm, form nextForm, bool upsidedown) = 0;
+
 };
 #endif
 

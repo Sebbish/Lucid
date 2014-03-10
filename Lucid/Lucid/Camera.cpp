@@ -24,7 +24,10 @@ Camera::Camera(sf::Vector2f size,Entity *CameraFollowThisEntity):
 	mOriginalSize = sf::Vector2f(tempX, tempY);
 	mZoom = false;
 
-	mView.setCenter(sf::Vector2f(mFollowThisEntity->getRect().left+(mView.getSize().x/2)/6*2,mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2));
+	//mView.setCenter(sf::Vector2f(mFollowThisEntity->getRect().left+(mView.getSize().x/2)/6*2,mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2));
+
+	mView.setCenter((mFollowThisEntity->getRect().left + mFollowThisEntity->getRect().width / 2) + (mView.getSize().x / 6), mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2 + 44);
+
 	//mView.setSize(size);
 	//mView.setSize(sf::Vector2f(1920,1080));
 }

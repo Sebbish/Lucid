@@ -18,6 +18,8 @@
 #include "Mobil.h"
 #include "ambiance.h"
 #include "Sanity.h"
+#include "Fade.h"
+#include "PortalFade.h"
 
 typedef std::vector<Entity*> EntiyVector;
 typedef std::vector<Object*> ObjectVector;
@@ -38,7 +40,6 @@ private:
 	void collision();
 	void input(Entity* entity);
 	void loadMap(std::string filename, int mapID);
-	void addLights();
 	static bool overlapsEntity(Entity *playerEntity, Entity *otherEntity);
 	static bool overlapsObjects(Entity *playerEntity, Object *objectEntity);
 	static bool overlapsMouse(Entity *entity);
@@ -55,7 +56,7 @@ private:
 	FilHanterare* mFH;
 	float angle;
 	bool mIsEPressed,mIsQPressed,mIsMPressed,mIsFPressed,mIsLeftPressed,mIsRightPressed, mIsEscapePressed;
-	sf::Clock clock;
+	sf::Clock FPSclock, clock;
 	sf::Shader mShader;
 	sf::RenderTexture mRenderTexture;
 	Entity *mControlledEntity;
@@ -82,6 +83,8 @@ private:
 	bool mFlashlightOnOff;
 	bool mCharFlash;
 	int mCurrentMap;
+	Fade* mFade;
+	PortalFade* mPortalFade;
 };
 
 #endif

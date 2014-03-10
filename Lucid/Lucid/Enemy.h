@@ -40,6 +40,7 @@ public:
 	virtual bool getActive();
 	virtual void setTargetX(int x);
 	virtual bool isEating();
+	virtual void setForm(form currentForm, form nextForm, bool upsidedown);
 	virtual void toggleRoofStance();
 	virtual void hitRoof();
 	virtual void shortYStepBack();
@@ -89,20 +90,10 @@ private:
 	bool mTeleport;
 	int mTeleportWaitTime;
 	int mTeleportTimer;
-	enum form
-	{
-		SLIME,
-		MONSTER,
-		EAT,
-		ROOFCHANGING,
-		ROOFTRAVEL,
-		ROOFCHANGINGBACK,
-		ROOF
-	};
 	form mCurrentForm;
 	form mNextForm;
 	int mAnimationY;
 	//sf::RenderWindow* mWindow;
-	bool upsidedown;
+	bool mUpsidedown;
 };
 #endif

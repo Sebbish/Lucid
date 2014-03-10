@@ -72,7 +72,7 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 
 	mSearching = false;
 
-	upsidedown = false;
+	mUpsidedown = false;
 
 	/*mFont.loadFromFile("../Debug/ariblk.ttf");
 	mText.setFont(mFont);
@@ -347,6 +347,13 @@ bool Enemy::isEating()
 		return false;
 }
 
+void Enemy::setForm(form currentForm, form nextForm, bool upsidedown)
+{
+	mCurrentForm = currentForm;
+	mNextForm = nextForm;
+	mUpsidedown = upsidedown;
+}
+
 void Enemy::toggleRoofStance()
 {
 	if (mCurrentForm != ROOF && mNextForm != ROOF)
@@ -371,7 +378,7 @@ void Enemy::hitRoof()
 {
 	if (mCurrentForm == ROOFTRAVEL)
 	{
-		upsidedown = !upsidedown;
+		mUpsidedown = !mUpsidedown;
 		mCurrentForm = ROOFCHANGINGBACK;
 		mAnimationTimer = mAnimationPicX - mAnimationSpeed;
 		mAnimationY = 0;
@@ -443,7 +450,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				}
 			}
 
-			if (mWait && mNextForm != ROOF)
+			if (mWait && mNextForm != ROOF && !(mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5))
 			{
 				mMove = false;
 				mWaitTimer++;
@@ -657,7 +664,7 @@ void Enemy::setAnimation()
 					mAnimationTimer = 0;
 				else
 					mAnimationTimer += mAnimationSpeed;
-				if (!upsidedown)
+				if (!mUpsidedown)
 				{
 					mRect.top -= mMaxSpeed;
 				}
@@ -671,7 +678,7 @@ void Enemy::setAnimation()
 				if(mAnimationTimer <= 0)
 				{
 					mAnimationTimer = 0;
-					if (upsidedown)
+					if (mUpsidedown)
 						mCurrentForm = ROOF;
 					else
 					{
@@ -737,7 +744,7 @@ void Enemy::render(sf::RenderTexture* window, bool visualizeValues)
 	{
 		sf::RectangleShape r;
 		r.setTexture(mTexture);
-		if (upsidedown)
+		if (mUpsidedown)
 		{
 			if(mDirection == RIGHT)
 				r.setTextureRect(sf::IntRect(mRect.width * (int)mAnimationTimer, mRect.height * (mAnimationY + 1), mRect.width, -mRect.height));
