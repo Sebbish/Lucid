@@ -94,6 +94,18 @@ sf::View* Camera::getView()
 void Camera::setTarget(Entity *entity)
 {
 	mFollowThisEntity = entity;
+	float playerpos = mFollowThisEntity->getRect().left + mFollowThisEntity->getRect().width / 2;
+	float distance = mView.getSize().x / 6;
+	float targetPos;
+	if (mFollowThisEntity->getDirection() == Entity::RIGHT)
+	{
+		targetPos = playerpos + distance;
+	}
+	else
+	{
+		targetPos = playerpos - distance;
+	}
+	mView.setCenter(targetPos, mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2 + 44);
 }
 
 void Camera::zoom(bool zoom)

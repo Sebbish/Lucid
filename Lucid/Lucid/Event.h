@@ -9,7 +9,9 @@ public:
 	~Event(void);
 	int tick(Map* map, std::vector<Entity*> &entityVector);
 private:
-	bool bool1;
+	bool bool1, bool2, bool3;
+	sf::Clock mClock;
+	int timer;
 };
 
 #endif

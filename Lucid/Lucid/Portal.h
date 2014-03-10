@@ -7,7 +7,7 @@ class Portal :
 	public Object
 {
 public:
-	Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID, int active, int useTexture, sf::SoundBuffer* portalSound);
+	Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID, int active, int useTexture, int direction, sf::SoundBuffer* portalSound);
 	~Portal();
 	int getTargetMapID()const;
 	int getTargetPortalID()const;
@@ -33,6 +33,14 @@ private:
 	sf::Sound mPortalSound;
 	bool mActive;
 	bool mUseTexture;
+	bool mOpened;
+
+	float mAnimationTimer;
+	int mAnimationPicX;
+	float mAnimationSpeed;
+	bool mAnimate;
+
+	bool directionRight;
 };
 
 #endif

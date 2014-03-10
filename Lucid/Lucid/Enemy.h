@@ -41,6 +41,7 @@ public:
 	virtual void setTargetX(int x);
 	virtual bool isEating();
 	virtual void setForm(form currentForm, form nextForm, bool upsidedown);
+	virtual form getForm();
 	virtual void toggleRoofStance();
 	virtual void hitRoof();
 	virtual void shortYStepBack();

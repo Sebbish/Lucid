@@ -312,3 +312,8 @@ void Player::flashlight(bool flash)
 void Player::setForm(form currentForm, form nextForm, bool upsidedown)
 {
 }
+
+Entity::form Player::getForm()
+{
+	return NONE;
+}

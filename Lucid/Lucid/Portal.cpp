@@ -1,6 +1,6 @@
 #include "Portal.h"
 
-Portal::Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID, int active, int useTexture, sf::SoundBuffer* portalSound):
+Portal::Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int targetPortalID, int portalID, sf::Texture* texture, int typeID, int active, int useTexture, int direction, sf::SoundBuffer* portalSound):
 	mRect(rect), mCurrentMapID(currentMapID), mTargetMapID(targetMapID), mTargetPortalID(targetPortalID), mPortalID(portalID), mTexture(texture), mTypeID(typeID)
 {
 	mPortalSound.setBuffer(*portalSound);
@@ -12,6 +12,17 @@ Portal::Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int target
 		mUseTexture = false;
 	else
 		mUseTexture = true;
+	mOpened = false;
+
+	mAnimationPicX = 5;
+	mAnimationSpeed = 0.4f;
+	mAnimationTimer = mAnimationPicX - mAnimationSpeed;
+	mAnimate = false;
+
+	if (direction == 1)
+		directionRight = false;
+	else
+		directionRight = true;
 }
 
 Portal::~Portal()
@@ -22,6 +33,7 @@ int Portal::getFunc(Entity* player)
 {
 	if (mActive)
 	{
+		mAnimate = true;
 		if (mTargetPortalID != 0)
 		{
 			//player->setPosition(mTargetPortal->getRect());
@@ -45,10 +57,10 @@ sf::FloatRect Portal::getRect()const
 sf::FloatRect Portal::getHitBox()const
 {
 	sf::FloatRect hitBoxRect = mRect;
-	hitBoxRect.left += 125;
+	hitBoxRect.left += 115;
 	hitBoxRect.top += 26;
 	hitBoxRect.height = 230;
-	hitBoxRect.width = 6;
+	hitBoxRect.width = 26;
 	return hitBoxRect;
 }
 
@@ -89,6 +101,18 @@ bool Portal::getActive()
 
 void Portal::tick()
 {
+	if (mAnimate)
+	{
+		if (mAnimationTimer <= 0.0f + mAnimationSpeed)
+		{
+			mAnimate = false;
+			mAnimationTimer = mAnimationPicX - mAnimationSpeed;
+		}
+		else
+		{
+			mAnimationTimer -= mAnimationSpeed;
+		}
+	}
 }
 
 void Portal::render(sf::RenderTexture* window)
@@ -97,7 +121,10 @@ void Portal::render(sf::RenderTexture* window)
 	{
 		sf::RectangleShape r;
 		r.setTexture(mTexture);
-		r.setTextureRect(sf::IntRect(0,0,mRect.width,mRect.height));
+		if (directionRight)
+			r.setTextureRect(sf::IntRect((int)mAnimationTimer * 256,256,mRect.width,mRect.height));
+		else
+			r.setTextureRect(sf::IntRect(((int)mAnimationTimer + 1) * 256, 256, -mRect.width, mRect.height));
 		r.setPosition(mRect.left,mRect.top);
 		r.setSize(sf::Vector2f(mRect.width,mRect.height));
 		window->draw(r);

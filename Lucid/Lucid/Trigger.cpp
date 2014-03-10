@@ -57,3 +57,8 @@ bool Trigger::getTrigged()
 	else
 		return false;
 }
+
+bool Trigger::getActive()
+{
+	return mActive;
+}

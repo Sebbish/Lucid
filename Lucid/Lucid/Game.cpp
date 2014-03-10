@@ -29,7 +29,7 @@ Game::Game()
 	mDialog = new Dialog();
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
-	loadMap("../Debug/map4.txt", 4);
+	loadMap("../Debug/map1.txt", 1);
 	mEffects = new Effects();
 	mEvent = new Event();
 	mVisualizeValues = false;
@@ -167,32 +167,32 @@ void Game::input(Entity* entity)
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && !mIsFPressed && mControlledEntity == mEntities[0] && mEntities[0]->getHiding() == false && mCharFlash == true)//OnOff för ficklampa
 
+		{
+			if (mFlashlightOnOff == true)
 			{
-				if (mFlashlightOnOff == true)
-				{
-					mFlashlightOnOff = false;
-				}
-				else
-				{
-					mFlashlightOnOff = true;
-				}
+				mFlashlightOnOff = false;
 			}
-			//kollar om Q trycktes ned och mindcontrollar då
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
+			else
 			{
+				mFlashlightOnOff = true;
+			}
+		}
+		//kollar om Q trycktes ned och mindcontrollar då
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
+		{
 				
-				//kontrollerar om den kontrollerade entiteten är spelaren
-				if(mControlledEntity == mEntities[0])
-				{
-					Entity* enemie = NULL;
+			//kontrollerar om den kontrollerade entiteten är spelaren
+			if(mControlledEntity == mEntities[0])
+			{
+				Entity* enemie = NULL;
 
-					//kollar alla entiteter och kollar vilken som är närmast av de som är på samma y-level och innom 200p range
-					for(auto i:mEntities)
+				//kollar alla entiteter och kollar vilken som är närmast av de som är på samma y-level och innom 200p range
+				for(auto i:mEntities)
+				{
+					if(mEntities[0]->getRect().top >= i->getRect().top-100 && mEntities[0]->getRect().top <= i->getRect().top+100 && i != mEntities[0])
 					{
-						if(mEntities[0]->getRect().top >= i->getRect().top-100 && mEntities[0]->getRect().top <= i->getRect().top+100 && i != mEntities[0])
+						if(mEntities[0]->getRect().left+mEntities[0]->getRect().width >= i->getRect().left-200 && mEntities[0]->getRect().left <= i->getRect().left+i->getRect().width+200)
 						{
-							if(mEntities[0]->getRect().left+mEntities[0]->getRect().width >= i->getRect().left-200 && mEntities[0]->getRect().left <= i->getRect().left+i->getRect().width+200)
-							{
 							if(enemie == NULL)
 								enemie = i;
 							else
@@ -209,7 +209,8 @@ void Game::input(Entity* entity)
 					setControlledEntity(enemie);
 				}
 
-			}else
+			}
+			else
 			{
 				mControlledEntity->resetTargetX();
 				mControlledEntity->setWait();
@@ -224,6 +225,19 @@ void Game::input(Entity* entity)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::H) && mControlledEntity != mEntities[0])
 		{
 			mControlledEntity->hitRoof();
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
+		{
+			loadMap("../Debug/map"+std::to_string(mMap->getID() - 1)+".txt",mMap->getID() - 1);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5))
+		{
+			loadMap("../Debug/map"+std::to_string(mMap->getID())+".txt",mMap->getID());
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6))
+		{
+			loadMap("../Debug/map"+std::to_string(mMap->getID() + 1)+".txt",mMap->getID() + 1);
 		}
 	}
 	break;
@@ -384,6 +398,7 @@ void Game::tick()
 	if (rect != sf::FloatRect(0, 0, 0, 0))
 	{
 		mControlledEntity->setPosition(rect);
+		camera->setTarget(mControlledEntity);
 	}
 
 	//collision();
@@ -744,8 +759,9 @@ void Game::loadMap(std::string filename, int mapID)
 			typeID = dataVector[i + 8];
 			active = dataVector[i + 9];
 			useTexture = dataVector[i + 10];
-			mMap->addPortal(new Portal(sf::FloatRect(x, y, width, height), mMap->getID(), targetMapID, targetPortalID, portalID, mFH->getTexture(typeID), typeID, active, useTexture, mFH->getSound(2)));
-			i += 10;
+			direction = dataVector[i + 11];
+			mMap->addPortal(new Portal(sf::FloatRect(x, y, width, height), mMap->getID(), targetMapID, targetPortalID, portalID, mFH->getTexture(typeID), typeID, active, useTexture, direction, mFH->getSound(2)));
+			i += 11;
 			break;
 		case 4://NPC
 			x = dataVector[i + 1];
@@ -805,7 +821,7 @@ void Game::loadMap(std::string filename, int mapID)
 			height = dataVector[i + 4];
 			typeID = dataVector[i + 5];
 			active = dataVector[i + 6];
-			layer = dataVector[i + 7]; //0 == BehindObjects, 1 == InFrontOfObjects, 2 == Foreground
+			layer = dataVector[i + 7]; //0 == BehindBackGround, 1 == BehindObjects, 2 == InFrontOfObjects, 3 == Foreground
 			animationY = dataVector[i + 8];
 			animationPic = dataVector[i + 9];
 			direction = dataVector[i + 10];

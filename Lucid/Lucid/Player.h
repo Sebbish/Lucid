@@ -45,6 +45,7 @@ public:
 	virtual void render(sf::RenderTexture* window, bool visualizeValues);
 	virtual void flashlight(bool flash);
 	virtual void setForm(form currentForm, form nextForm, bool upsidedown);
+	virtual form getForm();
 private:
 	float mLastSeenX;
 	sf::FloatRect mRect;
