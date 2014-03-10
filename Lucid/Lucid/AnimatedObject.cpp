@@ -43,7 +43,7 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 	}
 	if (typeID == 44)
 	{
-		mAnimationSpeed = 0.15f;
+		mAnimationSpeed = 0.1f;
 	}
 	else
 		mAnimationSpeed = 0.15f;

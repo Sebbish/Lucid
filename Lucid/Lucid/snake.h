@@ -44,9 +44,9 @@ private:
 	sf::FloatRect mRect;
 	bool mRender;
 
-	sf::Texture t,l;
+	sf::Texture mSnakeTexture,mLewisTexture;
 	sf::Music mMusic;
-
+	sf::Vertex mBorder[8];
 	int mScore;
 
 	sf::Font mFont;

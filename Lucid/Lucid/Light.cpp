@@ -3,7 +3,7 @@
 
 namespace db 
 {
-	Light::Light( sf::Texture& texture, sf::Vector2f& position, float width, float height, sf::Color& color, float anitmationPicX, float animationPicY, bool onOff, bool playerBased, bool addBlend ) 
+	Light::Light( sf::Texture& texture, int typID, sf::Vector2f& position, float width, float height, sf::Color& color, float anitmationPicX, float animationPicY, bool onOff, bool playerBased, bool addBlend ) 
 	{
 		
 		mScaleX = 1;
@@ -11,7 +11,16 @@ namespace db
 		mAnimationPicX = anitmationPicX;
 		mAnimationPicY = animationPicY;
 		mAnimationTimer = 0.0f;
-		mAnimationSpeed = 0.15f;
+
+		if (typID  == 43)
+		{
+			mAnimationSpeed = 0.1f;
+		}
+		else
+		{
+			mAnimationSpeed = 0.15f;
+		}
+		
 		mColor = color;
 		mAddBlend = addBlend;
 		mOnOff = onOff;
@@ -24,6 +33,9 @@ namespace db
 		mRect.width = width;
 		mRect.height = height;
 		mDirection = RIGHT;
+		mAbianceRed = 0;
+		mAbianceBlue = 0;
+		mAbianceGreen = 0;
 
 		mSprite.setTexture( texture );
 		mSprite.setPosition( position );
@@ -154,5 +166,18 @@ namespace db
 	int Light::getXSize()
 	{
 		return mRect.width;
+	}
+
+	void Light::setWorldLight(int ambianceRed, int ambianceGreen, int ambianceBlue)
+	{
+		mAbianceRed = ambianceRed;
+		mAbianceGreen = ambianceGreen;
+		mAbianceBlue = ambianceBlue;
+	}
+
+	sf::Color Light::getWorldLight()
+	{
+		sf::Color colorSet(mAbianceRed,mAbianceGreen,mAbianceBlue,255);
+		return colorSet;
 	}
 }

@@ -6,6 +6,7 @@ Game::Game()
 	mAmbientRed = 0;
 	mAmbientGreen = 0;
 	mAmbientBlue = 0;
+	mCurrentMap = 0;
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	testLight = sf::Color(100, 100, 100, 178);
 	mFH = new FilHanterare();
@@ -14,7 +15,7 @@ Game::Game()
 	mSanity = new Sanity();
 	mLightLevel = false;
 	mFlashlightOnOff = false;
-	mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
+	mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid",sf::Style::Fullscreen);
 	mWindow.setMouseCursorVisible(false);
 	/*std::vector<sf::VideoMode, std::allocator<sf::VideoMode>> test;
 	test = sf::VideoMode::getFullscreenModes();
@@ -22,14 +23,16 @@ Game::Game()
 	//mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
 	//mWindow.setFramerateLimit(60);
-
+                  
 	mWindow.setVerticalSyncEnabled(true);
-	lm = new db::LightManager(sf::Vector2i(9000, 4000));
-	mRenderTexture.create(9000, 4000);
+	lm = new db::LightManager(sf::Vector2i(1920, 1080));
+	mRenderTexture.create(1920, 1080);
 	mDialog = new Dialog();
+	mSL = new SaveLoad();
+	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42),0);
+	loadMap("../Debug/map1.txt", 1);
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
-	loadMap("../Debug/map1.txt", 1);
 	mEffects = new Effects();
 	mEvent = new Event();
 	mVisualizeValues = false;
@@ -44,10 +47,10 @@ Game::Game()
 	//fixar edge shader*/
 	//mShader.setParameter("texture", sf::Shader::CurrentTexture);
 	
-	mSL = new SaveLoad();
 
-	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42));
+	
 	mAmbiance = new ambiance();
+
 }
 
 Game::~Game()
@@ -57,20 +60,22 @@ Game::~Game()
 void Game::run()
 {
 	sf::Font MyFont;
-	if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
-	{
-		// Error...
-	}
+		if (!MyFont.loadFromFile("P://Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+		{
+			// Error...
+		}
 		
-	//mSanityMeter.setString("Hello");
-	mSanityMeter.setFont(MyFont);
-	mSanityMeter.setScale(1,1);
-		
-	mSanityMeter.setColor(sf::Color(128, 128, 0));
+		//mSanityMeter.setString("Hello");
+		mSanityMeter.setFont(MyFont);
+		mSanityMeter.setScale(1,1);
+		mSanityMeter.setOrigin(mSanityMeter.getGlobalBounds().left + mSanityMeter.getGlobalBounds().width,mSanityMeter.getGlobalBounds().top + mSanityMeter.getGlobalBounds().height);
+		mSanityMeter.setPosition(mWindow.getSize().x,mWindow.getSize().y-10);
+		mSanityMeter.setColor(sf::Color(128, 128, 0));
 	lm->setAmbient(mAmbient);
 	while (mWindow.isOpen())
     {
 		FPSclock.restart();
+		mWindow.clear(sf::Color(0, 0, 0));
 		if(mMobil->snakes)
 		{
 			mMobil->tick();
@@ -78,22 +83,18 @@ void Game::run()
 			mIsEscapePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
 		}else
 		{
-			input(mControlledEntity);
-			tick();
-
-			mWindow.clear(sf::Color(0, 0, 0));
-			mWindow.setView(*camera->getView());
-			render();
-			//mousePositionFunc();
-			mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
-			mSanityMeter.setPosition(camera->getView()->getCenter().x + 500,camera->getView()->getCenter().y + 500);
-			mWindow.draw(mSanityMeter);
-			mWindow.display();
+		input(mControlledEntity);
+		tick();
+	//	mWindow.setView(*camera->getView());
+		render();
+		//mousePositionFunc();
+        mWindow.display();
 		}
 
 		while(FPSclock.getElapsedTime().asMicroseconds() < 16666)
 		{}
-
+		
+		
     }
 }
 
@@ -276,7 +277,7 @@ void Game::input(Entity* entity)
 		}else
 		{
 			mControlledEntity->setMove(false);
-			mMobil->activate(camera->getView());
+			mMobil->activate(&mWindow);
 			mMenu = true;
 		}
 	}
@@ -284,10 +285,7 @@ void Game::input(Entity* entity)
 
 bool Game::mMobilActivateApp()
 {
-	if(mMobil->getActiveAppID() == 3)
-		{
-			mWindow.close();
-		}else if(mMobil->getActiveAppID() == 0)
+		if(mMobil->getActiveAppID() == 0)
 		{
 				mMobil->deactivate();
 				mMenu = false;
@@ -296,13 +294,14 @@ bool Game::mMobilActivateApp()
 				return true;
 		}else if(mMobil->getActiveAppID() == 1)
 		{
-				loadMap("../Debug/map"+std::to_string(mSL->load(0))+".txt",mSL->load(0));
-				mMobil->reset();
 				mMobil->deactivate();
-				mEntities[0]->setMove(false);
 				mMenu = false;
+				loadMap("../Debug/map"+std::to_string(mSL->load(0))+".txt", mSL->load(0));
 				mIsEPressed = true;
 				return true;
+		}else if(mMobil->getActiveAppID() == 3)
+		{
+			mWindow.close();
 		}
 
 		return false;
@@ -311,6 +310,8 @@ bool Game::mMobilActivateApp()
 void Game::render()
 {
 	mRenderTexture.clear();
+	mRenderTexture.setView(*camera->getView());
+	lm->setView(*camera->getView());
 	mMap->renderMap(&mRenderTexture);
 	for(auto i:mEntities){
 		if (i -> getLayer() == Entity::Back)
@@ -331,35 +332,19 @@ void Game::render()
 	const sf::Texture& s = mRenderTexture.getTexture();
 	sf::Sprite ss;
 	ss.setTexture(s);
-	//mWindow->draw(ss,&mShader);
 	mWindow.draw(ss,&mEffects->getShader());//Sköter ljust styrka baserat på om ficklampa är på eller ej.
-	/*else
-	{
-<<<<<<< HEAD
-		mAmbientRed = 200;
-		mAmbientGreen = 200;
-		mAmbientBlue = 205;
-	
-=======
-		mAmbientBlue += 0.025;
-		mAmbientGreen += 0.025;
-		mAmbientRed += 0.05;
-	}
-	else if (mLights[0]->getOnOff() == true)
-	{
-		mAmbientBlue = 200;
-		mAmbientGreen = 200;
-		mAmbientRed = 200;
-	}
->>>>>>> 44b07b43702e926e10bb17ddab5df80af631b139}*/
 
-	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
-	lm->setAmbient(mAmbient);
-	lm->render(mWindow);
+
+	lm->setAmbient(mLights[0]->getWorldLight());
+	//lm->render(mWindow);
 	mDialog->render(&mWindow);
 	if(mMobil->getActivate())
 		mMobil->render(mWindow);
 
+
+	mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
+	mSanityMeter.setOrigin(mSanityMeter.getLocalBounds().left + mSanityMeter.getLocalBounds().width,mSanityMeter.getLocalBounds().top + mSanityMeter.getLocalBounds().height);
+	mWindow.draw(mSanityMeter);
 	mFade->render(mWindow);
 	mPortalFade->render(mWindow);
 }
@@ -423,7 +408,9 @@ void Game::tick()
 	}*/
 	collision();
 
-	newMap = mEvent->tick(mMap, mEntities);
+
+	newMap = mEvent->tick(mMap, mEntities, mLights);
+
 	if (newMap != 0)
 	{
 		mFade->fadeOut(newMap);
@@ -437,6 +424,8 @@ void Game::tick()
 	mDialog->tick(camera->getView());
 	if(mMobil->getActivate())
 		mMobil->tick();
+
+	//Plaserar ficklampans position.
 	mLights[0]->setOnOff(mFlashlightOnOff);
 	if (mEntities[0]->getDirection() == Entity::LEFT)
 	{
@@ -454,10 +443,12 @@ void Game::tick()
 	if (mAmbientRed <= 50 && mAmbientGreen <= 50 && mAmbientBlue <= 55)//Sett Player walk sprite
 	{
 		mCharFlash = true;
+		
 	}
 	else
 	{
 		mCharFlash = false;
+		mFlashlightOnOff = false;
 	}
 	mEntities[0]->flashlight(mCharFlash);
 
@@ -492,24 +483,45 @@ void Game::tick()
 
 	if (mControlledEntity != mEntities[0] || mEntities[0]->getHiding() == true)
 	{
-		if (mFlashlightOnOff == true)//Stänger av ficklampan när man tar kontrol.
+		if (mFlashlightOnOff == true)//Stänger av ficklampan när man tar kontrol eller gömmer sig.
 		{
 			mFlashlightOnOff = false;
 		}
 	}
+	//Mörkerseende baserat på om man är spelare eller monster.
+	if (mControlledEntity != mEntities[0])
+	{
+		sf::Color ambSetColor(150,100,200,200);
+		mLights[1]->setColor(ambSetColor);
+	}
+	else
+	{
+		sf::Color atmosfär(20,20,24,255);
+		mLights[1]->setColor(atmosfär);
+	}
+
 
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
 
+	//Sanity baserade uträkningar
 	if (mControlledEntity != mEntities[0])
 	{
-		mSanity->setSanity(-0.002);
+		mSanity->setSanity(-0.021);
 	}
 	for(auto i:mEntities){
 			if (i->getCanSeePlayer() == true && i->getActive() == true)
 			{
-				mSanity->setSanity(-0.01);
+				mSanity->setSanity(-0.101);
 			}
+	}
+	if (mSanity->getSanity() <= 100)
+	{
+		mSanity->setSanity(0.001);
+	}
+	if (mSanity->getSanity() <= 0)
+	{
+		mEntities[0]->setActive(false);
 	}
 	
 	mLights[0]->setMoveOnOff(mEntities[0]->getMove());
@@ -527,6 +539,14 @@ void Game::tick()
 	mIsLeftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
 	mIsRightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
 	mIsEscapePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
+
+	if (mEntities[0]->getActive() == false && mEntities[0]->getImortal() == false)
+	{
+		std::string mapName = "../Debug/map";
+					mapName += std::to_string(mCurrentMap);
+					mapName += ".txt";
+					loadMap(mapName, mCurrentMap);
+	}
 }
 
 void Game::collision()
@@ -650,27 +670,9 @@ void Game::collision()
 
 void Game::loadMap(std::string filename, int mapID)
 {
-	/*sf::RectangleShape r;
-	r.setTexture(mFH->getTexture(27));
-	r.setTextureRect(sf::IntRect(0, 0, 1920, 1080));
-	r.setPosition(0, 0);
-	r.setSize(sf::Vector2f(mRenderTexture.getSize().x, mRenderTexture.getSize().y));
-	if (mapID != 1)
-	{
-		int tempAlpha = 0;
-		while (tempAlpha < 255)
-		{
-			tempAlpha += 20;
-			if (tempAlpha > 255)
-				tempAlpha = 255;
-			r.setFillColor(sf::Color(255, 255, 255, tempAlpha));
-			mWindow.clear(sf::Color(0, 0, 0));
-			render();
-			mWindow.draw(r);
-			mWindow.display();
-		}
-	}*/
-
+	if(mapID >= 2)	
+		mSL->save(0,"hej",mapID);
+	mMobil->newMap(mapID);
 	delete mMap;
 	for (LightVector::size_type i = 0; i < mLights.size(); i++)
 	{
@@ -811,7 +813,7 @@ void Game::loadMap(std::string filename, int mapID)
 			animationPic = dataVector[i + 8];
 			animationY = dataVector[i + 9];
 			playerBased = dataVector[i + 10];
-			mLightSources.push_back(new Flashlight(x, y, width, height, testLight, onOff, mFH->getTexture(typeID), animationPic, animationY, playerBased));
+			mLights.push_back(new db::Light(*mFH->getTexture(typeID), typeID, sf::Vector2f(x, y), width, height ,testLight,animationPic, animationY, onOff, playerBased));
 			i += 10;
 			break;
 		case 9://AnimatedObject
@@ -843,12 +845,32 @@ void Game::loadMap(std::string filename, int mapID)
 			mAmbientRed = dataVector[i + 1];
 			mAmbientGreen = dataVector[i + 2];
 			mAmbientBlue = dataVector[i + 3];
-			i += 3;
+			mCurrentMap = dataVector[i + 4];
+			i += 4;
 			break;
 		}
 	}
+
+	for (LightVector::size_type i = 0; i < mLights.size(); i++)
+	{
+		lm->add(&*mLights[i]);
+	}
+	sf::Color atmosfär(20,20,24,255);
+	mLights[1]->setColor(atmosfär);
+	mLights[0]->setWorldLight(mAmbientRed,mAmbientGreen,mAmbientBlue);
+	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
+	for(auto i:mLights)
+	{
+			i->setMoveOnOff(true);
+	}
+
+	if (mSanity->getSanity() <= 25)
+	{
+		mSanity->setSanity(-(mSanity->getSanity()));
+		mSanity->setSanity(25);
+	}
 	mMap->setupPortals();
-	addLights();
+
 
 	//mFade->fadeIn();
 
@@ -870,6 +892,7 @@ void Game::loadMap(std::string filename, int mapID)
 	//		mWindow.display();
 	//	}
 	//}
+
 }
 
 void Game::setControlledEntity(Entity* entity)
@@ -923,22 +946,3 @@ void Game::mousePositionFunc()
 	mWindow.draw(mouseRect);
 }
 
-void Game::addLights()
-{
-	for (auto i:mLightSources)
-	{
-		mLights.push_back(i->render());
-	}
-	for (LightVector::size_type i = 0; i < mLights.size(); i++)
-	{
-		lm->add(&*mLights[i]);
-	}
-	sf::Color atmosfär(20,20,24,255);
-	mLights[1]->setColor(atmosfär);
-	mLights[0]->setScale(1,1);
-	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
-	for(auto i:mLights)
-	{
-			i->setMoveOnOff(true);
-	}
-}

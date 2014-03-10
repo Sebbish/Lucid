@@ -1,45 +1,15 @@
 #include "Mobil.h"
 
 
-Mobil::Mobil(sf::Texture* texture,sf::Texture* lines):
+Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID):
 	mTexture(texture),mLines(lines),mActivated(false)
 {
-	////fixar hitbox på knappar
-	//for(int i = 0; i < 7; i++)
-	//{
-	//	mApp[i].height = mApp[i].height = 1;
-
-	//	if(i == 0 || i == 1 ||i == 4)
-	//	{
-	//		mApp[i].left = 135;
-	//	}else if(i == 2 ||i == 5)
-	//	{
-	//		mApp[i].left = 300;
-	//	}else
-	//	{
-	//		mApp[i].left = 500;
-	//	}
-
-	//	if(i == 0)
-	//	{
-	//		mApp[i].top = 535;
-	//	}else if(i == 1 || i  == 2 || i == 3)
-	//	{
-	//		mApp[i].top = 650;
-	//	}else
-	//	{
-	//		mApp[i].top = 800;
-	//	}
-
-	//}
-	//mApp[7].left = mApp[8].left = mApp[9].left = 285;
-	//mApp[7].top = 200;
-	//mApp[8].top = 400;
-	//mApp[9].top = 600;
 
 	mRect.width = mTexture->getSize().x;
 	mRect.height = mTexture->getSize().y;
 	snakes = false;
+	mVM = new VoiceMail(mapID);
+	mVoiceMail = false;
 }
 
 
@@ -51,10 +21,10 @@ Mobil::~Mobil()
 
 
 //aktiverar mobilen och sätter rätt position
-void Mobil::activate(sf::View* view)
+void Mobil::activate(sf::RenderWindow* view)
 {
-	mRect.left = view->getCenter().x-mRect.width/2;
-	mRect.top = view->getCenter().y-mRect.height/2;
+	mRect.left = view->getPosition().x+view->getSize().x/2-mRect.width/2;
+	mRect.top = view->getPosition().y+view->getSize().y/2-mRect.height/2;
 	mActivated = true;
 	mActiveAppID = 0;
 }
@@ -73,31 +43,50 @@ void Mobil::deactivate()
 //markerar nästa app
 void Mobil::nextApp()
 {
-
+	if(!mVoiceMail)		
+	{
 		if(mActiveAppID <= 2)
 			mActiveAppID++;
 		else
 			mActiveAppID = 0;
+	}else
+	{
+		mVM->nextPrevSoundSlot(true);
+	}
 	
 }
 
 //markerar föregående app
 void Mobil::lastApp()
 {
-
+	if(!mVoiceMail)
+	{
 		if(mActiveAppID >= 1)
 			mActiveAppID--;
 		else
 			mActiveAppID = 3;
-	
+	}else
+	{
+		mVM->nextPrevSoundSlot(false);
+	}
 	
 }
 
 //retunerar ID till den markerade appen, vissa aktiverar vissa saker i mobilen
 int Mobil::getActiveAppID()
 {
+	if(!mVoiceMail)
+	{
+		if(mActiveAppID == 2)
+		{
+			mVoiceMail = true;
+			return -1;
+		}
 
-	return mActiveAppID;
+		return mActiveAppID;
+	}
+	else
+		return -1;
 }
 
 //resetar mobilen
@@ -123,6 +112,11 @@ void Mobil::ActivateSnakesAI()
 bool Mobil::getActivate()const
 {
 	return mActivated;
+}
+
+void Mobil::newMap(int mapID)
+{
+	mVM->newMap(mapID);
 }
 
 //uppdatera
@@ -154,90 +148,117 @@ void Mobil::render(sf::RenderWindow& target)
 {
 	if(mActivated)
 	{
-		sf::RectangleShape rs;
-		if(!snakes)
-		{
+			sf::RectangleShape rs;
 			rs.setPosition(mRect.left,mRect.top);
 			rs.setSize(sf::Vector2f(mRect.width,mRect.height));
 			rs.setTexture(mTexture);
 			target.draw(rs);
-		}else if(s->getRender())
-		{
-			target.clear();
-			rs.setPosition(mRect.left,mRect.top);
-			rs.setSize(sf::Vector2f(mRect.width,mRect.height));
-			rs.setTexture(mTexture);
-			target.draw(rs);
-		}
 	
-		if(!snakes)
-		{
+			if(!snakes && !mVoiceMail)
+			{
 
-			sf::Font f;
-			f.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
-			sf::Text t,tt,ttt,tttt,t5,t6;
-			t.setColor(sf::Color(0,0,0));
-			t.setCharacterSize(60);
-			t.setFont(f);
-			t6 = t5 = tttt = ttt = tt = t;
+				sf::Font f;
+				f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
+				sf::Text t;
+				t.setColor(sf::Color(0,0,0));
+				t.setCharacterSize(60);
+				t.setFont(f);
 
-			t.setString("NEW GAME");
-			t.setOrigin(t.getGlobalBounds().left + t.getGlobalBounds().width/2.0f,t.getGlobalBounds().top + t.getGlobalBounds().height/2.0f);
-			t.setPosition(mRect.left+mRect.width/2,mRect.top+250);
-			target.draw(t);
+				t.setString("NEW GAME");
+				t.setOrigin(t.getGlobalBounds().left + t.getGlobalBounds().width/2.0f,t.getGlobalBounds().top + t.getGlobalBounds().height/2.0f);
+				t.setPosition(mRect.left+mRect.width/2,mRect.top+250);
+				target.draw(t);
 
-			t.setString("LOAD GAME");
-			t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-			t.setPosition(mRect.left+mRect.width/2,mRect.top+350);
-			target.draw(t);
+				t.setString("LOAD GAME");
+				t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+				t.setPosition(mRect.left+mRect.width/2,mRect.top+350);
+				target.draw(t);
 
-			t.setString("VOICE MAIL");
-			t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-			t.setPosition(mRect.left+mRect.width/2,mRect.top+450);
-			target.draw(t);
+				t.setString("VOICE MAIL");
+				t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+				t.setPosition(mRect.left+mRect.width/2,mRect.top+450);
+				target.draw(t);
 
-			/*t.setString("SMS");
-			t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-			t.setPosition(mRect.left+mRect.width/2,mRect.top+550);
-			target->draw(t);*/
+				t.setString("EXIT GAME");
+				t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+				t.setPosition(mRect.left+mRect.width/2,mRect.top+550);
+				target.draw(t);
 
-			t.setString("EXIT GAME");
-			t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-			t.setPosition(mRect.left+mRect.width/2,mRect.top+550);
-			target.draw(t);
+				t.setString("<                    >");
+				t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+				t.setPosition(mRect.left+mRect.width/2,mRect.top+250+100*mActiveAppID);
+				target.draw(t);
+			}else if(!snakes && mVoiceMail)
+			{
+				sf::Font f;
+				f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
+				sf::Text t;
+				t.setColor(sf::Color(0,0,0));
+				t.setCharacterSize(60);
+				t.setFont(f);
+			
+				t.setString("VOICE MAIL");
+				t.setOrigin(t.getGlobalBounds().left + t.getGlobalBounds().width/2.0f,t.getGlobalBounds().top + t.getGlobalBounds().height/2.0f);
+				t.setPosition(mRect.left+mRect.width/2,mRect.top+250);
+				target.draw(t);
+				int j = 0;
+				if(mVM->getActiveSoundID() <= 2)
+				{
+					
+				for(int i = 0; i <= 3;i++)
+				{
+					if(i <= mVM->getSounds().size()-1)
+					{
+					t.setString(mVM->getSounds()[i]->mTitle);
+					t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+					t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
+					target.draw(t);
+					}
+					t.setString("<                    >");
+					t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+					t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*mVM->getActiveSoundID());
+					target.draw(t);
+					j++;
+				}
 
-			t.setString("<                    >");
-			t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t5.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-			t.setPosition(mRect.left+mRect.width/2,mRect.top+235+100*mActiveAppID);
-			target.draw(t);
-		}else if(snakes)
-		{
-			s->render(target);
-		}
-		/*tt.setString("LOAD GAME");
-		tt.setOrigin(tt.getGlobalBounds().left + tt.getGlobalBounds().width/2.0f,tt.getGlobalBounds().top + tt.getGlobalBounds().height/2.0f);
-		tt.setPosition(mRect.left+mRect.width/2,mRect.top+350);m
-		target->draw(tt);
+				}else if(mVM->getActiveSoundID() == mVM->getSounds().size()-1)
+				{
+					for(int i = mVM->getActiveSoundID()-3; i < mVM->getSounds().size();i++)
+					{
+						t.setString(mVM->getSounds()[i]->mTitle);
+						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
+						target.draw(t);
 
-		ttt.setString("Voice mail");
-		ttt.setOrigin(ttt.getGlobalBounds().left + ttt.getGlobalBounds().width/2.0f,ttt.getGlobalBounds().top + ttt.getGlobalBounds().height/2.0f);
-		ttt.setPosition(mRect.left+mRect.width/2,mRect.top+450);
-		target->draw(ttt);
+						t.setString("<                    >");
+						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*3);
+						target.draw(t);
 
-		t6.setString("SMS");
-		t6.setOrigin(t6.getGlobalBounds().left + t6.getGlobalBounds().width/2.0f,t6.getGlobalBounds().top + t6.getGlobalBounds().height/2.0f);
-		t6.setPosition(mRect.left+mRect.width/2,mRect.top+550);
-		target->draw(t6);
+						j++;
+					}
+				}else
+				{
+					for(int i = mVM->getActiveSoundID()-2; i < mVM->getActiveSoundID()+2;i++)
+					{
+						t.setString(mVM->getSounds()[i]->mTitle);
+						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
+						target.draw(t);
 
-		tttt.setString("EXIT GAME");
-		tttt.setOrigin(tttt.getGlobalBounds().left + tttt.getGlobalBounds().width/2.0f,tttt.getGlobalBounds().top + tttt.getGlobalBounds().height/2.0f);
-		tttt.setPosition(mRect.left+mRect.width/2,mRect.top+650);
-		target->draw(tttt);
+						t.setString("<                    >");
+						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*2);
+						target.draw(t);
+						j++;
+					}
+				}
 
-		t5.setString("<                    >");
-		t5.setOrigin(t5.getGlobalBounds().left + t5.getGlobalBounds().width/2.0f,t5.getGlobalBounds().top + t5.getGlobalBounds().height/2.0f);
-		t5.setPosition(mRect.left+mRect.width/2,mRect.top+250+100*mActiveAppID);
-		target->draw(t5);*/
+			}else if(snakes)
+			{
+				s->render(target);
+			}
+
 
 		if(!snakes)
 		{
@@ -251,35 +272,6 @@ void Mobil::render(sf::RenderWindow& target)
 			if(!s->gameOVER())
 				s->setRender(false);
 		}
-
-
-
-		//if(mLoad || mSave)
-		//{
-		//	sf::Font f;
-		//	f.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
-		//	sf::Text t;
-		//	t.setColor(sf::Color::White);
-		//	t.setCharacterSize(20);
-		//	t.setFont(f);
-		//	t.setPosition(mRect.left+mApp[7].left-200,mRect.top+mApp[7].top-100);
-		//	t.setString(mSL->loadText(0));
-		//	target->draw(t);
-
-		//	t.setPosition(mRect.left+mApp[8].left-200,mRect.top+mApp[8].top-50);
-		//	t.setString(mSL->loadText(1));
-		//	target->draw(t);
-
-		//	t.setPosition(mRect.left+mApp[9].left-200,mRect.top+mApp[9].top-30);
-		//	t.setString(mSL->loadText(2));
-		//	target->draw(t);
-		//}
-
-
-		/*sf::RectangleShape rss;
-		rss.setPosition(mRect.left+mApp[mActiveAppID].left,mRect.top+mApp[mActiveAppID].top);
-		rss.setSize(sf::Vector2f(10,10));
-		rss.setFillColor(sf::Color::Green);
-		target->draw(rss);*/
+		
 	}
 }

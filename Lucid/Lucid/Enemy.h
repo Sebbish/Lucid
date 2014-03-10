@@ -46,6 +46,8 @@ public:
 	virtual void hitRoof();
 	virtual void shortYStepBack();
 	virtual void flashlight(bool flash);
+	virtual void setImortal(bool imortal);
+	virtual bool getImortal();
 	
 private:
 	float mLastSeenX;
@@ -83,6 +85,7 @@ private:
 	bool mActive;
 	void checkSight(Entity* entity);
 	void setAnimation();
+	bool mImortal;
 
 	sf::FloatRect mOriginalPosition;
 	bool mTeleport;

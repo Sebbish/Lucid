@@ -11,7 +11,7 @@ Event::~Event(void)
 {
 }
 
-int Event::tick(Map* map, std::vector<Entity*> &entityVector)
+int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector)
 {
 	std::vector<Trigger*> triggers = map->getTriggerList();
 	std::vector<AnimatedObject*> animatedObjects = map->getAnimatedObjectList();
@@ -92,9 +92,18 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 			}
 		}
 
-		if (triggers[12]->getTrigged()) //Man når slutet av banan
+		if (triggers[12]->getTrigged()) //Om spelaren går på keycard
 		{
 			triggers[12]->setActive(false);
+			
+			animatedObjects[2]->setActive(false);
+			triggers[13]->setActive(true);
+			LightVector[0]->setWorldLight(0,0,0);
+		}
+
+		if (map->getTriggerList()[13]->getTrigged()) //Då spelaren använder keycard på kortläsaren.
+		{
+			map->getTriggerList()[13]->setActive(false);
 			portals[14]->setActive(true);
 		}
 		break;
@@ -164,6 +173,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 			triggers[3]->setActive(false);
 			entityVector[1]->setPosition(sf::FloatRect(5800, 44, 1, 1));
 			entityVector[1]->setTargetX(8000);
+			entityVector[0]->setImortal(true);
 			bool1 = true;
 		}
 		
@@ -172,6 +182,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector)
 			bool1 = false;
 			entityVector[1]->setActive(false);
 			entityVector[0]->setActive(true);
+			entityVector[0]->setImortal(false);
 			map->getSuperPortalList()[0]->setActive(true);
 		}
 		break;

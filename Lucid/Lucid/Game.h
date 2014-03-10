@@ -40,7 +40,6 @@ private:
 	void collision();
 	void input(Entity* entity);
 	void loadMap(std::string filename, int mapID);
-	void addLights();
 	static bool overlapsEntity(Entity *playerEntity, Entity *otherEntity);
 	static bool overlapsObjects(Entity *playerEntity, Object *objectEntity);
 	static bool overlapsMouse(Entity *entity);
@@ -83,6 +82,7 @@ private:
 	float mAtmospherScaleY;
 	bool mFlashlightOnOff;
 	bool mCharFlash;
+	int mCurrentMap;
 	Fade* mFade;
 	PortalFade* mPortalFade;
 };

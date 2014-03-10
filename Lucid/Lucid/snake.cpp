@@ -4,17 +4,28 @@
 snake::snake(sf::FloatRect &rect, bool cheat):
 	mRect(rect), mCheat(cheat)
 {
-	t.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/kladd.png");
-	//l.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/l_snake.png");
-	l.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/Todocat2.png");
-	mRect.left += 160;
-	mRect.top += 200;
+	mSnakeTexture.loadFromFile("../../../LucidProject/Resources/Graphics/Animations/kladd.png");
+	mLewisTexture.loadFromFile("../../../LucidProject/Resources/Graphics/Animations/l_snake.png");
+	mRect.left += 155;
+	mRect.top += 205;
 	mRect.width = 720;
 	mRect.height = 520;
 	init();
-	mMusic.openFromFile("P:/Downloads/LucidProject/Resources/Music/Lucid Chiptuna 01.ogg");
+	mMusic.openFromFile("../../../LucidProject/Resources/Music/Lucid Chiptuna 01.ogg");
 	mMusic.setLoop(true);
 	mMusic.play();
+
+	mBorder[0] = sf::Vector2f(mRect.left,mRect.top);
+	mBorder[1] = sf::Vector2f(mRect.left+mRect.width,mRect.top);
+	mBorder[2] = sf::Vector2f(mRect.left+mRect.width,mRect.top);
+	mBorder[3] = sf::Vector2f(mRect.left+mRect.width,mRect.top+mRect.height);
+	mBorder[4] = sf::Vector2f(mRect.left+mRect.width,mRect.top+mRect.height);
+	mBorder[5] = sf::Vector2f(mRect.left,mRect.top+mRect.height);
+	mBorder[6] = sf::Vector2f(mRect.left,mRect.top+mRect.height);
+	mBorder[7] = sf::Vector2f(mRect.left,mRect.top);
+	for(int i = 0; i < 8; i++)
+		mBorder[i].color = sf::Color::Black;
+
 	animationX = 0;
 }
 
@@ -39,14 +50,15 @@ void snake::init()
 	if (mCheat)
 		mTime = 1000/1000;
 	else
-		mTime = 1000/10;
+	mTime = 1000/10;
 	mState = GAME;
 	mScore = 0;
-	cubes.push_back(new Cube(sf::FloatRect(mRect.left+80,mRect.top+80,40,40),true,false,t,mRect));
-	cubes.push_back(new Cube(sf::FloatRect(mRect.left+40,mRect.top+80,40,40),false,false,t,mRect));
-	cubes.push_back(new Cube(sf::FloatRect(mRect.left+0,mRect.top+80,40,40),false,false,t,mRect));
+	cubes.push_back(new Cube(sf::FloatRect(mRect.left+80,mRect.top+80,40,40),true,false,mSnakeTexture,mRect));
+	cubes.push_back(new Cube(sf::FloatRect(mRect.left+40,mRect.top+80,40,40),false,false,mSnakeTexture,mRect));
+	cubes.push_back(new Cube(sf::FloatRect(mRect.left+0,mRect.top+80,40,40),false,false,mSnakeTexture,mRect));
 	//mFruit = new Cube(sf::FloatRect(mRect.left+((rand() % (680))/40)*40,mRect.top+((rand() % (490))/40)*40,10,62),false,true,l,mRect);
-	mFruit = new Cube(sf::FloatRect(mRect.left+((rand() % (680))/40)*40,mRect.top+((rand() % (490))/40)*40,40,40),false,true,l,mRect);
+	mFruit = new Cube(sf::FloatRect(mRect.left+((rand() % (680))/40)*40,mRect.top+((rand() % (490))/40)*40,40,40),false,true,mLewisTexture,mRect);
+
 	
 	mFont.loadFromFile("BuxtonSketch.ttf");
 	mText.setFont(mFont);
@@ -91,7 +103,7 @@ void snake::collide()
 {
 	if(frontSnakeCollideWithFruit())
 	{
-		cubes.push_back(new Cube(cubes[cubes.size()-1]->getRect(),false,false,t,mRect));
+		cubes.push_back(new Cube(cubes[cubes.size()-1]->getRect(),false,false,mSnakeTexture,mRect));
 		if (mScore < 23100)
 			spawnNewFruit();
 		mScore += 100;
@@ -132,7 +144,7 @@ bool snake::snakeCollideWithSnake()
 void snake::tick()
 {
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-	mState = EXIT;
+		mState = EXIT;
 
 	if(mState == GAME)
 	{
@@ -148,6 +160,7 @@ void snake::tick()
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 			cubes[0]->setDirection(Cube::DOWN);
+
 
 	if(mClock.getElapsedTime().asMilliseconds() >= mTime)
 	{
@@ -233,6 +246,7 @@ void snake::render(sf::RenderWindow& target)
 {
 	if(mRender)
 	{
+		target.draw(mBorder,8,sf::Lines);
 	mFruit->render(target, animationX);
 	for(auto i:cubes)
 		i->render(target, 2);
@@ -243,6 +257,8 @@ void snake::render(sf::RenderWindow& target)
 	mText.setString("SCORE: " + std::to_string(mScore));
 	target.draw(mText);
 
+
+
 	if(mState == OVER)
 	{
 		mText.setCharacterSize(72);
@@ -252,7 +268,8 @@ void snake::render(sf::RenderWindow& target)
 		target.draw(mText);
 	}
 
-	}
+	
 
 	cubes[0]->render(target, 2);
+}
 }
