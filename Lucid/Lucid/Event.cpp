@@ -31,23 +31,18 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			triggers[1]->setActive(false);
 			animatedObjects[5]->setAnimate(true);
 		}
-		if (triggers[2]->getTrigged()) //Byter bana
+		if (triggers[2]->getTrigged()) //Fade out första bilden
 		{
 			triggers[2]->setActive(false);
-			return 2;
-		}
-		if (triggers[3]->getTrigged()) //Fade out första bilden
-		{
-			triggers[3]->setActive(false);
-			triggers[4]->setActive(true);
+			triggers[3]->setActive(true);
 			animatedObjects[0]->fadeout();
 			animatedObjects[1]->fadein();
 			animatedObjects[3]->fadein();
 		}
-		if (map->getTriggerList()[4]->getTrigged()) //Fade out andra bilden
+		if (map->getTriggerList()[3]->getTrigged()) //Fade out andra bilden
 		{
-			triggers[4]->setActive(false);
-			triggers[3]->setActive(true);
+			triggers[3]->setActive(false);
+			triggers[2]->setActive(true);
 			animatedObjects[0]->fadein();
 			animatedObjects[1]->fadeout();
 			animatedObjects[3]->fadeout();
