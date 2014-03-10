@@ -55,6 +55,8 @@ public:
 	virtual void hitRoof() = 0;
 	virtual void shortYStepBack() = 0;
 	virtual void flashlight(bool flash) = 0;
+	virtual void setImortal(bool imortal) = 0;
+	virtual bool getImortal() = 0;
 };
 #endif
 

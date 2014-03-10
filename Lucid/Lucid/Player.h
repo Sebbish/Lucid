@@ -44,10 +44,13 @@ public:
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
 	virtual void render(sf::RenderTexture* window, bool visualizeValues);
 	virtual void flashlight(bool flash);
+	virtual void setImortal(bool imortal);
+	virtual bool getImortal();
 private:
 	float mLastSeenX;
 	sf::FloatRect mRect;
 	sf::FloatRect mLastRect;
+	sf::FloatRect mSecondLastRect;
 	float mMaxSpeed;
 	sf::Texture* mTexture;
 	bool mMove;
@@ -63,6 +66,7 @@ private:
 	bool mActive;
 	int mAnimationY;
 	bool mFlashlightMode;
+	bool mImortal;
 	float mAnimationSpeed;
 	//int mBreatheDelay, mUpperBreatheDelay, mBreatheTimer, mUpperBreatheTimer;
 };

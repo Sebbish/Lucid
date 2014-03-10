@@ -51,6 +51,7 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mAnimationSpeed = 0.15;
 	mWaitTimer = 0;
 	mWait = false;
+	mImortal = false;
 	//mWaitTime = 60;
 	/*mViewBackRange = 300;
 	mViewFrontRange = 800;
@@ -809,4 +810,14 @@ void Enemy::render(sf::RenderTexture* window, bool visualizeValues)
 
 void Enemy::flashlight(bool flash)
 {
+}
+
+void Enemy::setImortal(bool imortal)
+{
+	mImortal = imortal;
+}
+
+bool Enemy::getImortal()
+{
+	return mImortal;
 }

@@ -81,6 +81,7 @@ private:
 	float mAtmospherScaleY;
 	bool mFlashlightOnOff;
 	bool mCharFlash;
+	int mCurrentMap;
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "Flashlight.h"
 
-Flashlight::Flashlight(float x, float y,float width, float height, sf::Color color, int onOff, sf::Texture *texture, float anitmationPicX, float animationPicY, bool playerBased):
+Flashlight::Flashlight(float x, float y,float width, float height, sf::Color color, int onOff, sf::Texture *texture, int typID, float anitmationPicX, float animationPicY, bool playerBased):
 	mTexture(*texture),mColor(color),mAnimationPicX(anitmationPicX), mAnimationPicY(animationPicY) //mLight(mTexture,sf::Vector2f(0,0), mColor)
 {
 
@@ -25,7 +25,7 @@ Flashlight::Flashlight(float x, float y,float width, float height, sf::Color col
 	{
 		mPlayerBased = true;
 	}
-	mLight = new db::Light(mTexture,sf::Vector2f(mRect.left, mRect.top), mRect.width, mRect.height ,mColor,mAnimationPicX, mAnimationPicY, mOnOff, mPlayerBased);
+	mLight = new db::Light(mTexture, typID, sf::Vector2f(mRect.left, mRect.top), mRect.width, mRect.height ,mColor,mAnimationPicX, mAnimationPicY, mOnOff, mPlayerBased);
 //	mLight.setPosition( sf::Vector2f(mRect.left, mRect.top) );
 }
 

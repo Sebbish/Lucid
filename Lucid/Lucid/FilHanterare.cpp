@@ -55,6 +55,9 @@ FilHanterare::FilHanterare(void)
 
 	mTexture[43]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lamp/Level2_Lamp_Lightsheet.png",sf::IntRect(0,0,4096,300));
 	mTexture[44]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lamp/Level2_Lamp_Spritesheet.png",sf::IntRect(0,0,4096,300));
+	mTexture[45]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Backgrounds/Prologue/Ljus.png",sf::IntRect(0,0,7140,1080));
+	mTexture[46]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Cardreader_Spritesheet.png",sf::IntRect(0,0,64,32));
+	mTexture[47]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Keycard_Sprite.png",sf::IntRect(0,0,32,64));
 	
 	mSoundBuffer[0]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");
 	mSoundBuffer[1]->loadFromFile("P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/lewis hall walking slow 2(with clothing).wav");
