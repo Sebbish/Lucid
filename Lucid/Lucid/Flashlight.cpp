@@ -25,7 +25,7 @@ Flashlight::Flashlight(float x, float y,float width, float height, sf::Color col
 	{
 		mPlayerBased = true;
 	}
-	mLight = new db::Light(mTexture, typID, sf::Vector2f(mRect.left, mRect.top), mRect.width, mRect.height ,mColor,mAnimationPicX, mAnimationPicY, mOnOff, mPlayerBased);
+	//mLight = new db::Light(mTexture, typID, sf::Vector2f(mRect.left, mRect.top), mRect.width, mRect.height ,mColor,mAnimationPicX, mAnimationPicY, mOnOff, mPlayerBased, );
 //	mLight.setPosition( sf::Vector2f(mRect.left, mRect.top) );
 }
 

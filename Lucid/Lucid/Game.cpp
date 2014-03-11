@@ -8,7 +8,7 @@ Game::Game()
 	mAmbientBlue = 0;
 	mCurrentMap = 0;
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
-	testLight = sf::Color(100, 100, 100, 178);
+	testLight = sf::Color(100, 100, 100, 255);
 	mFH = new FilHanterare();
 	mAtmospherScaleX = 1;
 	mAtmospherScaleY = 1;
@@ -29,7 +29,7 @@ Game::Game()
 	mDialog = new Dialog(*mFH->getTexture(45));
 	mSL = new SaveLoad();
 	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42),0);
-	loadMap("../Debug/map3.txt", 3);
+	loadMap("../Debug/map1.txt", 1);
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
 	mEffects = new Effects();
@@ -343,9 +343,9 @@ void Game::render()
 	ss.setTexture(s);
 	mWindow.draw(ss,&mEffects->getShader());//Sköter ljust styrka baserat på om ficklampa är på eller ej.
 
-
-	lm->setAmbient(mLights[0]->getWorldLight());
-	//lm->render(mWindow);
+	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
+	lm->setAmbient(mAmbient);
+	lm->render(mWindow);
 	mDialog->render(&mWindow);
 	if(mMobil->getActivate())
 		mMobil->render(mWindow);
@@ -493,6 +493,10 @@ void Game::tick()
 		mLights[1]->setColor(atmosfär);
 	}
 
+	//Ändrar ambiencen.
+	mAmbientRed = mLights[0]->getWorldLightRed();
+	mAmbientGreen = mLights[0]->getWorldLightGreen();
+	mAmbientBlue = mLights[0]->getWorldLightBlue();
 
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
@@ -502,12 +506,19 @@ void Game::tick()
 	{
 		mSanity->setSanity(-0.021);
 	}
+
 	for(auto i:mEntities){
-			if (i->getCanSeePlayer() == true && i->getActive() == true)
+			if (i->getCanSeePlayer() == true && i->getActive() == true )
 			{
 				mSanity->setSanity(-0.101);
 			}
+			else
+			{
+				mSanity->setSanity(0);
+			}
 	}
+
+
 	if (mSanity->getSanity() <= 100)
 	{
 		mSanity->setSanity(0.001);
@@ -697,7 +708,7 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha, useTexture, animate, loop, playerBased;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha, useTexture, animate, loop, playerBased, blink;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -810,8 +821,9 @@ void Game::loadMap(std::string filename, int mapID)
 			animationPic = dataVector[i + 8];
 			animationY = dataVector[i + 9];
 			playerBased = dataVector[i + 10];
-			mLights.push_back(new db::Light(*mFH->getTexture(typeID), typeID, sf::Vector2f(x, y), width, height ,testLight,animationPic, animationY, onOff, playerBased));
-			i += 10;
+			blink = dataVector[i + 11];
+			mLights.push_back(new db::Light(*mFH->getTexture(typeID), typeID, sf::Vector2f(x, y), width, height ,testLight,animationPic, animationY, onOff, playerBased, blink));
+			i += 11;
 			break;
 		case 9://AnimatedObject
 			x = dataVector[i + 1];

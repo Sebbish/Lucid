@@ -99,11 +99,13 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			animatedObjects[2]->setActive(false);
 			triggers[13]->setActive(true);
 			LightVector[0]->setWorldLight(0,0,0);
+			LightVector[2]->setOnOff(false);
 		}
 
 		if (map->getTriggerList()[13]->getTrigged()) //Då spelaren använder keycard på kortläsaren.
 		{
 			map->getTriggerList()[13]->setActive(false);
+			animatedObjects[3]->setAnimate(true);
 			portals[14]->setActive(true);
 		}
 		break;
