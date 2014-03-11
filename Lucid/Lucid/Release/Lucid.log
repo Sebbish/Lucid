@@ -1,32 +1,21 @@
-﻿Build started 2014-02-18 17:04:18.
-     1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2014-03-11 21:23:22.
+     1>Project "C:\Lucidaa\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Event.cpp Game.cpp
-         Event.cpp
-         Game.cpp
-     1>Game.cpp(388): warning C4018: '<' : signed/unsigned mismatch
-     1>Game.cpp(398): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(414): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(423): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(436): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(447): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(456): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(466): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(473): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(481): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(490): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(530): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(531): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(544): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(544): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt VoiceMail.cpp
+         VoiceMail.cpp
+     1>VoiceMail.cpp(28): warning C4018: '<=' : signed/unsigned mismatch
+     1>VoiceMail.cpp(65): warning C4018: '>=' : signed/unsigned mismatch
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"P:\Lucid\Lucid\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"P:\Lucid\Lucid\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"P:\Lucid\Lucid\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\AnimatedObject.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Lucidaa\Lucid\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" /LIBPATH:"C:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Lucidaa\Lucid\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Lucidaa\Lucid\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\ambiance.obj
+         Release\AnimatedObject.obj
          Release\Camera.obj
+         Release\Cube.obj
          Release\Dialog.obj
          Release\Effects.obj
          Release\Enemy.obj
          Release\Entity.obj
          Release\Event.obj
+         Release\Fade.obj
          Release\FilHanterare.obj
          Release\Flashlight.obj
          Release\Game.obj
@@ -37,24 +26,30 @@
          Release\LightSource.obj
          Release\Main.obj
          Release\Map.obj
+         Release\Mobil.obj
          Release\Npc.obj
          Release\Object.obj
          Release\Parallax.obj
          Release\Player.obj
          Release\Portal.obj
+         Release\PortalFade.obj
+         Release\Roof.obj
          Release\Sanity.obj
          Release\SaveLoad.obj
+         Release\snake.obj
          Release\Source.obj
          Release\Trigger.obj
+         Release\VoiceMail.obj
          Release\Wall.obj
          Generating code
-     1>p:\lucid\lucid\lucid\filhanterare.cpp(68): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\filhanterare.cpp(62): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\effects.cpp(135): warning C4715: 'Effects::getShader' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\saveload.cpp(66): warning C4715: 'SaveLoad::load' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(99): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(93): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\effects.cpp(135): warning C4715: 'Effects::getShader' : not all control paths return a value
          Finished generating code
-         Lucid.vcxproj -> P:\Lucid\Lucid\Release\Lucid.exe
-     1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
+         Lucid.vcxproj -> C:\Lucidaa\Lucid\Release\Lucid.exe
+     1>Done Building Project "C:\Lucidaa\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:16.64
+Time Elapsed 00:00:03.68

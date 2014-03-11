@@ -4,7 +4,7 @@
 Dialog::Dialog(sf::Texture &texture):
 	mDraw(false),mTexture(texture)
 {
-	if(!mFont.loadFromFile("P://Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+	if(!mFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
 	{
 		//Något fel
 	}
@@ -28,7 +28,7 @@ void Dialog::loadFile(std::string name,int ID)
 {
 	for(int i = mStrings.size()-1; i >= 0; i--)
 		mStrings.pop_back();
-	std::fstream mFStream("P://Downloads/LucidProject/Resources/Dialog/"+name+".txt");
+	std::fstream mFStream("../../../LucidProject/Resources/Dialog/"+name+".txt");
 	std::string temp;
 	while(getline(mFStream,temp))
 		mStrings.push_back(temp);
@@ -48,7 +48,7 @@ void Dialog::newMap(int mapID)
 	if(mapID == 3)
 	{
 		mSounds.push_back(new sf::Music);
-		mSounds[mSounds.size()-1]->openFromFile("P://Downloads/LucidProject/Resources/Sound/voicemail/boo 09 ( high sanity).ogg");
+		mSounds[mSounds.size()-1]->openFromFile("../../../LucidProject/Resources/Sound/voicemail/boo 09 ( high sanity).ogg");
 	}
 }
 

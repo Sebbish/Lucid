@@ -2,8 +2,8 @@
 
 FilHanterare::FilHanterare(void)
 {
-	//std::string path = "../../../";
-	std::string path = "P://Downloads/";
+	std::string path = "../../../";
+	//std::string path = "P://Downloads/";
 	/*sf::Texture* t = new sf::Texture;
 	assert(sf::Texture::loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis_Insane_Spritesheet.png",sf::IntRect(0,0,1024,768)) != NULL);
 	mTexture.push_back(t);
@@ -21,6 +21,9 @@ FilHanterare::FilHanterare(void)
 	mTexture[2]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level1/Level1.png",sf::IntRect(0,0,8864,3240));
 	mTexture[3]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level2/Level2.png",sf::IntRect(0,0,8000,300));
 	mTexture[4]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_1.png",sf::IntRect(0,0,8000,600));
+	mTexture[5]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_2.png",sf::IntRect(0,0,8000,900));
+	mTexture[6]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level4/Level 4.png",sf::IntRect(0,0,8000,300));
+
 
 	
 	
@@ -31,7 +34,9 @@ FilHanterare::FilHanterare(void)
 	//mTexture[24]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Trashcan2.png",sf::IntRect(0,0,1796,720));
 	//mTexture[24]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/kruka.png",sf::IntRect(0,0,256,256));
 
-	mTexture[25]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Lightsheet.png",sf::IntRect(0,0,4096,512));
+
+	mTexture[25]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/glow.png",sf::IntRect(0,0,4096,512));
+
 
 	//mTexture[25]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/glow.png",sf::IntRect(0,0,161,129));
 	mTexture[26]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/VendingMachine1.png",sf::IntRect(0,0,256,256));
