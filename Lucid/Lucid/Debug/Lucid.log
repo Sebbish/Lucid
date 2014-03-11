@@ -1,8 +1,191 @@
-﻿Build started 2014-03-10 15:04:25.
+﻿Build started 2014-03-11 10:56:27.
      1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(295,5): error MSB3491: Could not write lines to file "Debug\Lucid.lastbuildstate". The process cannot access the file 'P:\Lucid\Lucid\Lucid\Debug\Lucid.lastbuildstate' because it is being used by another process.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt AnimatedObject.cpp Camera.cpp Cube.cpp Dialog.cpp Effects.cpp Enemy.cpp Entity.cpp Event.cpp Fade.cpp FilHanterare.cpp Flashlight.cpp Game.cpp Hiding.cpp Light.cpp LightMain.cpp LightManager.cpp LightSource.cpp Main.cpp Map.cpp Mobil.cpp Npc.cpp Object.cpp Parallax.cpp Player.cpp Portal.cpp PortalFade.cpp Roof.cpp Sanity.cpp SaveLoad.cpp Source.cpp Trigger.cpp VoiceMail.cpp Wall.cpp ambiance.cpp snake.cpp
+         snake.cpp
+     1>p:\lucid\lucid\lucid\snake.cpp(49): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+         ambiance.cpp
+     1>p:\lucid\lucid\lucid\ambiance.cpp(149): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(195): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(196): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(225): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(226): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(256): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(257): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(280): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(284): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(285): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(299): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(303): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(310): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(314): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(324): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(344): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(348): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(355): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(359): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(370): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(390): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(394): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(401): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(405): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(416): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(436): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(440): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(447): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(451): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\ambiance.cpp(462): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         Wall.cpp
+         VoiceMail.cpp
+     1>p:\lucid\lucid\lucid\voicemail.cpp(73): warning C4018: '>=' : signed/unsigned mismatch
+         Trigger.cpp
+         Source.cpp
+     1>p:\lucid\lucid\lucid\source.cpp(76): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>p:\lucid\lucid\lucid\source.cpp(120): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\source.cpp(124): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\source.cpp(242): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\source.cpp(243): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\source.cpp(248): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\source.cpp(249): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\source.cpp(276): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\source.cpp(277): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\source.cpp(282): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\source.cpp(283): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         SaveLoad.cpp
+         Sanity.cpp
+         Roof.cpp
+         PortalFade.cpp
+     1>p:\lucid\lucid\lucid\portalfade.cpp(8): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\portalfade.cpp(9): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+         Portal.cpp
+     1>p:\lucid\lucid\lucid\portal.cpp(125): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\portal.cpp(127): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         Player.cpp
+     1>p:\lucid\lucid\lucid\player.cpp(17): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\player.cpp(308): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\player.cpp(310): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         Parallax.cpp
+     1>p:\lucid\lucid\lucid\parallax.cpp(6): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\parallax.cpp(7): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\parallax.cpp(8): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\parallax.cpp(47): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         Object.cpp
+         Npc.cpp
+     1>p:\lucid\lucid\lucid\npc.cpp(26): error C2660: 'Dialog::loadFile' : function does not take 1 arguments
+     1>p:\lucid\lucid\lucid\npc.cpp(77): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\npc.cpp(79): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         Mobil.cpp
+     1>p:\lucid\lucid\lucid\mobil.cpp(8): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\mobil.cpp(9): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\mobil.cpp(210): warning C4018: '<=' : signed/unsigned mismatch
+     1>p:\lucid\lucid\lucid\mobil.cpp(226): warning C4018: '<' : signed/unsigned mismatch
+         Map.cpp
+     1>p:\lucid\lucid\lucid\map.cpp(198): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         Main.cpp
+         LightSource.cpp
+         LightManager.cpp
+         Generating Code...
+     1>p:\lucid\lucid\lucid\saveload.cpp(66): warning C4715: 'SaveLoad::load' : not all control paths return a value
+         Compiling...
+         LightMain.cpp
+         Light.cpp
+     1>p:\lucid\lucid\lucid\light.cpp(29): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\light.cpp(30): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\light.cpp(52): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\light.cpp(54): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\light.cpp(168): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+         Hiding.cpp
+     1>p:\lucid\lucid\lucid\hiding.cpp(46): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         Game.cpp
+     1>p:\lucid\lucid\lucid\game.cpp(10): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(40): error C2065: 'mFlashlighSound' : undeclared identifier
+     1>p:\lucid\lucid\lucid\game.cpp(40): error C2228: left of '.setBuffer' must have class/struct/union
+                 type is ''unknown-type''
+     1>p:\lucid\lucid\lucid\game.cpp(41): error C2065: 'mFlashlighSound' : undeclared identifier
+     1>p:\lucid\lucid\lucid\game.cpp(41): error C2228: left of '.setPitch' must have class/struct/union
+                 type is ''unknown-type''
+     1>p:\lucid\lucid\lucid\game.cpp(72): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(182): error C2065: 'mFlashlighSound' : undeclared identifier
+     1>p:\lucid\lucid\lucid\game.cpp(182): error C2228: left of '.stop' must have class/struct/union
+                 type is ''unknown-type''
+     1>p:\lucid\lucid\lucid\game.cpp(183): error C2065: 'mFlashlighSound' : undeclared identifier
+     1>p:\lucid\lucid\lucid\game.cpp(183): error C2228: left of '.play' must have class/struct/union
+                 type is ''unknown-type''
+     1>p:\lucid\lucid\lucid\game.cpp(453): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\game.cpp(457): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\game.cpp(469): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\game.cpp(503): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\game.cpp(508): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\game.cpp(513): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\game.cpp(526): error C2660: 'ambiance::tick' : function does not take 1 arguments
+     1>p:\lucid\lucid\lucid\game.cpp(709): warning C4018: '<' : signed/unsigned mismatch
+     1>p:\lucid\lucid\lucid\game.cpp(719): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(735): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(744): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(759): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(771): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(771): error C2661: 'Npc::Npc' : no overloaded function takes 8 arguments
+     1>p:\lucid\lucid\lucid\game.cpp(773): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(773): error C2661: 'Npc::Npc' : no overloaded function takes 8 arguments
+     1>p:\lucid\lucid\lucid\game.cpp(782): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(792): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(799): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(813): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(813): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>p:\lucid\lucid\lucid\game.cpp(830): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(838): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(842): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(843): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(844): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(857): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(927): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(928): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(941): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\game.cpp(941): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         Flashlight.cpp
+         FilHanterare.cpp
+         Fade.cpp
+     1>p:\lucid\lucid\lucid\fade.cpp(8): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\fade.cpp(9): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+         Event.cpp
+         Entity.cpp
+         Enemy.cpp
+     1>p:\lucid\lucid\lucid\enemy.cpp(19): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(24): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(51): warning C4305: '=' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\enemy.cpp(261): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(266): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(755): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(757): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(762): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(764): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(783): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(790): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(797): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(805): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(808): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\enemy.cpp(812): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         Effects.cpp
+     1>p:\lucid\lucid\lucid\effects.cpp(14): warning C4305: '=' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\effects.cpp(15): warning C4305: '=' : truncation from 'double' to 'float'
+         Dialog.cpp
+     1>p:\lucid\lucid\lucid\dialog.cpp(59): warning C4018: '<=' : signed/unsigned mismatch
+     1>p:\lucid\lucid\lucid\dialog.cpp(67): warning C4018: '<=' : signed/unsigned mismatch
+         Cube.cpp
+         Camera.cpp
+     1>p:\lucid\lucid\lucid\camera.cpp(19): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\camera.cpp(20): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\camera.cpp(21): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>p:\lucid\lucid\lucid\camera.cpp(46): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>p:\lucid\lucid\lucid\camera.cpp(52): warning C4305: 'argument' : truncation from 'double' to 'float'
+         AnimatedObject.cpp
+     1>p:\lucid\lucid\lucid\animatedobject.cpp(193): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         Generating Code...
+     1>p:\lucid\lucid\lucid\effects.cpp(135): warning C4715: 'Effects::getShader' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\filhanterare.cpp(91): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\filhanterare.cpp(97): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
      1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:01.65
+Time Elapsed 00:03:07.26

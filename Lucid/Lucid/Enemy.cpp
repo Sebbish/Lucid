@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(float x, float y, float width, float height,float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID, int active, sf::SoundBuffer* walkSound,sf::SoundBuffer* jagaSound):
+Enemy::Enemy(float x, float y, float width, float height, float speed, int direction, int patrolStart, int patrolStop, sf::Texture* texture, int typeID, int active, sf::SoundBuffer* walkSound,sf::SoundBuffer* attack,sf::SoundBuffer* morphSound,sf::SoundBuffer* walkNotSlimeSound):
 	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false),mControlled(false), mPatrolStart(patrolStart), mPatrolStop(patrolStop)
 {
 	std::ifstream stream;
@@ -58,8 +58,22 @@ Enemy::Enemy(float x, float y, float width, float height,float speed, int direct
 	mAggroRange = 400;*/
 	mIsPlayerVisible = false;
 	mTargetX = mPatrolStop;
+
 	mWalkSound.setBuffer(*walkSound);
-	mJagaSound.setBuffer(*jagaSound);
+	mMorphSound.setBuffer(*morphSound);
+	mWalkNotSlimeSound.setBuffer(*walkNotSlimeSound);
+	mAttackSound.setBuffer(*attack);
+
+	mWalkSound.setMinDistance(1000);
+	mWalkSound.setAttenuation(10);
+	mMorphSound.setMinDistance(1000);
+	mMorphSound.setAttenuation(10);
+	mWalkNotSlimeSound.setMinDistance(1000);
+	mWalkNotSlimeSound.setAttenuation(10);
+	mAttackSound.setMinDistance(1000);
+	mAttackSound.setAttenuation(10);
+
+
 	mTeleportWaitTime = 300;
 	mTeleport = false;
 	mTeleportTimer = 0;
@@ -107,6 +121,8 @@ void Enemy::getFunc(Entity* entity)
 	if (mActive)
 	{
 		mNextForm = EAT;
+		if(mAttackSound.getStatus() != sf::Sound::Playing)
+			mAttackSound.play();
 		if (entity->getTypeID() == 22 && mTypeID == 21)
 		{
 			mRect.left = -5000;
@@ -307,21 +323,6 @@ void Enemy::checkSight(Entity *entity)
 	{
 		mIsPlayerVisible = false;
 	}
-	/*else
-	{
-		if (mIsPlayerVisible == true)
-		{
-			if (mDirection == RIGHT && mPlayerX > mRect.left && mPlayerX < mRect.left + mAggroRange)
-			{
-				mHunting = true;
-			}
-			else if (mDirection == LEFT && mPlayerX < mRect.left && mPlayerX > mRect.left - mAggroRange)
-			{
-				mHunting = true;
-			}
-		}
-		mIsPlayerVisible = false;
-	}*/
 }
 
 void Enemy::setActive(bool active)
@@ -533,51 +534,30 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 
 		setAnimation();
 
-		/*if(mMove)
-		{
-			if(mAnimationTimer >= mAnimationPicX - 0.1f)
-			{
-				mAnimationTimer = 0.0f;
-			}
-			else
-				mAnimationTimer += 0.1f;
-		}
-		else
-			mAnimationTimer = 0.0f;*/
-
-
-	/*std::string tempStr;
-	tempStr = std::to_string(mRect.left);
-	tempStr += " ";
-	tempStr += std::to_string(mTargetX);
-	tempStr += " ";
-	tempStr += std::to_string(mWaitTimer);
-	mText.setString(tempStr);*/
-	mWalkSound.setMinDistance(1000);
-	mWalkSound.setAttenuation(10);
 	if(player->getRect().top+100 >= mRect.top && player->getRect().top-100 <= mRect.top)
+	{
+		mWalkNotSlimeSound.setPosition(mRect.left-player->getRect().left,0,0);
 		mWalkSound.setPosition(mRect.left-player->getRect().left,0,0);
-	else
+	}else
+	{
+		mWalkNotSlimeSound.setPosition(mRect.left-player->getRect().left,999999,0);
 		mWalkSound.setPosition(mRect.left-player->getRect().left,999999,0);
+	}
 	if(mMove)
 	{
-		if(mWalkSound.getStatus() != sf::Sound::Playing)
+		if(mWalkSound.getStatus() != sf::Sound::Playing && mWalkNotSlimeSound.getStatus() != sf::Sound::Playing)
 		{
-
-			mWalkSound.play();
+			if(mCurrentForm == form::SLIME || mCurrentForm == form::ROOF)
+				mWalkSound.play();
+			else
+				mWalkNotSlimeSound.play();
 		}
 		}else
-			mWalkSound.stop();
-
-		if(mIsPlayerVisible)
 		{
+			mWalkSound.stop();
+			mWalkNotSlimeSound.stop();
+		}
 
-			if(mJagaSound.getStatus() != sf::Sound::Playing)
-			{
-				mJagaSound.play();
-			}
-		}else
-			mJagaSound.stop();
 	}
 
 }
@@ -596,6 +576,11 @@ void Enemy::setAnimation()
 			mAnimationY = 6;
 			mAnimationTimer = 0.0f;
 			mNextForm = MONSTER;
+			if(mMorphSound.getStatus() != sf::Sound::Playing)
+			{
+				mMorphSound.setPosition(mRect.left-mPlayerX,0,0);
+				mMorphSound.play();
+			}
 		}
 		else if (!mSearching && mCurrentForm == MONSTER)
 		{
@@ -603,6 +588,11 @@ void Enemy::setAnimation()
 			mAnimationPicX = 4;
 			mAnimationTimer = mAnimationPicX - mAnimationSpeed;
 			mAnimationY = 6;
+			if(mMorphSound.getStatus() != sf::Sound::Playing)
+			{
+				mMorphSound.setPosition(mRect.left-mPlayerX,0,0);
+				mMorphSound.play();
+			}
 		}
 		else
 		{
@@ -706,6 +696,7 @@ void Enemy::setAnimation()
 		}
 		else if (mCurrentForm == MONSTER && mNextForm == SLIME)
 		{
+
 			if(mAnimationTimer <= 0)
 			{
 				mAnimationTimer = 0.0f;
@@ -720,6 +711,7 @@ void Enemy::setAnimation()
 			
 			if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed)
 			{
+
 				mAnimationTimer = 0.0f;
 				mCurrentForm = mNextForm;
 				if (mNextForm == MONSTER)
