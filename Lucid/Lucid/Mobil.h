@@ -25,6 +25,7 @@ public:
 	void VoiceMailTick();
 	void VoiceMailRender(sf::RenderWindow *target);
 	bool slutPÂTest;
+	bool getMC;
 private:
 	void save();
 	bool mVoiceMail;

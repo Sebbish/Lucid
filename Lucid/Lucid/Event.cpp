@@ -203,6 +203,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			entityVector[1]->setForm(Entity::ROOFTRAVEL, Entity::ROOF, true);
 			entityVector[1]->setPosition(sf::FloatRect(6666, 0, 256, 256));
 			mMobil->nextSound();
+			mMobil->getMC = true;
 		}
 
 		if (triggers[1]->getTrigged()) //Monstret låser upp första dörren

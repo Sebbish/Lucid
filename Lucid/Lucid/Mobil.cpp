@@ -11,7 +11,9 @@ Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voic
 	mVM = new VoiceMail(mapID,Voicemail);
 	mVoiceMail = false;
 	slutPÂTest = false;
-	f.loadFromFile("P://Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
+	f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
+
+	getMC = false;
 }
 
 

@@ -23,13 +23,13 @@ Game::Game()
 	//mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
 	//mWindow.setFramerateLimit(60);           
-	//mWindow.setVerticalSyncEnabled(true);
+	mWindow.setVerticalSyncEnabled(true);
 	lm = new db::LightManager(sf::Vector2i(1920, 1080));
 	mRenderTexture.create(1920, 1080);
 	mDialog = new Dialog(*mFH->getTexture(45));
 	mSL = new SaveLoad();
 	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42),0,mFH->getTexture(45));
-	loadMap("../Debug/map1.txt", 1);
+	loadMap("../Debug/map4.txt", 4);
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
 	mEffects = new Effects();
@@ -60,7 +60,7 @@ Game::~Game()
 void Game::run()
 {
 	sf::Font MyFont;
-		if (!MyFont.loadFromFile("P://Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+		if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
 		{
 			// Error...
 		}
@@ -193,7 +193,7 @@ void Game::input(Entity* entity)
 			}
 		}
 		//kollar om Q trycktes ned och mindcontrollar då
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed && mMap->getID() >= 4)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed && mMobil->getMC)
 		{
 				
 			//kontrollerar om den kontrollerade entiteten är spelaren
