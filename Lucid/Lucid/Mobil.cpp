@@ -1,15 +1,17 @@
 #include "Mobil.h"
 
 
-Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID):
+Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voicemail):
 	mTexture(texture),mLines(lines),mActivated(false)
 {
 
 	mRect.width = mTexture->getSize().x;
 	mRect.height = mTexture->getSize().y;
 	snakes = false;
-	mVM = new VoiceMail(mapID);
+	mVM = new VoiceMail(mapID,Voicemail);
 	mVoiceMail = false;
+	slutPåTest = false;
+	f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
 }
 
 
@@ -38,6 +40,11 @@ void Mobil::deactivate()
 		delete s;
 		snakes = false;
 	}
+}
+
+void Mobil::nextSound()
+{
+	mVM->activateNextSound();
 }
 
 //markerar nästa app
@@ -140,7 +147,7 @@ void Mobil::tick()
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&  !snakes)
 		ActivateSnakesAI();
-
+	mVM->tick();
 }
 
 //renderar
@@ -156,9 +163,7 @@ void Mobil::render(sf::RenderWindow& target)
 	
 			if(!snakes && !mVoiceMail)
 			{
-
-				sf::Font f;
-				f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
+							
 				sf::Text t;
 				t.setColor(sf::Color(0,0,0));
 				t.setCharacterSize(60);
@@ -190,8 +195,6 @@ void Mobil::render(sf::RenderWindow& target)
 				target.draw(t);
 			}else if(!snakes && mVoiceMail)
 			{
-				sf::Font f;
-				f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
 				sf::Text t;
 				t.setColor(sf::Color(0,0,0));
 				t.setCharacterSize(60);
@@ -273,5 +276,27 @@ void Mobil::render(sf::RenderWindow& target)
 				s->setRender(false);
 		}
 		
+	}
+	mVM->render(&target);
+}
+
+void Mobil::VoiceMailTick()
+{
+	mVM->tick();
+}
+
+void Mobil::VoiceMailRender(sf::RenderWindow *target)
+{
+	mVM->render(target);
+	if(slutPåTest)
+	{
+		sf::Text t;
+		t.setFont(f);
+		t.setCharacterSize(72);
+		t.setColor(sf::Color::Red);
+		t.setString("END OF THE TEST!!!!!");
+		t.setOrigin(t.getGlobalBounds().left+t.getGlobalBounds().width/2.0,t.getGlobalBounds().top+t.getGlobalBounds().height/2.0);
+		t.setPosition(target->getPosition().x+target->getSize().x/2.0,target->getPosition().y+target->getSize().y/2.0);
+		target->draw(t);
 	}
 }

@@ -23,13 +23,13 @@ Game::Game()
 	//mWindow = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
 	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
 	//mWindow.setFramerateLimit(60);           
-	mWindow.setVerticalSyncEnabled(true);
+	//mWindow.setVerticalSyncEnabled(true);
 	lm = new db::LightManager(sf::Vector2i(1920, 1080));
 	mRenderTexture.create(1920, 1080);
 	mDialog = new Dialog(*mFH->getTexture(45));
 	mSL = new SaveLoad();
-	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42),0);
-	loadMap("../Debug/map3.txt", 3);
+	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42),0,mFH->getTexture(45));
+	loadMap("../Debug/map1.txt", 1);
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
 	mEffects = new Effects();
@@ -76,6 +76,8 @@ void Game::run()
     {
 		FPSclock.restart();
 		mWindow.clear(sf::Color(0, 0, 0));
+		if(!mMobil->slutPåTest)
+		{
 		if(mMobil->snakes)
 		{
 			mMobil->tick();
@@ -90,8 +92,11 @@ void Game::run()
 		//mousePositionFunc();
         mWindow.display();
 		}
-
-		while(FPSclock.getElapsedTime().asMicroseconds() < 16666)
+		}else{
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				mWindow.close();
+		}
+		//while(FPSclock.getElapsedTime().asMicroseconds() < 16666)
 		{}
 		
 		
@@ -188,7 +193,7 @@ void Game::input(Entity* entity)
 			}
 		}
 		//kollar om Q trycktes ned och mindcontrollar då
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed && mMap->getID() >= 4)
 		{
 				
 			//kontrollerar om den kontrollerade entiteten är spelaren
@@ -322,18 +327,18 @@ void Game::render()
 	mRenderTexture.setView(*camera->getView());
 	lm->setView(*camera->getView());
 	mMap->renderMap(&mRenderTexture);
-	for(auto i:mEntities){
+	for(auto i:mEntities)
 		if (i -> getLayer() == Entity::Back)
 			i->render(&mRenderTexture, mVisualizeValues);
-	}
+	
 	mMap -> renderObjects(&mRenderTexture);
 
 	//Render event här
 
-	for(auto i:mEntities){
+	for(auto i:mEntities)
 		if (i -> getLayer() == Entity::Front)
 			i->render(&mRenderTexture, mVisualizeValues);
-	}
+	
 
 	mMap->renderForeground(&mRenderTexture);
 
@@ -345,11 +350,11 @@ void Game::render()
 
 
 	lm->setAmbient(mLights[0]->getWorldLight());
-	//lm->render(mWindow);
+	lm->render(mWindow);
 	mDialog->render(&mWindow);
 	if(mMobil->getActivate())
 		mMobil->render(mWindow);
-
+	mMobil->VoiceMailRender(&mWindow);
 
 	mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
 	mSanityMeter.setOrigin(mSanityMeter.getLocalBounds().left + mSanityMeter.getLocalBounds().width,mSanityMeter.getLocalBounds().top + mSanityMeter.getLocalBounds().height);
@@ -360,20 +365,6 @@ void Game::render()
 
 void Game::tick()
 {
-	/*mMousePosition = sf::Mouse::getPosition();
-	mMousePosition.x = sf::Mouse::getPosition().x + camera->getView()->getCenter().x;
-	*/
-	//float x = static_cast<float>(sf::Mouse::getPosition(*mWindow).x) / mWindow->getSize().x;
-    //float y = static_cast<float>(sf::Mouse::getPosition(*mWindow).y) / mWindow->getSize().y;
-
-	  //edge shader
-	//mShader.setParameter("edge_threshold",  1 - (x + y) / 2);
-
-	//våg blör shader
-	/*mShader.setParameter("wave_phase", clock.getElapsedTime().asSeconds());
-    mShader.setParameter("wave_amplitude", x * 40, y * 40);
-    mShader.setParameter("blur_radius", 0);
-	mShader.bind(&mShader);*/
 
 	mEffects->tick(clock);
 	mMap->tick();
@@ -405,7 +396,7 @@ void Game::tick()
 	collision();
 
 
-	newMap = mEvent->tick(mMap, mEntities, mLights);
+	newMap = mEvent->tick(mMap, mEntities, mLights,mMobil);
 
 	if (newMap != 0)
 	{
@@ -417,6 +408,7 @@ void Game::tick()
 	mDialog->tick(camera->getView());
 	if(mMobil->getActivate())
 		mMobil->tick();
+	mMobil->VoiceMailTick();
 
 	//Plaserar ficklampans position.
 	mLights[0]->setOnOff(mFlashlightOnOff);
@@ -665,7 +657,6 @@ void Game::loadMap(std::string filename, int mapID)
 {
 	if(mapID >= 2)	
 		mSL->save(0,"hej",mapID);
-	mMobil->newMap(mapID);
 	mDialog->newMap(mapID);
 	delete mMap;
 	for (LightVector::size_type i = 0; i < mLights.size(); i++)
@@ -890,6 +881,7 @@ void Game::loadMap(std::string filename, int mapID)
 	//	}
 	//}
 
+	mMobil->newMap(mapID);
 }
 
 void Game::setControlledEntity(Entity* entity)

@@ -3,12 +3,13 @@
 #include "Map.h"
 #include "Enemy.h"
 #include "Light.h"
+#include "Mobil.h"
 class Event
 {
 public:
 	Event(void);
 	~Event(void);
-	int tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector);
+	int tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector,Mobil *mMobil);
 private:
 	bool bool1, bool2, bool3;
 	sf::Clock mClock;

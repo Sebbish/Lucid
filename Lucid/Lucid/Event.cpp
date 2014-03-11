@@ -11,7 +11,7 @@ Event::~Event(void)
 {
 }
 
-int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector)
+int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector,Mobil *mMobil)
 {
 	std::vector<Trigger*> triggers = map->getTriggerList();
 	std::vector<AnimatedObject*> animatedObjects = map->getAnimatedObjectList();
@@ -99,6 +99,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			animatedObjects[2]->setActive(false);
 			triggers[13]->setActive(true);
 			LightVector[0]->setWorldLight(0,0,0);
+			mMobil->nextSound();
 		}
 
 		if (map->getTriggerList()[13]->getTrigged()) //Då spelaren använder keycard på kortläsaren.
@@ -120,6 +121,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			walls[0]->setActive(true);
 			entityVector[1]->setActive(true);
 			animatedObjects[0]->setActive(true);
+			mMobil->nextSound();
 		}
 
 		if (triggers[1]->getTrigged()) //Monstret låser upp första dörren
@@ -175,6 +177,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			entityVector[1]->setTargetX(8000);
 			entityVector[0]->setImortal(true);
 			bool1 = true;
+			mMobil->nextSound();
 		}
 		
 		if (bool1 == true && entityVector[0]->getActive() == false && entityVector[1]->isEating() == false) //Om monstret äter spelaren så försvinner det
@@ -184,6 +187,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			entityVector[0]->setActive(true);
 			entityVector[0]->setImortal(false);
 			map->getSuperPortalList()[0]->setActive(true);
+			mMobil->nextSound();
 		}
 		break;
 
@@ -198,6 +202,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			entityVector[1]->setActive(true);
 			entityVector[1]->setForm(Entity::ROOFTRAVEL, Entity::ROOF, true);
 			entityVector[1]->setPosition(sf::FloatRect(6666, 0, 256, 256));
+			mMobil->nextSound();
 		}
 
 		if (triggers[1]->getTrigged()) //Monstret låser upp första dörren
@@ -214,6 +219,11 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			entityVector[1]->setForm(Entity::NONE, Entity::EAT, false);
 			mClock.restart();
 			bool1 = true;
+			mMobil->nextSound();
+		}
+		if(triggers[2]->getTrigged())
+		{
+			mMobil->slutPåTest = true;
 		}
 
 		if (mClock.getElapsedTime().asMilliseconds() > timer && bool1)
