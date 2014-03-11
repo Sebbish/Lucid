@@ -60,7 +60,7 @@ Game::~Game()
 void Game::run()
 {
 	sf::Font MyFont;
-		if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
+		if (!MyFont.loadFromFile("P://Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
 		{
 			// Error...
 		}

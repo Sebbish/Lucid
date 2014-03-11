@@ -2,8 +2,8 @@
 
 FilHanterare::FilHanterare(void)
 {
-	std::string path = "../../../";
-	//std::string path = "P://Downloads/";
+	//std::string path = "../../../";
+	std::string path = "P://Downloads/";
 	/*sf::Texture* t = new sf::Texture;
 	assert(sf::Texture::loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis_Insane_Spritesheet.png",sf::IntRect(0,0,1024,768)) != NULL);
 	mTexture.push_back(t);
