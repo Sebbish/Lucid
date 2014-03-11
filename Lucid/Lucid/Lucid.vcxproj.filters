@@ -36,6 +36,7 @@
     <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="VoiceMail.cpp" />
     <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="Button.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ambiance.h" />
@@ -70,6 +71,7 @@
     <ClInclude Include="Trigger.h" />
     <ClInclude Include="VoiceMail.h" />
     <ClInclude Include="Wall.h" />
+    <ClInclude Include="Button.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png" />

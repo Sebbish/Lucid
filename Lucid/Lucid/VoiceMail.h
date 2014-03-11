@@ -17,6 +17,7 @@ public:
 		}
 		std::string mTitle;
 		sf::Music mSound;
+		std::string mText;
 		bool mUsed;
 	};
 
@@ -28,6 +29,7 @@ public:
 	void stop();
 	int getActiveSoundID();
 	void nextPrevSoundSlot(bool next);
+	void activateNextSound();
 	std::vector<mSoundSlot*> getSounds();
 private:
 	void loadSounds(int mapID);

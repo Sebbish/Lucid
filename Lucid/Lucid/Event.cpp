@@ -11,7 +11,7 @@ Event::~Event(void)
 {
 }
 
-int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector)
+int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Button* QButton)
 {
 	std::vector<Trigger*> triggers = map->getTriggerList();
 	std::vector<AnimatedObject*> animatedObjects = map->getAnimatedObjectList();
@@ -142,18 +142,25 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 
 		if (triggers[2]->getTrigged()) //Monstret låser upp andra dörren
 		{
-			triggers[2]->setActive(false);
-			if (entityVector[1]->getForm() == Entity::SLIME)
+			if (entityVector[1]->getNextForm() != Entity::ROOF && entityVector[1]->getForm() != Entity::ROOFCHANGINGBACK)
 			{
-				timer = 1000;
-			}
-			else
+				triggers[2]->setActive(false);
+				if (entityVector[1]->getForm() == Entity::SLIME)
+				{
+					timer = 1000;
+				}
+				else
+				{
+					timer = 500;
+				}
+				entityVector[1]->setForm(Entity::NONE, Entity::EAT, false);
+				mClock.restart();
+				bool2 = true;
+			}	
+			else if (entityVector[1]->getForm() == Entity::ROOF)
 			{
-				timer = 500;
+				entityVector[1]->toggleRoofStance();
 			}
-			entityVector[1]->setForm(Entity::NONE, Entity::EAT, false);
-			mClock.restart();
-			bool2 = true;
 		}
 
 		if (mClock.getElapsedTime().asMilliseconds() > timer && bool2)
@@ -192,23 +199,31 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			triggers[0]->setActive(false);
 			entityVector[1]->setActive(true);
 			entityVector[1]->setForm(Entity::ROOFTRAVEL, Entity::ROOF, true);
-			entityVector[1]->setPosition(sf::FloatRect(6666, 0, 256, 256));
+			entityVector[1]->setPosition(sf::FloatRect(6666, 44, 256, 256));
+			bool2 = true;
 		}
 
 		if (triggers[1]->getTrigged()) //Monstret låser upp första dörren
 		{
-			triggers[1]->setActive(false);
-			if (entityVector[1]->getForm() == Entity::SLIME)
+			if (entityVector[1]->getNextForm() != Entity::ROOF)
 			{
-				timer = 1000;
+				triggers[1]->setActive(false);
+				if (entityVector[1]->getForm() == Entity::SLIME)
+				{
+					timer = 1000;
+				}
+				else
+				{
+					timer = 500;
+				}
+				entityVector[1]->setForm(Entity::NONE, Entity::EAT, false);
+				mClock.restart();
+				bool1 = true;
 			}
-			else
+			else if (entityVector[1]->getForm() == Entity::ROOF)
 			{
-				timer = 500;
+				entityVector[1]->toggleRoofStance();
 			}
-			entityVector[1]->setForm(Entity::NONE, Entity::EAT, false);
-			mClock.restart();
-			bool1 = true;
 		}
 
 		if (mClock.getElapsedTime().asMilliseconds() > timer && bool1)
@@ -216,6 +231,15 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			walls[0]->setActive(false);
 			animatedObjects[0]->setActive(false);
 			bool1 = false;
+		}
+
+		if (bool2 && entityVector[0]->getHiding() == true)
+		{
+			QButton->willRender(true);
+		}
+		else
+		{
+			QButton->willRender(false);
 		}
 		break;
 	}

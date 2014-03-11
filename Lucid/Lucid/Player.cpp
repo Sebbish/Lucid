@@ -27,6 +27,7 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mImortal = false;
 	mLayer = Front;
 	mWalkSound.setBuffer(*walkSound);
+	mWalkSound.setPitch(1.4f);
 	mActive = true;
 	mFlashlightMode = false;
 	mSecondLastRect = mRect;
@@ -340,6 +341,11 @@ void Player::setForm(form currentForm, form nextForm, bool upsidedown)
 }
 
 Entity::form Player::getForm()
+{
+	return NONE;
+}
+
+Entity::form Player::getNextForm()
 {
 	return NONE;
 }

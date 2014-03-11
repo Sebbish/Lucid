@@ -10,6 +10,8 @@ Parallax::Parallax(sf::FloatRect rect, sf::Texture* texture, int typeID, Camera*
 		mVariabel = 0.20f;
 	else if (typeID == 33)
 		mVariabel = 0.15f;
+	else if (typeID == 49 || typeID == 50)
+		mVariabel = 0.01f;
 	else
 		mVariabel = 0.25f;
 

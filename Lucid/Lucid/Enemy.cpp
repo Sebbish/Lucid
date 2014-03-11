@@ -17,13 +17,14 @@ Enemy::Enemy(float x, float y, float width, float height, float speed, int direc
 	if (mTypeID == 21)
 	{
 		mMaxSpeed = dataVector[2];
-		mHuntingSpeed = 8;
+		mHuntingSpeed = 9;
 	}
 	else
 	{
 		mMaxSpeed = dataVector[4];
 		mHuntingSpeed = 4;
 	}
+	mChasingSpeed = 7;
 	mWaitTime = dataVector[6];
 	mViewFrontRange = dataVector[8];
 	mViewBackRange = dataVector[10];
@@ -120,13 +121,19 @@ void Enemy::getFunc(Entity* entity)
 {
 	if (mActive)
 	{
-		mNextForm = EAT;
-		if(mAttackSound.getStatus() != sf::Sound::Playing)
-			mAttackSound.play();
+		if (entity->getTypeID() == 0)
+		{
+			mNextForm = EAT;
+			if(mAttackSound.getStatus() != sf::Sound::Playing)
+				mAttackSound.play();
+		}
 		if (entity->getTypeID() == 22 && mTypeID == 21)
 		{
 			mRect.left = -5000;
 			mRect.top = -5000;
+			mNextForm = EAT;
+			if(mAttackSound.getStatus() != sf::Sound::Playing)
+				mAttackSound.play();
 		}
 		/*if (entity->getTypeID() == 0 && (mTypeID == 2 || mTypeID == 6) && (!entity->getHiding() || mHunting))
 		{
@@ -148,7 +155,12 @@ sf::FloatRect Enemy::getRect()const
 sf::FloatRect Enemy::getHitBox()const
 {
 	if (mCurrentForm == ROOFTRAVEL || mCurrentForm == ROOFCHANGINGBACK)
-		return mRect;
+	{
+		sf::FloatRect hitBoxRect = mRect;
+		hitBoxRect.left += 92;
+		hitBoxRect.width = 20;
+		return hitBoxRect;
+	}
 	else
 	{
 		sf::FloatRect hitBoxRect = mRect;
@@ -318,6 +330,8 @@ void Enemy::checkSight(Entity *entity)
 				mIsPlayerVisible = false;
 			}
 		}
+		else
+			mIsPlayerVisible = false;
 	}
 	else
 	{
@@ -366,6 +380,11 @@ void Enemy::setForm(form currentForm, form nextForm, bool upsidedown)
 Entity::form Enemy::getForm()
 {
 	return mCurrentForm;
+}
+
+Entity::form Enemy::getNextForm()
+{
+	return mNextForm;
 }
 
 void Enemy::toggleRoofStance()
@@ -483,6 +502,8 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				{
 					if (mHunting)
 						mRect.left -= mHuntingSpeed;
+					else if (mSearching)
+						mRect.left -= mChasingSpeed;
 					else
 						mRect.left -= mMaxSpeed;
 					mDirection = LEFT;
@@ -492,6 +513,8 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				{
 					if (mHunting)
 						mRect.left += mHuntingSpeed;
+					else if (mSearching)
+						mRect.left += mChasingSpeed;
 					else
 						mRect.left += mMaxSpeed;
 					mDirection = RIGHT;

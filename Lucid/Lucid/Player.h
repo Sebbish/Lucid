@@ -48,6 +48,7 @@ public:
 	virtual bool getImortal();
 	virtual void setForm(form currentForm, form nextForm, bool upsidedown);
 	virtual form getForm();
+	virtual form getNextForm();
 private:
 	float mLastSeenX;
 	sf::FloatRect mRect;

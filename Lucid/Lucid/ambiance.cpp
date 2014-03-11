@@ -4,7 +4,7 @@ using namespace std;
 
 // FILE PATH //
 //string path = "P:/Downloads/LucidProject/Resources/Sound/Ambiance/";
-string path = "../../../LucidProject/Resources/Sound/Ambiance/";
+string path = "P://Downloads/LucidProject/Resources/Sound/Ambiance/";
 
 
 // FILE LIST AA //
@@ -155,8 +155,9 @@ ambiance::~ambiance()
 {
 }
 
-void ambiance::tick()
+void ambiance::tick(int madness)
 {
+	ambMadness = 100-madness;
 	frameCounter++;
 
 		if (frameCounter>60)

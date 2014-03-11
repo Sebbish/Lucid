@@ -1,13 +1,16 @@
 #include "Npc.h"
 
-Npc::Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,int animationPicX,Dialog* dialog,Entity* player):
-	mRect(rect), mDialogueID(dialogueID), mTexture(texture), mTypeID(typeID),mAnimationPicX(animationPicX),mAnimationSpeed(0.1f),mCurrentAnimationPic(0),mDialog(dialog),mLookLeft(true),mChatting(false),mPlayer(player)
+Npc::Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,int animationPicX,Dialog* dialog,Entity* player,sf::SoundBuffer* idleSound):
+	mRect(rect), mDialogueID(dialogueID), mTexture(texture), mTypeID(typeID),mAnimationPicX(animationPicX),mAnimationSpeed(0.08f),mCurrentAnimationPic(0),mDialog(dialog),mLookLeft(true),mChatting(false),mPlayer(player)
 {
-	switch(mDialogueID)
+	mDialogFile = "Dialog"+std::to_string(mDialogueID);
+	mIdleSound.setBuffer(*idleSound);
+	mIdleSound.setVolume(10);
+	mIdleSound.setMinDistance(768);
+	mIdleSound.setAttenuation(10);
+	if(typeID == 29)
 	{
-	case 0:
-		mDialogFile = "Dialog";
-		break;
+		mIdleSound.setVolume(30);
 	}
 }
 
@@ -23,7 +26,7 @@ int Npc::getFunc(Entity* player)
 		mChatting = true;
 	}else
 	{
-		mDialog->loadFile(mDialogFile);
+		mDialog->loadFile(mDialogFile,mDialogueID);
 		mChatting = true;
 	}
 	return 0;
@@ -51,11 +54,21 @@ int Npc::getDialogueID()
 
 void Npc::tick()
 {
+	if(mPlayer->getRect().top+100 >= mRect.top && mPlayer->getRect().top-100 <= mRect.top)
+	{
+		mIdleSound.setPosition(mRect.left-mPlayer->getRect().left,0,0);
+	}else
+	{
+		mIdleSound.setPosition(mRect.left-mPlayer->getRect().left,9999999,0);
+	}
 	if(mCurrentAnimationPic >= mAnimationPicX-0.1)
+	{
+		mIdleSound.stop();
+		mIdleSound.play();
 		mCurrentAnimationPic = 0;
-	else
+	}else
 		mCurrentAnimationPic += mAnimationSpeed;
-	if(mChatting && mTypeID != 4)
+	if(mChatting && mTypeID != 29)
 	{
 		if(!mDialog->getDraw())
 			mChatting = false;
@@ -66,6 +79,11 @@ void Npc::tick()
 		else
 			mLookLeft = false;
 		}
+	}
+	if(mChatting && !mPlayer->getRect().intersects(getHitBox()))
+	{
+		mChatting = false;
+		mDialog->setDraw(false);
 	}
 }
 

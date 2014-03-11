@@ -5,24 +5,6 @@ VoiceMail::VoiceMail(int mapID):
 	mActiveSoundID(0)
 {
 	loadSounds(mapID);
-	mSounds.push_back(new mSoundSlot("1","P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2 0,75sec.wav"));
-	mSounds.push_back(new mSoundSlot("2","P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2 0,75sec.wav"));
-	mSounds.push_back(new mSoundSlot("3","P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2 0,75sec.wav"));
-	mSounds.push_back(new mSoundSlot("4","P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2 0,75sec.wav"));
-	mSounds.push_back(new mSoundSlot("5","P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2 0,75sec.wav"));
-	mSounds.push_back(new mSoundSlot("6","P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2 0,75sec.wav"));
-	mSounds.push_back(new mSoundSlot("7","P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2 0,75sec.wav"));
-	mSounds.push_back(new mSoundSlot("8","P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2 0,75sec.wav"));
-	mSounds.push_back(new mSoundSlot("9","P:/Downloads/LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2 0,75sec.wav"));
-	mActiveSounds.push_back(mSounds[0]);
-	mActiveSounds.push_back(mSounds[1]);
-	mActiveSounds.push_back(mSounds[2]);
-	mActiveSounds.push_back(mSounds[3]);
-	mActiveSounds.push_back(mSounds[4]);
-	mActiveSounds.push_back(mSounds[5]);
-	mActiveSounds.push_back(mSounds[6]);
-	mActiveSounds.push_back(mSounds[7]);
-	mActiveSounds.push_back(mSounds[8]);
 }
 
 
@@ -47,6 +29,12 @@ void VoiceMail::playNextSound()
 	stop();
 	mActiveSoundID++;
 	mSounds[mActiveSoundID]->mSound.play();
+}
+
+void VoiceMail::activateNextSound()
+{
+	if(mActiveSounds.size() <= mActiveSounds.size()-1)
+		mActiveSounds.push_back(mSounds[mActiveSounds.size()]);
 }
 
 void VoiceMail::playSound(int ID)
