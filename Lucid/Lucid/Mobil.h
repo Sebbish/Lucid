@@ -8,7 +8,7 @@
 class Mobil
 {
 public:
-	Mobil(sf::Texture* texture,sf::Texture* lines,int mapID);
+	Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voicemail);
 	~Mobil();
 	void activate(sf::RenderWindow* view);
 	void deactivate();
@@ -21,6 +21,11 @@ public:
 	void reset();
 	bool snakes;
 	void newMap(int mapID);
+	void nextSound();
+	void VoiceMailTick();
+	void VoiceMailRender(sf::RenderWindow *target);
+	bool slutPÂTest;
+	bool getMC;
 private:
 	void save();
 	bool mVoiceMail;
@@ -30,6 +35,7 @@ private:
 	sf::Texture* mLines;
 	sf::FloatRect mRect;
 	sf::FloatRect mApp[10];
+	sf::Font f;
 
 	bool mActivated;
 	int mActiveAppID;

@@ -8,7 +8,7 @@ Game::Game()
 	mAmbientBlue = 0;
 	mCurrentMap = 0;
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
-	testLight = sf::Color(100, 100, 100, 178);
+	testLight = sf::Color(100, 100, 100, 255);
 	mFH = new FilHanterare();
 	mAtmospherScaleX = 1;
 	mAtmospherScaleY = 1;
@@ -29,11 +29,12 @@ Game::Game()
 	mDialog = new Dialog(*mFH->getTexture(45));
 	mSL = new SaveLoad();
 	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42),0);
-	mEButton = new Button(mFH->getTexture(48));
+	mEButton = new Button(mFH->getTexture(53));
 	mEButton->willRender(true);
-	mQButton = new Button(mFH->getTexture(51));
+	mQButton = new Button(mFH->getTexture(54));
 	mQButton->willRender(false);
 	loadMap("../Debug/map4.txt", 4);
+
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
 	mEffects = new Effects();
@@ -85,6 +86,8 @@ void Game::run()
     {
 		FPSclock.restart();
 		mWindow.clear(sf::Color(0, 0, 0));
+		if(!mMobil->slutPåTest)
+		{
 		if(mMobil->snakes)
 		{
 			mMobil->tick();
@@ -99,8 +102,11 @@ void Game::run()
 		//mousePositionFunc();
         mWindow.display();
 		}
-
-		while(FPSclock.getElapsedTime().asMicroseconds() < 16666)
+		}else{
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				mWindow.close();
+		}
+		//while(FPSclock.getElapsedTime().asMicroseconds() < 16666)
 		{}
 		
 		
@@ -197,7 +203,7 @@ void Game::input(Entity* entity)
 			}
 		}
 		//kollar om Q trycktes ned och mindcontrollar då
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed && mMobil->getMC)
 		{
 				
 			//kontrollerar om den kontrollerade entiteten är spelaren
@@ -331,18 +337,18 @@ void Game::render()
 	mRenderTexture.setView(*camera->getView());
 	lm->setView(*camera->getView());
 	mMap->renderMap(&mRenderTexture);
-	for(auto i:mEntities){
+	for(auto i:mEntities)
 		if (i -> getLayer() == Entity::Back)
 			i->render(&mRenderTexture, mVisualizeValues);
-	}
+	
 	mMap -> renderObjects(&mRenderTexture);
 
 	//Render event här
 
-	for(auto i:mEntities){
+	for(auto i:mEntities)
 		if (i -> getLayer() == Entity::Front)
 			i->render(&mRenderTexture, mVisualizeValues);
-	}
+	
 
 	mMap->renderForeground(&mRenderTexture);
 
@@ -352,16 +358,17 @@ void Game::render()
 	sf::Sprite ss;
 	ss.setTexture(s);
 	mWindow.draw(ss,&mEffects->getShader());//Sköter ljust styrka baserat på om ficklampa är på eller ej.
-
-
-	lm->setAmbient(mLights[0]->getWorldLight());
+	
+	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
+	lm->setAmbient(mAmbient);
 	lm->render(mWindow);
+
 	mEButton->render(&mWindow, camera);
 	mQButton->render(&mWindow, camera);
 	mDialog->render(&mWindow);
 	if(mMobil->getActivate())
 		mMobil->render(mWindow);
-
+	mMobil->VoiceMailRender(&mWindow);
 
 	mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
 	mSanityMeter.setOrigin(mSanityMeter.getLocalBounds().left + mSanityMeter.getLocalBounds().width,mSanityMeter.getLocalBounds().top + mSanityMeter.getLocalBounds().height);
@@ -372,20 +379,6 @@ void Game::render()
 
 void Game::tick()
 {
-	/*mMousePosition = sf::Mouse::getPosition();
-	mMousePosition.x = sf::Mouse::getPosition().x + camera->getView()->getCenter().x;
-	*/
-	//float x = static_cast<float>(sf::Mouse::getPosition(*mWindow).x) / mWindow->getSize().x;
-    //float y = static_cast<float>(sf::Mouse::getPosition(*mWindow).y) / mWindow->getSize().y;
-
-	  //edge shader
-	//mShader.setParameter("edge_threshold",  1 - (x + y) / 2);
-
-	//våg blör shader
-	/*mShader.setParameter("wave_phase", clock.getElapsedTime().asSeconds());
-    mShader.setParameter("wave_amplitude", x * 40, y * 40);
-    mShader.setParameter("blur_radius", 0);
-	mShader.bind(&mShader);*/
 
 	mEButton->setObject(0);
 
@@ -418,7 +411,7 @@ void Game::tick()
 	collision();
 
 
-	newMap = mEvent->tick(mMap, mEntities, mLights, mQButton);
+	newMap = mEvent->tick(mMap, mEntities, mLights, mQButton,mMobil);
 
 	if (newMap != 0)
 	{
@@ -430,6 +423,7 @@ void Game::tick()
 	mDialog->tick(camera->getView());
 	if(mMobil->getActivate())
 		mMobil->tick();
+	mMobil->VoiceMailTick();
 
 	//Plaserar ficklampans position.
 	mLights[0]->setOnOff(mFlashlightOnOff);
@@ -506,6 +500,10 @@ void Game::tick()
 		mLights[1]->setColor(atmosfär);
 	}
 
+	//Ändrar ambiencen.
+	mAmbientRed = mLights[0]->getWorldLightRed();
+	mAmbientGreen = mLights[0]->getWorldLightGreen();
+	mAmbientBlue = mLights[0]->getWorldLightBlue();
 
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
@@ -515,12 +513,19 @@ void Game::tick()
 	{
 		mSanity->setSanity(-0.021);
 	}
+
 	for(auto i:mEntities){
-			if (i->getCanSeePlayer() == true && i->getActive() == true)
+			if (i->getCanSeePlayer() == true && i->getActive() == true )
 			{
 				mSanity->setSanity(-0.101);
 			}
+			else
+			{
+				mSanity->setSanity(0);
+			}
 	}
+
+
 	if (mSanity->getSanity() <= 100)
 	{
 		mSanity->setSanity(0.001);
@@ -717,7 +722,7 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha, useTexture, animate, loop, playerBased;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha, useTexture, animate, loop, playerBased, blink;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -830,8 +835,9 @@ void Game::loadMap(std::string filename, int mapID)
 			animationPic = dataVector[i + 8];
 			animationY = dataVector[i + 9];
 			playerBased = dataVector[i + 10];
-			mLights.push_back(new db::Light(*mFH->getTexture(typeID), typeID, sf::Vector2f(x, y), width, height ,testLight,animationPic, animationY, onOff, playerBased));
-			i += 10;
+			blink = dataVector[i + 11];
+			mLights.push_back(new db::Light(*mFH->getTexture(typeID), typeID, sf::Vector2f(x, y), width, height ,testLight,animationPic, animationY, onOff, playerBased, blink));
+			i += 11;
 			break;
 		case 9://AnimatedObject
 			x = dataVector[i + 1];
@@ -910,6 +916,7 @@ void Game::loadMap(std::string filename, int mapID)
 	//	}
 	//}
 
+	mMobil->newMap(mapID);
 }
 
 void Game::setControlledEntity(Entity* entity)
