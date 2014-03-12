@@ -132,8 +132,8 @@ void VoiceMail::loadSounds(int mapID)
 		mSounds.push_back(new mSoundSlot("sorry","sorry about that  ( high sanity)","sorry about that"));
 		break;
 	case 4:
-		mSounds.push_back(new mSoundSlot("MindControl","what if you could control that thing  ( high sanity)","What if you could control that thing?"+ a +" It's faster than you, lighter than you"+a+"and more importantly, better looking"));
-		mSounds.push_back(new mSoundSlot("See what I mean","It can even open doors  ( high sanity)","See what I mean, it can even open doors,"+a+"something you've been struggling"+a+"with for a while now"));
+		mSounds.push_back(new mSoundSlot("MindControl","what if you could control that thing  ( high sanity)","What if you could control that thing?"+ a +"It's faster than you, lighter than you"+a+"and more importantly, better looking"));
+		mSounds.push_back(new mSoundSlot("See what I mean","It can even open doors  ( high sanity)","See what I mean, it can even open "+a+"doors, something you've been"+a+"struggling with for a while now"));
 		break;
 	}
 }

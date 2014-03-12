@@ -27,7 +27,8 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mImortal = false;
 	mLayer = Front;
 	mWalkSound.setBuffer(*walkSound);
-	mWalkSound.setPitch(2.0f);
+	//mWalkSound.setPitch(2.2f);
+	//mWalkSound.setPitch(1.6f);
 	mActive = true;
 	mFlashlightMode = false;
 	mSecondLastRect = mRect;
@@ -224,17 +225,17 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 
 	if(mMove && mKnockWidth == 0 && !mHiding)
 	{
-		if(mWalkSound.getStatus() == sf::Sound::Stopped)
-			mWalkSound.play();
 		if (mFlashlightMode == true  && mSecondLastRect != mRect)
 		{
 			mAnimationY = 1;
 			mAnimationPicX = 11;
+			mWalkSound.setPitch(1.6f);
 		}
 		else if (mFlashlightMode == false  && mSecondLastRect != mRect)
 		{
 			mAnimationY = 0;
 			mAnimationPicX = 8;
+			mWalkSound.setPitch(2.2f);
 		}
 		else if ((mFlashlightMode == true  && mSecondLastRect == mRect))
 		{
@@ -262,6 +263,8 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 
 			mWalkSound.play();
 		}*/
+		if(mWalkSound.getStatus() == sf::Sound::Stopped)
+			mWalkSound.play();
 	}
 	else
 	{

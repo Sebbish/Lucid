@@ -36,6 +36,7 @@ private:
 	sf::FloatRect mRect;
 	sf::FloatRect mApp[10];
 	sf::Font f;
+	sf::RectangleShape rs;
 
 	bool mActivated;
 	int mActiveAppID;

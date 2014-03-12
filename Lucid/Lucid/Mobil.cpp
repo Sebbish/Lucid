@@ -157,7 +157,7 @@ void Mobil::render(sf::RenderWindow& target)
 {
 	if(mActivated)
 	{
-			sf::RectangleShape rs;
+			
 			rs.setPosition(mRect.left,mRect.top);
 			rs.setSize(sf::Vector2f(mRect.width,mRect.height));
 			rs.setTexture(mTexture);
@@ -279,8 +279,9 @@ void Mobil::render(sf::RenderWindow& target)
 		}
 		
 	}
-	mVM->render(&target);
 }
+
+
 
 void Mobil::VoiceMailTick()
 {

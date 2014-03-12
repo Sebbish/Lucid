@@ -96,7 +96,7 @@ void Game::run()
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				mWindow.close();
 		}
-		//while(FPSclock.getElapsedTime().asMicroseconds() < 16666)
+		while(FPSclock.getElapsedTime().asMicroseconds() < 16666)
 		{}
 		
 		
