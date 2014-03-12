@@ -205,7 +205,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			triggers[0]->setActive(false);
 			entityVector[1]->setActive(true);
 			entityVector[1]->setForm(Entity::ROOFTRAVEL, Entity::ROOF, true);
-			entityVector[1]->setPosition(sf::FloatRect(6666, 44, 256, 256));
+			entityVector[1]->setPosition(sf::FloatRect(6500, 44, 256, 256));
 			bool2 = true;
 			mMobil->nextSound();
 			mMobil->getMC = true;

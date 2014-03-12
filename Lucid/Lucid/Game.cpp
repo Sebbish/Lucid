@@ -28,7 +28,7 @@ Game::Game()
 	mRenderTexture.create(1920, 1080);
 	mDialog = new Dialog(*mFH->getTexture(45));
 	mSL = new SaveLoad();
-	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42),0);
+	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42),0,mFH->getTexture(45));
 	mEButton = new Button(mFH->getTexture(53));
 	mEButton->willRender(true);
 	mQButton = new Button(mFH->getTexture(54));
@@ -381,6 +381,7 @@ void Game::tick()
 {
 
 	mEButton->setObject(0);
+	mQButton->setObject(0);
 
 	mEffects->tick(clock);
 	mMap->tick();
@@ -411,7 +412,7 @@ void Game::tick()
 	collision();
 
 
-	newMap = mEvent->tick(mMap, mEntities, mLights, mQButton,mMobil);
+	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton);
 
 	if (newMap != 0)
 	{
@@ -496,7 +497,7 @@ void Game::tick()
 	}
 	else
 	{
-		sf::Color atmosfär(20,20,24,255);
+		sf::Color atmosfär(30,30,34,255);
 		mLights[1]->setColor(atmosfär);
 	}
 
@@ -643,8 +644,8 @@ void Game::collision()
 			//Visa E-symbol här
 			if (mMap->getID() == 4)
 				mQButton->setObject(objectEntity);
-			else
-				mEButton->setObject(objectEntity);
+
+			mEButton->setObject(objectEntity);
 			
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
 			{
@@ -878,7 +879,7 @@ void Game::loadMap(std::string filename, int mapID)
 	{
 		lm->add(&*mLights[i]);
 	}
-	sf::Color atmosfär(40,40,44,255);
+	sf::Color atmosfär(20,20,24,255);
 	mLights[1]->setColor(atmosfär);
 	mLights[0]->setWorldLight(mAmbientRed,mAmbientGreen,mAmbientBlue);
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
@@ -887,10 +888,10 @@ void Game::loadMap(std::string filename, int mapID)
 			i->setMoveOnOff(true);
 	}
 
-	if (mSanity->getSanity() <= 25)
+	if (mSanity->getSanity() <= 50)
 	{
 		mSanity->setSanity(-(mSanity->getSanity()));
-		mSanity->setSanity(25);
+		mSanity->setSanity(50);
 	}
 	mMap->setupPortals();
 
