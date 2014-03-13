@@ -11,8 +11,8 @@ Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voic
 	mVM = new VoiceMail(mapID,Voicemail);
 	mVoiceMail = false;
 	slutPÂTest = false;
-	//f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
-	f.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
+	f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
+	//f.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
 
 	getMC = false;
 }
@@ -166,10 +166,6 @@ void Mobil::render(sf::RenderWindow& target)
 	
 			if(!snakes && !mVoiceMail)
 			{
-
-				sf::Font f;
-				//f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
-				f.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
 				sf::Text t;
 				t.setColor(sf::Color(0,0,0));
 				t.setCharacterSize(60);
@@ -201,9 +197,6 @@ void Mobil::render(sf::RenderWindow& target)
 				target.draw(t);
 			}else if(!snakes && mVoiceMail)
 			{
-				sf::Font f;
-				//f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
-				f.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
 				sf::Text t;
 				t.setColor(sf::Color(0,0,0));
 				t.setCharacterSize(60);

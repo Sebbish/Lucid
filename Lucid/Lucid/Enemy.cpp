@@ -24,7 +24,9 @@ Enemy::Enemy(float x, float y, float width, float height, float speed, int direc
 		mMaxSpeed = dataVector[4];
 		mHuntingSpeed = 4;
 	}
-	mChasingSpeed = 7;
+	mChasingSpeed = 6.7;
+	mControlledSpeed = 6;
+
 	mWaitTime = dataVector[6];
 	mViewFrontRange = dataVector[8];
 	mViewBackRange = dataVector[10];
@@ -546,11 +548,11 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				if (mDirection == LEFT)
 				{
 					
-						mRect.left -= mMaxSpeed;
+						mRect.left -= mControlledSpeed;
 				}
 				else
 				{
-					mRect.left += mMaxSpeed;
+					mRect.left += mControlledSpeed;
 				}
 			}
 		}
