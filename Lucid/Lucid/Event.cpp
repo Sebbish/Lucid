@@ -37,7 +37,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			triggers[3]->setActive(true);
 			animatedObjects[0]->fadeout();
 			animatedObjects[1]->fadein();
-			animatedObjects[3]->fadein();
+			animatedObjects[9]->fadein();
 		}
 		if (map->getTriggerList()[3]->getTrigged()) //Fade out andra bilden
 		{
@@ -45,7 +45,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			triggers[2]->setActive(true);
 			animatedObjects[0]->fadein();
 			animatedObjects[1]->fadeout();
-			animatedObjects[3]->fadeout();
+			animatedObjects[9]->fadeout();
 		}
 		break;
 

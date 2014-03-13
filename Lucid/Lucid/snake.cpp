@@ -4,17 +4,17 @@
 snake::snake(sf::FloatRect &rect, bool cheat):
 	mRect(rect), mCheat(cheat)
 {
-	//mSnakeTexture.loadFromFile("../../../LucidProject/Resources/Graphics/Animations/kladd.png");
-	//mLewisTexture.loadFromFile("../../../LucidProject/Resources/Graphics/Animations/l_snake.png");
-	mSnakeTexture.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/kladd.png");
-	mLewisTexture.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/Todocat2.png");
+	mSnakeTexture.loadFromFile("../../../LucidProject/Resources/Graphics/Animations/kladd.png");
+	mLewisTexture.loadFromFile("../../../LucidProject/Resources/Graphics/Animations/Lewis/Todocat2.png");
+	//mSnakeTexture.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/kladd.png");
+	//mLewisTexture.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/Todocat2.png");
 	mRect.left += 155;
 	mRect.top += 205;
 	mRect.width = 720;
 	mRect.height = 520;
 	init();
-	//mMusic.openFromFile("../../../LucidProject/Resources/Music/Lucid Chiptuna 01.ogg");
-	mMusic.openFromFile("P:/Downloads/LucidProject/Resources/Music/Lucid Chiptuna 01.ogg");
+	mMusic.openFromFile("../../../LucidProject/Resources/Music/Lucid Chiptuna 01.ogg");
+	//mMusic.openFromFile("P:/Downloads/LucidProject/Resources/Music/Lucid Chiptuna 01.ogg");
 	mMusic.setLoop(true);
 	mMusic.play();
 

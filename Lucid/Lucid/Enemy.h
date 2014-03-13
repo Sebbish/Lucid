@@ -100,5 +100,6 @@ private:
 	int mAnimationY;
 	//sf::RenderWindow* mWindow;
 	bool mUpsidedown;
+	int mControlledSpeed;
 };
 #endif

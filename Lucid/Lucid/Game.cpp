@@ -6,6 +6,7 @@ Game::Game()
 	mAmbientRed = 0;
 	mAmbientGreen = 0;
 	mAmbientBlue = 0;
+
 	mCurrentMap = 0;
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	testLight = sf::Color(100, 100, 100, 255);
@@ -33,7 +34,8 @@ Game::Game()
 	mEButton->willRender(true);
 	mQButton = new Button(mFH->getTexture(54));
 	mQButton->willRender(false);
-	loadMap("../Debug/map2.txt", 2);
+	loadMap("../Debug/map1.txt", 1);
+
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
@@ -66,14 +68,14 @@ Game::~Game()
 void Game::run()
 {
 	sf::Font MyFont;
-		//if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
-		//{
-		//	// Error...
-		//}
-		if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+		if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
 		{
 			// Error...
 		}
+		//if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+		//{
+		//	// Error...
+		//}
 		
 		//mSanityMeter.setString("Hello");
 		mSanityMeter.setFont(MyFont);
@@ -86,30 +88,23 @@ void Game::run()
     {
 		FPSclock.restart();
 		mWindow.clear(sf::Color(0, 0, 0));
-		if(!mMobil->slutPåTest)
-		{
 		if(mMobil->snakes)
 		{
 			mMobil->tick();
 			mMobil->render(mWindow);
 			mIsEscapePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
-		}else
+		}
+		else
 		{
-		input(mControlledEntity);
-		tick();
-	//	mWindow.setView(*camera->getView());
-		render();
-		//mousePositionFunc();
-        mWindow.display();
+			input(mControlledEntity);
+			tick();
+		//	mWindow.setView(*camera->getView());
+			render();
+			//mousePositionFunc();
+			mWindow.display();
 		}
-		}else{
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				mWindow.close();
-		}
-		//while(FPSclock.getElapsedTime().asMicroseconds() < 16666)
+		while(FPSclock.getElapsedTime().asMicroseconds() < 16666)
 		{}
-		
-		
     }
 }
 
@@ -135,7 +130,7 @@ void Game::input(Entity* entity)
 			{
 				entity->setMove(false);
 			}
-			/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
 			{
 				mEffects->setNextShader(0);
 			}
@@ -177,7 +172,7 @@ void Game::input(Entity* entity)
 				mEntities[0]->setMaxSpeed(24);
 			}
 			else
-				mEntities[0]->setMaxSpeed(6);*/
+				mEntities[0]->setMaxSpeed(6);
 
 
 		}

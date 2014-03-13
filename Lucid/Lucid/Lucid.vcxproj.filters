@@ -37,6 +37,7 @@
     <ClCompile Include="VoiceMail.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Ventilation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ambiance.h" />
@@ -72,6 +73,7 @@
     <ClInclude Include="VoiceMail.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Ventilation.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png" />
