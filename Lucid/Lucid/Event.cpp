@@ -11,7 +11,7 @@ Event::~Event(void)
 {
 }
 
-int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector,Mobil *mMobil)
+int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton)
 {
 	std::vector<Trigger*> triggers = map->getTriggerList();
 	std::vector<AnimatedObject*> animatedObjects = map->getAnimatedObjectList();
@@ -31,23 +31,18 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			triggers[1]->setActive(false);
 			animatedObjects[5]->setAnimate(true);
 		}
-		if (triggers[2]->getTrigged()) //Byter bana
+		if (triggers[2]->getTrigged()) //Fade out första bilden
 		{
 			triggers[2]->setActive(false);
-			return 2;
-		}
-		if (triggers[3]->getTrigged()) //Fade out första bilden
-		{
-			triggers[3]->setActive(false);
-			triggers[4]->setActive(true);
+			triggers[3]->setActive(true);
 			animatedObjects[0]->fadeout();
 			animatedObjects[1]->fadein();
 			animatedObjects[3]->fadein();
 		}
-		if (map->getTriggerList()[4]->getTrigged()) //Fade out andra bilden
+		if (map->getTriggerList()[3]->getTrigged()) //Fade out andra bilden
 		{
-			triggers[4]->setActive(false);
-			triggers[3]->setActive(true);
+			triggers[3]->setActive(false);
+			triggers[2]->setActive(true);
 			animatedObjects[0]->fadein();
 			animatedObjects[1]->fadeout();
 			animatedObjects[3]->fadeout();
@@ -99,12 +94,14 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			animatedObjects[2]->setActive(false);
 			triggers[13]->setActive(true);
 			LightVector[0]->setWorldLight(0,0,0);
+			//LightVector[2]->setOnOff(false);
 			mMobil->nextSound();
 		}
 
 		if (map->getTriggerList()[13]->getTrigged()) //Då spelaren använder keycard på kortläsaren.
 		{
 			map->getTriggerList()[13]->setActive(false);
+			animatedObjects[3]->setAnimate(true);
 			portals[14]->setActive(true);
 		}
 		break;
@@ -149,18 +146,25 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 
 		if (triggers[2]->getTrigged()) //Monstret låser upp andra dörren
 		{
-			triggers[2]->setActive(false);
-			if (entityVector[1]->getForm() == Entity::SLIME)
+			if (entityVector[1]->getNextForm() != Entity::ROOF && entityVector[1]->getForm() != Entity::ROOFCHANGINGBACK)
 			{
-				timer = 1000;
-			}
-			else
+				triggers[2]->setActive(false);
+				if (entityVector[1]->getForm() == Entity::SLIME)
+				{
+					timer = 1000;
+				}
+				else
+				{
+					timer = 500;
+				}
+				entityVector[1]->setForm(Entity::NONE, Entity::EAT, false);
+				mClock.restart();
+				bool2 = true;
+			}	
+			else if (entityVector[1]->getForm() == Entity::ROOF)
 			{
-				timer = 500;
+				entityVector[1]->toggleRoofStance();
 			}
-			entityVector[1]->setForm(Entity::NONE, Entity::EAT, false);
-			mClock.restart();
-			bool2 = true;
 		}
 
 		if (mClock.getElapsedTime().asMilliseconds() > timer && bool2)
@@ -201,26 +205,34 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			triggers[0]->setActive(false);
 			entityVector[1]->setActive(true);
 			entityVector[1]->setForm(Entity::ROOFTRAVEL, Entity::ROOF, true);
-			entityVector[1]->setPosition(sf::FloatRect(6666, 0, 256, 256));
+			entityVector[1]->setPosition(sf::FloatRect(6550, 44, 256, 256));
+			bool2 = true;
 			mMobil->nextSound();
 			mMobil->getMC = true;
 		}
 
 		if (triggers[1]->getTrigged()) //Monstret låser upp första dörren
 		{
-			triggers[1]->setActive(false);
-			if (entityVector[1]->getForm() == Entity::SLIME)
+			if (entityVector[1]->getNextForm() != Entity::ROOF)
 			{
-				timer = 1000;
+				triggers[1]->setActive(false);
+				if (entityVector[1]->getForm() == Entity::SLIME)
+				{
+					timer = 1000;
+				}
+				else
+				{
+					timer = 500;
+				}
+				entityVector[1]->setForm(Entity::NONE, Entity::EAT, false);
+				mClock.restart();
+				bool1 = true;
+				mMobil->nextSound();
 			}
-			else
+			else if (entityVector[1]->getForm() == Entity::ROOF)
 			{
-				timer = 500;
+				entityVector[1]->toggleRoofStance();
 			}
-			entityVector[1]->setForm(Entity::NONE, Entity::EAT, false);
-			mClock.restart();
-			bool1 = true;
-			mMobil->nextSound();
 		}
 		if(triggers[2]->getTrigged())
 		{
@@ -232,6 +244,15 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			walls[0]->setActive(false);
 			animatedObjects[0]->setActive(false);
 			bool1 = false;
+		}
+
+		if (bool2 && entityVector[0]->getHiding() == true)
+		{
+			QButton->willRender(true);
+		}
+		else
+		{
+			QButton->willRender(false);
 		}
 		break;
 	}

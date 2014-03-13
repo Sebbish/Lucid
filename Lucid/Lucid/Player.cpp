@@ -351,3 +351,8 @@ Entity::form Player::getForm()
 {
 	return NONE;
 }
+
+Entity::form Player::getNextForm()
+{
+	return NONE;
+}

@@ -20,6 +20,7 @@
 #include "Sanity.h"
 #include "Fade.h"
 #include "PortalFade.h"
+#include "Button.h"
 
 typedef std::vector<Entity*> EntiyVector;
 typedef std::vector<Object*> ObjectVector;
@@ -86,6 +87,8 @@ private:
 	int mCurrentMap;
 	Fade* mFade;
 	PortalFade* mPortalFade;
+	Button* mEButton;
+	Button* mQButton;
 };
 
 #endif

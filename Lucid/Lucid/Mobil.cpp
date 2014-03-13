@@ -12,6 +12,7 @@ Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voic
 	mVoiceMail = false;
 	slutPåTest = false;
 	f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
+	//f.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
 
 	getMC = false;
 }
@@ -126,6 +127,8 @@ bool Mobil::getActivate()const
 void Mobil::newMap(int mapID)
 {
 	mVM->newMap(mapID);
+	slutPåTest = false;
+	getMC = false;
 }
 
 //uppdatera
@@ -150,6 +153,9 @@ void Mobil::tick()
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&  !snakes)
 		ActivateSnakesAI();
 	mVM->tick();
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && mVoiceMail)
+		mVoiceMail = false;
 }
 
 //renderar
@@ -165,7 +171,7 @@ void Mobil::render(sf::RenderWindow& target)
 	
 			if(!snakes && !mVoiceMail)
 			{
-							
+
 				sf::Text t;
 				t.setColor(sf::Color(0,0,0));
 				t.setCharacterSize(60);

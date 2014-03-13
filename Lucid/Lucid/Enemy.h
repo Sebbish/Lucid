@@ -42,6 +42,7 @@ public:
 	virtual bool isEating();
 	virtual void setForm(form currentForm, form nextForm, bool upsidedown);
 	virtual form getForm();
+	virtual form getNextForm();
 	virtual void toggleRoofStance();
 	virtual void hitRoof();
 	virtual void shortYStepBack();
@@ -55,6 +56,7 @@ private:
 	sf::FloatRect mLastRect;
 	float mMaxSpeed;
 	float mHuntingSpeed;
+	float mChasingSpeed;
 	sf::Texture* mTexture;
 	bool mMove;
 	direction mDirection;

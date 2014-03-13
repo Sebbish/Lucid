@@ -1,222 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-<<<<<<< HEAD
-    <ClCompile Include="ambiance.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimatedObject.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Dialog.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Effects.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Event.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Fade.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="FilHanterare.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Flashlight.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Hiding.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="LightMain.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="LightManager.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="LightSource.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Mobil.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Npc.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Parallax.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="PortalFade.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Roof.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Sanity.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="SaveLoad.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="snake.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Trigger.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="VoiceMail.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ambiance.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatedObject.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Dialog.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Fade.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="FilHanterare.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Flashlight.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Hiding.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="LightManager.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="LightSource.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Mobil.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Npc.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Parallax.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="PortalFade.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Roof.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Sanity.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="SaveLoad.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="snake.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Trigger.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="VoiceMail.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Wall.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="background.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include=".cpp">
-      <UniqueIdentifier>{192804b0-f20a-4324-ae43-93c73418ff8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include=".h">
-      <UniqueIdentifier>{e285921e-8642-4d23-9055-b2ef58aa5930}</UniqueIdentifier>
-    </Filter>
-=======
     <ClCompile Include="ambiance.cpp" />
     <ClCompile Include="AnimatedObject.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -252,6 +36,7 @@
     <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="VoiceMail.cpp" />
     <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="Button.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ambiance.h" />
@@ -286,9 +71,9 @@
     <ClInclude Include="Trigger.h" />
     <ClInclude Include="VoiceMail.h" />
     <ClInclude Include="Wall.h" />
+    <ClInclude Include="Button.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png" />
->>>>>>> 3409a7a12523c96e5bc454c15e07d3d8d6467396
   </ItemGroup>
 </Project>
