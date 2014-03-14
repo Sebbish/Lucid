@@ -80,6 +80,7 @@ private:
 	Sanity *mSanity;
 	sf::Text mSanityMeter;
 	bool mLightLevel;
+	bool mFlashOn;
 	float mAtmospherScaleX;
 	float mAtmospherScaleY;
 	bool mFlashlightOnOff;

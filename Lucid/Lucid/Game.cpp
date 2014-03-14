@@ -34,7 +34,7 @@ Game::Game()
 	mEButton->willRender(true);
 	mQButton = new Button(mFH->getTexture(54));
 	mQButton->willRender(false);
-	loadMap("../Debug/map1.txt", 1);
+	loadMap("../Debug/map3.txt", 3);
 
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
@@ -44,6 +44,7 @@ Game::Game()
 	mVisualizeValues = false;
 	mMenu = false;
 	mCharFlash = false;
+	mFlashOn = false;
 	mFlashlighSound.setBuffer(*mFH->getSound(9));
 	mFlashlighSound.setPitch(1.5f);
 	mDeathSound.setBuffer(*mFH->getSound(0));
@@ -367,7 +368,7 @@ void Game::render()
 
 	mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
 	mSanityMeter.setOrigin(mSanityMeter.getLocalBounds().left + mSanityMeter.getLocalBounds().width,mSanityMeter.getLocalBounds().top + mSanityMeter.getLocalBounds().height);
-	//mWindow.draw(mSanityMeter);
+	mWindow.draw(mSanityMeter);
 	mFade->render(mWindow);
 	mPortalFade->render(mWindow);
 }
@@ -422,7 +423,15 @@ void Game::tick()
 	mMobil->VoiceMailTick();
 
 	//Plaserar ficklampans position.
-	mLights[0]->setOnOff(mFlashlightOnOff);
+	if (mFlashlightOnOff == true && mFlashOn == true)
+	{
+		mLights[0]->setOnOff(true);
+	}
+	else
+	{
+		mLights[0]->setOnOff(false);
+	}
+	
 	if (mEntities[0]->getDirection() == Entity::LEFT)
 	{
 		mLights[0]->flipSprite(0);
@@ -451,7 +460,7 @@ void Game::tick()
 
 	if (mControlledEntity == mEntities[0]) //!!!Charlight är 256 hög, det blir inget ljus över det!!!
 	{
-		if (mFlashlightOnOff == false && mAtmospherScaleX <= 3)
+		if ((mFlashlightOnOff == false || mFlashOn == false) && mAtmospherScaleX <= 3)
 		{
 			mAtmospherScaleX += 0.003;
 		}
@@ -477,12 +486,13 @@ void Game::tick()
 		}*/
 	}
 
-	if (mControlledEntity != mEntities[0] || mEntities[0]->getHiding() == true)
+	if (mControlledEntity != mEntities[0] || mEntities[0]->getHiding() == true)	//Stänger av ficklampan när man tar kontrol eller gömmer sig.
 	{
-		if (mFlashlightOnOff == true)//Stänger av ficklampan när man tar kontrol eller gömmer sig.
-		{
-			mFlashlightOnOff = false;
-		}
+		mFlashOn = false;	
+	}
+	else
+	{
+		mFlashOn = true;
 	}
 	//Mörkerseende baserat på om man är spelare eller monster.
 	if (mControlledEntity != mEntities[0])
@@ -492,7 +502,7 @@ void Game::tick()
 	}
 	else
 	{
-		sf::Color atmosfär(30,30,34,255);
+		sf::Color atmosfär(35,35,39,255);
 		mLights[1]->setColor(atmosfär);
 	}
 

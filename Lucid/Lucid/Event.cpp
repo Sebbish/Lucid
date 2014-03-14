@@ -94,7 +94,19 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			animatedObjects[2]->setActive(false);
 			triggers[13]->setActive(true);
 			LightVector[0]->setWorldLight(0,0,0);
-			LightVector[2]->setOnOff(false);
+			for (int i = 2; i <= 18; i++)
+			{
+				if (i == 4 || i == 10 || i == 15)
+				{
+					LightVector[i]->setBlink(true);
+				}
+				else
+				{
+					LightVector[i]->setOnOff(false);
+				}
+				
+			}
+			
 			mMobil->nextSound();
 		}
 

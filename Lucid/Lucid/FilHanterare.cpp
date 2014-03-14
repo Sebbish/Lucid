@@ -2,8 +2,8 @@
 
 FilHanterare::FilHanterare(void)
 {
-	std::string path = "../../../";
-	//std::string path = "P://Downloads/";
+	//std::string path = "../../../";
+	std::string path = "P://Downloads/";
 	/*sf::Texture* t = new sf::Texture;
 	assert(sf::Texture::loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis_Insane_Spritesheet.png",sf::IntRect(0,0,1024,768)) != NULL);
 	mTexture.push_back(t);
@@ -74,6 +74,9 @@ FilHanterare::FilHanterare(void)
 	mTexture[54]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Q placeholder Spritesheet.png",sf::IntRect(0,0,128,64));
 
 	mTexture[55]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/Svart Lager.png", sf::IntRect(0, 0, 7140, 1080));
+
+	mTexture[56]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/Lysrör liten.png",sf::IntRect(0,0,451,440));
+	mTexture[57]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/Lysrör.png",sf::IntRect(0,0,869,451));
 	
 	mSoundBuffer[0]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");
 	mSoundBuffer[1]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/lewis hall walking slow 2(with clothing).wav");
