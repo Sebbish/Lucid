@@ -91,6 +91,7 @@ namespace db
 		int mAbianceRed;
 		int mAbianceGreen;
 		int mAbianceBlue;
+		int mTypeID;
 
 	};
 }

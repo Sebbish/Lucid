@@ -62,6 +62,7 @@ namespace db
 		mAbianceBlue = 0;
 		mAbianceGreen = 0;
 
+		mTypeID = typID;
 		mSprite.setTexture( texture );
 		mSprite.setPosition( position );
 		mSprite.setColor( color );
@@ -164,8 +165,17 @@ namespace db
 			else
 			{
 				mAnimationPicY = 1;
-				mAnimationTimer = 0.0f;
-				
+				if (mTypeID == 58)
+				{
+					if(mAnimationTimer >= 4-mAnimationSpeed)
+					mAnimationTimer = 0.0f;
+					else
+					mAnimationTimer += mAnimationSpeed;
+				}
+				else
+				{
+					mAnimationTimer = 0.0f;
+				}				
 			}
 		}
 		else if (mPlayerBased == false)

@@ -51,7 +51,7 @@ Game::Game()
 	mEButton->willRender(true);
 	mQButton = new Button(mFH->getTexture(54));
 	mQButton->willRender(false);
-	loadMap("../Debug/map6.txt", 6);
+	loadMap("../Debug/map1.txt", 1);
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
@@ -348,6 +348,10 @@ void Game::render()
 	mRenderTexture.clear();
 	mRenderTexture.setView(*camera->getView());
 	lm->setView(*camera->getView());
+
+	if (mMap->getID() == 2 && mEntities[0]->getRect().top == 487 && mEntities[0]->getRect().left > 4999 && mEntities[0]->getRect().left < 5689)
+		mEntities[0]->render(&mRenderTexture, mVisualizeValues, true);
+
 	mMap->renderMap(&mRenderTexture);
 	for(auto i:mEntities)
 		if (i -> getLayer() == Entity::Back)
@@ -369,7 +373,7 @@ void Game::render()
 	const sf::Texture& s = mRenderTexture.getTexture();
 	sf::Sprite ss;
 	ss.setTexture(s);
-	mWindow.draw(ss,&mEffects->getShader());//Sköter ljust styrka baserat på om ficklampa är på eller ej.
+	mWindow.draw(ss,&mEffects->getShader());//Sköter ljus styrka baserat på om ficklampa är på eller ej.
 	
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
@@ -444,22 +448,28 @@ void Game::tick()
 	if (mFlashlightOnOff == true && mFlashOn == true)
 	{
 		mLights[0]->setOnOff(true);
+		mLights[2]->setOnOff(true);
 	}
 	else
 	{
 		mLights[0]->setOnOff(false);
+		mLights[2]->setOnOff(false);
 	}
 	
 	if (mEntities[0]->getDirection() == Entity::LEFT)
 	{
 		mLights[0]->flipSprite(0);
-		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left - mLights[0]->getXSize() + 145, mEntities[0]->getRect().top));
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left - mLights[0]->getXSize() + 140, mEntities[0]->getRect().top));
+		mLights[2]->flipSprite(0);
+		mLights[2]->setPosition(sf::Vector2f(mEntities[0]->getRect().left, mEntities[0]->getRect().top));
 		
 	}
 	else
 	{
 		mLights[0]->flipSprite(1);
-		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width) - 145, mEntities[0]->getRect().top));
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width) - 140, mEntities[0]->getRect().top));
+		mLights[2]->flipSprite(1);
+		mLights[2]->setPosition(sf::Vector2f(mEntities[0]->getRect().left, mEntities[0]->getRect().top));
 	}
 
 
@@ -562,11 +572,12 @@ void Game::tick()
 	//	mEntities[0]->setActive(false);
 	}
 	
-	mLights[0]->setMoveOnOff(mEntities[0]->getMove());
-	for(auto i:mLights)
-	{
-			i->tick();
-	}
+	//mLights[0]->setMoveOnOff(mEntities[0]->getMove());
+	//mLights[2]->setMoveOnOff(mEntities[0]->getMove());
+	//for(auto i:mLights)
+	//{
+	//		i->tick();
+	//}
 	
 	mAmbiance->tick(mSanity->getSanity());
 
@@ -584,6 +595,12 @@ void Game::tick()
 					mapName += std::to_string(mCurrentMap);
 					mapName += ".txt";
 					loadMap(mapName, mCurrentMap);
+	}
+	mLights[0]->setMoveOnOff(mEntities[0]->getMove());
+	mLights[2]->setMoveOnOff(mEntities[0]->getMove());
+	for(auto i:mLights)
+	{
+			i->tick();
 	}
 }
 
@@ -926,6 +943,8 @@ void Game::loadMap(std::string filename, int mapID)
 	}
 	sf::Color atmosfär(20,20,24,255);
 	mLights[1]->setColor(atmosfär);
+	atmosfär = sf::Color(70,100,70,255);
+	mLights[2]->setColor(atmosfär);
 	mLights[0]->setWorldLight(mAmbientRed,mAmbientGreen,mAmbientBlue);
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 	for(auto i:mLights)

@@ -110,7 +110,11 @@ void Player::setMove(bool move)
 
 bool Player::getMove()const
 {
-	return mMove;
+	if (mSecondLastRect == mRect)
+		return false;
+	else
+		return mMove;
+	
 }
 
 void Player::setMaxSpeed(float speed)
@@ -301,6 +305,7 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 		mRect.left += mKnockWidth;
 	}
 	
+	
 	mSecondLastRect = mLastRect;
 
 }
@@ -319,18 +324,19 @@ void Player::render(sf::RenderTexture* window, bool visualizeValues, bool mirror
 	}
 	else
 	{
+		float tempTimer = mAnimationTimer;
 		if (mMove)
-			mAnimationTimer += 4;
-		if (mAnimationTimer > mAnimationPicX)
-			mAnimationTimer -= 8;
+			tempTimer += 4;
+		if (tempTimer > mAnimationPicX)
+			tempTimer -= 8;
 		if(mDirection == RIGHT)
 		{
-			r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+			r.setTextureRect(sf::IntRect(mRect.width*(int)tempTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
 			r.setPosition(mRect.left + 10,mRect.top);
 		}
 		else if(mDirection == LEFT)
 		{
-			r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),mAnimationY * mRect.height,-mRect.width,mRect.height));
+			r.setTextureRect(sf::IntRect(mRect.width*((int)tempTimer+1),mAnimationY * mRect.height,-mRect.width,mRect.height));
 			r.setPosition(mRect.left - 10,mRect.top);
 		}
 		

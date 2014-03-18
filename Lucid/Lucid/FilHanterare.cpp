@@ -33,7 +33,7 @@ FilHanterare::FilHanterare(void)
 	//mTexture[24]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Trashcan2.png",sf::IntRect(0,0,1796,720));
 	//mTexture[24]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/kruka.png",sf::IntRect(0,0,256,256));
 
-	mTexture[25]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/glow.png",sf::IntRect(0,0,4096,512));
+	mTexture[25]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Lightsheet.png",sf::IntRect(0,0,4096,512));
 
 	//mTexture[25]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/glow.png",sf::IntRect(0,0,161,129));
 	mTexture[26]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/VendingMachine1.png",sf::IntRect(0,0,256,256));
@@ -56,7 +56,7 @@ FilHanterare::FilHanterare(void)
 	mTexture[37]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/2 - Utomhus 2.png",sf::IntRect(0,0,1734,625));
 	mTexture[38]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/Hiding_Plant.png",sf::IntRect(0,0,256,256));
 	mTexture[39]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/Desk.png",sf::IntRect(0,0,198,160));
-	mTexture[40]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/CharLight.png",sf::IntRect(0,0,512,256));
+	mTexture[40]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Amb_Lightmap.png",sf::IntRect(0,0,512,300));
 	mTexture[41]->loadFromFile(path+"LucidProject/Resources/Graphics/GUI/AnimatedGUI/Cellphone_GUI.png",sf::IntRect(0,0,1024,1080));
 	mTexture[42]->loadFromFile(path+"LucidProject/Resources/Graphics/GUI/AnimatedGUI/Cellphone_lines_GUI.png",sf::IntRect(0,0,1024,1080));
 	mTexture[43]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/Level2_Lamp_Lightsheet.png",sf::IntRect(0,0,4096,300));
@@ -78,6 +78,8 @@ FilHanterare::FilHanterare(void)
 
 	mTexture[56]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/Lysrör liten.png",sf::IntRect(0,0,451,440));
 	mTexture[57]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/Lysrör.png",sf::IntRect(0,0,869,451));
+	mTexture[58]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Cellphone_Lightsheet.png",sf::IntRect(0,0,4096,512));
+
 	
 	mSoundBuffer[0]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");
 	mSoundBuffer[1]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/lewis hall walking slow 2(with clothing).wav");
