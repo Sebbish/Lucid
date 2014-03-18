@@ -42,7 +42,7 @@ public:
 	virtual void hitRoof();
 	virtual void shortYStepBack();
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
-	virtual void render(sf::RenderTexture* window, bool visualizeValues);
+	virtual void render(sf::RenderTexture* window, bool visualizeValues, bool mirror);
 	virtual void flashlight(bool flash);
 	virtual void setImortal(bool imortal);
 	virtual bool getImortal();

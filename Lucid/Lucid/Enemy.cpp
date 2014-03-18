@@ -842,7 +842,7 @@ void Enemy::setAnimation()
 	}
 }
 
-void Enemy::render(sf::RenderTexture* window, bool visualizeValues)
+void Enemy::render(sf::RenderTexture* window, bool visualizeValues, bool mirror)
 {
 	if (mActive)
 	{

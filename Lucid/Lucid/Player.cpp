@@ -305,15 +305,36 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 
 }
 
-void Player::render(sf::RenderTexture* window, bool visualizeValues)
+void Player::render(sf::RenderTexture* window, bool visualizeValues, bool mirror)
 {
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
-	if(mDirection == RIGHT)
-		r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
-	else if(mDirection == LEFT)
-		r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),mAnimationY * mRect.height,-mRect.width,mRect.height));
-	r.setPosition(mRect.left,mRect.top);
+	if (!mirror)
+	{ 
+		if(mDirection == RIGHT)
+			r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+		else if(mDirection == LEFT)
+			r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),mAnimationY * mRect.height,-mRect.width,mRect.height));
+		r.setPosition(mRect.left,mRect.top);
+	}
+	else
+	{
+		if (mMove)
+			mAnimationTimer += 4;
+		if (mAnimationTimer > mAnimationPicX)
+			mAnimationTimer -= 8;
+		if(mDirection == RIGHT)
+		{
+			r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+			r.setPosition(mRect.left + 10,mRect.top);
+		}
+		else if(mDirection == LEFT)
+		{
+			r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),mAnimationY * mRect.height,-mRect.width,mRect.height));
+			r.setPosition(mRect.left - 10,mRect.top);
+		}
+		
+	}
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
 

@@ -51,12 +51,7 @@ Game::Game()
 	mEButton->willRender(true);
 	mQButton = new Button(mFH->getTexture(54));
 	mQButton->willRender(false);
-<<<<<<< HEAD
-	loadMap("../Debug/map5.txt", 5);
-=======
-	loadMap("../Debug/map3.txt", 3);
-
->>>>>>> a6038e666a7ecc5cd415da9a0ef4b207ac1d5ed5
+	loadMap("../Debug/map6.txt", 6);
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
@@ -356,7 +351,7 @@ void Game::render()
 	mMap->renderMap(&mRenderTexture);
 	for(auto i:mEntities)
 		if (i -> getLayer() == Entity::Back)
-			i->render(&mRenderTexture, mVisualizeValues);
+			i->render(&mRenderTexture, mVisualizeValues, false);
 	
 	mMap -> renderObjects(&mRenderTexture);
 
@@ -364,7 +359,7 @@ void Game::render()
 
 	for(auto i:mEntities)
 		if (i -> getLayer() == Entity::Front)
-			i->render(&mRenderTexture, mVisualizeValues);
+			i->render(&mRenderTexture, mVisualizeValues, false);
 	
 
 	mMap->renderForeground(&mRenderTexture);
@@ -378,7 +373,7 @@ void Game::render()
 	
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
-	//lm->render(mWindow);
+	lm->render(mWindow);
 
 	mEButton->render(&mWindow, camera);
 	mQButton->render(&mWindow, camera);

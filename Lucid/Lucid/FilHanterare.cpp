@@ -2,8 +2,8 @@
 
 FilHanterare::FilHanterare(void)
 {
-	//std::string path = "../../../";
-	std::string path = "P://Downloads/";
+	std::string path = "../../../";
+	//std::string path = "P://Downloads/";
 	/*sf::Texture* t = new sf::Texture;
 	assert(sf::Texture::loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis_Insane_Spritesheet.png",sf::IntRect(0,0,1024,768)) != NULL);
 	mTexture.push_back(t);
@@ -22,7 +22,7 @@ FilHanterare::FilHanterare(void)
 	mTexture[3]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level2/Level2.png",sf::IntRect(0,0,8192,300));
 	mTexture[4]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_1.png",sf::IntRect(0,0,8192,600));
 	mTexture[5]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level3_2.png",sf::IntRect(0,0,8192,1200));
-	mTexture[6]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level4/Level 4.png",sf::IntRect(0,0,8000,300));
+	mTexture[6]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level4/Level 4.png",sf::IntRect(0,0,8192,1200));
 	
 	
 	mTexture[21]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Monster 1/Monster1_Spritesheet.png",sf::IntRect(0,0,2048,2048));
