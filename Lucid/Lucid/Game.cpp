@@ -34,7 +34,7 @@ Game::Game()
 	mEButton->willRender(true);
 	mQButton = new Button(mFH->getTexture(54));
 	mQButton->willRender(false);
-	loadMap("../Debug/map3.txt", 3);
+	loadMap("../Debug/map2.txt", 2);
 
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
@@ -547,12 +547,12 @@ void Game::tick()
 		mEntities[0]->setActive(false);
 	}
 	
-	mLights[0]->setMoveOnOff(mEntities[0]->getMove());
-	mLights[2]->setMoveOnOff(mEntities[0]->getMove());
-	for(auto i:mLights)
-	{
-			i->tick();
-	}
+	//mLights[0]->setMoveOnOff(mEntities[0]->getMove());
+	//mLights[2]->setMoveOnOff(mEntities[0]->getMove());
+	//for(auto i:mLights)
+	//{
+	//		i->tick();
+	//}
 	
 	mAmbiance->tick(mSanity->getSanity());
 
@@ -570,6 +570,12 @@ void Game::tick()
 					mapName += std::to_string(mCurrentMap);
 					mapName += ".txt";
 					loadMap(mapName, mCurrentMap);
+	}
+	mLights[0]->setMoveOnOff(mEntities[0]->getMove());
+	mLights[2]->setMoveOnOff(mEntities[0]->getMove());
+	for(auto i:mLights)
+	{
+			i->tick();
 	}
 }
 

@@ -110,7 +110,11 @@ void Player::setMove(bool move)
 
 bool Player::getMove()const
 {
-	return mMove;
+	if (mSecondLastRect == mRect)
+		return false;
+	else
+		return mMove;
+	
 }
 
 void Player::setMaxSpeed(float speed)
@@ -300,6 +304,7 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 		mKnockWidth = mKnockWidth*mAcc;
 		mRect.left += mKnockWidth;
 	}
+	
 	
 	mSecondLastRect = mLastRect;
 
