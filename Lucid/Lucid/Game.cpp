@@ -353,7 +353,7 @@ void Game::render()
 	const sf::Texture& s = mRenderTexture.getTexture();
 	sf::Sprite ss;
 	ss.setTexture(s);
-	mWindow.draw(ss,&mEffects->getShader());//Sköter ljust styrka baserat på om ficklampa är på eller ej.
+	mWindow.draw(ss,&mEffects->getShader());//Sköter ljus styrka baserat på om ficklampa är på eller ej.
 	
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
@@ -426,22 +426,28 @@ void Game::tick()
 	if (mFlashlightOnOff == true && mFlashOn == true)
 	{
 		mLights[0]->setOnOff(true);
+		mLights[2]->setOnOff(true);
 	}
 	else
 	{
 		mLights[0]->setOnOff(false);
+		mLights[2]->setOnOff(false);
 	}
 	
 	if (mEntities[0]->getDirection() == Entity::LEFT)
 	{
 		mLights[0]->flipSprite(0);
-		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left - mLights[0]->getXSize() + 145, mEntities[0]->getRect().top));
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left - mLights[0]->getXSize() + 140, mEntities[0]->getRect().top));
+		mLights[2]->flipSprite(0);
+		mLights[2]->setPosition(sf::Vector2f(mEntities[0]->getRect().left, mEntities[0]->getRect().top));
 		
 	}
 	else
 	{
 		mLights[0]->flipSprite(1);
-		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width) - 145, mEntities[0]->getRect().top));
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width) - 140, mEntities[0]->getRect().top));
+		mLights[2]->flipSprite(1);
+		mLights[2]->setPosition(sf::Vector2f(mEntities[0]->getRect().left, mEntities[0]->getRect().top));
 	}
 
 
@@ -517,13 +523,13 @@ void Game::tick()
 	//Sanity baserade uträkningar
 	if (mControlledEntity != mEntities[0])
 	{
-		mSanity->setSanity(-0.021);
+		mSanity->setSanity(-0.005);
 	}
 
 	for(auto i:mEntities){
 			if (i->getCanSeePlayer() == true && i->getActive() == true )
 			{
-				mSanity->setSanity(-0.101);
+				mSanity->setSanity(-0.010);
 			}
 			else
 			{
@@ -542,6 +548,7 @@ void Game::tick()
 	}
 	
 	mLights[0]->setMoveOnOff(mEntities[0]->getMove());
+	mLights[2]->setMoveOnOff(mEntities[0]->getMove());
 	for(auto i:mLights)
 	{
 			i->tick();
@@ -886,6 +893,8 @@ void Game::loadMap(std::string filename, int mapID)
 	}
 	sf::Color atmosfär(20,20,24,255);
 	mLights[1]->setColor(atmosfär);
+	atmosfär = sf::Color(70,100,70,255);
+	mLights[2]->setColor(atmosfär);
 	mLights[0]->setWorldLight(mAmbientRed,mAmbientGreen,mAmbientBlue);
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 	for(auto i:mLights)

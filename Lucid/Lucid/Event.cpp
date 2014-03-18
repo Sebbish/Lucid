@@ -94,9 +94,9 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			animatedObjects[2]->setActive(false);
 			triggers[13]->setActive(true);
 			LightVector[0]->setWorldLight(0,0,0);
-			for (int i = 2; i <= 18; i++)
+			for (int i = 3; i <= 24; i++)
 			{
-				if (i == 4 || i == 10 || i == 15)
+				if (i == 5 || i == 8 || i == 12 || i == 19 || i == 23)
 				{
 					LightVector[i]->setBlink(true);
 				}
@@ -116,6 +116,19 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			animatedObjects[3]->setAnimate(true);
 			portals[14]->setActive(true);
 		}
+
+		if (map->getTriggerList()[14]->getTrigged())
+		{
+			animatedObjects[4]->setActive(true);
+			animatedObjects[5]->setActive(false);
+		}
+
+		if (map->getTriggerList()[15]->getTrigged())
+		{
+			animatedObjects[5]->setActive(true);
+			animatedObjects[4]->setActive(false);
+		}
+
 		break;
 
 
@@ -248,7 +261,8 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		}
 		if(triggers[2]->getTrigged())
 		{
-			mMobil->slutPåTest = true;
+			//mMobil->slutPåTest = true;
+			return 6;
 		}
 
 		if (mClock.getElapsedTime().asMilliseconds() > timer && bool1)
