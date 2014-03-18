@@ -1,45 +1,25 @@
-﻿Build started 2014-03-12 09:58:00.
+﻿Build started 2014-03-18 11:22:02.
      1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Mobil.cpp ambiance.cpp
-         Mobil.cpp
-     1>Mobil.cpp(8): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>Mobil.cpp(9): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>Mobil.cpp(222): warning C4018: '<=' : signed/unsigned mismatch
-     1>Mobil.cpp(238): warning C4018: '<' : signed/unsigned mismatch
-     1>Mobil.cpp(307): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Mobil.cpp(308): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-         ambiance.cpp
-     1>ambiance.cpp(149): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>ambiance.cpp(196): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(197): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(226): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(227): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(257): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(258): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(281): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ambiance.cpp(285): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(286): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(300): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(304): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ambiance.cpp(311): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(315): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ambiance.cpp(325): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(345): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(349): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ambiance.cpp(356): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(360): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ambiance.cpp(371): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(391): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(395): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ambiance.cpp(402): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(406): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ambiance.cpp(417): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(437): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(441): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ambiance.cpp(448): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(452): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ambiance.cpp(463): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Enemy.cpp
+         Enemy.cpp
+     1>Enemy.cpp(22): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(24): warning C4305: '=' : truncation from 'double' to 'float'
+     1>Enemy.cpp(33): warning C4305: '=' : truncation from 'double' to 'float'
+     1>Enemy.cpp(305): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(310): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(856): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(858): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(863): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(865): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(871): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(873): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(892): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(899): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(906): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(914): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(917): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(921): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"P:\Lucid\Lucid\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" /LIBPATH:"C:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"P:\Lucid\Lucid\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"P:\Lucid\Lucid\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\ambiance.obj
          Release\AnimatedObject.obj
@@ -75,11 +55,18 @@
          Release\snake.obj
          Release\Source.obj
          Release\Trigger.obj
+         Release\Ventilation.obj
          Release\VoiceMail.obj
          Release\Wall.obj
-     1>LINK : fatal error LNK1104: cannot open file 'P:\Lucid\Lucid\Release\Lucid.exe'
-     1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)) -- FAILED.
+         Generating code
+     1>p:\lucid\lucid\lucid\saveload.cpp(66): warning C4715: 'SaveLoad::load' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\filhanterare.cpp(112): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\filhanterare.cpp(106): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\effects.cpp(135): warning C4715: 'Effects::getShader' : not all control paths return a value
+         Finished generating code
+         Lucid.vcxproj -> P:\Lucid\Lucid\Release\Lucid.exe
+     1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:26.87
+Time Elapsed 00:00:15.21

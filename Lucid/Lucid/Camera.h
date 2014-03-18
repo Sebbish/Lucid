@@ -17,6 +17,7 @@ private:
 	Entity::direction EntityDirection;
 	bool mZoom;
 	sf::Vector2f mOriginalSize;
+	float acc, accY;
 };
 #endif
 

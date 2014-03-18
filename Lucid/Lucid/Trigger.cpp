@@ -62,3 +62,8 @@ bool Trigger::getActive()
 {
 	return mActive;
 }
+
+void Trigger::setRect(sf::FloatRect rect)
+{
+	mRect = rect;
+}

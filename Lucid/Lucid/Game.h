@@ -89,6 +89,7 @@ private:
 	PortalFade* mPortalFade;
 	Button* mEButton;
 	Button* mQButton;
+	float mSanityLossWhileSeen, mSanityLossWhileControlling;
 };
 
 #endif

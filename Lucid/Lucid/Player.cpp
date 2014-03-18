@@ -14,7 +14,7 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	}
 	stream.close();
 	stream.clear();
-	mMaxSpeed = dataVector[15];
+	mMaxSpeed = dataVector[15] / 10;
 	int mAnimationY = 0;
 
 	mRect.left = x;

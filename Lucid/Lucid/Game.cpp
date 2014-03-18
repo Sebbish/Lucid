@@ -2,6 +2,23 @@
 
 Game::Game()
 {
+	std::ifstream stream;
+	stream.open("../Debug/config.txt");
+	std::string output;
+	std::vector<int> dataVector;
+	while(!stream.eof())
+	{
+		stream >> output;
+		dataVector.push_back(atoi(output.c_str()));
+	}
+	stream.close();
+	stream.clear();
+	float tempSeen = dataVector[25];
+	float tempControl = dataVector[27];
+	mSanityLossWhileSeen = tempSeen / 1000;
+	mSanityLossWhileControlling = tempControl / 1000;
+
+
 	angle = 0;
 	mAmbientRed = 0;
 	mAmbientGreen = 0;
@@ -34,7 +51,7 @@ Game::Game()
 	mEButton->willRender(true);
 	mQButton = new Button(mFH->getTexture(54));
 	mQButton->willRender(false);
-	loadMap("../Debug/map1.txt", 1);
+	loadMap("../Debug/map5.txt", 5);
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
@@ -117,11 +134,11 @@ void Game::input(Entity* entity)
 		{
 			/*if (event.type == sf::Event::Closed || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed))
 				mWindow.close();*/
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			if((sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) && !(sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
 			{
 				entity->setDirection(Entity::RIGHT);
 				entity->setMove(true);
-			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			}else if((sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) && !(sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))
 			{
 				entity->setDirection(Entity::LEFT);
 				entity->setMove(true);
@@ -197,7 +214,7 @@ void Game::input(Entity* entity)
 			}
 		}
 		//kollar om Q trycktes ned och mindcontrollar då
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed && mMobil->getMC)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed /*&& mMobil->getMC*/ )
 		{
 				
 			//kontrollerar om den kontrollerade entiteten är spelaren
@@ -241,7 +258,7 @@ void Game::input(Entity* entity)
 		{
 			mControlledEntity->toggleRoofStance();
 		}
-		/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::H) && mControlledEntity != mEntities[0])
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::H) && mControlledEntity != mEntities[0])
 		{
 			mControlledEntity->hitRoof();
 		}
@@ -257,7 +274,13 @@ void Game::input(Entity* entity)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6))
 		{
 			loadMap("../Debug/map"+std::to_string(mMap->getID() + 1)+".txt",mMap->getID() + 1);
-		}*/
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+		{
+			mMap->getTriggerList()[2]->setActive(true);
+			mEntities[1]->setActive(false);
+		}
 	}
 	break;
 
@@ -278,12 +301,6 @@ void Game::input(Entity* entity)
 			}
 			break;
 		}
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed)
-	{
-		mMobil->deactivate();
-		mMenu = false;
 	}
 
 	if((sf::Keyboard::isKeyPressed(sf::Keyboard::M) && !mIsMPressed) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed))
@@ -355,7 +372,7 @@ void Game::render()
 	
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
-	lm->render(mWindow);
+	//lm->render(mWindow);
 
 	mEButton->render(&mWindow, camera);
 	mQButton->render(&mWindow, camera);
@@ -366,7 +383,7 @@ void Game::render()
 
 	mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
 	mSanityMeter.setOrigin(mSanityMeter.getLocalBounds().left + mSanityMeter.getLocalBounds().width,mSanityMeter.getLocalBounds().top + mSanityMeter.getLocalBounds().height);
-	//mWindow.draw(mSanityMeter);
+	mWindow.draw(mSanityMeter);
 	mFade->render(mWindow);
 	mPortalFade->render(mWindow);
 }
@@ -378,7 +395,6 @@ void Game::tick()
 	mQButton->setObject(0);
 
 	mEffects->tick(clock);
-	mMap->tick();
 
 	int newMap = mFade->tick();
 	if (newMap != 0)
@@ -403,10 +419,13 @@ void Game::tick()
 		i->tick(mEntities[0], mEntities);
 	}
 
+	
+	mMap->tick();
+
 	collision();
 
 
-	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton);
+	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton, mControlledEntity, camera);
 
 	if (newMap != 0)
 	{
@@ -501,18 +520,21 @@ void Game::tick()
 	mAmbientBlue = mLights[0]->getWorldLightBlue();
 
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
-	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
+	//mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
+	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), camera->getView()->getCenter().y-44 - 128 /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
 
 	//Sanity baserade uträkningar
 	if (mControlledEntity != mEntities[0])
 	{
-		mSanity->setSanity(-0.021);
+		//mSanity->setSanity(-0.021);
+		mSanity->setSanity(-mSanityLossWhileControlling);
 	}
 
 	for(auto i:mEntities){
 			if (i->getCanSeePlayer() == true && i->getActive() == true )
 			{
-				mSanity->setSanity(-0.101);
+				//mSanity->setSanity(-0.101);
+				mSanity->setSanity(-mSanityLossWhileSeen);
 			}
 			else
 			{
@@ -527,7 +549,7 @@ void Game::tick()
 	}
 	if (mSanity->getSanity() <= 0)
 	{
-		mEntities[0]->setActive(false);
+	//	mEntities[0]->setActive(false);
 	}
 	
 	mLights[0]->setMoveOnOff(mEntities[0]->getMove());
@@ -563,6 +585,7 @@ void Game::collision()
 	std::vector<Trigger*> triggers(mMap->getTriggerList());
 	std::vector<Object*> roofs(mMap->getRoofList());
 	std::vector<Portal*> portals(mMap->getSuperPortalList());
+	std::vector<Object*> ventilations(mMap->getVentilationList());
 
 	for (auto i:enteties)
 	{
@@ -571,7 +594,7 @@ void Game::collision()
 			if (overlapsEntity(i,j) && i != j)
 			{
 				//if (i == enteties[0] && (!i->getHiding() || j->getHunting()) && j->getActive())
-				if (i == enteties[0] && !i->getHiding() && j->getActive() && i->getActive())
+				if (i == enteties[0] && !i->getHiding() && j->getActive() && i->getActive() && mControlledEntity != j)
 				{
 					// Man dör
 					j->getFunc(i);
@@ -582,7 +605,7 @@ void Game::collision()
 				else if (j != enteties[0] && i != enteties[0]) // 2 monster kolliderar
 				{
 					i ->getFunc(j);
-					if (i == mControlledEntity || j == mControlledEntity) //Kontrollen bryts
+					if ((i == mControlledEntity && i->getTypeID() == 21 && j->getTypeID() == 22) || (j == mControlledEntity && j->getTypeID() == 21 && i->getTypeID() == 22)) //Kontrollen bryts
 					{
 						setControlledEntity(enteties[0]);
 					}
@@ -620,11 +643,20 @@ void Game::collision()
 			Object *roofEntity = roofs[i];
 			if (overlapsObjects(j, roofEntity))
 			{
-				roofEntity -> getFunc(j);
 				while (overlapsObjects(j, roofEntity))
 				{
 					j->shortYStepBack();
 				}
+				roofEntity -> getFunc(j);
+			}
+		}
+
+		for (ObjectVector::size_type i = 0; i < ventilations.size(); i++)
+		{
+			Object *ventEntity = ventilations[i];
+			if (overlapsObjects(j, ventEntity))
+			{
+				ventEntity -> getFunc(j);
 			}
 		}
 	}
@@ -651,33 +683,35 @@ void Game::collision()
 
 	for (ObjectVector::size_type i = 0; i < portals.size(); i++) //Portaler
 	{
-		Entity *controlledEntity = mControlledEntity;
-		Portal *portalEntity = portals[i];
-		if (overlapsObjects(controlledEntity,portalEntity))
+		if (mControlledEntity == mEntities[0])
 		{
-			//Visa E-symbol här
-			mEButton->setObject(portalEntity);
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
+			Entity *controlledEntity = mControlledEntity;
+			Portal *portalEntity = portals[i];
+			if (overlapsObjects(controlledEntity,portalEntity))
 			{
-				int newMap = portalEntity -> getFunc(mControlledEntity);
-				if (newMap != 0 && controlledEntity == mEntities[0])
+				//Visa E-symbol här
+				mEButton->setObject(portalEntity);
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
 				{
-					mFade->fadeOut(newMap);
-					/*std::string mapName = "../Debug/map";
-					mapName += std::to_string(newMap);
-					mapName += ".txt";
-					loadMap(mapName, newMap);*/
+					int newMap = portalEntity -> getFunc(mControlledEntity);
+					if (newMap != 0 && controlledEntity == mEntities[0])
+					{
+						mFade->fadeOut(newMap);
+						/*std::string mapName = "../Debug/map";
+						mapName += std::to_string(newMap);
+						mapName += ".txt";
+						loadMap(mapName, newMap);*/
+					}
+					else
+					{
+						if (portalEntity->getActive())
+							mPortalFade->fadeOut(portalEntity->getTargetPortal()->getRect());
+					}
+					break;
 				}
-				else
-				{
-					if (portalEntity->getActive())
-						mPortalFade->fadeOut(portalEntity->getTargetPortal()->getRect());
-				}
-				break;
 			}
 		}
 	}
-
 }
 
 void Game::loadMap(std::string filename, int mapID)
@@ -865,6 +899,13 @@ void Game::loadMap(std::string filename, int mapID)
 			mAmbientBlue = dataVector[i + 3];
 			mCurrentMap = dataVector[i + 4];
 			i += 4;
+			break;
+		case 12://Ventilation
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			height = dataVector[i + 3];
+			mMap->addVentilation(new Ventilation(x, y, height));
+			i += 3;
 			break;
 		}
 	}

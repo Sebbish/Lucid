@@ -11,6 +11,7 @@
 #include "Parallax.h"
 #include "AnimatedObject.h"
 #include "Roof.h"
+#include "Ventilation.h"
 
 class Map
 {
@@ -25,6 +26,7 @@ public:
 	void addParallax(Parallax* parallax);
 	void addAnimatedObject(AnimatedObject* animatedObject);
 	void addRoof(Roof* roof);
+	void addVentilation(Ventilation* ventilation);
 	void setTexture(sf::Texture *texture);
 	std::vector<Object*> getHidingList()const;
 	std::vector<Object*> getNpcList()const;
@@ -35,6 +37,7 @@ public:
 	std::vector<Object*> getParallaxList()const;
 	std::vector<AnimatedObject*> getAnimatedObjectList()const;
 	std::vector<Object*> getRoofList()const;
+	std::vector<Object*> getVentilationList()const;
 	std::vector<Object*> getObjectList()const;
 	void tick();
 	void renderMap(sf::RenderTexture* window);
@@ -44,7 +47,7 @@ public:
 	void setupPortals();
 private:
 	sf::Texture* mTexture;
-	std::vector<Object*> mHidingList, mNpcList, mPortalList, mParallaxList, mRoofList;
+	std::vector<Object*> mHidingList, mNpcList, mPortalList, mParallaxList, mRoofList, mVentilationList;
 	int mMapID;
 	std::vector<Portal*> mSuperPortalList;
 	std::vector<Wall*> mWallList;

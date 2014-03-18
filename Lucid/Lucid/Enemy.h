@@ -59,7 +59,7 @@ private:
 	float mChasingSpeed;
 	sf::Texture* mTexture;
 	bool mMove;
-	direction mDirection;
+	direction mDirection, mOriginalDirection;
 	int mTypeID;
 	bool mTempCollideWithPlayer;
 	float mAnimationTimer;
@@ -101,5 +101,6 @@ private:
 	//sf::RenderWindow* mWindow;
 	bool mUpsidedown;
 	int mControlledSpeed;
+	int mFlightSpeed;
 };
 #endif
