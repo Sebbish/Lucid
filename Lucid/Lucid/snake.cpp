@@ -6,8 +6,6 @@ snake::snake(sf::FloatRect &rect, bool cheat):
 {
 	mSnakeTexture.loadFromFile("../../../LucidProject/Resources/Graphics/Animations/kladd.png");
 	mLewisTexture.loadFromFile("../../../LucidProject/Resources/Graphics/Animations/Lewis/Todocat2.png");
-	/*mSnakeTexture.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/kladd.png");
-	mLewisTexture.loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Lewis/Todocat2.png");*/
 	mRect.left += 155;
 	mRect.top += 205;
 	mRect.width = 720;
@@ -51,7 +49,7 @@ void snake::init()
 {
 	srand(time(NULL));
 	if (mCheat)
-		mTime = 1000/1000;
+		mTime = 1;
 	else
 	mTime = 1000/10;
 	mState = GAME;

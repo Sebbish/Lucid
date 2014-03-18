@@ -14,7 +14,7 @@ public:
 	sf::SoundBuffer* getSound(int ID);
 private:
 	sf::Texture *mTexture[100];
-	sf::SoundBuffer *mSoundBuffer[10];
+	sf::SoundBuffer *mSoundBuffer[30];
 };
 #endif
 

@@ -5,10 +5,11 @@
 #include "SaveLoad.h"
 #include "snake.h"
 #include "VoiceMail.h"
+#include <iostream>
 class Mobil
 {
 public:
-	Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voicemail);
+	Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voicemail,sf::Vector2u windowSize);
 	~Mobil();
 	void activate(sf::RenderWindow* view);
 	void deactivate();
@@ -29,6 +30,7 @@ public:
 private:
 	void save();
 	bool mVoiceMail;
+	bool mVoiceMail2;
 	void ActivateSnakes();
 	void ActivateSnakesAI();
 	sf::Texture* mTexture;
@@ -37,11 +39,15 @@ private:
 	sf::FloatRect mApp[10];
 	sf::Font f;
 	sf::RectangleShape rs;
+	sf::Text t;
 
 	bool mActivated;
 	int mActiveAppID;
 	snake *s;
 	VoiceMail *mVM;
+	sf::Vector2f firstMenuThing;
+	float textH;
+	float textY;
 
 };
 #endif

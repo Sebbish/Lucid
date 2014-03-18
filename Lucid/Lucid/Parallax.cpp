@@ -14,7 +14,9 @@ Parallax::Parallax(sf::FloatRect rect, sf::Texture* texture, int typeID, Camera*
 		mVariabel = 0.01f;
 	else
 		mVariabel = 0.25f;
-
+	r.setTexture(mTexture);
+	r.setTextureRect(sf::IntRect(0,0,mRect.width,mRect.height));
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 }
 
 Parallax::~Parallax(void)
@@ -40,14 +42,10 @@ int Parallax::getFunc(Entity* player)
 void Parallax::tick()
 {
 	mRect.left = mOriginX + (mCamera->getView()->getCenter().x - mOriginX) * mVariabel - mTexture->getSize().x / 2;
+	r.setPosition(mRect.left,mRect.top);
 }
 
 void Parallax::render(sf::RenderTexture* window)
 {
-	sf::RectangleShape r;
-	r.setTexture(mTexture);
-	r.setTextureRect(sf::IntRect(0,0,mRect.width,mRect.height));
-	r.setPosition(mRect.left,mRect.top);
-	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
 }

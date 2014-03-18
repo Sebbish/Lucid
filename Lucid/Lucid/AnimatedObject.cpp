@@ -64,6 +64,11 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 	mFadeIn = false;
 	mFadeOut = false;
 	mFadeSpeed = 20;
+	r.setTexture(mTexture);
+	r.setPosition(mRect.left,mRect.top);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+	r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+	r.setFillColor(sf::Color(255, 255, 255, mAlpha));
 }
 
 
@@ -141,21 +146,6 @@ void AnimatedObject::tick()
 				else
 					mAnimationTimer = mAnimationPicX + mAnimationSpeed;
 
-				/*if (mTypeID == 36)
-				{
-					if (mAnimationDirection == Forward)
-					{
-						mAnimationDirection = Backward;
-						mAnimationSpeed = -mAnimationSpeed;
-						mAnimationTimer = mAnimationPicX + mAnimationSpeed;
-					}
-					else
-					{
-						mAnimationDirection = Forward;
-						mAnimationTimer = 0.0f;
-						mAnimationSpeed = -mAnimationSpeed;
-					}
-				}*/
 			}
 			else
 			{
@@ -166,6 +156,8 @@ void AnimatedObject::tick()
 		{
 			mAnimationTimer += mAnimationSpeed;
 		}
+
+		r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
 	}
 
 	//Fade
@@ -173,6 +165,7 @@ void AnimatedObject::tick()
 		mAlpha -= mFadeSpeed;
 	else
 		mFadeOut = false;
+
 	if (mAlpha < 0)
 		mAlpha = 0;
 
@@ -182,18 +175,15 @@ void AnimatedObject::tick()
 		mFadeIn = false;
 	if (mAlpha > 255)
 		mAlpha = 255;
+
+	if(mFadeIn || mFadeOut)
+		r.setFillColor(sf::Color(255, 255, 255, mAlpha));
 }
 
 void AnimatedObject::render(sf::RenderTexture* window)
 {
 	if (mActive)
 	{
-		sf::RectangleShape r;
-		r.setTexture(mTexture);
-		r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
-		r.setPosition(mRect.left,mRect.top);
-		r.setSize(sf::Vector2f(mRect.width,mRect.height));
-		r.setFillColor(sf::Color(255, 255, 255, mAlpha));
 		window->draw(r);
 	}
 }

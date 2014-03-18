@@ -11,6 +11,7 @@ public:
 	sf::View* getView();
 	void setTarget(Entity *entity);
 	void zoom(bool zoom);
+	void moveCameraPosition(sf::Vector2f &position);
 private:
 	sf::View mView;
 	Entity* mFollowThisEntity;

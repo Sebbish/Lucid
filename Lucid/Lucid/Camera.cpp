@@ -37,6 +37,11 @@ Camera::~Camera(void)
 {
 }
 
+void Camera::moveCameraPosition(sf::Vector2f &position)
+{
+	mView.setCenter(mView.getCenter().x+position.x,mView.getCenter().y-position.y);
+}
+
 void Camera::tick()
 {
 	

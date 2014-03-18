@@ -20,6 +20,7 @@ private:
 	Camera* mCamera;
 	int mOriginX;
 	float mVariabel;
+	sf::RectangleShape r;
 };
 
 #endif

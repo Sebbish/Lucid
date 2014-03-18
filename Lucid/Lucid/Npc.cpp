@@ -4,7 +4,7 @@ Npc::Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,in
 	mRect(rect), mDialogueID(dialogueID), mTexture(texture), mTypeID(typeID),mAnimationPicX(animationPicX),mAnimationSpeed(0.08f),mCurrentAnimationPic(0),mDialog(dialog),mLookLeft(true),mChatting(false),mPlayer(player)
 {
 	mDialogFile = "Dialog"+std::to_string(mDialogueID);
-	mIdleSound.setBuffer(*idleSound);
+	//mIdleSound.setBuffer(*idleSound);
 	mIdleSound.setVolume(10);
 	mIdleSound.setMinDistance(768);
 	mIdleSound.setAttenuation(10);

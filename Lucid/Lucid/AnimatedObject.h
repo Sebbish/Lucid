@@ -48,6 +48,7 @@ private:
 	AnimationDirection mAnimationDirection;
 	bool mFadeIn, mFadeOut;
 	int mFadeSpeed;
+	sf::RectangleShape r;
 };
 
 #endif

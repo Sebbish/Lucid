@@ -107,6 +107,8 @@ void Map::addRoof(Roof* roof)
 void Map::setTexture(sf::Texture *texture)
 {
 	mTexture = texture;
+	r.setTexture(mTexture);
+	r.setSize(sf::Vector2f(mTexture->getSize().x,mTexture->getSize().y));
 }
 
 std::vector<Object*> Map::getHidingList()const
@@ -191,11 +193,20 @@ void Map::renderMap(sf::RenderTexture* window)
 		if (i->getLayer() == AnimatedObject::BehindBackground)
 			i->render(window);
 	}
-	sf::RectangleShape r;
-	r.setTexture(mTexture);
 	//r.setTextureRect(sf::IntRect(0,0,window->getSize().x,window->getSize().y));
-	r.setPosition(0,0);
-	r.setSize(sf::Vector2f(mTexture->getSize().x,mTexture->getSize().y));
+	if(mMapID == 7)
+	{
+		int temp = mTexture->getSize().x-2;
+		temp = -temp;
+		r.setPosition(temp,0);
+		window->draw(r);
+		r.setPosition(mTexture->getSize().x-2,0);
+		window->draw(r);
+		r.setPosition(0,0);
+	}else if (mMapID != 1)
+		r.setPosition(0,0);
+	else
+		r.setPosition(2088, 0);
 	window->draw(r);
 }
 

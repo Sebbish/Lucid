@@ -1,10 +1,11 @@
-﻿Build started 2014-03-12 13:04:45.
+﻿Build started 2014-03-14 15:50:53.
      1>Project "C:\Lucidaa\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(346,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Event.cpp
-         Event.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FilHanterare.cpp
+         FilHanterare.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Lucidaa\Lucid\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" /LIBPATH:"C:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Lucidaa\Lucid\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Lucidaa\Lucid\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\ambiance.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" /LIBPATH:"C:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\ambiance.obj
          Release\AnimatedObject.obj
          Release\Button.obj
          Release\Camera.obj
@@ -38,43 +39,18 @@
          Release\snake.obj
          Release\Source.obj
          Release\Trigger.obj
+         Release\Ventilation.obj
          Release\VoiceMail.obj
          Release\Wall.obj
          Generating code
-     1>p:\lucid\lucid\lucid\saveload.cpp(66): warning C4715: 'SaveLoad::load' : not all control paths return a value
-     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(109): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
-     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(103): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\effects.cpp(135): warning C4715: 'Effects::getShader' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\saveload.cpp(66): warning C4715: 'SaveLoad::load' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(112): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(106): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\effects.cpp(135): warning C4715: 'Effects::getShader' : not all control paths return a value
          Finished generating code
-     1>AnimatedObject.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'AnimatedObject.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Camera.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Camera.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Cube.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Cube.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Effects.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Effects.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Enemy.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Enemy.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Entity.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Entity.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Fade.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Fade.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Flashlight.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Flashlight.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Hiding.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Hiding.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Light.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Light.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>LightMain.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'LightMain.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>LightManager.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'LightManager.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>LightSource.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'LightSource.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Main.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Main.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Map.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Map.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Npc.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Npc.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Object.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Object.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Parallax.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Parallax.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Portal.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Portal.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>PortalFade.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'PortalFade.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Roof.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Roof.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Sanity.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Sanity.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>SaveLoad.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'SaveLoad.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Source.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Source.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Trigger.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Trigger.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Wall.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Wall.obj' or at 'C:\Lucidaa\Lucid\Release\vc110.pdb'; linking object as if no debug info
-         Lucid.vcxproj -> C:\Lucidaa\Lucid\Release\Lucid.exe
+         Lucid.vcxproj -> C:\Lucidaa\Lucid\Lucid\..\Release\Lucid.exe
      1>Done Building Project "C:\Lucidaa\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.71
+Time Elapsed 00:00:04.23

@@ -11,7 +11,7 @@ Event::~Event(void)
 {
 }
 
-int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton)
+int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Camera* camera)
 {
 	std::vector<Trigger*> triggers = map->getTriggerList();
 	std::vector<AnimatedObject*> animatedObjects = map->getAnimatedObjectList();
@@ -37,7 +37,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			triggers[3]->setActive(true);
 			animatedObjects[0]->fadeout();
 			animatedObjects[1]->fadein();
-			animatedObjects[3]->fadein();
+			animatedObjects[9]->fadein();
 		}
 		if (map->getTriggerList()[3]->getTrigged()) //Fade out andra bilden
 		{
@@ -45,7 +45,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			triggers[2]->setActive(true);
 			animatedObjects[0]->fadein();
 			animatedObjects[1]->fadeout();
-			animatedObjects[3]->fadeout();
+			animatedObjects[9]->fadeout();
 		}
 		break;
 
@@ -236,7 +236,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		}
 		if(triggers[2]->getTrigged())
 		{
-			mMobil->slutPåTest = true;
+			return 7;
 		}
 
 		if (mClock.getElapsedTime().asMilliseconds() > timer && bool1)
@@ -253,6 +253,13 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		else
 		{
 			QButton->willRender(false);
+		}
+		break;
+	case 7:
+		if(triggers[0]->getTrigged())
+		{
+			entityVector[0]->setPosition(sf::FloatRect(3609,0,256,256));
+			camera->moveCameraPosition(sf::Vector2f(-1948-103,0));
 		}
 		break;
 	}

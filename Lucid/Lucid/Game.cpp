@@ -6,6 +6,7 @@ Game::Game()
 	mAmbientRed = 0;
 	mAmbientGreen = 0;
 	mAmbientBlue = 0;
+
 	mCurrentMap = 0;
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	testLight = sf::Color(100, 100, 100, 255);
@@ -24,16 +25,16 @@ Game::Game()
 	//mEntities.push_back(new Player(1200,875-768/3,1024/4,768/3,6,mFH->getTexture(0),4));
 	//mWindow.setFramerateLimit(60);           
 	mWindow.setVerticalSyncEnabled(true);
-	lm = new db::LightManager(sf::Vector2i(1920, 1080));
-	mRenderTexture.create(1920, 1080);
+	lm = new db::LightManager(sf::Vector2i(mWindow.getSize().x,mWindow.getSize().y));
+	mRenderTexture.create(mWindow.getSize().x, mWindow.getSize().y);
 	mDialog = new Dialog(*mFH->getTexture(45));
 	mSL = new SaveLoad();
-	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42),0,mFH->getTexture(45));
+	mMobil = new Mobil(mFH->getTexture(41),mFH->getTexture(42),0,mFH->getTexture(45),mWindow.getSize());
 	mEButton = new Button(mFH->getTexture(53));
 	mEButton->willRender(true);
 	mQButton = new Button(mFH->getTexture(54));
 	mQButton->willRender(false);
-	loadMap("../Debug/map1.txt", 1);
+	loadMap("../Debug/map7.txt", 7);
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
@@ -66,14 +67,15 @@ Game::~Game()
 void Game::run()
 {
 	sf::Font MyFont;
-		//if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
-		//{
-		//	// Error...
-		//}
+
 		if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
 		{
 			// Error...
 		}
+		//if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+		//{
+		//	// Error...
+		//}
 		
 		//mSanityMeter.setString("Hello");
 		mSanityMeter.setFont(MyFont);
@@ -86,30 +88,23 @@ void Game::run()
     {
 		FPSclock.restart();
 		mWindow.clear(sf::Color(0, 0, 0));
-		if(!mMobil->slutPåTest)
-		{
 		if(mMobil->snakes)
 		{
 			mMobil->tick();
 			mMobil->render(mWindow);
 			mIsEscapePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
-		}else
+		}
+		else
 		{
-		input(mControlledEntity);
-		tick();
-	//	mWindow.setView(*camera->getView());
-		render();
-		//mousePositionFunc();
-        mWindow.display();
+			input(mControlledEntity);
+			tick();
+		//	mWindow.setView(*camera->getView());
+			render();
+			//mousePositionFunc();
+			mWindow.display();
 		}
-		}else{
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				mWindow.close();
-		}
-		while(FPSclock.getElapsedTime().asMicroseconds() < 16666)
+		while(FPSclock.getElapsedTime().asMicroseconds() < 1000000/60)
 		{}
-		
-		
     }
 }
 
@@ -135,7 +130,7 @@ void Game::input(Entity* entity)
 			{
 				entity->setMove(false);
 			}
-			/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
 			{
 				mEffects->setNextShader(0);
 			}
@@ -177,7 +172,7 @@ void Game::input(Entity* entity)
 				mEntities[0]->setMaxSpeed(24);
 			}
 			else
-				mEntities[0]->setMaxSpeed(6);*/
+				mEntities[0]->setMaxSpeed(6);
 
 
 		}
@@ -286,13 +281,8 @@ void Game::input(Entity* entity)
 		}
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed)
-	{
-		mMobil->deactivate();
-		mMenu = false;
-	}
 
-	if((sf::Keyboard::isKeyPressed(sf::Keyboard::M) && !mIsMPressed) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed))
+	if((sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed))
 	{
 		if(mMobil->getActivate())
 		{
@@ -412,7 +402,7 @@ void Game::tick()
 	collision();
 
 
-	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton);
+	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton,camera);
 
 	if (newMap != 0)
 	{
@@ -793,10 +783,7 @@ void Game::loadMap(std::string filename, int mapID)
 			dialogueID = dataVector[i + 5];
 			typeID = dataVector[i + 6];
 			animationPic = dataVector[i + 7];
-			if(typeID == 28)
-				mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID,animationPic,mDialog,mEntities[0],mFH->getSound(7)));
-			else if(typeID == 29)
-				mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID,animationPic,mDialog,mEntities[0],mFH->getSound(8)));
+			mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID,animationPic,mDialog,mEntities[0],mFH->getSound(typeID)));
 			i += 7;
 			break;
 		case 5://Hiding
