@@ -11,7 +11,7 @@ public:
 	Button(sf::Texture* texture);
 	~Button(void);
 	void render(sf::RenderWindow* window, Camera* camera);
-	void setObject(Object* object);
+	void setObject(Object* object, bool q);
 	void willRender(bool render);
 	bool getRender();
 private:
@@ -19,6 +19,7 @@ private:
 	sf::Texture* mTexture;
 	Object* mObject;
 	bool mWillRender;
+	bool mQ;
 };
 
 #endif

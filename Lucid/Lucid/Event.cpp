@@ -5,13 +5,14 @@ Event::Event(void)
 	bool1 = false;
 	bool2 = false;
 	bool3 = false;
+	bool4 = false;
 }
 
 Event::~Event(void)
 {
 }
 
-int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Entity* &controlledEntity, Camera* camera)
+int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Button* EButton, Entity* &controlledEntity, Camera* camera)
 {
 	std::vector<Trigger*> triggers = map->getTriggerList();
 	std::vector<AnimatedObject*> animatedObjects = map->getAnimatedObjectList();
@@ -127,6 +128,12 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		{
 			animatedObjects[5]->setActive(true);
 			animatedObjects[4]->setActive(false);
+		}
+
+		if (triggers[16]->getTrigged()) //Öppnar hissen
+		{
+			triggers[16]->setActive(false);
+			animatedObjects[6]->setAnimate(true);
 		}
 
 		break;
@@ -271,7 +278,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			walls[0]->setActive(false);
 			animatedObjects[0]->setActive(false);
 			bool1 = false;
-			entityVector[1]->setTargetX(100000);
+			bool3 = true;
 
 			//Tappar kontrollen
 			controlledEntity->controlled(false);
@@ -279,8 +286,17 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			camera->setTarget(controlledEntity);
 			controlledEntity->controlled(true);
 		}
+		if (bool3 == true)
+		{
+			entityVector[1]->setTargetX(100000);
+		}
 
-		if (bool2 && entityVector[0]->getHiding() == true)
+		if (controlledEntity == entityVector[1] && !bool4)
+		{
+			bool4 = true;
+		}
+
+		if (bool2 && !bool4 && entityVector[0]->getHiding() == true)
 		{
 			QButton->willRender(true);
 		}

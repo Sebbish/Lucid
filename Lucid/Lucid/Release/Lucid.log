@@ -1,42 +1,8 @@
-﻿Build started 2014-03-18 13:17:21.
+﻿Build started 2014-03-19 16:34:00.
      1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
-         Game.cpp
-     1>Game.cpp(16): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(17): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(28): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
-     1>Game.cpp(101): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>Game.cpp(378): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
-     1>Game.cpp(493): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>Game.cpp(497): warning C4305: '-=' : truncation from 'double' to 'float'
-     1>Game.cpp(509): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>Game.cpp(538): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(539): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(540): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(568): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>Game.cpp(582): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Game.cpp(790): warning C4018: '<' : signed/unsigned mismatch
-     1>Game.cpp(800): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(816): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(825): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(840): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(852): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(854): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(863): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(873): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(880): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(895): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(912): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(920): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(924): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(925): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(926): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(948): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Game.cpp(1019): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1020): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1033): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1033): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FilHanterare.cpp
+         FilHanterare.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"P:\Lucid\Lucid\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" /LIBPATH:"C:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"P:\Lucid\Lucid\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"P:\Lucid\Lucid\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\ambiance.obj
          Release\AnimatedObject.obj
@@ -77,13 +43,12 @@
          Release\Wall.obj
          Generating code
      1>p:\lucid\lucid\lucid\saveload.cpp(66): warning C4715: 'SaveLoad::load' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\filhanterare.cpp(117): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\filhanterare.cpp(111): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\effects.cpp(135): warning C4715: 'Effects::getShader' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\filhanterare.cpp(122): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\filhanterare.cpp(116): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
          Finished generating code
          Lucid.vcxproj -> P:\Lucid\Lucid\Release\Lucid.exe
      1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:14.52
+Time Elapsed 00:00:10.72
