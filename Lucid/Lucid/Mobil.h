@@ -26,6 +26,8 @@ public:
 	void VoiceMailRender(sf::RenderWindow *target);
 	bool slutPÂTest;
 	bool getMC;
+	void setCurrentLevel(int lvl);
+	int getCurrentLevel();
 private:
 	void save();
 	bool mVoiceMail;
@@ -41,6 +43,7 @@ private:
 	int mActiveAppID;
 	snake *s;
 	VoiceMail *mVM;
+	int mcurrentLevel;
 
 };
 #endif

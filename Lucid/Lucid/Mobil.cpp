@@ -7,6 +7,7 @@ Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voic
 
 	mRect.width = mTexture->getSize().x;
 	mRect.height = mTexture->getSize().y;
+	mcurrentLevel = 1;
 	snakes = false;
 	mVM = new VoiceMail(mapID,Voicemail);
 	mVoiceMail = false;
@@ -301,4 +302,14 @@ void Mobil::VoiceMailRender(sf::RenderWindow *target)
 		t.setPosition(target->getPosition().x+target->getSize().x/2.0,target->getPosition().y+target->getSize().y/2.0);
 		target->draw(t);
 	}
+}
+
+void Mobil::setCurrentLevel(int LVL)
+{
+	mcurrentLevel = LVL;
+}
+
+int Mobil::getCurrentLevel()
+{
+	return mcurrentLevel;
 }
