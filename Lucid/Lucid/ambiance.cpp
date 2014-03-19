@@ -6,150 +6,230 @@ using namespace std;
 //string path = "P:/Downloads/LucidProject/Resources/Sound/Ambiance/";
 string path = "../../../LucidProject/Resources/Sound/Ambiance/";
 
+	// VARIABLES A //
+	int ambAAFrameCounter = 0;
+	int ambAAVolume = 0;
+	int ambAADynamics = 0;
+	int ambAARandom = 0;
+	int ambAALength = 0;
+	float ambAAPitch = 0;
+	int ambAASecCounter = 0;
+	bool ambAAFadeOut = false;
+	int ambAAFadeSpeed = 0;
+	float ambAAIntToFloat = 0;
 
-// FILE LIST AA //
+	int ambABFrameCounter = 0;
+	int ambABVolume = 0;
+	int ambABDynamics = 0;
+	int ambABRandom = 0;
+	int ambABLength = 0;
+	float ambABPitch = 0;
+	int ambABSecCounter = 0;
+	bool ambABFadeOut = false;
+	int ambABFadeSpeed = 0;
+	float ambABIntToFloat = 0;
+
+	// VARIABLES B //
+	int ambBARandom = 0;
+	int ambBAVolume = 0;
+	bool ambBAUpDown = 0;
+	bool ambBAOffOn = 0;
+	int ambBAFrameCounter = 0;
+	int ambBAFadeInSpeed = 0;
+	int ambBAFadeOutSpeed = 0;
+	float ambBAPitch = 0;
+	float ambBAIntToFloat = 0;
+	int ambBATriggerLevel = 40;
+
+	int ambBBRandom = 0;
+	int ambBBVolume = 0;
+	bool ambBBUpDown = 0;
+	bool ambBBOffOn = 0;
+	int ambBBFrameCounter = 0;
+	int ambBBFadeInSpeed = 0;
+	int ambBBFadeOutSpeed = 0;
+	float ambBBPitch = 0;
+	float ambBBIntToFloat = 0;
+	int ambBBTriggerLevel = 50;
+
+	int ambBCRandom = 0;
+	int ambBCVolume = 0;
+	bool ambBCUpDown = 0;
+	bool ambBCOffOn = 0;
+	int ambBCFrameCounter = 0;
+	int ambBCFadeInSpeed = 0;
+	int ambBCFadeOutSpeed = 0;
+	float ambBCPitch = 0;
+	float ambBCIntToFloat = 0;
+	int ambBCTriggerLevel = 60;
+
+	// VARIABLES C //
+	int ambCATriggerLevel = 75;
+	int ambCARandom = 0;
+	float ambCAPitch = 0;
+
+	int ambCBTriggerLevel = 85;
+	int ambCBRandom = 0;
+	float ambCBPitch = 0;
+
+	int ambCCTriggerLevel = 95;
+	int ambCCRandom = 0;
+	float ambCCPitch = 0;
+
+	// VARIABLES D //
+	int ambDCounter = 0;
+	bool ambDBeforeAfter = 0;
+	int ambDTriggerLevel = 90;
+	int ambDTimer = 0;
+
+	// FILE LIST A //
 	string ambAAFile[10] = {
 	"ambAA01.ogg", "ambAA02.ogg", "ambAA03.ogg", "ambAA04.ogg", "ambAA05.ogg",
-	"ambAA06.ogg", "ambAA07.ogg", "ambAA08.ogg", "ambAA09.ogg", "ambAA10.ogg",
-	//"ambAA11.ogg", "ambAA12.ogg", "ambAA13.ogg", "ambAA14.ogg", "ambAA15.ogg",
-	//"ambAA16.ogg", "ambAA17.ogg", "ambAA18.ogg", "ambAA19.ogg", "ambAA20.ogg",
-	//"ambAA21.ogg", "ambAA22.ogg", "ambAA23.ogg", "ambAA24.ogg", "ambAA25.ogg",
-	//"ambAA26.ogg", "ambAA27.ogg", "ambAA28.ogg", "ambAA29.ogg", "ambAA30.ogg",
-	//"ambAA31.ogg", "ambAA32.ogg", "ambAA33.ogg", "ambAA34.ogg", "ambAA35.ogg",
-	//"ambAA36.ogg", "ambAA37.ogg", "ambAA38.ogg", "ambAA39.ogg", "ambAA40.ogg",
-	//"ambAA41.ogg", "ambAA42.ogg", "ambAA43.ogg", "ambAA44.ogg", "ambAA45.ogg",
-	//"ambAA46.ogg", "ambAA47.ogg", "ambAA48.ogg", "ambAA49.ogg", "ambAA50.ogg"
+	"ambAA06.ogg", "ambAA07.ogg", "ambAA08.ogg", "ambAA09.ogg", "ambAA10.ogg"
 	};
 
-	// FILE LIST AB //
 	string ambABFile[10] = {
 	"ambAB01.ogg", "ambAB02.ogg", "ambAB03.ogg", "ambAB04.ogg", "ambAB05.ogg",
 	"ambAB06.ogg", "ambAB07.ogg", "ambAB08.ogg", "ambAB09.ogg", "ambAB10.ogg",
-	//"ambAB11.ogg", "ambAB12.ogg", "ambAB13.ogg", "ambAB14.ogg", "ambAB15.ogg",
-	//"ambAB16.ogg", "ambAB17.ogg", "ambAB18.ogg", "ambAB19.ogg", "ambAB20.ogg",
-	//"ambAB21.ogg", "ambAB22.ogg", "ambAB23.ogg", "ambAB24.ogg", "ambAB25.ogg",
-	//"ambAB26.ogg", "ambAB27.ogg", "ambAB28.ogg", "ambAB29.ogg", "ambAB30.ogg",
-	//"ambAB31.ogg", "ambAB32.ogg", "ambAB33.ogg", "ambAB34.ogg", "ambAB35.ogg",
-	//"ambAB36.ogg", "ambAB37.ogg", "ambAB38.ogg", "ambAB39.ogg", "ambAB40.ogg",
-	//"ambAB41.ogg", "ambAB42.ogg", "ambAB43.ogg", "ambAB44.ogg", "ambAB45.ogg",
-	//"ambAB46.ogg", "ambAB47.ogg", "ambAB48.ogg", "ambAB49.ogg", "ambAB50.ogg"
 	};
 
-	// FILE LIST BA //
-	string ambBAFile[7] = {
-	"ambBA01.ogg", "ambBA02.ogg", "ambBA03.ogg", "ambBA04.ogg", "ambBA05.ogg",
-	"ambBA06.ogg", "ambBA07.ogg",// "ambBA08.ogg", "ambBA09.ogg", "ambBA10.ogg",
-	//"ambBA11.ogg", "ambBA12.ogg", "ambBA13.ogg", "ambBA14.ogg", "ambBA15.ogg",
-	//"ambBA16.ogg", "ambBA17.ogg", "ambBA18.ogg", "ambBA19.ogg", "ambBA20.ogg",
-	//"ambBA21.ogg", "ambBA22.ogg", "ambBA23.ogg", "ambBA24.ogg", "ambBA25.ogg",
-	//"ambBA26.ogg", "ambBA27.ogg", "ambBA28.ogg", "ambBA29.ogg", "ambBA30.ogg",
-	//"ambBA31.ogg", "ambBA32.ogg", "ambBA33.ogg", "ambBA34.ogg", "ambBA35.ogg",
-	//"ambBA36.ogg", "ambBA37.ogg", "ambBA38.ogg", "ambBA39.ogg", "ambBA40.ogg",
-	//"ambBA41.ogg", "ambBA42.ogg", "ambBA43.ogg", "ambBA44.ogg", "ambBA45.ogg",
-	//"ambBA46.ogg", "ambBA47.ogg", "ambBA48.ogg", "ambBA49.ogg", "ambBA50.ogg"
+	// FILE LIST B //
+	string ambBAFile[2] = {
+	"ambBA01.ogg", "ambBA02.ogg"
 	};
 
-	// FILE LIST BA //
-	string ambBBFile[9] = {
-	"ambBB01.ogg", "ambBB02.ogg", "ambBB03.ogg", "ambBB04.ogg", "ambBB05.ogg",
-	"ambBB06.ogg", "ambBB07.ogg", "ambBB08.ogg", "ambBB09.ogg",// "ambBB10.ogg",
-	//"ambBB11.ogg", "ambBB12.ogg", "ambBB13.ogg", "ambBB14.ogg", "ambBB15.ogg",
-	//"ambBB16.ogg", "ambBB17.ogg", "ambBB18.ogg", "ambBB19.ogg", "ambBB20.ogg",
-	//"ambBB21.ogg", "ambBB22.ogg", "ambBB23.ogg", "ambBB24.ogg", "ambBB25.ogg",
-	//"ambBB26.ogg", "ambBB27.ogg", "ambBB28.ogg", "ambBB29.ogg", "ambBB30.ogg",
-	//"ambBB31.ogg", "ambBB32.ogg", "ambBB33.ogg", "ambBB34.ogg", "ambBB35.ogg",
-	//"ambBB36.ogg", "ambBB37.ogg", "ambBB38.ogg", "ambBB39.ogg", "ambBB40.ogg",
-	//"ambBB41.ogg", "ambBB42.ogg", "ambBB43.ogg", "ambBB44.ogg", "ambBB45.ogg",
-	//"ambBB46.ogg", "ambBB47.ogg", "ambBB48.ogg", "ambBB49.ogg", "ambBB50.ogg"
+	string ambBBFile[2] = {
+	"ambBA01.ogg", "ambBA02.ogg"
 	};
+
+	string ambBCFile[2] = {
+	"ambBA01.ogg", "ambBA02.ogg"
+	};
+
+	// FILE LIST C //
+	string ambCAFile[2] = {
+	"ambCA01.ogg", "ambCA02.ogg"
+	};
+
+	string ambCBFile[2] = {
+	"ambCB01.ogg", "ambCB02.ogg"
+	};
+
+	string ambCCFile[2] = {
+	"ambCC01.ogg", "ambCC02.ogg"
+	};
+
+	// VOLUME TABLES //
+	int ambDCVolumeTable[12] = {
+	80, 70, 60, 50, 40, 30,
+	20, 10, 5, 3, 2, 1
+	};
+
+	int ambDDVolumeTable[12] = {
+	3, 5, 7, 10, 13, 15,
+	17, 20, 15, 10, 7, 5
+	};
+
+#define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
+
+	sf::Music ALLambAA[10];
+	sf::Music ALLambAB[10];
+
+	sf::Music ALLambBA[2];
+	sf::Music ALLambBB[2];
+	sf::Music ALLambBC[2];
+
+	sf::Music ALLambCA[2];
+	sf::Music ALLambCB[2];
+	sf::Music ALLambCC[2];
+
+	sf::Music ambDD;
+	sf::Music ambDC;
+	sf::Music ambDB;
+	sf::Music ambDA;
 
 ambiance::ambiance()
 {
+// INSTANCES D //
 
-	for(int i = 0; i < 10; i++)
-		mAmbAA[i].openFromFile(path+ambAAFile[i]);
+	ambDA.setVolume(0);
+	ambDA.setLoop(false); 
 
-	for(int i = 0; i < 10; i++)
-		mAmbAB[i].openFromFile(path+ambABFile[i]);
+	ambDB.setVolume(100);
+	ambDB.setLoop(false); 
 
-	for(int i = 0; i < 7; i++)
-		mAmbBA[i].openFromFile(path+ambBAFile[i]);
+	ambDC.setVolume(100);
+	ambDC.setLoop(false);
 
-	for(int i = 0; i < 9; i++)
-		mAmbBB[i].openFromFile(path+ambBBFile[i]);
+	ambDD.setVolume(100);
+	ambDD.setLoop(false);
 
-		// GLOBAL VARIABLES //
-	frameCounter = 0; // <----------------------------------------------------- LINK TO THE GAME? :)
-	ambMaxVolume = 50; // <--------------------------------------------------- LINK TO THE GAME
-	ambMadness = 100; // <----------------------------------------------------- LINK TO THE GAME
-	//int frameRate = 60; ////////// <<<<<<<<<<< LINK TO FADESPEED?
-	
-	// VARIABLES AA //
-	ambAAVolume = 0;
-	ambAADynamics = 0;
-	ambAARandom = 0;
-	ambAALength = 0;
-	ambAAPitch = 0;
-	ambAASecCounter = 0;
-	ambAAFadeOut = false;
-	ambAAFadeSpeed = 0;
-	ambAAIntToFloat = 0;
+	ambDA.openFromFile("ambDA01.ogg");
+	ambDB.openFromFile("ambDB01.ogg");
+	ambDC.openFromFile("ambDC01.ogg");
+	ambDD.openFromFile("ambDD01.ogg");
 
-	// VARIABLES AB //
-	ambABVolume = 0;
-	ambABDynamics = 0;
-	ambABRandom = 0;
-	ambABLength = 0;
-	ambABPitch = 0;
-	ambABSecCounter = 0;
-	ambABFadeOut = false;
-	ambABFadeSpeed = 0;
-	ambABIntToFloat = 0;
+	// LOAD ALL FILES (AKA RONNYHAX) ////////////////////////////////////////////
 
-	// VARIABLES BA //
-	ambBAVolume = 0;
-	ambBADynamics = 0;
-	ambBARandom = 0;
-	ambBALength = 0;
-	ambBAPitch = 0;
-	ambBASecCounter = 0;
-	ambBAFadeOut = false;
-	ambBAFadeSpeed = 0;
-	ambBAIntToFloat = 0;
 
-	// VARIABLES BB //
-	ambBBVolume = 0;
-	ambBBDynamics = 0;
-	ambBBRandom = 0;
-	ambBBLength = 0;
-	ambBBPitch = 0;
-	ambBBSecCounter = 0;
-	ambBBFadeOut = false;
-	ambBBFadeSpeed = 0;
-	ambBBIntToFloat = 0;
+	for(int i = 0; i < ARRAY_SIZE(ambAAFile); i++)
+	{
+		ALLambAA[i].openFromFile(path+ambAAFile[i]);
+		ALLambAA[i].setVolume(0);
+		ALLambAA[i].setLoop(true); 
+	}
 
-	
+	for(int i = 0; i < ARRAY_SIZE(ambABFile); i++)
+	{
+		ALLambAB[i].openFromFile(path+ambABFile[i]);
+		ALLambAB[i].setVolume(0);
+		ALLambAB[i].setLoop(true); 
+	}
 
-	// MUSIC INSTANCES AA //
-	ambAA.setVolume(0);
-	ambAA.setLoop(true); 
+	for(int i = 0; i < ARRAY_SIZE(ambBAFile); i++)
+	{
+		ALLambBA[i].openFromFile(path+ambBAFile[i]);
+		ALLambBA[i].setVolume(0);
+		ALLambBA[i].setLoop(true); 
+	}
 
-	// MUSIC INSTANCE AB //
-	ambAB.setVolume(0);
-	ambAB.setLoop(true); 
+	for(int i = 0; i < ARRAY_SIZE(ambBBFile); i++)
+	{
+		ALLambBB[i].openFromFile(path+ambBBFile[i]);
+		ALLambBB[i].setVolume(0);
+		ALLambBB[i].setLoop(true); 
+	}
 
-	// MUSIC INSTANCE BA //
-	ambBA.setVolume(0);
-	ambBA.setLoop(true); 
+	for(int i = 0; i < ARRAY_SIZE(ambBCFile); i++)
+	{
+		ALLambBC[i].openFromFile(path+ambBCFile[i]);
+		ALLambBC[i].setVolume(0);
+		ALLambBC[i].setLoop(true); 
+	}
 
-	// MUSIC INSTANCE BB //
-	ambBB.setVolume(0);
-	ambBB.setLoop(true); 
+	for(int i = 0; i < ARRAY_SIZE(ambCAFile); i++)
+	{
+		ALLambCA[i].openFromFile(path+ambCAFile[i]);
+		ALLambCA[i].setVolume(0);
+		ALLambCA[i].setLoop(true); 
+	}
+
+	for(int i = 0; i < ARRAY_SIZE(ambCBFile); i++)
+	{
+		ALLambCB[i].openFromFile(path+ambCBFile[i]);
+		ALLambCB[i].setVolume(0);
+		ALLambCB[i].setLoop(true); 
+	}
+
+	for(int i = 0; i < ARRAY_SIZE(ambCCFile); i++)
+	{
+		ALLambCC[i].openFromFile(path+ambCCFile[i]);
+		ALLambCC[i].setVolume(0);
+		ALLambCC[i].setLoop(true); 
+	}
 	// RAND TIME & ARRAYLENGTH DEFINITION //
 		srand (time(0));	
 }
-
-#define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 
 ambiance::~ambiance()
 {
@@ -158,321 +238,617 @@ ambiance::~ambiance()
 void ambiance::tick(int madness)
 {
 	ambMadness = 100-madness;
-	frameCounter++;
+	ambMaxVolume = 100;
 
-		if (frameCounter>60)
+	// SO THE ENGINE BEGINS //
+
+		// IF NOT PLAYING AA ///////////////////////////////////////////////////
+		
+		if (ALLambAA[ambAARandom].getStatus() == 0)
 		{
-			frameCounter = 0;
+			// FILE SELECTOR //
+			ambAARandom = rand()% ARRAY_SIZE(ambAAFile);
+			//ALLambAA[ambAARandom].openFromFile(ambAAFile[ambAARandom]);
 
-			// COUNTERS ABCD //
-			ambAASecCounter++;
-			ambABSecCounter++;
-			ambBASecCounter++;
-			ambBBSecCounter++;
+			// VOLUME RESET //
+			ALLambAA[ambAARandom].setVolume(0);
+			ambAAVolume = 0;
+			ambAADynamics = 100000;
 
-			// IF NOT PLAYING AA ///////////////////////////////////////////////////
-			
-			if (ambAA.getStatus() == 0)
-			{
-				// FILE SELECTOR //
-				ambAARandom = rand()% ARRAY_SIZE(ambAAFile);
-				//ambAA.openFromFile(path+ambAAFile[ambAARandom]);
-				//ambAA = mAmbAA[ambAARandom];
+			// LENGTH //
+			ambAALength = rand() % 60 + 40;
+			ambAASecCounter = 0;
 
-				// VOLUME RESET //
-				mAmbAA[ambAARandom].setVolume(0);
-				ambAAVolume = 0;
-				ambAADynamics = 100000; //TRIGGER
+			// FADE //
+			ambAAFadeSpeed = rand()% 2 + 3;
+			ambAAFadeOut = false;
 
-				// LENGTH //
-				ambAALength = rand() % 30 + 30;
-				ambAASecCounter = 0;
-
-				// FADE //
-				ambAAFadeSpeed = rand()% 2 + 3;
-				ambAAFadeOut = false;
-
-				// PITCH //
-				ambAAPitch = rand() % 100;
-				ambAAPitch = ambAAPitch/200+0.75;
-				mAmbAA[ambAARandom].setPitch(ambAAPitch);
+			// PITCH //
+			ambAAPitch = rand() % 100;
+			ambAAPitch = ambAAPitch/200+0.75;
+			ALLambAA[ambAARandom].setPitch(ambAAPitch);
 				
-				// PLAY //
-				mAmbAA[ambAARandom].play();
-			}
-
-			// IF NOT PLAYING AB /////////////////////////////////////////////////////////
-			if (ambAB.getStatus() == 0)
-			{
-				// FILE SELECTOR //
-				ambABRandom = rand()% ARRAY_SIZE(ambABFile);
-				//ambAB.openFromFile(path+ambABFile[ambABRandom]);
-				//ambAB = mAmbAB[ambABRandom];
-
-				// VOLUME RESET //
-				mAmbAB[ambABRandom].setVolume(0);
-				ambABVolume = 0;
-				ambABDynamics = 100000; //TRIGGER
-
-				// LENGTH //
-				ambABLength = rand() % 30 + 30;
-				ambABSecCounter = 0;
-
-				// FADE //
-				ambABFadeSpeed = rand()% 2 + 3;
-				ambABFadeOut = false;
-
-				// PITCH //
-				ambABPitch = rand() % 100;
-				ambABPitch = ambABPitch/200+0.75;
-				mAmbAB[ambABRandom].setPitch(ambABPitch);
-				
-				// PLAY //
-				mAmbAB[ambABRandom].play();
-			}
-			
-			// IF NOT PLAYING BA /////////////////////////////////////////////////////////
-
-			if (ambBA.getStatus() == 0 && ambMadness > 50 && rand() % 20 == 0 && ambBASecCounter > rand()%20+20)
-			{
-				// FILE SELECTOR //
-				ambBARandom = rand()% ARRAY_SIZE(ambBAFile);
-				//ambBA.openFromFile(path+ambBAFile[ambBARandom]);
-				//ambBA = mAmbBA[ambBARandom];
-
-				// VOLUME RESET //
-				mAmbBA[ambBARandom].setVolume(0);
-				ambBAVolume = 0;
-				ambBADynamics = 100000; //TRIGGER
-
-				// LENGTH //
-				ambBALength = rand() % 20 + 20;
-				ambBASecCounter = 0;
-
-				// FADE //
-				ambBAFadeSpeed = rand()% 3 + 3;
-				ambBAFadeOut = false;
-
-				// PITCH //
-				ambBAPitch = rand() % 100;
-				ambBAPitch = ambBAPitch/200+0.75;
-				mAmbBA[ambBARandom].setPitch(ambBAPitch);
-
-				// PLAY //
-				mAmbBA[ambBARandom].play();
-
-				// BB /////////////////////////////////////////////////////////
-
-				// FILE SELECTOR //
-				ambBBRandom = rand()% ARRAY_SIZE(ambBBFile);
-				//ambBB.openFromFile(path+ambBBFile[ambBBRandom]);
-				//ambBB = mAmbBB[ambBBRandom];
-
-				// VOLUME RESET //
-				mAmbBB[ambBBRandom].setVolume(0);
-				ambBBVolume = 0;
-				ambBBDynamics = 100000; //TRIGGER
-
-				// LENGTH //
-				ambBBLength = ambAALength - 5 - rand()% 5;
-				ambBBSecCounter = 0;
-
-				// FADE //
-				ambBBFadeSpeed = ambBAFadeSpeed * 0.75;
-				ambBBFadeOut = false;
-
-				// PITCH //
-				ambBBPitch = rand() % 100;
-				ambBBPitch = ambBBPitch/200+0.75;
-				mAmbBB[ambBBRandom].setPitch(ambBBPitch);
-				
-				// PLAY //
-				mAmbBB[ambBBRandom].play();
-			}
+			// PLAY //
+			ALLambAA[ambAARandom].play();
 		}
 
+		// IF NOT PLAYING AB /////////////////////////////////////////////////////////
+
+		if (ALLambAB[ambABRandom].getStatus() == 0)
+		{
+			// FILE SELECTOR //
+			ambABRandom = rand()% ARRAY_SIZE(ambABFile);
+			//ALLambAB[ambABRandom].openFromFile(ambABFile[ambABRandom]);
+
+			// VOLUME RESET //
+			ALLambAB[ambABRandom].setVolume(0);
+			ambABVolume = 0;
+			ambABDynamics = 100000;
+
+			// LENGTH //
+			ambABLength = rand() % 30 + 30;
+			ambABSecCounter = 0;
+
+			// FADE //
+			ambABFadeSpeed = rand()% 2 + 3;
+			ambABFadeOut = false;
+
+			// PITCH //
+			ambABPitch = rand() % 100;
+			ambABPitch = ambABPitch/200+0.75;
+			ALLambAB[ambABRandom].setPitch(ambABPitch);
+				
+			// PLAY //
+			ALLambAB[ambABRandom].play();
+		}
+		
 		// FADE AA ////////////////////////////////////////////////////////////////
 		
-		if (ambAAVolume + ambAAFadeSpeed < ambAADynamics && ambAAFadeOut == false)
+		// COUNTERS //
+
+		ambAAFrameCounter++;
+
+		if (ambAAFrameCounter>60)
 		{
-			ambAAVolume = ambAAVolume + ambAAFadeSpeed;
-
-			ambAAIntToFloat = ambAAVolume;
-			ambAAIntToFloat = ambAAIntToFloat/100*(ambMaxVolume/100);
-			mAmbAA[ambAARandom].setVolume(ambAAIntToFloat);
-
-			ambAADynamics = 10000*(ambMadness*0.25/100) + 2500;
+			ambAAFrameCounter = 0;
+			ambAASecCounter++;
 		}
 
-		else if (ambAAVolume > ambAADynamics && ambAAFadeOut == false)
+		// FADE //
+
+		if (ALLambAB[ambABRandom].getStatus() == 2)
 		{
-			ambAAVolume = ambAAVolume - ambAAFadeSpeed;
-
-			ambAAIntToFloat = ambAAVolume;
-			ambAAIntToFloat = ambAAIntToFloat/100*(ambMaxVolume/100);
-			mAmbAA[ambAARandom].setVolume(ambAAIntToFloat);
-
 			ambAADynamics = 10000*(ambMadness*0.25/100) + 2500;
-		}
-		if (ambAASecCounter > ambAALength && ambABFadeOut == false)
-		{
-			ambAAFadeOut = true;
 
-			if (ambAAVolume > ambAAFadeSpeed)
+			// FADE VOLUME UP //
+
+			if (ambAAVolume + ambAAFadeSpeed < ambAADynamics && ambAAFadeOut == false)
 			{
-				ambAAVolume = ambAAVolume - ambAAFadeSpeed;
+				ambAAVolume = ambAAVolume + ambAAFadeSpeed;
 
 				ambAAIntToFloat = ambAAVolume;
-				ambAAIntToFloat = ambAAIntToFloat/100*(ambMaxVolume/100);
-				mAmbAA[ambAARandom].setVolume(ambAAIntToFloat);
+				ALLambAA[ambAARandom].setVolume(ambAAIntToFloat/100*(ambMaxVolume/100));
 			}
 
-			if (ambAAVolume <= ambAAFadeSpeed*2)
+			// FADE VOLUME DOWN //
+
+			else if (ambAAVolume > ambAADynamics && ambAAFadeOut == false)
 			{
-				ambAAVolume = 0;
-				ambAAFadeOut = false;
-				mAmbAA[ambAARandom].setVolume(0);
-				mAmbAA[ambAARandom].stop();
+				ambAAVolume = ambAAVolume - ambAAFadeSpeed*2;
+
+				ambAAIntToFloat = ambAAVolume;
+				ALLambAA[ambAARandom].setVolume(ambAAIntToFloat/100*(ambMaxVolume/100));
+			}
+
+			// FADE OUT //
+
+			if (ambAASecCounter > ambAALength && ambABFadeOut == false)
+			{
+				ambAAFadeOut = true;
+
+				if (ambAAVolume > ambAAFadeSpeed)
+				{
+					ambAAVolume = ambAAVolume - ambAAFadeSpeed;
+
+					ambAAIntToFloat = ambAAVolume;
+					ALLambAA[ambAARandom].setVolume(ambAAIntToFloat/100*(ambMaxVolume/100));
+				}
+
+				// STOP //
+
+				if (ambAAVolume <= ambAAFadeSpeed*2)
+				{
+					ambAAVolume = 0;
+					ambAAFadeOut = false;
+					ALLambAA[ambAARandom].setVolume(0);
+					ALLambAA[ambAARandom].stop();
+				}
 			}
 		}
 
 		// FADE AB ////////////////////////////////////////////////////////////////
 		
-		if (ambABVolume + ambABFadeSpeed < ambABDynamics && ambABFadeOut == false)
+		// COUNTERS //
+
+		ambABFrameCounter++;
+
+		if (ambABFrameCounter>60)
 		{
-			ambABVolume = ambABVolume + ambABFadeSpeed;
-
-			ambABIntToFloat = ambABVolume;
-			ambABIntToFloat = ambABIntToFloat/100*(ambMaxVolume/100);
-			mAmbAB[ambABRandom].setVolume(ambABIntToFloat);
-
-			ambABDynamics = 10000*(ambMadness*0.4/100) + 1000;
+			ambABFrameCounter = 0;
+			ambABSecCounter++;
 		}
 
-		else if (ambABVolume > ambABDynamics && ambABFadeOut == false)
+		// FADE //
+
+		if (ALLambAB[ambABRandom].getStatus() == 2)
 		{
-			ambABVolume = ambABVolume - ambABFadeSpeed;
-
-			ambABIntToFloat = ambABVolume;
-			ambABIntToFloat = ambABIntToFloat/100*(ambMaxVolume/100);
-			mAmbAB[ambABRandom].setVolume(ambABIntToFloat);
-
 			ambABDynamics = 10000*(ambMadness*0.4/100) + 1000;
-		}
 
-		if (ambABSecCounter > ambABLength && ambAAFadeOut == false)
-		{
-			ambABFadeOut = true;
+			// FADE VOLUME UP //
 
-			if (ambABVolume > ambABFadeSpeed)
+			if (ambABVolume + ambABFadeSpeed < ambABDynamics && ambABFadeOut == false)
 			{
-				ambABVolume = ambABVolume - ambABFadeSpeed;
+				ambABVolume = ambABVolume + ambABFadeSpeed;
 
 				ambABIntToFloat = ambABVolume;
-				ambABIntToFloat = ambABIntToFloat/100*(ambMaxVolume/100);
-				mAmbAB[ambABRandom].setVolume(ambABIntToFloat);
+				ALLambAB[ambABRandom].setVolume(ambABIntToFloat/100*(ambMaxVolume/100));
 			}
 
-			if (ambABVolume <= ambABFadeSpeed*2)
+			// FADE VOLUME DOWN //
+
+			else if (ambABVolume > ambABDynamics && ambABFadeOut == false)
 			{
-				ambABVolume = 0;
-				ambABFadeOut = false;
-				mAmbAB[ambABRandom].setVolume(0);
-				mAmbAB[ambABRandom].stop();
+				ambABVolume = ambABVolume - ambABFadeSpeed*2;
+
+				ambABIntToFloat = ambABVolume;
+				ALLambAB[ambABRandom].setVolume(ambABIntToFloat/100*(ambMaxVolume/100));
+			}
+
+			// FADE OUT //
+
+			if (ambABSecCounter > ambABLength && ambAAFadeOut == false)
+			{
+				ambABFadeOut = true;
+
+				if (ambABVolume > ambABFadeSpeed)
+				{
+					ambABVolume = ambABVolume - ambABFadeSpeed;
+
+					ambABIntToFloat = ambABVolume;
+					ALLambAB[ambABRandom].setVolume(ambABIntToFloat/100*(ambMaxVolume/100));
+				}
+
+				// STOP //
+
+				if (ambABVolume <= ambABFadeSpeed*2)
+				{
+					ambABVolume = 0;
+					ambABFadeOut = false;
+					ALLambAB[ambABRandom].setVolume(0);
+					ALLambAB[ambABRandom].stop();
+				}
 			}
 		}
 
+		// IF NOT PLAYING BA /////////////////////////////////////////////////////////
+		
+		if (ALLambBA[ambBARandom].getStatus() == 0 && ambMadness > ambBATriggerLevel)
+		{
+			// FILE SELECTOR //
+			ambBARandom = rand()% ARRAY_SIZE(ambBAFile);
+			//ALLambBA[ambBARandom].openFromFile(ambBAFile[ambBARandom]);
+
+			// RESETS //
+			ALLambBA[ambBARandom].setVolume(0);
+			ambBAUpDown = 0;
+			ambBAOffOn = 0;
+
+			// PLAY //
+			ALLambBA[ambBARandom].play();
+		}
+
+		// IF NOT PLAYING BB /////////////////////////////////////////////////////////
+		
+		if (ALLambBB[ambBBRandom].getStatus() == 0 && ambMadness > ambBBTriggerLevel)
+		{
+			// FILE SELECTOR //
+			ambBBRandom = rand()% ARRAY_SIZE(ambBBFile);
+			//ALLambBB[ambBBRandom].openFromFile(ambBBFile[ambBBRandom]);
+
+			// RESETS //
+			ALLambBB[ambBBRandom].setVolume(0);
+			ambBBUpDown = 0;
+			ambBBOffOn = 0;
+
+			// PLAY //
+			ALLambBB[ambBBRandom].play();
+		}
+
+		// IF NOT PLAYING BC /////////////////////////////////////////////////////////
+		
+		if (ALLambBC[ambBCRandom].getStatus() == 0 && ambMadness > ambBCTriggerLevel)
+		{
+			// FILE SELECTOR //
+			ambBCRandom = rand()% ARRAY_SIZE(ambBCFile);
+			//ALLambBC[ambBCRandom].openFromFile(ambBCFile[ambBCRandom]);
+
+			// RESETS //
+			ALLambBC[ambBCRandom].setVolume(0);
+			ambBCUpDown = 0;
+			ambBCOffOn = 0;
+
+			// PLAY //
+			ALLambBC[ambBCRandom].play();
+		}
+		
 		// FADE BA ////////////////////////////////////////////////////////////////
 		
-		if (ambBAVolume + ambBAFadeSpeed < ambBADynamics && ambBAFadeOut == false)
+		if (ALLambBA[ambBARandom].getStatus() == 2)
 		{
-			ambBAVolume = ambBAVolume + ambBAFadeSpeed;
+			// TRIGGER //
 
-			ambBAIntToFloat = ambBAVolume;
-			ambBAIntToFloat = ambBAIntToFloat/100*(ambMaxVolume/100);
-			mAmbBA[ambBARandom].setVolume(ambBAIntToFloat);
+			ambBAFrameCounter++;
 
-			ambBADynamics = 10000*((ambMadness-50)*0.60/100) + 500;
-		}
-
-		else if (ambBAVolume >  ambBADynamics && ambBAFadeOut == false)
-		{
-			ambBAVolume = ambBAVolume - ambBAFadeSpeed;
-
-			ambBAIntToFloat = ambBAVolume;
-			ambBAIntToFloat = ambBAIntToFloat/100*(ambMaxVolume/100);
-			mAmbBA[ambBARandom].setVolume(ambBAIntToFloat);
-
-			ambBADynamics = 10000*((ambMadness-50)*0.50/100) + 1000;
-		}
-
-		if (ambBASecCounter > ambBALength)
-		{
-			ambBAFadeOut = true;
-
-			if (ambBAVolume > ambBAFadeSpeed)
+			if (ambBAOffOn == 0 && ambBAFrameCounter-300 + (ambMadness-ambBATriggerLevel)*7 + rand()% 200 > 500)
 			{
-				ambBAVolume = ambBAVolume - ambBAFadeSpeed;
+				ambBAOffOn = 1;
 
-				ambBAIntToFloat = ambBAVolume;
-				ambBAIntToFloat = ambBAIntToFloat/100*(ambMaxVolume/100);
-				mAmbBA[ambBARandom].setVolume(ambBAIntToFloat);
+				ambBAFadeInSpeed = 300 + (ambMadness-ambBATriggerLevel)*5 + rand()% 200;
+				ambBAFadeOutSpeed = 20 + (ambMadness-ambBATriggerLevel)/2 + rand()% 30;
+
+				ambBAPitch = rand() % 100;
+				ambBAPitch = ambBAPitch/200+0.75;
+				ALLambBA[ambBARandom].setPitch(ambBAPitch*(ambMadness/200)+0.5);
 			}
 
-			if (ambBAVolume <= ambBAFadeSpeed*2)
+			// FADE IN //
+
+			if (ambBAOffOn == 1 && ambBAUpDown == 0)
 			{
+				ambBAVolume = ambBAVolume + ambBAFadeInSpeed;
+
+				ambBAIntToFloat = ambBAVolume;
+				ambBAIntToFloat = ambBAIntToFloat/100;
+				ALLambBA[ambBARandom].setVolume(100*(ambBAIntToFloat*ambBAIntToFloat/100*((ambMadness-40)/100)/100)*(ambMaxVolume/100));
+
+				if (ambBAVolume > 10000)
+				{
+					ambBAUpDown = 1;
+				}
+			}
+
+			// FADE OUT //
+
+			else if (ambBAUpDown == 1)
+			{
+				ambBAVolume = ambBAVolume - ambBAFadeOutSpeed;
+
+				ambBAIntToFloat = ambBAVolume;
+				ambBAIntToFloat = ambBAIntToFloat/100;
+				ALLambBA[ambBARandom].setVolume(100*(ambBAIntToFloat*ambBAIntToFloat/100*((ambMadness-40)/100)/100)*(ambMaxVolume/100));
+
+				if (ambBAVolume <= ambBAFadeOutSpeed*2)
+				{
+					ambBAUpDown = 0;
+					ambBAOffOn = 0;
+					ambBAFrameCounter = 0;
+					ambBAVolume = 0;
+					ambBAIntToFloat = 0;
+					ALLambBA[ambBARandom].setVolume(0);
+				}
+			}
+
+			// STOP //
+
+			if (ambMadness < ambBATriggerLevel && ALLambBA[ambBARandom].getVolume() == 0)
+			{
+				ambBAUpDown = 0;
+				ambBAOffOn = 0;
+				ambBAFrameCounter = 0;
 				ambBAVolume = 0;
-				ambBAFadeOut = false;
-				mAmbBA[ambBARandom].setVolume(0);
-				mAmbBA[ambBARandom].stop();
+				ambBAIntToFloat = 0;
+				ALLambBA[ambBARandom].setVolume(0);
+				ALLambBA[ambBARandom].stop();
 			}
 		}
 
 		// FADE BB ////////////////////////////////////////////////////////////////
 		
-		if (ambBBVolume + ambBAFadeSpeed < ambBBDynamics && ambBBFadeOut == false)
+		if (ALLambBB[ambBBRandom].getStatus() == 2)
 		{
-			ambBBVolume = ambBBVolume + ambBBFadeSpeed;
+			// TRIGGER //
 
-			ambBBIntToFloat = ambBBVolume;
-			ambBBIntToFloat = ambBBIntToFloat/100*((float)ambMaxVolume/100);
-			mAmbBB[ambBBRandom].setVolume(ambBBIntToFloat);
+			ambBBFrameCounter++;
 
-			ambBBDynamics = 10000*((ambMadness-75)*0.75/100) + 500;
-		}
-
-		else if (ambBBVolume > ambBBDynamics && ambBBFadeOut == false)
-		{
-			ambBBVolume = ambBBVolume - ambBBFadeSpeed;
-
-			ambBBIntToFloat = ambBBVolume;
-			ambBBIntToFloat = ambBBIntToFloat/100*(ambMaxVolume/100);
-			mAmbBB[ambBBRandom].setVolume(ambBBIntToFloat);
-
-			ambBBDynamics = 10000*((ambMadness-75)*0.75/100) + 500;
-		}
-
-		if (ambBBSecCounter > ambBBLength)
-		{
-			ambBBFadeOut = true;
-
-			if (ambBBVolume > ambBBFadeSpeed)
+			if (ambBBOffOn == 0 && ambBBFrameCounter-200 + (ambMadness-ambBBTriggerLevel)*7 + rand()% 200 > 400)
 			{
-				ambBBVolume = ambBBVolume - ambBBFadeSpeed;
+				ambBBOffOn = 1;
+
+				ambBBFadeInSpeed = 300 + (ambMadness-ambBBTriggerLevel)*5 + rand()% 200;
+				ambBBFadeOutSpeed = 20 + (ambMadness-ambBBTriggerLevel)/2 + rand()% 30;
+
+				ambBBPitch = rand() % 100;
+				ambBBPitch = ambBBPitch/200+0.75;
+				ALLambBB[ambBBRandom].setPitch(ambBBPitch*(ambMadness/200)+0.5);
+			}
+
+			// FADE IN //
+
+			if (ambBBOffOn == 1 && ambBBUpDown == 0)
+			{
+				ambBBVolume = ambBBVolume + ambBBFadeInSpeed;
 
 				ambBBIntToFloat = ambBBVolume;
-				ambBBIntToFloat = ambBBIntToFloat/100*(ambMaxVolume/100);
-				ambBB.setVolume(ambBBIntToFloat);
+				ambBBIntToFloat = ambBBIntToFloat/100;
+				ALLambBB[ambBBRandom].setVolume(100*(ambBBIntToFloat*ambBBIntToFloat/100*((ambMadness-40)/100)/100)*(ambMaxVolume/100));
+
+				if (ambBBVolume > 10000)
+				{
+					ambBBUpDown = 1;
+				}
 			}
 
-			if (ambBBVolume <= ambBBFadeSpeed*2)
+			// FADE OUT //
+
+			else if (ambBBUpDown == 1)
 			{
+				ambBBVolume = ambBBVolume - ambBBFadeOutSpeed;
+
+				ambBBIntToFloat = ambBBVolume;
+				ambBBIntToFloat = ambBBIntToFloat/100;
+				ALLambBB[ambBBRandom].setVolume(100*(ambBBIntToFloat*ambBBIntToFloat/100*((ambMadness-40)/100)/100)*(ambMaxVolume/100));
+
+				if (ambBBVolume <= ambBBFadeOutSpeed*2)
+				{
+					ambBBUpDown = 0;
+					ambBBOffOn = 0;
+					ambBBFrameCounter = 0;
+					ambBBVolume = 0;
+					ambBBIntToFloat = 0;
+					ALLambBB[ambBBRandom].setVolume(0); 
+				}
+			}
+
+			// STOP //
+
+			if (ambMadness < ambBBTriggerLevel && ALLambBB[ambBBRandom].getVolume() == 0)
+			{
+				ambBBUpDown = 0;
+				ambBBOffOn = 0;
+				ambBBFrameCounter = 0;
 				ambBBVolume = 0;
-				ambBBFadeOut = false;
-				mAmbBB[ambBBRandom].setVolume(0);
-				mAmbBB[ambBBRandom].stop();
+				ambBBIntToFloat = 0;
+				ALLambBB[ambBBRandom].setVolume(0);
+				ALLambBB[ambBBRandom].stop();
 			}
 		}
-}
 
+		// FADE BC ////////////////////////////////////////////////////////////////
+		
+		if (ALLambBC[ambBCRandom].getStatus() == 2)
+		{
+			// TRIGGER //
 
+			ambBCFrameCounter++;
+
+			if (ambBCOffOn == 0 && ambBCFrameCounter-100 + (ambMadness-ambBCTriggerLevel)*7 + rand()% 200 > 300)
+			{
+				ambBCOffOn = 1;
+
+				ambBCFadeInSpeed = 300 + (ambMadness-ambBCTriggerLevel)*5 + rand()% 200;
+				ambBCFadeOutSpeed = 20 + (ambMadness-ambBCTriggerLevel)/2 + rand()% 30;
+
+				ambBCPitch = rand() % 100;
+				ambBCPitch = ambBCPitch/200+0.75;
+				ALLambBC[ambBCRandom].setPitch(ambBCPitch*(ambMadness/200)+0.5);
+			}
+
+			// FADE IN //
+
+			if (ambBCOffOn == 1 && ambBCUpDown == 0)
+			{
+				ambBCVolume = ambBCVolume + ambBCFadeInSpeed;
+
+				ambBCIntToFloat = ambBCVolume;
+				ambBCIntToFloat = ambBCIntToFloat/100;
+				ALLambBC[ambBCRandom].setVolume(100*(ambBCIntToFloat*ambBCIntToFloat/100*((ambMadness-40)/100)/100)*(ambMaxVolume/100));
+
+				if (ambBCVolume > 10000)
+				{
+					ambBCUpDown = 1;
+				}
+			}
+
+			// FADE OUT //
+
+			else if (ambBCUpDown == 1)
+			{
+				ambBCVolume = ambBCVolume - ambBCFadeOutSpeed;
+
+				ambBCIntToFloat = ambBCVolume;
+				ambBCIntToFloat = ambBCIntToFloat/100;
+				ALLambBC[ambBCRandom].setVolume(100*(ambBCIntToFloat*ambBCIntToFloat/100*((ambMadness-40)/100)/100)*(ambMaxVolume/100));
+
+				if (ambBCVolume <= ambBCFadeOutSpeed*2)
+				{
+					ambBCUpDown = 0;
+					ambBCOffOn = 0;
+					ambBCFrameCounter = 0;
+					ambBCVolume = 0;
+					ambBCIntToFloat = 0;
+					ALLambBC[ambBCRandom].setVolume(0);
+				}
+			}
+
+			// STOP //
+
+			if (ambMadness < ambBCTriggerLevel && ALLambBC[ambBCRandom].getVolume() == 0)
+			{
+				ambBCUpDown = 0;
+				ambBCOffOn = 0;
+				ambBCFrameCounter = 0;
+				ambBCVolume = 0;
+				ambBCIntToFloat = 0;
+				ALLambBC[ambBCRandom].setVolume(0);
+				ALLambBC[ambBCRandom].stop();
+			}
+		}
+
+		// IF NOT PLAYING CA /////////////////////////////////////////////////////////
+		
+		if (ambMadness > ambCATriggerLevel && ALLambCA[ambCARandom].getStatus() == 0)
+		{
+			// FILE SELECTOR //
+			ambCARandom = rand()% ARRAY_SIZE(ambCAFile);
+			//ALLambCA[ambCARandom].openFromFile(ambCAFile[ambCARandom]);
+
+			// VOLUME RESET //
+			ALLambCA[ambCARandom].setVolume(0);
+
+			// PITCH //
+			ambCAPitch = rand() % 100;
+			ambCAPitch = ambCAPitch/400+0.87;
+			ALLambCA[ambCARandom].setPitch(ambCAPitch);
+				
+			// PLAY //
+			ALLambCA[ambCARandom].play();
+		}
+
+		// IF NOT PLAYING CB /////////////////////////////////////////////////////////
+
+		if ( ambMadness > ambCBTriggerLevel && ALLambCB[ambCBRandom].getStatus() == 0)
+		{
+			// FILE SELECTOR //
+			ambCBRandom = rand()% ARRAY_SIZE(ambCBFile);
+			//ALLambCB[ambCBRandom].openFromFile(ambCBFile[ambCBRandom]);
+
+			// VOLUME RESET //
+			ALLambCB[ambCBRandom].setVolume(0);
+
+			// PITCH //
+			ambCBPitch = rand() % 100;
+			ambCBPitch = ambCBPitch/400+0.87;
+			ALLambCB[ambCBRandom].setPitch(ambCBPitch);
+				
+			// PLAY //
+			ALLambCB[ambCBRandom].play();
+		}
+
+		// IF NOT PLAYING CC /////////////////////////////////////////////////////////
+
+		if (ambMadness > ambCCTriggerLevel && ALLambCC[ambCCRandom].getStatus() == 0)
+		{
+			// FILE SELECTOR //
+			ambCCRandom = rand()% ARRAY_SIZE(ambCCFile);
+			//ALLambCC[ambCCRandom].openFromFile(ambCCFile[ambCCRandom]);
+
+			// VOLUME RESET //
+			ALLambCC[ambCCRandom].setVolume(0);
+
+			// PITCH //
+			ambCCPitch = rand() % 100;
+			ambCCPitch = ambCCPitch/400+0.87;
+			ALLambCC[ambCCRandom].setPitch(ambCCPitch);
+				
+			// PLAY //
+			ALLambCC[ambCCRandom].play();
+		}
+		
+		// VOLUME CA ////////////////////////////////////////////////////////////////
+
+		if (ALLambCA[ambCARandom].getStatus() == 2)
+		{
+			ALLambCA[ambCARandom].setVolume((ambMadness - ambCATriggerLevel)*(ambMadness/100+1)*0.50*(ambMaxVolume/100)*0.75);
+
+			// STOP //
+
+			if (ambMadness <= ambCATriggerLevel)
+			{
+				ALLambCA[ambCARandom].stop();
+				ALLambCA[ambCARandom].setVolume(0);
+			}
+		}
+
+		// VOLUME CB ////////////////////////////////////////////////////////////////
+
+		if (ALLambCB[ambCBRandom].getStatus() == 2)
+		{
+			ALLambCB[ambCBRandom].setVolume((ambMadness - ambCBTriggerLevel)*(ambMadness/100+1)*0.75*(ambMaxVolume/100)*0.75);
+
+			// STOP //
+
+			if (ambMadness <= ambCBTriggerLevel)
+			{
+				ALLambCB[ambCBRandom].stop();
+				ALLambCB[ambCBRandom].setVolume(0);
+			}
+		}
+
+		// VOLUME CC ////////////////////////////////////////////////////////////////
+
+		if (ALLambCC[ambCCRandom].getStatus() == 2)
+		{
+			ALLambCC[ambCCRandom].setVolume((ambMadness - ambCCTriggerLevel)*(ambMadness/100+1)*2*(ambMaxVolume/100)*0.75);
+
+			// STOP //
+
+			if (ambMadness <= ambCCTriggerLevel)
+			{
+				ALLambCC[ambCCRandom].stop();
+				ALLambCC[ambCCRandom].setVolume(0);
+			}
+		}
+		
+		// PLAY D //////////////////////////////////////////////////////////////////////////////
+		
+		if (ambMadness > ambDTriggerLevel || ambDBeforeAfter == 1)
+		{
+			ambDCounter++;
+			
+			// LONG BEEP TRIGGER //
+
+			if (ambMadness >= 100 && ambDB.getStatus() == 0)
+			{
+				ambDA.stop();
+				ambDB.setVolume(ambMaxVolume*0.60);
+				ambDB.play();
+				ambDBeforeAfter = 1;
+				ambDTimer = 0;
+			}
+			
+			// BEFORE BEEP PLAY //
+
+			else if (ambDCounter > 160-((ambMadness*ambMadness)/75) && ambDBeforeAfter == 0 && ambDB.getStatus() == 0)
+			{
+				ambDCounter = 0;
+
+				ambDA.setVolume((ambMadness-ambDTriggerLevel)*(ambMadness-ambDTriggerLevel)*(ambMaxVolume/100)*0.60);
+				ambDA.play();
+			}
+			
+			// AFTER BEEP PLAY //
+
+			else if (ambDB.getStatus() == 0 && ambDCounter > 90 && ambDBeforeAfter == 1)
+			{
+				ambDCounter = 0;
+				ambDTimer++;
+
+				ambDC.setVolume(ambDCVolumeTable[ambDTimer]*(ambMaxVolume/100)*0.4);
+				ambDD.setVolume(ambDDVolumeTable[ambDTimer]*(ambMaxVolume/100)*0.4);
+
+				if (ambDBeforeAfter == 1)
+				{
+					ambDC.play();
+					ambDD.play();
+				}
+
+				// STOP //
+
+				if (ambDTimer == 11)
+				{
+					ambDBeforeAfter = 0;
+					ambDTimer = 0;
+				}
+			}
+		}
+	}

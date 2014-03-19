@@ -33,6 +33,8 @@ Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voic
 		t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*mVM->getActiveSoundID());
 	}
 	mVoiceMail2 = false;
+	mVD = new VoiceDialog(Voicemail);
+	mVD->newLevel(mapID);
 }
 
 
@@ -68,6 +70,11 @@ void Mobil::deactivate()
 void Mobil::nextSound()
 {
 	mVM->activateNextSound(true);
+}
+
+void Mobil::nextDialog()
+{
+	mVD->playNextDialog();
 }
 
 //markerar n‰sta app
@@ -155,6 +162,12 @@ void Mobil::newMap(int mapID)
 	mVM->newMap(mapID);
 	slutPÂTest = false;
 	getMC = false;
+	mVD->newLevel(mapID);
+}
+
+int Mobil::getDialogID()
+{
+	return mVD->getDialogID();
 }
 
 //uppdatera
@@ -172,6 +185,7 @@ void Mobil::tick()
 			snakes = false;
 			delete s;
 		}
+
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::O) && sf::Keyboard::isKeyPressed(sf::Keyboard::P) && !snakes)
 		ActivateSnakes();
@@ -232,58 +246,61 @@ void Mobil::render(sf::RenderWindow& target)
 				t.setPosition(mRect.left+mRect.width/2,mRect.top+250);
 				target.draw(t);
 				int j = 0;
-				if(mVM->getActiveSoundID() <= 2)
+				if(mVM->getSounds().size() > 0)
 				{
-					for(int i = 0; i < 4;i++)
+					if(mVM->getActiveSoundID() <= 2)
 					{
-						if(i <= mVM->getSounds().size()-1)
+						for(int i = 0; i < 4;i++)
 						{
-						t.setString(mVM->getSounds()[i]->mTitle);
-						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
-						target.draw(t);
-						}
-						t.setString("<                           >");
-						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-						if(mVM->getActiveSoundID() < 0)
-							t.setPosition(mRect.left+mRect.width/2,mRect.top+350);
-						else
-							t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*mVM->getActiveSoundID());
-						target.draw(t);
+							if(i+1 <= mVM->getSounds().size())
+							{
+							t.setString(mVM->getSounds()[i]->mTitle);
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
+							target.draw(t);
+							}
+							t.setString("<                           >");
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							if(mVM->getActiveSoundID() < 0)
+								t.setPosition(mRect.left+mRect.width/2,mRect.top+350);
+							else
+								t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*mVM->getActiveSoundID());
+							target.draw(t);
 					
-						j++;
-					}
+							j++;
+						}
 
-				}else if(mVM->getActiveSoundID() == mVM->getSounds().size()-1)
-				{
-					for(int i = mVM->getActiveSoundID()-3; i < mVM->getSounds().size();i++)
+					}else if(mVM->getActiveSoundID() == mVM->getSounds().size()-1)
 					{
-						t.setString(mVM->getSounds()[i]->mTitle);
-						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
-						target.draw(t);
+						for(int i = mVM->getActiveSoundID()-3; i < mVM->getSounds().size();i++)
+						{
+							t.setString(mVM->getSounds()[i]->mTitle);
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
+							target.draw(t);
 
-						t.setString("<                           >");
-						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-						t.setPosition(mRect.left+mRect.width/2,mRect.top+355+100*3);
-						target.draw(t);
+							t.setString("<                           >");
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							t.setPosition(mRect.left+mRect.width/2,mRect.top+355+100*3);
+							target.draw(t);
 
-						j++;
-					}
-				}else
-				{
-					for(int i = mVM->getActiveSoundID()-2; i < mVM->getActiveSoundID()+2;i++)
+							j++;
+						}
+					}else
 					{
-						t.setString(mVM->getSounds()[i]->mTitle);
-						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
-						target.draw(t);
+						for(int i = mVM->getActiveSoundID()-2; i < mVM->getActiveSoundID()+2;i++)
+						{
+							t.setString(mVM->getSounds()[i]->mTitle);
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
+							target.draw(t);
 
-						t.setString("<                           >");
-						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*2);
-						target.draw(t);
-						j++;
+							t.setString("<                           >");
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*2);
+							target.draw(t);
+							j++;
+						}
 					}
 				}
 
@@ -314,11 +331,13 @@ void Mobil::render(sf::RenderWindow& target)
 void Mobil::VoiceMailTick()
 {
 	mVM->tick();
+	mVD->tick();
 }
 
 void Mobil::VoiceMailRender(sf::RenderWindow *target)
 {
 	mVM->render(target);
+	mVD->render(target);
 	if(slutPÂTest)
 	{
 		sf::Text t;

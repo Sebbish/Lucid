@@ -11,7 +11,9 @@ Event::~Event(void)
 {
 }
 
-int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Camera* camera)
+
+int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Entity* &controlledEntity, Camera* camera)
+
 {
 	std::vector<Trigger*> triggers = map->getTriggerList();
 	std::vector<AnimatedObject*> animatedObjects = map->getAnimatedObjectList();
@@ -94,7 +96,21 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			animatedObjects[2]->setActive(false);
 			triggers[13]->setActive(true);
 			LightVector[0]->setWorldLight(0,0,0);
-			//LightVector[2]->setOnOff(false);
+
+			for (int i = 3; i <= 24; i++)
+			{
+				if (i == 5 || i == 8 || i == 12 || i == 19 || i == 23)
+				{
+					LightVector[i]->setBlink(true);
+				}
+				else
+				{
+					LightVector[i]->setOnOff(false);
+				}
+				
+			}
+			
+
 			mMobil->nextSound();
 		}
 
@@ -104,6 +120,19 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			animatedObjects[3]->setAnimate(true);
 			portals[14]->setActive(true);
 		}
+
+		if (map->getTriggerList()[14]->getTrigged())
+		{
+			animatedObjects[4]->setActive(true);
+			animatedObjects[5]->setActive(false);
+		}
+
+		if (map->getTriggerList()[15]->getTrigged())
+		{
+			animatedObjects[5]->setActive(true);
+			animatedObjects[4]->setActive(false);
+		}
+
 		break;
 
 
@@ -211,7 +240,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			mMobil->getMC = true;
 		}
 
-		if (triggers[1]->getTrigged()) //Monstret låser upp första dörren
+		if (triggers[1]->getTrigged()) //Monstret låser upp dörren
 		{
 			if (entityVector[1]->getNextForm() != Entity::ROOF)
 			{
@@ -234,9 +263,11 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 				entityVector[1]->toggleRoofStance();
 			}
 		}
-		if(triggers[2]->getTrigged())
+		if(triggers[2]->getTrigged()) // når slutet av banan
 		{
-			return 7;
+			triggers[2]->setActive(false);
+			return 5;
+			//mMobil->slutPåTest = true;
 		}
 
 		if (mClock.getElapsedTime().asMilliseconds() > timer && bool1)
@@ -244,6 +275,13 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			walls[0]->setActive(false);
 			animatedObjects[0]->setActive(false);
 			bool1 = false;
+			entityVector[1]->setTargetX(100000);
+
+			//Tappar kontrollen
+			controlledEntity->controlled(false);
+			controlledEntity = entityVector[0];
+			camera->setTarget(controlledEntity);
+			controlledEntity->controlled(true);
 		}
 
 		if (bool2 && entityVector[0]->getHiding() == true)
@@ -255,13 +293,95 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			QButton->willRender(false);
 		}
 		break;
-	case 7:
+	case 5:
+		if (triggers[0]->getTrigged()) //Om bub går på keycard
+		{
+			triggers[0]->setActive(false);
+			
+			animatedObjects[0]->setActive(false);
+			triggers[1]->setActive(true);
+		}
+
+		if (triggers[1]->getActive()) //Triggern har spelarens rektangel
+		{
+			triggers[1]->setRect(entityVector[0]->getRect());
+		}
+
+		if (triggers[1]->getTrigged()) //Bub lämnar keycard till spelaren
+		{
+			triggers[1]->setActive(false);
+			triggers[2]->setActive(true);
+
+			//Tappar kontrollen
+			controlledEntity->controlled(false);
+			controlledEntity->setActive(false);
+			controlledEntity = entityVector[0];
+			camera->setTarget(controlledEntity);
+			controlledEntity->controlled(true);
+
+		}
+
+		if (triggers[2]->getTrigged()) //Spelaren går på kortläsaren
+		{
+			triggers[2]->setActive(false);
+			animatedObjects[1]->setAnimate(true);
+			walls[1]->setActive(false);
+			animatedObjects[2]->setActive(false);
+		}
+
+		if (triggers[3]->getTrigged())
+		{
+			entityVector[1]->setTargetX(5000);
+			triggers[3]->setActive(false);
+			entityVector[1]->setActive(true);
+			entityVector[1]->setPosition(sf::FloatRect(2772, 944, 256, 256));
+		}
+		if (!triggers[3]->getActive())
+		{
+			entityVector[2]->setTargetX(0);
+		}
+		break;
+		case 7:
 		if(triggers[0]->getTrigged())
 		{
-			entityVector[0]->setPosition(sf::FloatRect(3609,0,256,256));
-			camera->moveCameraPosition(sf::Vector2f(-1948-103,0));
+			if(mMobil->getDialogID() == 10)
+				triggers[0]->setActive(false);
+			entityVector[0]->setPosition(sf::FloatRect(6677,0,256,256));
+			camera->moveCameraPosition(sf::Vector2f(-1937-103,0));
+		}
+		if(triggers[1]->getTrigged())
+		{
+			triggers[1]->setActive(false);
+			mMobil->nextDialog();
+		}
+		if(triggers[2]->getTrigged())
+		{
+			triggers[2]->setActive(false);
+			mMobil->nextDialog();
+		}
+		if(triggers[3]->getTrigged())
+		{
+			triggers[3]->setActive(false);
+			mMobil->nextDialog();
+		}
+		if(triggers[4]->getTrigged())
+		{
+			triggers[4]->setActive(false);
+			mMobil->nextDialog();
+		}
+		if(triggers[5]->getTrigged())
+		{
+			triggers[5]->setActive(false);
+			mMobil->nextDialog();
+		}
+		if(triggers[6]->getTrigged())
+		{
+			triggers[6]->setActive(false);
+			mMobil->nextDialog();
 		}
 		break;
 	}
+
+
 	return 0;
 }

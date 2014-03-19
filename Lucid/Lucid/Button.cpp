@@ -28,7 +28,7 @@ bool Button::getRender()
 
 void Button::render(sf::RenderWindow* window, Camera* camera)
 {
-	if (mObject != 0)
+	if (mObject != 0 && mObject->getShowE())
 	{
 		if (mWillRender)
 		{

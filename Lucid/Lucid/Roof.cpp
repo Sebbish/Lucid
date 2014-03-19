@@ -11,6 +11,11 @@ Roof::~Roof(void)
 {
 }
 
+bool Roof::getShowE()
+{
+	return false;
+}
+
 int Roof::getFunc(Entity* player)
 {
 	//player->setRect(player->getLastRect());

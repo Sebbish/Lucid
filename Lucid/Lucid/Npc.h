@@ -8,11 +8,12 @@ class Npc :
 	public Object
 {
 public:
-	Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,int animationPicX,Dialog* dialog,Entity* player,sf::SoundBuffer* idleSound);
+	Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,int animationPicX,Dialog* dialog,Entity* player,sf::SoundBuffer* idleSound,bool dialogActive);
 	~Npc();
 	int getDialogueID();
 	virtual sf::FloatRect getRect()const;
 	virtual sf::FloatRect getHitBox()const;
+	virtual bool getShowE();
 	virtual void tick();
 	virtual void render(sf::RenderTexture* window);
 	virtual int getFunc(Entity* player);
@@ -30,6 +31,7 @@ private:
 	Entity* mPlayer;
 	sf::Sound mIdleSound;
 	std::string mDialogFile;//endast namnet på filen utan .txt
+	bool dialogActive;
 };
 
 #endif

@@ -80,6 +80,7 @@ private:
 	Sanity *mSanity;
 	sf::Text mSanityMeter;
 	bool mLightLevel;
+	bool mFlashOn;
 	float mAtmospherScaleX;
 	float mAtmospherScaleY;
 	bool mFlashlightOnOff;
@@ -89,6 +90,7 @@ private:
 	PortalFade* mPortalFade;
 	Button* mEButton;
 	Button* mQButton;
+	float mSanityLossWhileSeen, mSanityLossWhileControlling;
 };
 
 #endif

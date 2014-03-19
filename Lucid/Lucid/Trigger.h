@@ -11,11 +11,13 @@ public:
 	virtual sf::FloatRect getRect()const;
 	virtual sf::FloatRect getHitBox()const;
 	virtual int getFunc(Entity* player);
+	virtual bool getShowE();
 	virtual void tick();
 	virtual void render(sf::RenderTexture* window);
 	void setActive(bool active);
 	bool getActive();
 	bool getTrigged();
+	void setRect(sf::FloatRect rect);
 private:
 	sf::FloatRect mRect;
 	bool mTrigged;

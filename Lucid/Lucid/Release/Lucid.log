@@ -1,9 +1,34 @@
-﻿Build started 2014-03-14 15:50:53.
+﻿Build started 2014-03-19 11:17:12.
      1>Project "C:\Lucidaa\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(346,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FilHanterare.cpp
-         FilHanterare.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Enemy.cpp Player.cpp snake.cpp
+         Enemy.cpp
+     1>Enemy.cpp(22): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(24): warning C4305: '=' : truncation from 'double' to 'float'
+     1>Enemy.cpp(33): warning C4305: '=' : truncation from 'double' to 'float'
+     1>Enemy.cpp(305): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(310): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(856): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(858): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(863): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(865): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(871): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(873): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(892): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(899): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(906): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(914): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(917): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(921): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         Player.cpp
+     1>Player.cpp(17): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Player.cpp(323): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Player.cpp(325): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Player.cpp(337): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Player.cpp(342): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         snake.cpp
+     1>snake.cpp(50): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" /LIBPATH:"C:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\ambiance.obj
          Release\AnimatedObject.obj
@@ -44,13 +69,14 @@
          Release\Wall.obj
          Generating code
      1>c:\lucidaa\lucid\lucid\saveload.cpp(66): warning C4715: 'SaveLoad::load' : not all control paths return a value
-     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(112): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
-     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(106): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(127): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(121): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
      1>c:\lucidaa\lucid\lucid\effects.cpp(135): warning C4715: 'Effects::getShader' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\mobil.cpp(126): warning C4715: 'Mobil::getActiveAppID' : not all control paths return a value
          Finished generating code
          Lucid.vcxproj -> C:\Lucidaa\Lucid\Lucid\..\Release\Lucid.exe
      1>Done Building Project "C:\Lucidaa\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:04.23
+Time Elapsed 00:00:05.37

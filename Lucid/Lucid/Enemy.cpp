@@ -16,16 +16,26 @@ Enemy::Enemy(float x, float y, float width, float height, float speed, int direc
 	stream.clear();
 	if (mTypeID == 21)
 	{
-		mMaxSpeed = dataVector[2];
-		mHuntingSpeed = 9;
+		mMaxSpeed = (float)dataVector[2] / 10;
+		mHuntingSpeed = (float)dataVector[4] / 10;
+		mChasingSpeed = (float)dataVector[30] / 10;
+		mControlledSpeed = (float)dataVector[32] / 10;
+		mAnimationPicX = 4;
+		mAnimationSpeed = 0.15;
 	}
 	else
 	{
-		mMaxSpeed = dataVector[4];
+		mMaxSpeed = 3;
 		mHuntingSpeed = 4;
+		mChasingSpeed = 4;
+		mControlledSpeed = 0;
+		mAnimationPicX = 8;
+		mAnimationSpeed = 0.2;
 	}
-	mChasingSpeed = 6.7;
-	mControlledSpeed = 6;
+	/*mChasingSpeed = 6.7;
+	mControlledSpeed = 6;*/
+
+	mFlightSpeed = 24;
 
 	mWaitTime = dataVector[6];
 	mViewFrontRange = dataVector[8];
@@ -43,15 +53,15 @@ Enemy::Enemy(float x, float y, float width, float height, float speed, int direc
 	if (direction == 0)
 	{
 		mDirection = LEFT;
+		mOriginalDirection = LEFT;
 	}
 	else
 	{
 		mDirection = RIGHT;
+		mOriginalDirection = RIGHT;
 	}
-	mAnimationPicX = 4;
 	mLayer = Front;
 	mAnimationTimer = 0;
-	mAnimationSpeed = 0.15;
 	mWaitTimer = 0;
 	mWait = false;
 	mImortal = false;
@@ -133,6 +143,9 @@ void Enemy::getFunc(Entity* entity)
 		{
 			mRect.left = -5000;
 			mRect.top = -5000;
+		}
+		if (entity->getTypeID() == 21 && mTypeID == 22)
+		{
 			mNextForm = EAT;
 			if(mAttackSound.getStatus() != sf::Sound::Playing)
 				mAttackSound.play();
@@ -156,22 +169,38 @@ sf::FloatRect Enemy::getRect()const
 
 sf::FloatRect Enemy::getHitBox()const
 {
-	if (mCurrentForm == ROOFTRAVEL || mCurrentForm == ROOFCHANGINGBACK)
+	
+	sf::FloatRect hitBoxRect = mRect;
+	/*hitBoxRect.left += 80;
+	hitBoxRect.width = 96;*/
+	hitBoxRect.left += 53;
+	hitBoxRect.width = 150;
+	if (mCurrentForm == ROOFTRAVEL)
 	{
-		sf::FloatRect hitBoxRect = mRect;
-		hitBoxRect.left += 92;
-		hitBoxRect.width = 20;
-		return hitBoxRect;
+		if (!mUpsidedown)
+		{
+			hitBoxRect.height = 128;
+		}
+		else
+		{
+			hitBoxRect.top += 128;
+			hitBoxRect.height = 128;
+		}
+	}
+	else if (!mUpsidedown)
+	{
+		//hitBoxRect.top += 100;
+		//hitBoxRect.height = 156;
+		hitBoxRect.top += 196;
+		hitBoxRect.height = 60;
 	}
 	else
 	{
-		sf::FloatRect hitBoxRect = mRect;
-		hitBoxRect.left += 80;
-		hitBoxRect.top += 100;
-		hitBoxRect.height = 156;
-		hitBoxRect.width = 96;
-		return hitBoxRect;
+		//hitBoxRect.top += 100;
+		//hitBoxRect.height = 156;
+		hitBoxRect.height = 60;
 	}
+	return hitBoxRect;
 }
 
 sf::FloatRect Enemy::getLastRect()const
@@ -182,7 +211,8 @@ sf::FloatRect Enemy::getLastRect()const
 void Enemy::setRect(sf::FloatRect rect)
 {
 	mRect = rect;
-	mAnimationTimer = 0;
+	if (mCurrentForm != ROOFTRAVEL)
+		mAnimationTimer = 0;
 }
 
 void Enemy::setPosition(sf::FloatRect rect)
@@ -288,11 +318,17 @@ void Enemy::checkSight(Entity *entity)
 				mTargetX = mPlayerX;
 				if (mTargetX > mRect.left)
 				{
-					mTargetX += mAggroRange;
+					if (entity->getTypeID() == 22 && mTypeID == 21)
+						mTargetX -= mViewFrontRange + mAggroRange * 2;
+					else if (mTypeID == 21)
+						mTargetX += mAggroRange * 2;
 				}
 				else
 				{
-					mTargetX -= mAggroRange;
+					if (entity->getTypeID() == 22 && mTypeID == 21)
+						mTargetX += mViewFrontRange + mAggroRange * 2;
+					else if (mTypeID == 21)
+						mTargetX -= mAggroRange * 2;
 				}
 				mIsPlayerVisible = true;
 				mSearching = true;
@@ -310,11 +346,17 @@ void Enemy::checkSight(Entity *entity)
 				mTargetX = mPlayerX;
 				if (mTargetX > mRect.left)
 				{
-					mTargetX += mAggroRange;
+					if (entity->getTypeID() == 22 && mTypeID == 21)
+						mTargetX -= mViewFrontRange + mAggroRange * 2;
+					else if (mTypeID == 21)
+						mTargetX += mAggroRange * 2;
 				}
 				else
 				{
-					mTargetX -= mAggroRange;
+					if (entity->getTypeID() == 22 && mTypeID == 21)
+						mTargetX += mViewFrontRange + mAggroRange * 2;
+					else if (mTypeID == 21)
+					mTargetX -= mAggroRange * 2;
 				}
 				mIsPlayerVisible = true;
 				mSearching = true;
@@ -426,10 +468,16 @@ void Enemy::hitRoof()
 void Enemy::shortYStepBack()
 {
 	if (mRect.top > mLastRect.top)
+	{
 		mRect.top--;
+		mLastRect.top--;
+	}
 
 	else if (mRect.top < mLastRect.top)
+	{
 		mRect.top++;
+		mLastRect.top++;
+	}
 }
 
 void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
@@ -445,8 +493,11 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 			}
 			if (mRect.top != mOriginalPosition.top)
 			{
-				mTeleport = true;
-				mTeleportTimer = 0;
+				if (!mTeleport)
+				{
+					mTeleport = true;
+					mTeleportTimer = 0;
+				}
 			}
 			else
 			{
@@ -454,7 +505,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 			}
 			for (auto i:entityVector)
 			{
-				if (i->getTypeID() == 21 && mTypeID == 22)
+				if ((i->getTypeID() == 21 && mTypeID == 22) || (i->getTypeID() == 22 && mTypeID == 21))
 				{
 					checkSight(i);
 				}
@@ -485,16 +536,24 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				}
 			}
 
-			if (mWait && mNextForm != ROOF && !(mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5))
+			//if (mWait && mNextForm != ROOF && !(mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5))
+			if (mWait && mNextForm != ROOF)
 			{
 				mMove = false;
 				mWaitTimer++;
 				if (mWaitTimer >= mWaitTime)
 				{
-					mWalkTransition = true;
-					mAnimationTimer = 0.0f;
-					mWait = false;
-					mWaitTimer = 0;
+					if (mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5)
+					{
+						mDirection = mOriginalDirection;
+					}
+					else
+					{
+						mWalkTransition = true;
+						mAnimationTimer = 0.0f;
+						mWait = false;
+						mWaitTimer = 0;
+					}
 				}
 			
 			}
@@ -557,7 +616,22 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 			}
 		}
 
-		setAnimation();
+		if (mTypeID == 21)
+			setAnimation();
+		else
+		{
+			if (mMove)
+				mAnimationY = 1;
+			else
+				mAnimationY = 3;
+			if (mAnimationTimer > mAnimationPicX - mAnimationSpeed)
+			{
+				mAnimationTimer = 0;
+			}
+			else
+				mAnimationTimer += mAnimationSpeed;
+		}
+
 
 	if(player->getRect().top+100 >= mRect.top && player->getRect().top-100 <= mRect.top)
 	{
@@ -694,11 +768,11 @@ void Enemy::setAnimation()
 					mAnimationTimer += mAnimationSpeed;
 				if (!mUpsidedown)
 				{
-					mRect.top -= mMaxSpeed;
+					mRect.top -= mFlightSpeed;
 				}
 				else
 				{
-					mRect.top += mMaxSpeed;
+					mRect.top += mFlightSpeed;
 				}
 			}
 			if (mCurrentForm == ROOFCHANGINGBACK)
@@ -768,25 +842,35 @@ void Enemy::setAnimation()
 	}
 }
 
-void Enemy::render(sf::RenderTexture* window, bool visualizeValues)
+void Enemy::render(sf::RenderTexture* window, bool visualizeValues, bool mirror)
 {
 	if (mActive)
 	{
 		sf::RectangleShape r;
 		r.setTexture(mTexture);
-		if (mUpsidedown)
+		if (mTypeID == 21)
 		{
-			if(mDirection == RIGHT)
-				r.setTextureRect(sf::IntRect(mRect.width * (int)mAnimationTimer, mRect.height * (mAnimationY + 1), mRect.width, -mRect.height));
-			else if(mDirection == LEFT)
-				r.setTextureRect(sf::IntRect(mRect.width * ((int)mAnimationTimer+1), mRect.height * (mAnimationY + 1), -mRect.width, -mRect.height));
+			if (mUpsidedown)
+			{
+				if(mDirection == RIGHT)
+					r.setTextureRect(sf::IntRect(mRect.width * (int)mAnimationTimer, mRect.height * (mAnimationY + 1), mRect.width, -mRect.height));
+				else if(mDirection == LEFT)
+					r.setTextureRect(sf::IntRect(mRect.width * ((int)mAnimationTimer+1), mRect.height * (mAnimationY + 1), -mRect.width, -mRect.height));
+			}
+			else
+			{
+				if(mDirection == RIGHT)
+					r.setTextureRect(sf::IntRect(mRect.width * (int)mAnimationTimer, mRect.height * mAnimationY, mRect.width, mRect.height));
+				else if(mDirection == LEFT)
+					r.setTextureRect(sf::IntRect(mRect.width * ((int)mAnimationTimer+1), mRect.height * mAnimationY, -mRect.width, mRect.height));
+			}
 		}
 		else
 		{
-			if(mDirection == RIGHT)
+			if (mDirection == RIGHT)
+				r.setTextureRect(sf::IntRect(mRect.width * ((int)mAnimationTimer + 1), mRect.height * mAnimationY, -mRect.width, mRect.height));
+			else
 				r.setTextureRect(sf::IntRect(mRect.width * (int)mAnimationTimer, mRect.height * mAnimationY, mRect.width, mRect.height));
-			else if(mDirection == LEFT)
-				r.setTextureRect(sf::IntRect(mRect.width * ((int)mAnimationTimer+1), mRect.height * mAnimationY, -mRect.width, mRect.height));
 		}
 		r.setPosition(mRect.left,mRect.top);
 		r.setSize(sf::Vector2f(mRect.width,mRect.height));

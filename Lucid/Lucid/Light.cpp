@@ -62,6 +62,7 @@ namespace db
 		mAbianceBlue = 0;
 		mAbianceGreen = 0;
 
+		mTypeID = typID;
 		mSprite.setTexture( texture );
 		mSprite.setPosition( position );
 		mSprite.setColor( color );
@@ -164,8 +165,17 @@ namespace db
 			else
 			{
 				mAnimationPicY = 1;
-				mAnimationTimer = 0.0f;
-				
+				if (mTypeID == 58)
+				{
+					if(mAnimationTimer >= 4-mAnimationSpeed)
+					mAnimationTimer = 0.0f;
+					else
+					mAnimationTimer += mAnimationSpeed;
+				}
+				else
+				{
+					mAnimationTimer = 0.0f;
+				}				
 			}
 		}
 		else if (mPlayerBased == false)
@@ -193,7 +203,22 @@ namespace db
 
 		if (mBlink == true)
 		{
-			if (mBlinkTimer->getElapsedTime().asSeconds() >= 2.95 && mBlinkTimer->getElapsedTime().asSeconds() <= 3.35|| 
+			if (mBlinkTimer->getElapsedTime().asSeconds() >= 2.95 && mBlinkTimer->getElapsedTime().asSeconds() <= 3.35||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 3.55 && mBlinkTimer->getElapsedTime().asSeconds() <= 3.65||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 3.75 && mBlinkTimer->getElapsedTime().asSeconds() <= 4||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 5.55 && mBlinkTimer->getElapsedTime().asSeconds() <= 5.65||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 5.75 && mBlinkTimer->getElapsedTime().asSeconds() <= 5.9||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 6 && mBlinkTimer->getElapsedTime().asSeconds() <= 6.15||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 6.25 && mBlinkTimer->getElapsedTime().asSeconds() <= 6.5||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 10.6 && mBlinkTimer->getElapsedTime().asSeconds() <= 10.7||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 10.85 && mBlinkTimer->getElapsedTime().asSeconds() <= 11||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 11.2 && mBlinkTimer->getElapsedTime().asSeconds() <= 11.3||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 11.5 && mBlinkTimer->getElapsedTime().asSeconds() <= 11.6||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 11.75 && mBlinkTimer->getElapsedTime().asSeconds() <= 11.9||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 13.8 && mBlinkTimer->getElapsedTime().asSeconds() <= 14||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 14.1 && mBlinkTimer->getElapsedTime().asSeconds() <= 14.2||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 14.3 && mBlinkTimer->getElapsedTime().asSeconds() <= 14.6||
+				mBlinkTimer->getElapsedTime().asSeconds() >= 17.05 && mBlinkTimer->getElapsedTime().asSeconds() <= 17.20||
 				mBlinkTimer->getElapsedTime().asSeconds() >= 17.3 && mBlinkTimer->getElapsedTime().asSeconds() <= 17.45|| 
 				mBlinkTimer->getElapsedTime().asSeconds() >= 17.6 && mBlinkTimer->getElapsedTime().asSeconds() <= 17.75|| 
 				mBlinkTimer->getElapsedTime().asSeconds() >= 17.9 && mBlinkTimer->getElapsedTime().asSeconds() <= 20.0)
@@ -207,7 +232,7 @@ namespace db
 			}
 		}
 
-		if (mBlinkTimer->getElapsedTime().asSeconds() >= 30.0)
+		if (mBlinkTimer->getElapsedTime().asSeconds() >= 25.0)
 		{
 			mBlinkTimer->restart();
 		}
@@ -217,6 +242,11 @@ namespace db
 	int Light::getXSize()
 	{
 		return mRect.width;
+	}
+
+	void Light::setBlink(bool blinka)
+	{
+		mBlink = blinka;
 	}
 
 	void Light::setWorldLight(int ambianceRed, int ambianceGreen, int ambianceBlue)

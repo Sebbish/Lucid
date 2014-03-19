@@ -1,15 +1,23 @@
 <-ENEMY->
-SmallmonsterSpeed= 4
-BigmonsterSpeed= 2
+Speed= 40
+HuntingSpeed= 90
 WaitTime(frames)= 60
 Frontview= 800
 Backview= 300
 AggroRange= 400
 
 <-PLAYER->
-Speed= 6
+Speed= 60
 
 <-CAMERA->
 Width= 1920
 Height= 1080
 Acceleration= 100
+
+<-SANITY->
+Controlling= 21
+BeingSeen= 101
+
+<-ENEMY->
+ChasingSpeed= 67
+ControlledSpeed= 60

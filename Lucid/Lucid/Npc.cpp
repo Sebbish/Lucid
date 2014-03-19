@@ -1,7 +1,7 @@
 #include "Npc.h"
 
-Npc::Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,int animationPicX,Dialog* dialog,Entity* player,sf::SoundBuffer* idleSound):
-	mRect(rect), mDialogueID(dialogueID), mTexture(texture), mTypeID(typeID),mAnimationPicX(animationPicX),mAnimationSpeed(0.08f),mCurrentAnimationPic(0),mDialog(dialog),mLookLeft(true),mChatting(false),mPlayer(player)
+Npc::Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,int animationPicX,Dialog* dialog,Entity* player,sf::SoundBuffer* idleSound,bool dialogActive):
+	mRect(rect), mDialogueID(dialogueID), mTexture(texture), mTypeID(typeID),mAnimationPicX(animationPicX),mAnimationSpeed(0.08f),mCurrentAnimationPic(0),mDialog(dialog),mLookLeft(true),mChatting(false),mPlayer(player),dialogActive(dialogActive)
 {
 	mDialogFile = "Dialog"+std::to_string(mDialogueID);
 	//mIdleSound.setBuffer(*idleSound);
@@ -18,17 +18,24 @@ Npc::~Npc()
 {
 }
 
+bool Npc::getShowE()
+{
+	return dialogActive;
+}
+
+
 int Npc::getFunc(Entity* player)
 {
-	if(mDialog->getDraw())
-	{
-		mDialog->nextLine();
-		mChatting = true;
-	}else
-	{
-		mDialog->loadFile(mDialogFile,mDialogueID);
-		mChatting = true;
-	}
+	if(dialogActive)
+		if(mDialog->getDraw())
+		{
+			mDialog->nextLine();
+			mChatting = true;
+		}else
+		{
+			mDialog->loadFile(mDialogFile,mDialogueID);
+			mChatting = true;
+		}
 	return 0;
 }
 

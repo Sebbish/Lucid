@@ -76,6 +76,11 @@ AnimatedObject::~AnimatedObject(void)
 {
 }
 
+bool AnimatedObject::getShowE()
+{
+	return false;
+}
+
 sf::FloatRect AnimatedObject::getRect()const
 {
 	return mRect;

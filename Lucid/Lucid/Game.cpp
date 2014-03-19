@@ -2,6 +2,23 @@
 
 Game::Game()
 {
+	std::ifstream stream;
+	stream.open("../Debug/config.txt");
+	std::string output;
+	std::vector<int> dataVector;
+	while(!stream.eof())
+	{
+		stream >> output;
+		dataVector.push_back(atoi(output.c_str()));
+	}
+	stream.close();
+	stream.clear();
+	float tempSeen = dataVector[25];
+	float tempControl = dataVector[27];
+	mSanityLossWhileSeen = tempSeen / 1000;
+	mSanityLossWhileControlling = tempControl / 1000;
+
+
 	angle = 0;
 	mAmbientRed = 0;
 	mAmbientGreen = 0;
@@ -34,7 +51,7 @@ Game::Game()
 	mEButton->willRender(true);
 	mQButton = new Button(mFH->getTexture(54));
 	mQButton->willRender(false);
-	loadMap("../Debug/map7.txt", 7);
+	loadMap("../Debug/map3.txt", 3);
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
@@ -43,6 +60,7 @@ Game::Game()
 	mVisualizeValues = false;
 	mMenu = false;
 	mCharFlash = false;
+	mFlashOn = false;
 	mFlashlighSound.setBuffer(*mFH->getSound(9));
 	mFlashlighSound.setPitch(1.5f);
 	mDeathSound.setBuffer(*mFH->getSound(0));
@@ -118,11 +136,11 @@ void Game::input(Entity* entity)
 		{
 			/*if (event.type == sf::Event::Closed || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed))
 				mWindow.close();*/
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			if((sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) && !(sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))
 			{
 				entity->setDirection(Entity::RIGHT);
 				entity->setMove(true);
-			}else if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			}else if((sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) && !(sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))
 			{
 				entity->setDirection(Entity::LEFT);
 				entity->setMove(true);
@@ -198,7 +216,7 @@ void Game::input(Entity* entity)
 			}
 		}
 		//kollar om Q trycktes ned och mindcontrollar då
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed && mMobil->getMC)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !mIsQPressed /*&& mMobil->getMC*/ )
 		{
 				
 			//kontrollerar om den kontrollerade entiteten är spelaren
@@ -242,7 +260,7 @@ void Game::input(Entity* entity)
 		{
 			mControlledEntity->toggleRoofStance();
 		}
-		/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::H) && mControlledEntity != mEntities[0])
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::H) && mControlledEntity != mEntities[0])
 		{
 			mControlledEntity->hitRoof();
 		}
@@ -258,7 +276,13 @@ void Game::input(Entity* entity)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6))
 		{
 			loadMap("../Debug/map"+std::to_string(mMap->getID() + 1)+".txt",mMap->getID() + 1);
-		}*/
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+		{
+			mMap->getTriggerList()[2]->setActive(true);
+			mEntities[1]->setActive(false);
+		}
 	}
 	break;
 
@@ -282,7 +306,8 @@ void Game::input(Entity* entity)
 	}
 
 
-	if((sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed))
+	if((sf::Keyboard::isKeyPressed(sf::Keyboard::M) && !mIsMPressed) || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !mIsEscapePressed))
+
 	{
 		if(mMobil->getActivate())
 		{
@@ -326,10 +351,14 @@ void Game::render()
 	mRenderTexture.clear();
 	mRenderTexture.setView(*camera->getView());
 	lm->setView(*camera->getView());
+
+	if (mMap->getID() == 2 && mEntities[0]->getRect().top == 487 && mEntities[0]->getRect().left > 4999 && mEntities[0]->getRect().left < 5689)
+		mEntities[0]->render(&mRenderTexture, mVisualizeValues, true);
+
 	mMap->renderMap(&mRenderTexture);
 	for(auto i:mEntities)
 		if (i -> getLayer() == Entity::Back)
-			i->render(&mRenderTexture, mVisualizeValues);
+			i->render(&mRenderTexture, mVisualizeValues, false);
 	
 	mMap -> renderObjects(&mRenderTexture);
 
@@ -337,7 +366,7 @@ void Game::render()
 
 	for(auto i:mEntities)
 		if (i -> getLayer() == Entity::Front)
-			i->render(&mRenderTexture, mVisualizeValues);
+			i->render(&mRenderTexture, mVisualizeValues, false);
 	
 
 	mMap->renderForeground(&mRenderTexture);
@@ -347,7 +376,7 @@ void Game::render()
 	const sf::Texture& s = mRenderTexture.getTexture();
 	sf::Sprite ss;
 	ss.setTexture(s);
-	mWindow.draw(ss,&mEffects->getShader());//Sköter ljust styrka baserat på om ficklampa är på eller ej.
+	mWindow.draw(ss,&mEffects->getShader());//Sköter ljus styrka baserat på om ficklampa är på eller ej.
 	
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
@@ -362,7 +391,7 @@ void Game::render()
 
 	mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
 	mSanityMeter.setOrigin(mSanityMeter.getLocalBounds().left + mSanityMeter.getLocalBounds().width,mSanityMeter.getLocalBounds().top + mSanityMeter.getLocalBounds().height);
-	//mWindow.draw(mSanityMeter);
+	mWindow.draw(mSanityMeter);
 	mFade->render(mWindow);
 	mPortalFade->render(mWindow);
 }
@@ -374,7 +403,6 @@ void Game::tick()
 	mQButton->setObject(0);
 
 	mEffects->tick(clock);
-	mMap->tick();
 
 	int newMap = mFade->tick();
 	if (newMap != 0)
@@ -399,10 +427,15 @@ void Game::tick()
 		i->tick(mEntities[0], mEntities);
 	}
 
+	
+	mMap->tick();
+
 	collision();
 
 
-	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton,camera);
+
+	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton, mControlledEntity, camera);
+
 
 	if (newMap != 0)
 	{
@@ -417,17 +450,31 @@ void Game::tick()
 	mMobil->VoiceMailTick();
 
 	//Plaserar ficklampans position.
-	mLights[0]->setOnOff(mFlashlightOnOff);
+	if (mFlashlightOnOff == true && mFlashOn == true)
+	{
+		mLights[0]->setOnOff(true);
+		mLights[2]->setOnOff(true);
+	}
+	else
+	{
+		mLights[0]->setOnOff(false);
+		mLights[2]->setOnOff(false);
+	}
+	
 	if (mEntities[0]->getDirection() == Entity::LEFT)
 	{
 		mLights[0]->flipSprite(0);
-		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left - mLights[0]->getXSize() + 145, mEntities[0]->getRect().top));
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left - mLights[0]->getXSize() + 140, mEntities[0]->getRect().top));
+		mLights[2]->flipSprite(0);
+		mLights[2]->setPosition(sf::Vector2f(mEntities[0]->getRect().left, mEntities[0]->getRect().top));
 		
 	}
 	else
 	{
 		mLights[0]->flipSprite(1);
-		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width) - 145, mEntities[0]->getRect().top));
+		mLights[0]->setPosition(sf::Vector2f(mEntities[0]->getRect().left+(mEntities[0]->getRect().width) - 140, mEntities[0]->getRect().top));
+		mLights[2]->flipSprite(1);
+		mLights[2]->setPosition(sf::Vector2f(mEntities[0]->getRect().left, mEntities[0]->getRect().top));
 	}
 
 
@@ -446,7 +493,7 @@ void Game::tick()
 
 	if (mControlledEntity == mEntities[0]) //!!!Charlight är 256 hög, det blir inget ljus över det!!!
 	{
-		if (mFlashlightOnOff == false && mAtmospherScaleX <= 3)
+		if ((mFlashlightOnOff == false || mFlashOn == false) && mAtmospherScaleX <= 3)
 		{
 			mAtmospherScaleX += 0.003;
 		}
@@ -472,12 +519,13 @@ void Game::tick()
 		}*/
 	}
 
-	if (mControlledEntity != mEntities[0] || mEntities[0]->getHiding() == true)
+	if (mControlledEntity != mEntities[0] || mEntities[0]->getHiding() == true)	//Stänger av ficklampan när man tar kontrol eller gömmer sig.
 	{
-		if (mFlashlightOnOff == true)//Stänger av ficklampan när man tar kontrol eller gömmer sig.
-		{
-			mFlashlightOnOff = false;
-		}
+		mFlashOn = false;	
+	}
+	else
+	{
+		mFlashOn = true;
 	}
 	//Mörkerseende baserat på om man är spelare eller monster.
 	if (mControlledEntity != mEntities[0])
@@ -487,7 +535,7 @@ void Game::tick()
 	}
 	else
 	{
-		sf::Color atmosfär(30,30,34,255);
+		sf::Color atmosfär(35,35,39,255);
 		mLights[1]->setColor(atmosfär);
 	}
 
@@ -497,18 +545,21 @@ void Game::tick()
 	mAmbientBlue = mLights[0]->getWorldLightBlue();
 
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
-	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
+	//mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
+	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), camera->getView()->getCenter().y-44 - 128 /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
 
 	//Sanity baserade uträkningar
 	if (mControlledEntity != mEntities[0])
 	{
-		mSanity->setSanity(-0.021);
+		//mSanity->setSanity(-0.021);
+		mSanity->setSanity(-mSanityLossWhileControlling);
 	}
 
 	for(auto i:mEntities){
 			if (i->getCanSeePlayer() == true && i->getActive() == true )
 			{
-				mSanity->setSanity(-0.101);
+				//mSanity->setSanity(-0.101);
+				mSanity->setSanity(-mSanityLossWhileSeen);
 			}
 			else
 			{
@@ -523,14 +574,15 @@ void Game::tick()
 	}
 	if (mSanity->getSanity() <= 0)
 	{
-		mEntities[0]->setActive(false);
+	//	mEntities[0]->setActive(false);
 	}
 	
-	mLights[0]->setMoveOnOff(mEntities[0]->getMove());
-	for(auto i:mLights)
-	{
-			i->tick();
-	}
+	//mLights[0]->setMoveOnOff(mEntities[0]->getMove());
+	//mLights[2]->setMoveOnOff(mEntities[0]->getMove());
+	//for(auto i:mLights)
+	//{
+	//		i->tick();
+	//}
 	
 	mAmbiance->tick(mSanity->getSanity());
 
@@ -549,6 +601,12 @@ void Game::tick()
 					mapName += ".txt";
 					loadMap(mapName, mCurrentMap);
 	}
+	mLights[0]->setMoveOnOff(mEntities[0]->getMove());
+	mLights[2]->setMoveOnOff(mEntities[0]->getMove());
+	for(auto i:mLights)
+	{
+			i->tick();
+	}
 }
 
 void Game::collision()
@@ -559,6 +617,7 @@ void Game::collision()
 	std::vector<Trigger*> triggers(mMap->getTriggerList());
 	std::vector<Object*> roofs(mMap->getRoofList());
 	std::vector<Portal*> portals(mMap->getSuperPortalList());
+	std::vector<Object*> ventilations(mMap->getVentilationList());
 
 	for (auto i:enteties)
 	{
@@ -567,7 +626,7 @@ void Game::collision()
 			if (overlapsEntity(i,j) && i != j)
 			{
 				//if (i == enteties[0] && (!i->getHiding() || j->getHunting()) && j->getActive())
-				if (i == enteties[0] && !i->getHiding() && j->getActive() && i->getActive())
+				if (i == enteties[0] && !i->getHiding() && j->getActive() && i->getActive() && mControlledEntity != j)
 				{
 					// Man dör
 					j->getFunc(i);
@@ -578,7 +637,7 @@ void Game::collision()
 				else if (j != enteties[0] && i != enteties[0]) // 2 monster kolliderar
 				{
 					i ->getFunc(j);
-					if (i == mControlledEntity || j == mControlledEntity) //Kontrollen bryts
+					if ((i == mControlledEntity && i->getTypeID() == 21 && j->getTypeID() == 22) || (j == mControlledEntity && j->getTypeID() == 21 && i->getTypeID() == 22)) //Kontrollen bryts
 					{
 						setControlledEntity(enteties[0]);
 					}
@@ -616,11 +675,20 @@ void Game::collision()
 			Object *roofEntity = roofs[i];
 			if (overlapsObjects(j, roofEntity))
 			{
-				roofEntity -> getFunc(j);
 				while (overlapsObjects(j, roofEntity))
 				{
 					j->shortYStepBack();
 				}
+				roofEntity -> getFunc(j);
+			}
+		}
+
+		for (ObjectVector::size_type i = 0; i < ventilations.size(); i++)
+		{
+			Object *ventEntity = ventilations[i];
+			if (overlapsObjects(j, ventEntity))
+			{
+				ventEntity -> getFunc(j);
 			}
 		}
 	}
@@ -637,7 +705,7 @@ void Game::collision()
 
 			mEButton->setObject(objectEntity);
 			
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed && !mMobil->getActivate())
 			{
 				objectEntity -> getFunc(mControlledEntity);
 				break;
@@ -647,33 +715,35 @@ void Game::collision()
 
 	for (ObjectVector::size_type i = 0; i < portals.size(); i++) //Portaler
 	{
-		Entity *controlledEntity = mControlledEntity;
-		Portal *portalEntity = portals[i];
-		if (overlapsObjects(controlledEntity,portalEntity))
+		if (mControlledEntity == mEntities[0])
 		{
-			//Visa E-symbol här
-			mEButton->setObject(portalEntity);
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
+			Entity *controlledEntity = mControlledEntity;
+			Portal *portalEntity = portals[i];
+			if (overlapsObjects(controlledEntity,portalEntity))
 			{
-				int newMap = portalEntity -> getFunc(mControlledEntity);
-				if (newMap != 0 && controlledEntity == mEntities[0])
+				//Visa E-symbol här
+				mEButton->setObject(portalEntity);
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
 				{
-					mFade->fadeOut(newMap);
-					/*std::string mapName = "../Debug/map";
-					mapName += std::to_string(newMap);
-					mapName += ".txt";
-					loadMap(mapName, newMap);*/
+					int newMap = portalEntity -> getFunc(mControlledEntity);
+					if (newMap != 0 && controlledEntity == mEntities[0])
+					{
+						mFade->fadeOut(newMap);
+						/*std::string mapName = "../Debug/map";
+						mapName += std::to_string(newMap);
+						mapName += ".txt";
+						loadMap(mapName, newMap);*/
+					}
+					else
+					{
+						if (portalEntity->getActive())
+							mPortalFade->fadeOut(portalEntity->getTargetPortal()->getRect());
+					}
+					break;
 				}
-				else
-				{
-					if (portalEntity->getActive())
-						mPortalFade->fadeOut(portalEntity->getTargetPortal()->getRect());
-				}
-				break;
 			}
 		}
 	}
-
 }
 
 void Game::loadMap(std::string filename, int mapID)
@@ -713,7 +783,7 @@ void Game::loadMap(std::string filename, int mapID)
 	stream.open(filename);
 	std::string output;
 	std::vector<int> dataVector;
-	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha, useTexture, animate, loop, playerBased, blink;
+	int x, y, width, height, typeID, dialogueID, targetMapID, targetPortalID, portalID, speed, direction, patrolStart, patrolStop, active, animationPic, animationY, color, layer, onOff, alpha, useTexture, animate, loop, playerBased, blink,showE;
 	while(!stream.eof())
 	{
 		stream >> output;
@@ -783,8 +853,9 @@ void Game::loadMap(std::string filename, int mapID)
 			dialogueID = dataVector[i + 5];
 			typeID = dataVector[i + 6];
 			animationPic = dataVector[i + 7];
-			mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID,animationPic,mDialog,mEntities[0],mFH->getSound(typeID)));
-			i += 7;
+			showE = dataVector[i + 8];
+			mMap->addNpc(new Npc(sf::FloatRect(x, y, width, height), dialogueID, mFH->getTexture(typeID), typeID,animationPic,mDialog,mEntities[0],mFH->getSound(typeID),showE));
+			i += 8;
 			break;
 		case 5://Hiding
 			x = dataVector[i + 1];
@@ -859,6 +930,13 @@ void Game::loadMap(std::string filename, int mapID)
 			mCurrentMap = dataVector[i + 4];
 			i += 4;
 			break;
+		case 12://Ventilation
+			x = dataVector[i + 1];
+			y = dataVector[i + 2];
+			height = dataVector[i + 3];
+			mMap->addVentilation(new Ventilation(x, y, height));
+			i += 3;
+			break;
 		}
 	}
 
@@ -868,6 +946,8 @@ void Game::loadMap(std::string filename, int mapID)
 	}
 	sf::Color atmosfär(20,20,24,255);
 	mLights[1]->setColor(atmosfär);
+	atmosfär = sf::Color(70,100,70,255);
+	mLights[2]->setColor(atmosfär);
 	mLights[0]->setWorldLight(mAmbientRed,mAmbientGreen,mAmbientBlue);
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 	for(auto i:mLights)

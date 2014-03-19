@@ -16,6 +16,11 @@ Trigger::~Trigger(void)
 {
 }
 
+bool Trigger::getShowE()
+{
+	return false;
+}
+
 int Trigger::getFunc(Entity* player)
 {
 	if (mActive && player->getTypeID() == mTriggedByID)
@@ -61,4 +66,9 @@ bool Trigger::getTrigged()
 bool Trigger::getActive()
 {
 	return mActive;
+}
+
+void Trigger::setRect(sf::FloatRect rect)
+{
+	mRect = rect;
 }

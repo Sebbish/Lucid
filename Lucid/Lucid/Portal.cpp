@@ -29,6 +29,11 @@ Portal::~Portal()
 {
 }
 
+bool Portal::getShowE()
+{
+	return true;
+}
+
 int Portal::getFunc(Entity* player)
 {
 	if (mActive)

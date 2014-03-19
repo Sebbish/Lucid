@@ -61,6 +61,8 @@ namespace db
 
 		int getXSize();
 
+		void setBlink(bool blinka);
+
 		void setWorldLight(int ambianceRed, int ambianceGreen, int ambianceBlue);
 
 		int getWorldLightRed();
@@ -85,9 +87,11 @@ namespace db
 		bool mMoveOnOff;
 		bool mPlayerBased;
 		bool mBlink;
+		//int mBlinkTimer;
 		int mAbianceRed;
 		int mAbianceGreen;
 		int mAbianceBlue;
+		int mTypeID;
 
 	};
 }
