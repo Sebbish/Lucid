@@ -91,6 +91,7 @@ private:
 	Button* mEButton;
 	Button* mQButton;
 	Button* mFButton;
+	float mSanityLossWhileSeen, mSanityLossWhileControlling;
 };
 
 #endif

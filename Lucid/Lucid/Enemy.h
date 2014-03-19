@@ -35,7 +35,7 @@ public:
 	virtual void setWait();
 	virtual void resetTargetX();
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
-	virtual void render(sf::RenderTexture* window, bool visualizeValues);
+	virtual void render(sf::RenderTexture* window, bool visualizeValues, bool mirror);
 	virtual void setActive(bool active);
 	virtual bool getActive();
 	virtual void setTargetX(int x);
@@ -59,7 +59,7 @@ private:
 	float mChasingSpeed;
 	sf::Texture* mTexture;
 	bool mMove;
-	direction mDirection;
+	direction mDirection, mOriginalDirection;
 	int mTypeID;
 	bool mTempCollideWithPlayer;
 	float mAnimationTimer;
@@ -101,5 +101,6 @@ private:
 	//sf::RenderWindow* mWindow;
 	bool mUpsidedown;
 	int mControlledSpeed;
+	int mFlightSpeed;
 };
 #endif

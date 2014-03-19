@@ -61,6 +61,11 @@ Map::~Map()
 		delete mRoofList[mRoofList.size()-1];
 		mRoofList.pop_back();
 	}
+	while (!mVentilationList.empty())
+	{
+		delete mVentilationList[mVentilationList.size()-1];
+		mVentilationList.pop_back();
+	}
 }
 
 void Map::addHiding(Hiding* hiding)
@@ -102,6 +107,11 @@ void Map::addAnimatedObject(AnimatedObject* animatedObject)
 void Map::addRoof(Roof* roof)
 {
 	mRoofList.push_back(roof);
+}
+
+void Map::addVentilation(Ventilation* ventilation)
+{
+	mVentilationList.push_back(ventilation);
 }
 
 void Map::setTexture(sf::Texture *texture)
@@ -154,6 +164,11 @@ std::vector<Object*> Map::getRoofList()const
 	return mRoofList;
 }
 
+std::vector<Object*> Map::getVentilationList()const
+{
+	return mVentilationList;
+}
+
 std::vector<Object*> Map::getObjectList()const//De man kan trycka E på
 {
 	std::vector<Object*> objects;
@@ -197,7 +212,7 @@ void Map::renderMap(sf::RenderTexture* window)
 	if (mMapID != 1)
 		r.setPosition(0,0);
 	else
-		r.setPosition(2088, 0);
+		r.setPosition(3586, 0);
 	r.setSize(sf::Vector2f(mTexture->getSize().x,mTexture->getSize().y));
 	window->draw(r);
 }

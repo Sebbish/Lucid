@@ -1,7 +1,5 @@
 #include "Camera.h"
 
-float acc = 0.1f;
-
 Camera::Camera(sf::Vector2f size,Entity *CameraFollowThisEntity):
 	mFollowThisEntity(CameraFollowThisEntity)
 {
@@ -20,6 +18,7 @@ Camera::Camera(sf::Vector2f size,Entity *CameraFollowThisEntity):
 	float tempY = dataVector[20];
 	float tempAcceleration = dataVector[22];
 	acc = tempAcceleration / 1000;
+	accY = 0.2;
 	mView.setSize(sf::Vector2f(tempX, tempY));
 	mOriginalSize = sf::Vector2f(tempX, tempY);
 	mZoom = false;
@@ -40,7 +39,7 @@ Camera::~Camera(void)
 void Camera::tick()
 {
 	
-	if (mZoom)
+	/*if (mZoom)
 	{
 		if (mView.getSize().x > mOriginalSize.x * 0.9)
 			mView.zoom(0.99);
@@ -55,7 +54,7 @@ void Camera::tick()
 		{
 			mView.setSize(mOriginalSize);
 		}
-	}
+	}*/
 
 	float playerpos = mFollowThisEntity->getRect().left + mFollowThisEntity->getRect().width / 2;
 	float distance = mView.getSize().x / 6;
@@ -70,7 +69,13 @@ void Camera::tick()
 	}
 	float currentPos = mView.getCenter().x;
 	float move = (targetPos - currentPos) * acc;
-	mView.setCenter(currentPos + move, mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2 + 44);
+
+	float targetPosY = mFollowThisEntity->getRect().top + mFollowThisEntity->getRect().height / 2 + 44;
+	float currentPosY = mView.getCenter().y;
+	float moveY = (targetPosY - currentPosY) * accY;
+
+	//mView.setCenter(currentPos + move, mFollowThisEntity->getRect().top+mFollowThisEntity->getRect().height/2 + 44);
+	mView.setCenter(currentPos + move, currentPosY + moveY);
 
 	/*if(mFollowThisEntity->getDirection() == Entity::RIGHT)
 	{

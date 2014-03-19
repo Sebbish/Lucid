@@ -17,11 +17,11 @@ FilHanterare::FilHanterare(void)
 
 
 	mTexture[0]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Normal_Spritesheet.png",sf::IntRect(0,0,4096,1024));
-	mTexture[1]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/3 - Inomhus Bg.png",sf::IntRect(0,0,4794,625));
+	mTexture[1]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/3 - Inomhus Bg.png",sf::IntRect(0,0,3296,625));
 	mTexture[2]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level1/Level1.png",sf::IntRect(0,0,8864,3240));
 	mTexture[3]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level2/Level2.png",sf::IntRect(0,0,8192,300));
 	mTexture[4]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_1.png",sf::IntRect(0,0,8192,600));
-	mTexture[5]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_2.png",sf::IntRect(0,0,8000,900));
+	mTexture[5]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level3_2.png",sf::IntRect(0,0,8192,1200));
 	mTexture[6]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level4/Level 4.png",sf::IntRect(0,0,8192,1200));
 
 	mTexture[20]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Respawn Rum/Lewis Sjukrum.png",sf::IntRect(0,0,600,300));
@@ -29,6 +29,7 @@ FilHanterare::FilHanterare(void)
 	
 	mTexture[21]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Monster 1/Monster1_Spritesheet.png",sf::IntRect(0,0,2048,2048));
 	//mTexture[22]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/enemy2.png",sf::IntRect(0,0,1024,256));
+	mTexture[22]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Monster_inte_bubb_spritesheet.png",sf::IntRect(0,0,4096,1024));
 	mTexture[23]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Dörr.png",sf::IntRect(0,0,256,256));
 	mTexture[24]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Trashcan.png",sf::IntRect(0,0,256,256));
 	//mTexture[24]->loadFromFile("P:/Downloads/LucidProject/Resources/Graphics/Animations/Trashcan2.png",sf::IntRect(0,0,1796,720));
@@ -43,7 +44,7 @@ FilHanterare::FilHanterare(void)
 	mTexture[29]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Magda/Magda_SpriteSheet.png",sf::IntRect(0,0,2048,256));
 
 	//Intro
-	mTexture[30]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/1 - Utomhus 1.png",sf::IntRect(0,0,2233,627));
+	mTexture[30]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/1 - Utomhus 1.png",sf::IntRect(0,0,2403,625));
 	mTexture[31]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/Förgrundsprops.png",sf::IntRect(0,0,157,267));
 	mTexture[32]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/Parallax 1.png",sf::IntRect(0,0,1536,790));
 	mTexture[33]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/Parallax 2.png",sf::IntRect(0,0,3471,790));
@@ -54,7 +55,7 @@ FilHanterare::FilHanterare(void)
 	mTexture[36]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Dörrar/Hiss Spritesheet.png",sf::IntRect(0,0,8192,256));
 
 	//Intro fors.
-	mTexture[37]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/2 - Utomhus 2.png",sf::IntRect(0,0,1150,627));
+	mTexture[37]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/2 - Utomhus 2.png",sf::IntRect(0,0,1734,625));
 	mTexture[38]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/Hiding_Plant.png",sf::IntRect(0,0,256,256));
 	mTexture[39]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/Desk.png",sf::IntRect(0,0,198,160));
 	mTexture[40]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Amb_Lightmap.png",sf::IntRect(0,0,512,300));

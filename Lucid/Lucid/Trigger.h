@@ -16,6 +16,7 @@ public:
 	void setActive(bool active);
 	bool getActive();
 	bool getTrigged();
+	void setRect(sf::FloatRect rect);
 private:
 	sf::FloatRect mRect;
 	bool mTrigged;
