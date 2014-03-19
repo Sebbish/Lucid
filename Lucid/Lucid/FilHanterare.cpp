@@ -23,6 +23,8 @@ FilHanterare::FilHanterare(void)
 	mTexture[4]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_1.png",sf::IntRect(0,0,8192,600));
 	mTexture[5]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_2.png",sf::IntRect(0,0,8000,900));
 	mTexture[6]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level4/Level 4.png",sf::IntRect(0,0,8192,1200));
+
+	mTexture[20]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Respawn Rum/Lewis Sjukrum.png",sf::IntRect(0,0,600,300));
 	
 	
 	mTexture[21]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Monster 1/Monster1_Spritesheet.png",sf::IntRect(0,0,2048,2048));
@@ -78,6 +80,7 @@ FilHanterare::FilHanterare(void)
 	mTexture[56]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/Lysrör liten.png",sf::IntRect(0,0,451,440));
 	mTexture[57]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/Lysrör.png",sf::IntRect(0,0,869,451));
 	mTexture[58]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Cellphone_Lightsheet.png",sf::IntRect(0,0,4096,512));
+	mTexture[59]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/F placeholder Spritesheet.png",sf::IntRect(0,0,128,64));
 
 	
 	mSoundBuffer[0]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");

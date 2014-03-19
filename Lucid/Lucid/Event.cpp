@@ -5,21 +5,32 @@ Event::Event(void)
 	bool1 = false;
 	bool2 = false;
 	bool3 = false;
+
 }
 
 Event::~Event(void)
 {
 }
 
-int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton)
+int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Button* FButton)
 {
 	std::vector<Trigger*> triggers = map->getTriggerList();
 	std::vector<AnimatedObject*> animatedObjects = map->getAnimatedObjectList();
 	std::vector<Wall*> walls = map->getWallList();
 	std::vector<Portal*> portals = map->getSuperPortalList();
 
+
 	switch (map->getID())
 	{
+	case 20:
+		if (triggers[0]->getTrigged())
+		{	
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+			{
+				return mMobil->getCurrentLevel();
+			}
+		}
+		break;
 	case 1:
 		if (triggers[0]->getTrigged()) //Öppnar dörren
 		{
@@ -90,7 +101,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		if (triggers[12]->getTrigged()) //Om spelaren går på keycard
 		{
 			triggers[12]->setActive(false);
-			
+			triggers[16]->setActive(true);
 			animatedObjects[2]->setActive(false);
 			triggers[13]->setActive(true);
 			LightVector[0]->setWorldLight(0,0,0);
@@ -129,6 +140,16 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			animatedObjects[4]->setActive(false);
 		}
 
+		if (map->getTriggerList()[16]->getTrigged())
+		{
+			FButton->willRender(true);
+			FButton->setObject(animatedObjects[2]);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+			{
+				triggers[16]->setActive(false);
+				FButton->willRender(false);
+			}
+		}
 		break;
 
 

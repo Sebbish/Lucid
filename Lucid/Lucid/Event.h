@@ -11,7 +11,7 @@ class Event
 public:
 	Event(void);
 	~Event(void);
-	int tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton);
+	int tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Button* FButton);
 private:
 	bool bool1, bool2, bool3;
 	sf::Clock mClock;

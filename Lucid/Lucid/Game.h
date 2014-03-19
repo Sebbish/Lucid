@@ -90,6 +90,7 @@ private:
 	PortalFade* mPortalFade;
 	Button* mEButton;
 	Button* mQButton;
+	Button* mFButton;
 };
 
 #endif
