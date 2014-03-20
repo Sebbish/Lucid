@@ -53,13 +53,8 @@ Game::Game()
 	mQButton->willRender(false);
 	mFButton = new Button(mFH->getTexture(59));
 	mFButton->willRender(false);
-<<<<<<< HEAD
 	loadMap("../Debug/map6.txt", 6);
 	mMobil->setCurrentLevel(6);
-=======
-	loadMap("../Debug/map5.txt", 5);
-	mMobil->setCurrentLevel(3);
->>>>>>> e401b65b488c00cb3dfa4ee140f9665fe05a92e6
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
@@ -785,7 +780,7 @@ void Game::loadMap(std::string filename, int mapID)
 {
 	delete mEvent;
 	mEvent = new Event();
-	if(mapID >= 2)	
+	if(mapID >= 2 && mapID != 20)	
 		mSL->save(0,"hej",mapID);
 	mEButton->setObject(0, true);
 	mMobil->newMap(mapID);
