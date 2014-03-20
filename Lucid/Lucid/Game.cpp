@@ -13,8 +13,8 @@ Game::Game()
 	}
 	stream.close();
 	stream.clear();
-	float tempSeen = dataVector[25];
-	float tempControl = dataVector[27];
+	float tempSeen = dataVector[27];
+	float tempControl = dataVector[25];
 	mSanityLossWhileSeen = tempSeen / 1000;
 	mSanityLossWhileControlling = tempControl / 1000;
 
@@ -29,8 +29,8 @@ Game::Game()
 	testLight = sf::Color(100, 100, 100, 255);
 	mFH = new FilHanterare();
 	mAtmospherScaleX = 1;
-	mAtmospherScaleY = 1;
-	mSanity = new Sanity();
+	mAtmospherScaleY = 1.3;
+	mSanity = new Sanity(mFH->getTexture(63));
 	mLightLevel = false;
 	mFlashlightOnOff = false;
 	mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid",sf::Style::Fullscreen);
@@ -53,8 +53,8 @@ Game::Game()
 	mQButton->willRender(false);
 	mFButton = new Button(mFH->getTexture(59));
 	mFButton->willRender(false);
-	loadMap("../Debug/map3.txt", 3);
-
+	loadMap("../Debug/map5.txt", 5);
+	mMobil->setCurrentLevel(3);
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
@@ -376,11 +376,21 @@ void Game::render()
 	const sf::Texture& s = mRenderTexture.getTexture();
 	sf::Sprite ss;
 	ss.setTexture(s);
-	mWindow.draw(ss,&mEffects->getShader());//Sköter ljus styrka baserat på om ficklampa är på eller ej.
+	mWindow.draw(ss/*,&mSanity->getShader()*/);//Sköter ljus styrka baserat på om ficklampa är på eller ej.
 	
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
 	lm->render(mWindow);
+
+	//Ritar om fönstret med shader
+	sf::Texture tempTexture;
+	tempTexture.create(1920, 1080);
+	tempTexture.update(mWindow);
+	sf::Sprite tempSprite;
+	tempSprite.setTexture(tempTexture);
+	mWindow.clear(sf::Color(0, 0, 0));
+	mWindow.draw(tempSprite, &mSanity->getShader());
+
 
 	mEButton->render(&mWindow, camera);
 	mQButton->render(&mWindow, camera);
@@ -392,6 +402,7 @@ void Game::render()
 
 	mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
 	mSanityMeter.setOrigin(mSanityMeter.getLocalBounds().left + mSanityMeter.getLocalBounds().width,mSanityMeter.getLocalBounds().top + mSanityMeter.getLocalBounds().height);
+	mSanity->render(&mWindow);
 	mWindow.draw(mSanityMeter);
 	mFade->render(mWindow);
 	mPortalFade->render(mWindow);
@@ -400,14 +411,21 @@ void Game::render()
 void Game::tick()
 {
 
-	mEButton->setObject(0);
-	mQButton->setObject(0);
+	mEButton->setObject(0, false);
+	mQButton->setObject(0, true);
+
 
 	mEffects->tick(clock);
 
 	int newMap = mFade->tick();
 	if (newMap != 0)
 	{
+		mSanity->setSanity(25);
+		if (mSanity->getSanity() <= 50)
+		{
+			mSanity->setSanity(-(mSanity->getSanity()));
+			mSanity->setSanity(50);
+		}
 		//mFade->fadeOut(newMap);
 		mMobil->setCurrentLevel(newMap);
 		std::string mapName = "../Debug/map";
@@ -442,10 +460,7 @@ void Game::tick()
 
 	collision();
 
-
-
-	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton, mControlledEntity, camera, mFButton);
-
+	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton, mControlledEntity, camera, mFButton, mSanity);
 
 	if (newMap != 0)
 	{
@@ -519,11 +534,11 @@ void Game::tick()
 	}
 	else
 	{
-		if (mFlashlightOnOff == false && mAtmospherScaleX <= 5)
+		if (mAtmospherScaleX <= 5)
 		{
-			mAtmospherScaleX += 0.003;
+			mAtmospherScaleX += 0.006;
 		}
-		/*if (mFlashlightOnOff == false && mAtmospherScaleY <= 5)
+		/*if (mFlashlightOnOff == false && mAtmospherScaleY <= 5)aad
 		{
 			mAtmospherScaleY += 0.003;
 		}*/
@@ -556,13 +571,15 @@ void Game::tick()
 
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 	//mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
-	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), camera->getView()->getCenter().y-44 - 128 /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
+	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), camera->getView()->getCenter().y-44 - 200 /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
 
 	//Sanity baserade uträkningar
+	bool tempBrus = false;
 	if (mControlledEntity != mEntities[0])
 	{
 		//mSanity->setSanity(-0.021);
 		mSanity->setSanity(-mSanityLossWhileControlling);
+		tempBrus = true;
 	}
 
 	for(auto i:mEntities){
@@ -570,13 +587,14 @@ void Game::tick()
 			{
 				//mSanity->setSanity(-0.101);
 				mSanity->setSanity(-mSanityLossWhileSeen);
+				tempBrus = true;
 			}
 			else
 			{
 				mSanity->setSanity(0);
 			}
 	}
-
+	mSanity->setBrus(tempBrus);
 
 	if (mSanity->getSanity() <= 100)
 	{
@@ -610,6 +628,8 @@ void Game::tick()
 	{
 			i->tick();
 	}
+
+	mSanity->tick();
 }
 
 void Game::collision()
@@ -695,37 +715,39 @@ void Game::collision()
 			}
 		}
 	}
-
-	for (ObjectVector::size_type i = 0; i < objects.size(); i++) //Objekt man måste trycka E på
+	
+	if (mControlledEntity == mEntities[0])
 	{
-		Entity *controlledEntity = mControlledEntity;
-		Object *objectEntity = objects[i];
-		if (overlapsObjects(controlledEntity,objectEntity))
+		for (ObjectVector::size_type i = 0; i < objects.size(); i++) //Objekt man måste trycka E på
 		{
-			//Visa E-symbol här
-			if (mMap->getID() == 4)
-				mQButton->setObject(objectEntity);
-
-			mEButton->setObject(objectEntity);
-			
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
+			Entity *controlledEntity = mControlledEntity;
+			Object *objectEntity = objects[i];
+			if (overlapsObjects(controlledEntity,objectEntity))
 			{
-				objectEntity -> getFunc(mControlledEntity);
-				break;
+				//Visa E-symbol här
+				if (mMap->getID() == 4)
+				{
+					mQButton->setObject(objectEntity, true);
+				}
+
+				mEButton->setObject(objectEntity, false);
+			
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
+				{
+					objectEntity -> getFunc(mControlledEntity);
+					break;
+				}
 			}
 		}
-	}
 
-	for (ObjectVector::size_type i = 0; i < portals.size(); i++) //Portaler
-	{
-		if (mControlledEntity == mEntities[0])
+		for (ObjectVector::size_type i = 0; i < portals.size(); i++) //Portaler
 		{
 			Entity *controlledEntity = mControlledEntity;
 			Portal *portalEntity = portals[i];
 			if (overlapsObjects(controlledEntity,portalEntity))
 			{
 				//Visa E-symbol här
-				mEButton->setObject(portalEntity);
+				mEButton->setObject(portalEntity, false);
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed && mEntities[0]->getActive() == true)
 				{
 					int newMap = portalEntity -> getFunc(mControlledEntity);
@@ -753,7 +775,7 @@ void Game::loadMap(std::string filename, int mapID)
 {
 	if(mapID >= 2)	
 		mSL->save(0,"hej",mapID);
-	mEButton->setObject(0);
+	mEButton->setObject(0, true);
 	mMobil->newMap(mapID);
 	mDialog->newMap(mapID);
 	delete mMap;
@@ -958,12 +980,6 @@ void Game::loadMap(std::string filename, int mapID)
 	for(auto i:mLights)
 	{
 			i->setMoveOnOff(true);
-	}
-
-	if (mSanity->getSanity() <= 50)
-	{
-		mSanity->setSanity(-(mSanity->getSanity()));
-		mSanity->setSanity(50);
 	}
 	mMap->setupPortals();
 

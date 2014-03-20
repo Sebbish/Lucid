@@ -16,12 +16,12 @@ FilHanterare::FilHanterare(void)
 	
 
 
-	mTexture[0]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Normal_Spritesheet.png",sf::IntRect(0,0,4096,1024));
+	mTexture[0]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Normal_Spritesheet.png",sf::IntRect(0,0,4096,1280));
 	mTexture[1]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/3 - Inomhus Bg.png",sf::IntRect(0,0,3296,625));
 	mTexture[2]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level1/Level1.png",sf::IntRect(0,0,8864,3240));
 	mTexture[3]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level2/Level2.png",sf::IntRect(0,0,8192,300));
 	mTexture[4]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_1.png",sf::IntRect(0,0,8192,600));
-	mTexture[5]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level3_2.png",sf::IntRect(0,0,8192,1200));
+	mTexture[5]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_2.png",sf::IntRect(0,0,8192,1200));
 	mTexture[6]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level4/Level 4.png",sf::IntRect(0,0,8192,1200));
 
 	mTexture[20]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Respawn Rum/Lewis Sjukrum.png",sf::IntRect(0,0,600,300));
@@ -68,8 +68,8 @@ FilHanterare::FilHanterare(void)
 	mTexture[46]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Cardreader_Spritesheet.png",sf::IntRect(0,0,64,32));
 	mTexture[47]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Keycard_Sprite.png",sf::IntRect(0,0,32,64));
 	mTexture[48]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level1/Level1 Ljus.png",sf::IntRect(0,0,8864,3240));
-	mTexture[49]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Misc/StairwayUp.png",sf::IntRect(0,0,256,300));
-	mTexture[50]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Misc/StairwayDown.png",sf::IntRect(0,0,256,300));
+	mTexture[49]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Misc/StairwayUp.png",sf::IntRect(0,0,312,244));
+	mTexture[50]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Misc/StairwayDown.png",sf::IntRect(0,0,312,244));
 	mTexture[51]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/HalfdomeLamp_Sprite.png",sf::IntRect(0,0,512,256));
 	mTexture[52]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/HalfdomeLamp_Lightmap.png",sf::IntRect(0,0,512,256));
 
@@ -80,8 +80,13 @@ FilHanterare::FilHanterare(void)
 
 	mTexture[56]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/Lysrör liten.png",sf::IntRect(0,0,451,440));
 	mTexture[57]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/Lysrör.png",sf::IntRect(0,0,869,451));
-	mTexture[58]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Cellphone_Lightsheet.png",sf::IntRect(0,0,4096,512));
+	mTexture[58]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/LewisCellphone_Lightsheet.png",sf::IntRect(0,0,4096,512));
 	mTexture[59]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/F placeholder Spritesheet.png",sf::IntRect(0,0,128,64));
+
+	mTexture[60]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/vattentavla/vattentavla1.png",sf::IntRect(0,0,128,256));
+	mTexture[61]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/vattentavla/vattentavlaSpritesheet.png",sf::IntRect(0,0,384,256));
+	mTexture[62]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Vatten/vatten_spritesheet.png",sf::IntRect(0,0,2048,256));
+	mTexture[63]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Brus_spritesheet.png",sf::IntRect(0,0,7680,1080));
 
 	
 	mSoundBuffer[0]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");

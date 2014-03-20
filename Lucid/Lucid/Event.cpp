@@ -5,14 +5,14 @@ Event::Event(void)
 	bool1 = false;
 	bool2 = false;
 	bool3 = false;
-
+	bool4 = false;
 }
 
 Event::~Event(void)
 {
 }
 
-int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Entity* &controlledEntity, Camera* camera, Button* FButton)
+int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Entity* &controlledEntity, Camera* camera, Button* FButton, Sanity* mSanity)
 {
 	std::vector<Trigger*> triggers = map->getTriggerList();
 	std::vector<AnimatedObject*> animatedObjects = map->getAnimatedObjectList();
@@ -21,6 +21,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 
 
 	switch (map->getID())
+		
 	{
 	case 20:
 		if (triggers[0]->getTrigged())
@@ -143,12 +144,18 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		if (map->getTriggerList()[16]->getTrigged())
 		{
 			FButton->willRender(true);
-			FButton->setObject(animatedObjects[2]);
+			FButton->setObject(animatedObjects[2], false);
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
 			{
 				triggers[16]->setActive(false);
 				FButton->willRender(false);
 			}
+		}
+
+		if (triggers[17]->getTrigged()) //Öppnar hissen
+		{
+			triggers[16]->setActive(false);
+			animatedObjects[6]->setAnimate(true);
 		}
 		break;
 
@@ -292,7 +299,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			walls[0]->setActive(false);
 			animatedObjects[0]->setActive(false);
 			bool1 = false;
-			entityVector[1]->setTargetX(100000);
+			bool3 = true;
 
 			//Tappar kontrollen
 			controlledEntity->controlled(false);
@@ -300,8 +307,17 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			camera->setTarget(controlledEntity);
 			controlledEntity->controlled(true);
 		}
+		if (bool3 == true)
+		{
+			entityVector[1]->setTargetX(100000);
+		}
 
-		if (bool2 && entityVector[0]->getHiding() == true)
+		if (controlledEntity == entityVector[1] && !bool4)
+		{
+			bool4 = true;
+		}
+
+		if (bool2 && !bool4 && entityVector[0]->getHiding() == true)
 		{
 			QButton->willRender(true);
 		}
@@ -319,6 +335,13 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			
 			animatedObjects[0]->setActive(false);
 			triggers[1]->setActive(true);
+			mSanity->setSanity(50);
+		}
+		if (!triggers[0]->getActive() && triggers[1]->getActive() && controlledEntity == entityVector[0])
+		{
+			triggers[0]->setActive(true);
+			triggers[1]->setActive(false);
+			animatedObjects[0]->setActive(true);
 		}
 
 		if (triggers[1]->getActive()) //Triggern har spelarens rektangel
