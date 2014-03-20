@@ -29,7 +29,7 @@ Game::Game()
 	testLight = sf::Color(100, 100, 100, 255);
 	mFH = new FilHanterare();
 	mAtmospherScaleX = 1;
-	mAtmospherScaleY = 1;
+	mAtmospherScaleY = 1.3;
 	mSanity = new Sanity(mFH->getTexture(63));
 	mLightLevel = false;
 	mFlashlightOnOff = false;
@@ -53,8 +53,13 @@ Game::Game()
 	mQButton->willRender(false);
 	mFButton = new Button(mFH->getTexture(59));
 	mFButton->willRender(false);
+<<<<<<< HEAD
 	loadMap("../Debug/map6.txt", 6);
 	mMobil->setCurrentLevel(6);
+=======
+	loadMap("../Debug/map5.txt", 5);
+	mMobil->setCurrentLevel(3);
+>>>>>>> e401b65b488c00cb3dfa4ee140f9665fe05a92e6
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
@@ -420,6 +425,12 @@ void Game::tick()
 	int newMap = mFade->tick();
 	if (newMap != 0)
 	{
+		mSanity->setSanity(25);
+		if (mSanity->getSanity() <= 50)
+		{
+			mSanity->setSanity(-(mSanity->getSanity()));
+			mSanity->setSanity(50);
+		}
 		//mFade->fadeOut(newMap);
 		mMobil->setCurrentLevel(newMap);
 		std::string mapName = "../Debug/map";
@@ -459,7 +470,7 @@ void Game::tick()
 
 	collision();
 
-	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton, mControlledEntity, camera, mFButton);
+	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton, mControlledEntity, camera, mFButton, mSanity);
 
 	if (newMap != 0)
 	{
@@ -533,11 +544,11 @@ void Game::tick()
 	}
 	else
 	{
-		if (mFlashlightOnOff == false && mAtmospherScaleX <= 5)
+		if (mAtmospherScaleX <= 5)
 		{
-			mAtmospherScaleX += 0.003;
+			mAtmospherScaleX += 0.006;
 		}
-		/*if (mFlashlightOnOff == false && mAtmospherScaleY <= 5)
+		/*if (mFlashlightOnOff == false && mAtmospherScaleY <= 5)aad
 		{
 			mAtmospherScaleY += 0.003;
 		}*/
@@ -570,7 +581,7 @@ void Game::tick()
 
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 	//mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
-	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), camera->getView()->getCenter().y-44 - 128 /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
+	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), camera->getView()->getCenter().y-44 - 200 /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
 
 	//Sanity baserade uträkningar
 	bool tempBrus = false;
@@ -981,12 +992,6 @@ void Game::loadMap(std::string filename, int mapID)
 	for(auto i:mLights)
 	{
 			i->setMoveOnOff(true);
-	}
-
-	if (mSanity->getSanity() <= 50)
-	{
-		mSanity->setSanity(-(mSanity->getSanity()));
-		mSanity->setSanity(50);
 	}
 	mMap->setupPortals();
 

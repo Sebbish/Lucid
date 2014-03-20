@@ -11,7 +11,7 @@ Hiding::~Hiding()
 
 int Hiding::getFunc(Entity* player)
 {
-	sf::FloatRect rectSet;
+	rectSet;
 	player->toggleHiding();
 	rectSet = player->getRect();
 	rectSet.left = mRect.left;

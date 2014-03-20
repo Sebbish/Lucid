@@ -267,7 +267,7 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 			mWalkSound.play();
 		}*/
 	}
-	else
+	else if(!mMove && mKnockWidth == 0 && !mHiding)
 	{
 		if (mFlashlightMode == true)
 		{
@@ -295,6 +295,18 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 		//mUpperBreatheTimer++;
 		mWalkSound.stop();
 	}
+	else if (mHiding)
+	{
+		mAnimationY = 4;
+		mAnimationPicX = 0;
+
+		if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
+		{
+			mAnimationTimer = 0.0f;
+			mWalkSound.play();
+		}else
+			mAnimationTimer += mAnimationSpeed;
+	}
 
 	if(mKnockWidth <= 1.9f && mKnockWidth >= -1.9f)
 		mKnockWidth = 0;
@@ -317,10 +329,30 @@ void Player::render(sf::RenderTexture* window, bool visualizeValues, bool mirror
 	if (!mirror)
 	{ 
 		if(mDirection == RIGHT)
+		{
 			r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+			if (mHiding)
+			{
+				r.setPosition(mRect.left + 35,mRect.top);
+			}
+			else
+			{
+				r.setPosition(mRect.left,mRect.top);
+			}
+		}
 		else if(mDirection == LEFT)
+		{
 			r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),mAnimationY * mRect.height,-mRect.width,mRect.height));
-		r.setPosition(mRect.left,mRect.top);
+			if (mHiding)
+			{
+				r.setPosition(mRect.left - 50,mRect.top);
+			}
+			else
+			{
+				r.setPosition(mRect.left,mRect.top);
+			}
+		}
+
 	}
 	else
 	{

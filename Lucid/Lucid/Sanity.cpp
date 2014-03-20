@@ -55,7 +55,19 @@ bool Sanity::fadeIsDone()
 
 void Sanity::tick()
 {
+<<<<<<< HEAD
 	//Wave
+=======
+	if (mSanity >= 100)
+	{
+		mSanity = 100;
+	}
+	if (mSanity < 0)
+	{
+		mSanity = 0;
+	}
+
+>>>>>>> e401b65b488c00cb3dfa4ee140f9665fe05a92e6
 	mWaveShader.setParameter("wave_phase", clock.getElapsedTime().asSeconds());
 
 	if (mSanity >= 50)

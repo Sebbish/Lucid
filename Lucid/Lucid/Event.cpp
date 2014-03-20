@@ -12,7 +12,7 @@ Event::~Event(void)
 {
 }
 
-int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Entity* &controlledEntity, Camera* camera, Button* FButton)
+int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Entity* &controlledEntity, Camera* camera, Button* FButton, Sanity* mSanity)
 {
 	std::vector<Trigger*> triggers = map->getTriggerList();
 	std::vector<AnimatedObject*> animatedObjects = map->getAnimatedObjectList();
@@ -21,6 +21,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 
 
 	switch (map->getID())
+		
 	{
 	case 20:
 		if (triggers[0]->getTrigged())
@@ -356,6 +357,13 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			
 			animatedObjects[0]->setActive(false);
 			triggers[1]->setActive(true);
+			mSanity->setSanity(50);
+		}
+		if (!triggers[0]->getActive() && triggers[1]->getActive() && controlledEntity == entityVector[0])
+		{
+			triggers[0]->setActive(true);
+			triggers[1]->setActive(false);
+			animatedObjects[0]->setActive(true);
 		}
 
 		if (triggers[1]->getActive()) //Triggern har spelarens rektangel
