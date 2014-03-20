@@ -51,7 +51,11 @@ Game::Game()
 	mEButton->willRender(true);
 	mQButton = new Button(mFH->getTexture(54));
 	mQButton->willRender(false);
+
+	mFButton = new Button(mFH->getTexture(68));
+	mFButton->willRender(false);
 	loadMap("../Debug/map3.txt", 3);
+
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
@@ -86,14 +90,16 @@ void Game::run()
 {
 	sf::Font MyFont;
 
+
 		if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
 		{
 			// Error...
 		}
 		//if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
-		//{
-		//	// Error...
-		//}
+
+		//if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
+
+
 		
 		//mSanityMeter.setString("Hello");
 		mSanityMeter.setFont(MyFont);
@@ -384,6 +390,7 @@ void Game::render()
 
 	mEButton->render(&mWindow, camera);
 	mQButton->render(&mWindow, camera);
+	mFButton->render(&mWindow, camera);
 	mDialog->render(&mWindow);
 	if(mMobil->getActivate())
 		mMobil->render(mWindow);
@@ -408,10 +415,19 @@ void Game::tick()
 	if (newMap != 0)
 	{
 		//mFade->fadeOut(newMap);
+		mMobil->setCurrentLevel(newMap);
 		std::string mapName = "../Debug/map";
 		mapName += std::to_string(newMap);
 		mapName += ".txt";
 		loadMap(mapName, newMap);
+	}
+
+	if (mEntities[0]->getActive() == false && mEntities[0]->getImortal() == false) // Om spelaren dör.
+	{
+		std::string mapName = "../Debug/map";
+		mapName += std::to_string(0);
+		mapName += ".txt";
+		loadMap(mapName, 20);
 	}
 
 	sf::FloatRect rect = mPortalFade->tick();
@@ -434,7 +450,10 @@ void Game::tick()
 
 
 
-	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton, mControlledEntity, camera);
+
+	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton, mControlledEntity, camera, mFButton);
+
+
 
 
 	if (newMap != 0)
@@ -478,7 +497,7 @@ void Game::tick()
 	}
 
 
-	if (mAmbientRed <= 50 && mAmbientGreen <= 50 && mAmbientBlue <= 55)//Sett Player walk sprite
+	if (mAmbientRed < 50 && mAmbientGreen < 50 && mAmbientBlue < 55)//Sett Player walk sprite
 	{
 		mCharFlash = true;
 		
@@ -594,13 +613,6 @@ void Game::tick()
 	mIsRightPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
 	mIsEscapePressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
 
-	if (mEntities[0]->getActive() == false && mEntities[0]->getImortal() == false)
-	{
-		std::string mapName = "../Debug/map";
-					mapName += std::to_string(mCurrentMap);
-					mapName += ".txt";
-					loadMap(mapName, mCurrentMap);
-	}
 	mLights[0]->setMoveOnOff(mEntities[0]->getMove());
 	mLights[2]->setMoveOnOff(mEntities[0]->getMove());
 	for(auto i:mLights)
@@ -723,7 +735,7 @@ void Game::collision()
 			{
 				//Visa E-symbol här
 				mEButton->setObject(portalEntity);
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed)
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !mIsEPressed && mEntities[0]->getActive() == true)
 				{
 					int newMap = portalEntity -> getFunc(mControlledEntity);
 					if (newMap != 0 && controlledEntity == mEntities[0])

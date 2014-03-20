@@ -23,7 +23,11 @@ FilHanterare::FilHanterare(void)
 	mTexture[4]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_1.png",sf::IntRect(0,0,8192,600));
 	mTexture[5]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_2.png",sf::IntRect(0,0,8192,1200));
 	mTexture[6]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level4/Level 4.png",sf::IntRect(0,0,8192,1200));
+
 	mTexture[7]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/LevelBoat2/Level_Boat_2.png",sf::IntRect(0,0,4098,256));
+
+
+	mTexture[20]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Respawn Rum/Lewis Sjukrum.png",sf::IntRect(0,0,600,300));
 
 	
 	
@@ -81,6 +85,7 @@ FilHanterare::FilHanterare(void)
 	mTexture[56]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/Lysrör liten.png",sf::IntRect(0,0,451,440));
 	mTexture[57]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lamp/Lysrör.png",sf::IntRect(0,0,869,451));
 	mTexture[58]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Cellphone_Lightsheet.png",sf::IntRect(0,0,4096,512));
+
 	mTexture[59]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Silhouettes/Bewblady_Silhouette.png", sf::IntRect(0, 0, 256, 256));
 	mTexture[60]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Silhouettes/Businesslady_Spritesheet.png", sf::IntRect(0, 0, 256, 256));
 	mTexture[61]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Silhouettes/Hipsterpants_Spritesheet.png", sf::IntRect(0, 0, 256, 256));
@@ -90,6 +95,9 @@ FilHanterare::FilHanterare(void)
 	mTexture[65]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Silhouettes/Pojkvasker_Spritesheet.png", sf::IntRect(0, 0, 256, 256));
 	mTexture[66]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Silhouettes/Texasman_Silhouette.png", sf::IntRect(0, 0, 256, 256));
 	mTexture[67]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Silhouettes/MrGreen_Spritesheet.png", sf::IntRect(0, 0, 256, 256));
+
+	mTexture[68]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/F placeholder Spritesheet.png",sf::IntRect(0,0,128,64));
+
 
 	
 	//mSoundBuffer[0]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");

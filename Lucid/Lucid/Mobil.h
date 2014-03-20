@@ -30,6 +30,8 @@ public:
 	void VoiceMailRender(sf::RenderWindow *target);
 	bool slutPÂTest;
 	bool getMC;
+	void setCurrentLevel(int lvl);
+	int getCurrentLevel();
 private:
 	void save();
 	bool mVoiceMail;
@@ -52,6 +54,7 @@ private:
 	sf::Vector2f firstMenuThing;
 	float textH;
 	float textY;
+	int mcurrentLevel;
 
 };
 #endif

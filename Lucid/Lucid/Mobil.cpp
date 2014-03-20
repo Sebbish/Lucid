@@ -4,18 +4,17 @@
 Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voicemail,sf::Vector2u windowSize):
 	mTexture(texture),mLines(lines),mActivated(false)
 {
+
 	mRect.height = windowSize.y;
 	mRect.width = (float)windowSize.y*((float)mTexture->getSize().x/(float)mTexture->getSize().y);
-	/*mRect.width = mTexture->getSize().x;
-	mRect.height = mTexture->getSize().y;*/
-	std::cout << mRect.width << std::endl;
+
 	snakes = false;
 	mVM = new VoiceMail(mapID,Voicemail);
 	mVoiceMail = false;
 	slutPåTest = false;
 	f.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
 	//f.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
-	
+
 	getMC = false;
 	rs.setPosition(mRect.left,mRect.top);
 	rs.setSize(sf::Vector2f(mRect.width,mRect.height));
@@ -349,4 +348,14 @@ void Mobil::VoiceMailRender(sf::RenderWindow *target)
 		t.setPosition(target->getPosition().x+target->getSize().x/2.0,target->getPosition().y+target->getSize().y/2.0);
 		target->draw(t);
 	}
+}
+
+void Mobil::setCurrentLevel(int LVL)
+{
+	mcurrentLevel = LVL;
+}
+
+int Mobil::getCurrentLevel()
+{
+	return mcurrentLevel;
 }
