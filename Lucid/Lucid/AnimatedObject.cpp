@@ -128,6 +128,11 @@ void AnimatedObject::fadein()
 	mFadeOut = false;
 }
 
+void AnimatedObject::scale(int pixels)
+{
+	mScalePixels += pixels;
+}
+
 void AnimatedObject::tick()
 {
 	if (mAnimate)
@@ -190,10 +195,18 @@ void AnimatedObject::render(sf::RenderTexture* window)
 	{
 		sf::RectangleShape r;
 		r.setTexture(mTexture);
-		r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+		if (mTypeID == 62)
+			r.setTextureRect(sf::IntRect(256*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+		else
+			r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
 		r.setPosition(mRect.left,mRect.top);
 		r.setSize(sf::Vector2f(mRect.width,mRect.height));
 		r.setFillColor(sf::Color(255, 255, 255, mAlpha));
+		if (mScalePixels > 0)
+		{
+			r.setPosition(mRect.left, mRect.top + mScalePixels);
+			r.scale(1, (mRect.height - mScalePixels) / mRect.height);
+		}
 		window->draw(r);
 	}
 }

@@ -114,8 +114,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ambiance.h" />
-    <ClInclude Include="AnimatedObject.h" />
     <ClInclude Include="Button.h">
       <Filter>h</Filter>
     </ClInclude>
@@ -210,6 +208,12 @@
       <Filter>h</Filter>
     </ClInclude>
     <ClInclude Include="Wall.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedObject.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="ambiance.h">
       <Filter>h</Filter>
     </ClInclude>
   </ItemGroup>

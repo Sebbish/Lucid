@@ -53,7 +53,8 @@ Game::Game()
 	mQButton->willRender(false);
 	mFButton = new Button(mFH->getTexture(59));
 	mFButton->willRender(false);
-	loadMap("../Debug/map2.txt", 2);
+	loadMap("../Debug/map6.txt", 6);
+	mMobil->setCurrentLevel(6);
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
@@ -87,14 +88,14 @@ Game::~Game()
 void Game::run()
 {
 	sf::Font MyFont;
-		//if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
-		//{
-		//	// Error...
-		//}
-		if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+		if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
 		{
 			// Error...
 		}
+		//if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
+		//{
+		//	// Error...
+		//}
 		
 		//mSanityMeter.setString("Hello");
 		mSanityMeter.setFont(MyFont);
@@ -429,10 +430,15 @@ void Game::tick()
 
 	if (mEntities[0]->getActive() == false && mEntities[0]->getImortal() == false) // Om spelaren dör.
 	{
-		std::string mapName = "../Debug/map";
-		mapName += std::to_string(0);
-		mapName += ".txt";
-		loadMap(mapName, 20);
+		mSanity->die();
+		if (mSanity->fadeIsDone())
+		{
+			std::string mapName = "../Debug/map";
+			mapName += std::to_string(0);
+			mapName += ".txt";
+			loadMap(mapName, 20);
+			mSanity->live();
+		}
 	}
 
 	sf::FloatRect rect = mPortalFade->tick();
@@ -766,6 +772,8 @@ void Game::collision()
 
 void Game::loadMap(std::string filename, int mapID)
 {
+	delete mEvent;
+	mEvent = new Event();
 	if(mapID >= 2)	
 		mSL->save(0,"hej",mapID);
 	mEButton->setObject(0, true);

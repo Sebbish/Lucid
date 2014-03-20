@@ -64,6 +64,9 @@ Enemy::Enemy(float x, float y, float width, float height, float speed, int direc
 	mAnimationTimer = 0;
 	mWaitTimer = 0;
 	mWait = false;
+	mEatWait = false;
+	mEatWaitTime = 240;
+	mEatWaitTimer = 0;
 	mImortal = false;
 	//mWaitTime = 60;
 	/*mViewBackRange = 300;
@@ -503,15 +506,18 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 			{
 				mTeleport = false;
 			}
-			for (auto i:entityVector)
+
+			if (!mEatWait)
 			{
-				if ((i->getTypeID() == 21 && mTypeID == 22) || (i->getTypeID() == 22 && mTypeID == 21))
+				for (auto i:entityVector)
 				{
-					checkSight(i);
+					if ((i->getTypeID() == 21 && mTypeID == 22) || (i->getTypeID() == 22 && mTypeID == 21))
+					{
+						checkSight(i);
+					}
 				}
+				checkSight(player);
 			}
-			checkSight(player);
-		
 
 			if (mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5)
 			{
@@ -597,6 +603,16 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 					mTargetX = mPatrolStop;
 					mWaitTimer = 0;
 				}
+			}
+
+			if (mEatWaitTimer >= mEatWaitTime)
+			{
+				mEatWait = false;
+				mEatWaitTimer = 0;
+			}
+			else
+			{
+				mEatWaitTimer++;
 			}
 		}
 
@@ -736,7 +752,12 @@ void Enemy::setAnimation()
 				{
 					mAnimationTimer = 0.0f;
 					if (mCurrentForm == EAT)
+					{
 						mNextForm = MONSTER;
+						mEatWait = true;
+						mWait = true;
+						mWaitTimer = 0;
+					}
 				}
 				else
 					mAnimationTimer += mAnimationSpeed;

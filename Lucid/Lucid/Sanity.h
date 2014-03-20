@@ -11,9 +11,12 @@ public:
 	void render(sf::RenderWindow* window);
 	sf::Shader& getShader();
 	void setBrus(bool brus);
+	bool fadeIsDone();
+	void die();
+	void live();
 private:
 	float mSanity;
-	sf::Texture* mBrusTexture;
+	sf::Texture *mBrusTexture, *mDieTexture;
 	sf::Shader mWaveShader;
 	sf::Shader mEmptyShader;
 	sf::Clock clock;
@@ -21,6 +24,14 @@ private:
 	float mAlpha;
 	float mAlphaSpeed;
 	bool mBrus;
+
+	bool mWhiteFadeIn;
+	bool mWhiteFadeOut;
+
+	float mDieFade;
+	float mBlurValue;
+	bool mDie;
+	int mDelayTimer;
 
 	float mAnimationSpeed;
 	float mAnimationTimer;

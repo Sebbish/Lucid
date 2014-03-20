@@ -4,7 +4,7 @@
 Sanity::Sanity(sf::Texture* brus):
 	mSanity(100), mBrusTexture(brus)
 {
-	mWaveShader.loadFromFile("../../../SFML-2.1/examples/shader/resources/wave.vert",sf::Shader::Vertex);
+	mWaveShader.loadFromFile("../../../SFML-2.1/examples/shader/resources/wave.vert", "../../../SFML-2.1/examples/shader/resources/blur.frag");
 	mAnimationTimer = 0;
 	mAnimationSpeed = 0.50;
 	mAlpha = 0;
@@ -12,6 +12,9 @@ Sanity::Sanity(sf::Texture* brus):
 	mAlphaSpeed = 2;
 	mWaveAmpSpeed = 1;
 	mWaveAmp = 0;
+	mDelayTimer = 0;
+	mWhiteFadeIn = false;
+	mWhiteFadeOut = false;
 }
 
 
@@ -29,19 +32,31 @@ void Sanity::setSanity(float sanity)
 	mSanity += sanity;
 }
 
+void Sanity::die()
+{
+	mWhiteFadeOut = true;
+	mWhiteFadeIn = false;
+}
+
+void Sanity::live()
+{
+	mBlurValue = 0;
+	mWhiteFadeIn = true;
+	mWhiteFadeOut = false;
+}
+
+bool Sanity::fadeIsDone()
+{
+	if (mDieFade >= 255)
+		return true;
+	else
+		return false;
+}
+
 void Sanity::tick()
 {
+	//Wave
 	mWaveShader.setParameter("wave_phase", clock.getElapsedTime().asSeconds());
-	/*if (mSanity < 5)
-		mWaveShader.setParameter("wave_amplitude", 0.5 * 25, 0.5 * 50);
-	else if (mSanity < 10)
-		mWaveShader.setParameter("wave_amplitude", 0.5 * 20, 0.5 * 40);
-	else if (mSanity < 15)
-		mWaveShader.setParameter("wave_amplitude", 0.5 * 15, 0.5 * 30);
-	else if (mSanity < 20)
-		mWaveShader.setParameter("wave_amplitude", 0.5 * 10, 0.5 * 20);
-	else if (mSanity < 25)
-		mWaveShader.setParameter("wave_amplitude", 0.5 * 5, 0.5 * 10);*/
 
 	if (mSanity >= 50)
 		mBrusAlpha = 0;
@@ -79,12 +94,56 @@ void Sanity::tick()
 	{
 		mAnimationTimer += mAnimationSpeed;
 	}
+
+	//Blur
+	if (mWhiteFadeOut)
+	{
+		if (mDelayTimer > 50)
+		{
+			mBlurValue += 0.01;
+			mDieFade += 20;
+		}
+		else
+			mDelayTimer++;
+	}
+	/*else
+	{
+		mBlurValue = 0;
+		mDieFade = 0;
+	}*/
+
+	if (mWhiteFadeIn)
+	{
+		if (mDieFade > 0);
+		{
+			mDieFade -= 2;
+		}
+	}
+	if (mDieFade < 0)
+		mDieFade = 0;
+	else if (mDieFade > 255)
+		mDieFade = 255;
+	mWaveShader.setParameter("blur_radius", mBlurValue * 0.004f);
 }
 
 void Sanity::render(sf::RenderWindow* window)
 {
-	if (mSanity <= 50 && mAlpha > 0)
+	if (mDieFade != 0)
 	{
+		sf::RectangleShape r;
+		r.setPosition(0,0);
+		r.setSize(sf::Vector2f(1920,1080));
+		r.setTexture(mDieTexture);
+		r.setTextureRect(sf::IntRect(0,0,1920,1080));
+		r.setFillColor(sf::Color(255, 255, 255, (int)mDieFade));
+		window->draw(r);
+	}
+	if ((mSanity <= 50 && mAlpha > 0) || mWhiteFadeOut)
+	{
+		if (mWhiteFadeOut && mBrus && mAlpha < mDieFade)
+			mAlpha = mDieFade;
+		else if (mWhiteFadeOut && !mBrus)
+			mAlpha = mDieFade;
 		sf::RectangleShape r;
 		r.setPosition(0,0);
 		r.setSize(sf::Vector2f(1920,1080));
@@ -97,7 +156,7 @@ void Sanity::render(sf::RenderWindow* window)
 
 sf::Shader& Sanity::getShader()
 {
-	if (mSanity < 25)
+	if (mSanity < 25 || mWhiteFadeOut)
 		return mWaveShader;
 	else
 		return mEmptyShader;

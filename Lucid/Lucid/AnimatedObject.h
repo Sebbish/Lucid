@@ -32,6 +32,7 @@ public:
 	void setLoop(bool loop);
 	void fadeout();
 	void fadein();
+	void scale(int pixels);
 private:
 	sf::FloatRect mRect;
 	int mTypeID;
@@ -48,6 +49,8 @@ private:
 	AnimationDirection mAnimationDirection;
 	bool mFadeIn, mFadeOut;
 	int mFadeSpeed;
+	float mScalePixels;
+	float mScaleFactor;
 };
 
 #endif

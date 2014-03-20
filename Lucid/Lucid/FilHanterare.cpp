@@ -88,6 +88,8 @@ FilHanterare::FilHanterare(void)
 	mTexture[62]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Vatten/vatten_spritesheet.png",sf::IntRect(0,0,2048,256));
 	mTexture[63]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Brus_spritesheet.png",sf::IntRect(0,0,7680,1080));
 
+	mTexture[64]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Dörrar/Dörrar SpriteSheet 2.png",sf::IntRect(0,0,2048,512));
+
 	
 	mSoundBuffer[0]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");
 	mSoundBuffer[1]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/lewis hall walking slow 2(with clothing).wav");

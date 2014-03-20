@@ -70,6 +70,9 @@ private:
 	int mPatrolStop;
 	layer mLayer;
 	bool mWait;
+	bool mEatWait;
+	int mEatWaitTime;
+	int mEatWaitTimer;
 	bool mHunting;
 	bool mIsPlayerVisible;
 	bool mSearching;

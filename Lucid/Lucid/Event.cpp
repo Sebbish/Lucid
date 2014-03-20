@@ -117,6 +117,12 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 				}
 				
 			}
+
+			for (int i = 7; i <= 25; i++)
+			{
+				animatedObjects[i]->scale(192);
+				animatedObjects[i]->setActive(true);
+			}
 			
 			mMobil->nextSound();
 		}
@@ -171,6 +177,10 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			entityVector[1]->setActive(true);
 			animatedObjects[0]->setActive(true);
 			mMobil->nextSound();
+
+			//dörren
+			animatedObjects[3]->setActive(true);
+			animatedObjects[4]->setActive(false);
 		}
 
 		if (triggers[1]->getTrigged()) //Monstret låser upp första dörren
@@ -194,6 +204,10 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			walls[0]->setActive(false);
 			animatedObjects[0]->setActive(false);
 			bool3 = false;
+
+			//dörren
+			animatedObjects[4]->setActive(true);
+			animatedObjects[3]->setActive(false);
 		}
 
 		if (triggers[2]->getTrigged()) //Monstret låser upp andra dörren
@@ -224,6 +238,10 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			walls[1]->setActive(false);
 			animatedObjects[1]->setActive(false);
 			bool2 = false;
+
+			//dörren
+			animatedObjects[5]->setActive(false);
+			animatedObjects[6]->setActive(true);
 		}
 
 		if (triggers[3]->getTrigged()) //Man når slutet av banan och monstret flyttas närmare och springer mot slutet
@@ -300,6 +318,10 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			bool1 = false;
 			bool3 = true;
 
+			//dörren
+			animatedObjects[2]->setActive(false);
+			animatedObjects[3]->setActive(true);
+
 			//Tappar kontrollen
 			controlledEntity->controlled(false);
 			controlledEntity = entityVector[0];
@@ -373,6 +395,30 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		if (!triggers[3]->getActive())
 		{
 			entityVector[2]->setTargetX(0);
+		}
+
+		break;
+
+	case 6:
+		if (triggers[0]->getTrigged())
+		{
+			triggers[0]->setActive(false);
+			animatedObjects[0]->setActive(false);
+			animatedObjects[1]->setActive(true);
+			for (int i = 2; i <= 23; i++)
+			{
+				animatedObjects[i]->scale(256);
+				animatedObjects[i]->setActive(true);
+			}
+			bool1 = true;
+		}
+
+		if (bool1)
+		{
+			for (int i = 2; i <= 23; i++)
+			{
+				animatedObjects[i]->scale(-1);
+			}
 		}
 
 		break;
