@@ -109,9 +109,9 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			animatedObjects[2]->setActive(false);
 			triggers[13]->setActive(true);
 			LightVector[0]->setWorldLight(0,0,0);
-			for (int i = 3; i <= 24; i++)
+			for (int i = 3; i <= 26; i++)
 			{
-				if (i == 5 || i == 8 || i == 12 || i == 19 || i == 23)
+				if (i == 6 || i == 9 || i == 13 || i == 21 || i == 25)
 				{
 					LightVector[i]->setBlink(true);
 				}

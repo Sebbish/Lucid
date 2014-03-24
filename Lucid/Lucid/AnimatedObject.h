@@ -51,7 +51,6 @@ private:
 	bool mFadeIn, mFadeOut;
 	int mFadeSpeed;
 	float mScalePixels;
-	float mScaleFactor;
 };
 
 #endif

@@ -53,8 +53,8 @@ Game::Game()
 	mQButton->willRender(false);
 	mFButton = new Button(mFH->getTexture(59));
 	mFButton->willRender(false);
-	loadMap("../Debug/map3.txt", 3);
-	mMobil->setCurrentLevel(3);
+	loadMap("../Debug/map7.txt", 7);
+	mMobil->setCurrentLevel(7);
 
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);

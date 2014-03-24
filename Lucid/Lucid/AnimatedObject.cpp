@@ -64,6 +64,7 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 	mFadeIn = false;
 	mFadeOut = false;
 	mFadeSpeed = 20;
+	mScalePixels = 0;
 }
 
 
