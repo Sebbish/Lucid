@@ -12,6 +12,10 @@ Npc::Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,in
 	{
 		mIdleSound.setVolume(30);
 	}
+	if(typeID == 83)
+		mLookLeft = false;
+	if(typeID >= 84)
+		mAnimationSpeed = 0.0f;
 }
 
 Npc::~Npc()
@@ -27,6 +31,7 @@ bool Npc::getShowE()
 int Npc::getFunc(Entity* player)
 {
 	if(dialogActive)
+	{
 		if(mDialog->getDraw())
 		{
 			mDialog->nextLine();
@@ -36,6 +41,9 @@ int Npc::getFunc(Entity* player)
 			mDialog->loadFile(mDialogFile,mDialogueID);
 			mChatting = true;
 		}
+	}
+		if(mTypeID >= 84)
+			mCurrentAnimationPic = 1;
 	return 0;
 }
 

@@ -228,7 +228,7 @@ void Map::renderMap(sf::RenderTexture* window)
 		r.setPosition(3586, 0);
 	}
 
-	r.setSize(sf::Vector2f(mTexture->getSize().x,mTexture->getSize().y));
+	
 	window->draw(r);
 }
 

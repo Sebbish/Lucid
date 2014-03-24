@@ -79,7 +79,7 @@ string path = "../../../LucidProject/Resources/Sound/Ambiance/";
 	// VARIABLES D //
 	int ambDCounter = 0;
 	bool ambDBeforeAfter = 0;
-	int ambDTriggerLevel = 90;
+	int ambDTriggerLevel = 80;
 	int ambDTimer = 0;
 
 	// FILE LIST A //
@@ -155,7 +155,7 @@ ambiance::ambiance()
 	ambDA.setVolume(0);
 	ambDA.setLoop(false); 
 
-	ambDB.setVolume(100);
+	ambDB.setVolume(70);
 	ambDB.setLoop(false); 
 
 	ambDC.setVolume(100);
@@ -164,10 +164,10 @@ ambiance::ambiance()
 	ambDD.setVolume(100);
 	ambDD.setLoop(false);
 
-	ambDA.openFromFile("ambDA01.ogg");
-	ambDB.openFromFile("ambDB01.ogg");
-	ambDC.openFromFile("ambDC01.ogg");
-	ambDD.openFromFile("ambDD01.ogg");
+	ambDA.openFromFile(path+"ambDA01.ogg");
+	ambDB.openFromFile(path+"ambDB01.ogg");
+	ambDC.openFromFile(path+"ambDC01.ogg");
+	ambDD.openFromFile(path+"ambDD01.ogg");
 
 	// LOAD ALL FILES (AKA RONNYHAX) ////////////////////////////////////////////
 
@@ -237,7 +237,7 @@ ambiance::~ambiance()
 
 void ambiance::tick(int madness)
 {
-	ambMadness = 100-madness;
+	ambMadness = 101-madness;
 	ambMaxVolume = 100;
 
 	// SO THE ENGINE BEGINS //
@@ -758,7 +758,10 @@ void ambiance::tick(int madness)
 
 		if (ALLambCA[ambCARandom].getStatus() == 2)
 		{
-			ALLambCA[ambCARandom].setVolume((ambMadness - ambCATriggerLevel)*(ambMadness/100+1)*0.50*(ambMaxVolume/100)*0.75);
+			/*if((ambMadness - ambCATriggerLevel)*(ambMadness/100+1)*0.50*(ambMaxVolume/100)*0.75 >= 50)
+				ALLambCA[ambCARandom].setVolume(50);
+			else*/
+				ALLambCA[ambCARandom].setVolume((ambMadness - ambCATriggerLevel)*(ambMadness/100+1)*0.50*(ambMaxVolume/100)*0.20);
 
 			// STOP //
 
@@ -773,7 +776,10 @@ void ambiance::tick(int madness)
 
 		if (ALLambCB[ambCBRandom].getStatus() == 2)
 		{
-			ALLambCB[ambCBRandom].setVolume((ambMadness - ambCBTriggerLevel)*(ambMadness/100+1)*0.75*(ambMaxVolume/100)*0.75);
+			/*if((ambMadness - ambCATriggerLevel)*(ambMadness/100+1)*0.50*(ambMaxVolume/100)*0.75 >= 50)
+				ALLambCB[ambCBRandom].setVolume(50);
+			else*/
+				ALLambCB[ambCBRandom].setVolume((ambMadness - ambCATriggerLevel)*(ambMadness/100+1)*0.50*(ambMaxVolume/100)*0.20);
 
 			// STOP //
 
@@ -788,7 +794,10 @@ void ambiance::tick(int madness)
 
 		if (ALLambCC[ambCCRandom].getStatus() == 2)
 		{
-			ALLambCC[ambCCRandom].setVolume((ambMadness - ambCCTriggerLevel)*(ambMadness/100+1)*2*(ambMaxVolume/100)*0.75);
+			/*if((ambMadness - ambCATriggerLevel)*(ambMadness/100+1)*0.50*(ambMaxVolume/100)*0.75 >= 50)
+				ALLambCC[ambCCRandom].setVolume(50);
+			else*/
+				ALLambCC[ambCCRandom].setVolume((ambMadness - ambCATriggerLevel)*(ambMadness/100+1)*0.50*(ambMaxVolume/100)*0.20);
 
 			// STOP //
 

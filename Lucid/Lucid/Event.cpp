@@ -5,14 +5,14 @@ Event::Event(void)
 	bool1 = false;
 	bool2 = false;
 	bool3 = false;
-
+	bool4 = false;
 }
 
 Event::~Event(void)
 {
 }
 
-int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Entity* &controlledEntity, Camera* camera, Button* FButton)
+int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Light*> LightVector, Mobil *mMobil, Button* QButton, Entity* &controlledEntity, Camera* camera, Button* FButton,std::vector<Object*> &object)
 
 {
 	std::vector<Trigger*> triggers = map->getTriggerList();
@@ -146,12 +146,18 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		if (map->getTriggerList()[16]->getTrigged())
 		{
 			FButton->willRender(true);
-			FButton->setObject(animatedObjects[2]);
+			FButton->setObject(animatedObjects[2], false);
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F))
 			{
 				triggers[16]->setActive(false);
 				FButton->willRender(false);
 			}
+		}
+
+		if (triggers[17]->getTrigged()) //÷ppnar hissen
+		{
+			triggers[16]->setActive(false);
+			animatedObjects[6]->setAnimate(true);
 		}
 		break;
 
@@ -286,7 +292,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		if(triggers[2]->getTrigged()) // nÂr slutet av banan
 		{
 			triggers[2]->setActive(false);
-			return 5;
+			return 7;
 			//mMobil->slutPÂTest = true;
 		}
 
@@ -295,7 +301,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			walls[0]->setActive(false);
 			animatedObjects[0]->setActive(false);
 			bool1 = false;
-			entityVector[1]->setTargetX(100000);
+			bool3 = true;
 
 			//Tappar kontrollen
 			controlledEntity->controlled(false);
@@ -303,8 +309,17 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			camera->setTarget(controlledEntity);
 			controlledEntity->controlled(true);
 		}
+		if (bool3 == true)
+		{
+			entityVector[1]->setTargetX(100000);
+		}
 
-		if (bool2 && entityVector[0]->getHiding() == true)
+		if (controlledEntity == entityVector[1] && !bool4)
+		{
+			bool4 = true;
+		}
+
+		if (bool2 && !bool4 && entityVector[0]->getHiding() == true)
 		{
 			QButton->willRender(true);
 		}
@@ -361,11 +376,14 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			entityVector[2]->setTargetX(0);
 		}
 		break;
-		case 7:
+	case 7:
 		if(triggers[0]->getTrigged())
 		{
 			if(mMobil->getDialogID() == 10)
+			{
 				triggers[0]->setActive(false);
+				triggers[7]->setActive(true);
+			}
 			entityVector[0]->setPosition(sf::FloatRect(6677,0,256,256));
 			camera->moveCameraPosition(sf::Vector2f(-1937-103,0));
 		}
@@ -398,6 +416,101 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		{
 			triggers[6]->setActive(false);
 			mMobil->nextDialog();
+		}
+		if(triggers[7]->getTrigged())
+		{
+			triggers[7]->setActive(false);
+			return 5;
+		}
+
+		if(triggers[8]->getTrigged())
+		{
+			triggers[8]->setActive(false);
+			object[0]->getFunc(controlledEntity);
+		}
+		if(triggers[9]->getTrigged())
+		{
+			triggers[9]->setActive(false);
+			object[1]->getFunc(controlledEntity);
+		}
+		if(triggers[10]->getTrigged())
+		{
+			triggers[10]->setActive(false);
+			object[2]->getFunc(controlledEntity);
+		}
+		if(triggers[11]->getTrigged())
+		{
+			triggers[11]->setActive(false);
+			object[3]->getFunc(controlledEntity);
+		}
+		if(triggers[12]->getTrigged())
+		{
+			triggers[12]->setActive(false);
+			object[4]->getFunc(controlledEntity);
+		}
+		if(triggers[13]->getTrigged())
+		{
+			triggers[13]->setActive(false);
+			object[5]->getFunc(controlledEntity);
+		}
+		if(triggers[14]->getTrigged())
+		{
+			triggers[14]->setActive(false);
+			object[6]->getFunc(controlledEntity);
+		}
+		if(triggers[15]->getTrigged())
+		{
+			triggers[15]->setActive(false);
+			object[7]->getFunc(controlledEntity);
+		}
+		if(triggers[16]->getTrigged())
+		{
+			triggers[16]->setActive(false);
+			object[8]->getFunc(controlledEntity);
+		}
+		if(triggers[17]->getTrigged())
+		{
+			triggers[17]->setActive(false);
+			object[9]->getFunc(controlledEntity);
+		}
+		if(triggers[18]->getTrigged())
+		{
+			triggers[18]->setActive(false);
+			object[10]->getFunc(controlledEntity);
+		}
+		if(triggers[19]->getTrigged())
+		{
+			triggers[19]->setActive(false);
+			object[11]->getFunc(controlledEntity);
+		}
+		if(triggers[20]->getTrigged())
+		{
+			triggers[20]->setActive(false);
+			object[12]->getFunc(controlledEntity);
+		}
+		if(triggers[21]->getTrigged())
+		{
+			triggers[21]->setActive(false);
+			object[13]->getFunc(controlledEntity);
+		}
+		if(triggers[22]->getTrigged())
+		{
+			triggers[22]->setActive(false);
+			object[14]->getFunc(controlledEntity);
+		}
+		break;
+	case 8:
+		if(triggers[0]->getTrigged())
+		{
+			triggers[0]->setActive(false);
+			mMobil->boatLvl8Thing();
+		}
+		if(mMobil->playingLvl8Thing())
+			triggers[1]->setActive(true);
+		if(triggers[1]->getTrigged())
+		{
+			triggers[1]->setActive(false);
+			return 4;
 		}
 		break;
 	}

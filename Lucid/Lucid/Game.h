@@ -21,6 +21,7 @@
 #include "Fade.h"
 #include "PortalFade.h"
 #include "Button.h"
+#include "cred.h"
 
 typedef std::vector<Entity*> EntiyVector;
 typedef std::vector<Object*> ObjectVector;
@@ -92,6 +93,9 @@ private:
 	Button* mQButton;
 	Button* mFButton;
 	float mSanityLossWhileSeen, mSanityLossWhileControlling;
+	cred *mCred;
+
+	sf::Texture tempTexture;
 };
 
 #endif

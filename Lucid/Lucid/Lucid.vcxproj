@@ -90,6 +90,7 @@
     <ClCompile Include="AnimatedObject.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="cred.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Dialog.cpp" />
     <ClCompile Include="Effects.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="AnimatedObject.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="cred.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Dialog.h" />
     <ClInclude Include="Effects.h" />

@@ -24,6 +24,8 @@ public:
 	void playNextDialog();
 	void playDialog(int id);
 	int getDialogID();
+	void boatLvl8Thing();
+	bool playingLvl8Thing();
 	void tick();
 	void render(sf::RenderWindow *target);
 private:
@@ -36,6 +38,7 @@ private:
 	bool mDraw;
 	int mMapID;
 	float pause;
+	bool lvl8Thing;
 };
 #endif
 

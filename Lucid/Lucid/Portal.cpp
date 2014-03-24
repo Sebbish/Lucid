@@ -42,6 +42,7 @@ int Portal::getFunc(Entity* player)
 		if (mTargetPortalID != 0)
 		{
 			//player->setPosition(mTargetPortal->getRect());
+			mPortalSound.stop();
 			mPortalSound.play();
 			return 0;
 		}

@@ -43,6 +43,10 @@ Mobil::~Mobil()
 }
 
 
+void Mobil::boatLvl8Thing()
+{
+	mVD->boatLvl8Thing();
+}
 
 //aktiverar mobilen och sätter rätt position
 void Mobil::activate(sf::RenderWindow* view)
@@ -162,6 +166,11 @@ void Mobil::newMap(int mapID)
 	slutPåTest = false;
 	getMC = false;
 	mVD->newLevel(mapID);
+}
+
+bool Mobil::playingLvl8Thing()
+{
+	return mVD->playingLvl8Thing();
 }
 
 int Mobil::getDialogID()

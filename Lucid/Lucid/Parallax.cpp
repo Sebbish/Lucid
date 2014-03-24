@@ -11,12 +11,14 @@ Parallax::Parallax(sf::FloatRect rect, sf::Texture* texture, int typeID, Camera*
 	else if (typeID == 33)
 		mVariabel = 0.12f;
 	else if (typeID == 49 || typeID == 50)
-		mVariabel = 0.01f;
+		mVariabel = 0.05f;
 	else
 		mVariabel = 0.25f;
+
 	r.setTexture(mTexture);
 	r.setTextureRect(sf::IntRect(0,0,mRect.width,mRect.height));
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+
 }
 
 Parallax::~Parallax(void)

@@ -33,8 +33,7 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mFlashlightMode = false;
 	mSecondLastRect = mRect;
 	mMove = false;
-
-
+	
 	/*mBreatheDelay = 60 * 4;
 	mUpperBreatheDelay = 60;
 	mBreatheTimer = 0;
@@ -226,6 +225,8 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 {
 	mLastRect = mRect;
 	
+	if(mWalkSound.getPlayingOffset().asSeconds() >= 1)
+		mWalkSound.stop();
 
 	if(mMove && mKnockWidth == 0 && !mHiding)
 	{

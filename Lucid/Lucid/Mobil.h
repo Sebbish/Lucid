@@ -26,6 +26,8 @@ public:
 	void nextSound();
 	void nextDialog();
 	int getDialogID();
+	void boatLvl8Thing();
+	bool playingLvl8Thing();
 	void VoiceMailTick();
 	void VoiceMailRender(sf::RenderWindow *target);
 	bool slutPÂTest;

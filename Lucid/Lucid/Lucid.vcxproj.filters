@@ -115,6 +115,7 @@
     <ClCompile Include="VoiceDialog.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="cred.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ambiance.h">
@@ -222,6 +223,7 @@
     <ClInclude Include="VoiceDialog.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="cred.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png" />

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿Build started 2014-03-19 11:17:12.
      1>Project "C:\Lucidaa\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(346,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
@@ -32,34 +33,38 @@
      1>snake.cpp(50): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
 =======
 ﻿Build started 2014-03-19 16:01:50.
+=======
+﻿Build started 2014-03-19 17:07:07.
+>>>>>>> 1795a5437776a7563ae37e69b9bbcc51e1d0d1c8
      1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp Mobil.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FilHanterare.cpp Game.cpp
+         FilHanterare.cpp
          Game.cpp
      1>Game.cpp(16): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
      1>Game.cpp(17): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
      1>Game.cpp(28): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
-     1>Game.cpp(104): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>Game.cpp(381): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
-     1>Game.cpp(508): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>Game.cpp(512): warning C4305: '-=' : truncation from 'double' to 'float'
-     1>Game.cpp(524): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>Game.cpp(553): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(554): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(555): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(583): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>Game.cpp(597): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Game.cpp(798): warning C4018: '<' : signed/unsigned mismatch
-     1>Game.cpp(808): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(824): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(833): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(103): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>Game.cpp(380): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
+     1>Game.cpp(516): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>Game.cpp(520): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>Game.cpp(532): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>Game.cpp(561): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(562): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(563): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(594): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Game.cpp(608): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Game.cpp(813): warning C4018: '<' : signed/unsigned mismatch
+     1>Game.cpp(823): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(839): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>Game.cpp(848): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(860): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(862): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(871): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(881): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(888): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(863): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(875): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(877): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(886): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(896): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>Game.cpp(903): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+<<<<<<< HEAD
      1>Game.cpp(920): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>Game.cpp(928): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>Game.cpp(932): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
@@ -78,6 +83,19 @@
      1>Mobil.cpp(301): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
      1>Mobil.cpp(302): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
 >>>>>>> 1415617e1cc507f57b1b854e0cbaf028470f4127
+=======
+     1>Game.cpp(918): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(935): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(943): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(947): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(948): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(949): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(971): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Game.cpp(1042): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1043): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1056): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1056): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+>>>>>>> 1795a5437776a7563ae37e69b9bbcc51e1d0d1c8
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" /LIBPATH:"C:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\ambiance.obj
          Release\AnimatedObject.obj
@@ -132,43 +150,20 @@ Build succeeded.
 Time Elapsed 00:00:05.37
 =======
      1>p:\lucid\lucid\lucid\saveload.cpp(66): warning C4715: 'SaveLoad::load' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\filhanterare.cpp(120): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\filhanterare.cpp(114): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\effects.cpp(135): warning C4715: 'Effects::getShader' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\filhanterare.cpp(125): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\filhanterare.cpp(119): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
          Finished generating code
-     1>ambiance.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'ambiance.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>AnimatedObject.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'AnimatedObject.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Button.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Button.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Camera.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Camera.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Cube.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Cube.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Dialog.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Dialog.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Effects.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Effects.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Enemy.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Enemy.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Entity.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Entity.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Fade.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Fade.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Flashlight.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Flashlight.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Hiding.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Hiding.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Light.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Light.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>LightMain.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'LightMain.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>LightManager.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'LightManager.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>LightSource.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'LightSource.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Npc.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Npc.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Object.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Object.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Parallax.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Parallax.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Player.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Player.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Portal.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Portal.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>PortalFade.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'PortalFade.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Roof.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Roof.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Sanity.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Sanity.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>SaveLoad.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'SaveLoad.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>snake.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'snake.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Source.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Source.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>VoiceMail.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'VoiceMail.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Wall.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Wall.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
+     1>Map.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Map.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
+     1>Trigger.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Trigger.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
+     1>Ventilation.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Ventilation.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
          Lucid.vcxproj -> P:\Lucid\Lucid\Release\Lucid.exe
      1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
 
 Build succeeded.
 
+<<<<<<< HEAD
 Time Elapsed 00:00:19.00
 >>>>>>> 1415617e1cc507f57b1b854e0cbaf028470f4127
+=======
+Time Elapsed 00:00:14.14
+>>>>>>> 1795a5437776a7563ae37e69b9bbcc51e1d0d1c8

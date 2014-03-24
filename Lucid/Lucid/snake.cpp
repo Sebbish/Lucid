@@ -144,22 +144,24 @@ bool snake::snakeCollideWithSnake()
 
 void snake::tick()
 {
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	sf::Joystick::update();
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || sf::Joystick::isButtonPressed(0,2))
 		mState = EXIT;
 
 	if(mState == GAME)
 	{
-
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		
+		
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Joystick::getAxisPosition(0,sf::Joystick::X) >= 50)
 			cubes[0]->setDirection(Cube::RIGHT);
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Joystick::getAxisPosition(0,sf::Joystick::X) <= -50)
 			cubes[0]->setDirection(Cube::LEFT);
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Joystick::getAxisPosition(0,sf::Joystick::Y) <= -50)
 			cubes[0]->setDirection(Cube::UP);
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Joystick::getAxisPosition(0,sf::Joystick::Y) >= 50)
 			cubes[0]->setDirection(Cube::DOWN);
 
 
