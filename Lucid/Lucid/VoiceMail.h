@@ -31,7 +31,7 @@ public:
 	void stop();
 	int getActiveSoundID();
 	void nextPrevSoundSlot(bool next);
-	void activateNextSound();
+	void activateNextSound(bool play);
 	std::vector<mSoundSlot*> getSounds();
 	void tick();
 	void render(sf::RenderWindow *target);

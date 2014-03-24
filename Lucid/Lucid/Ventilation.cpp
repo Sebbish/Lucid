@@ -23,6 +23,11 @@ int Ventilation::getFunc(Entity* player)
 	return 0;
 }
 
+bool Ventilation::getShowE()
+{
+	return false;
+}
+
 sf::FloatRect Ventilation::getRect()const
 {
 	return mRect;

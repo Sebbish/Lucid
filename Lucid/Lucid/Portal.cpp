@@ -29,6 +29,11 @@ Portal::~Portal()
 {
 }
 
+bool Portal::getShowE()
+{
+	return true;
+}
+
 int Portal::getFunc(Entity* player)
 {
 	if (mActive)
@@ -37,6 +42,7 @@ int Portal::getFunc(Entity* player)
 		if (mTargetPortalID != 0)
 		{
 			//player->setPosition(mTargetPortal->getRect());
+			mPortalSound.stop();
 			mPortalSound.play();
 			return 0;
 		}

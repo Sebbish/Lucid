@@ -22,6 +22,7 @@ public:
 	virtual sf::FloatRect getRect()const;
 	virtual sf::FloatRect getHitBox()const;
 	virtual int getFunc(Entity* player);
+	virtual bool getShowE();
 	virtual void tick();
 	virtual void render(sf::RenderTexture* window);
 	void setActive(bool acive);
@@ -50,6 +51,7 @@ private:
 	AnimationDirection mAnimationDirection;
 	bool mFadeIn, mFadeOut;
 	int mFadeSpeed;
+	sf::RectangleShape r;
 	float mScalePixels;
 };
 

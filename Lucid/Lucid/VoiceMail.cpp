@@ -33,19 +33,23 @@ void VoiceMail::playNextSound()
 	}
 }
 
-void VoiceMail::activateNextSound()
+void VoiceMail::activateNextSound(bool play)
 {
 	if(mActiveSounds.size() <= mSounds.size())
 		mActiveSounds.push_back(mSounds[mActiveSounds.size()]);
-	playSound(mActiveSounds.size()-1);
+	if(play)
+		playSound(mActiveSounds.size()-1);
 }
 
 void VoiceMail::playSound(int ID)
 {
 	stop();
 	mSoundPlayingID = ID;
-	mActiveSounds[ID]->mSound.play();
-	mDraw = true;
+	if(ID >= 0 && ID <= mActiveSounds.size()-1)
+	{
+		mActiveSounds[ID]->mSound.play();
+		mDraw = true;
+	}
 }
 
 void VoiceMail::stop()
@@ -116,25 +120,43 @@ void VoiceMail::loadSounds(int mapID)
 	}
 	std::string a;
 	a = '\n';
-	switch(mapID)
-	{
-	case 2:
-		mSounds.push_back(new mSoundSlot("Welcome","welcome to saint hermelin new 01 ( high sanity)","Welcome to St.Hermelin Hospital,"+a+"enjoy your stay... and don't touch"+a+"anything"));
-		/*mSounds.push_back(new mSoundSlot("Who’s cleaning around here?","how sloppy whos cleaning around here new 01 ( high sanity)"));
-		mSounds.push_back(new mSoundSlot("We couldn’t afford a plumber","i wonder what happened to the plummer 01 ( high sanity)"));
-		mSounds.push_back(new mSoundSlot("Now what could that have been?","now what could that have been ( high sanity)"));*/
-		mSounds.push_back(new mSoundSlot("A key","a key, it usually unlocks doors 03 ( high sanity)","a key, it usually unlocks doors"));
-		//mSounds.push_back(new mSoundSlot("Someone must have left the tap on","someone has left the tap on 01 ( high sanity)"));
-		activateNextSound();
-		break;
-	case 3:
-		mSounds.push_back(new mSoundSlot("Hide","seems like a bad idea to stand there in the open 01 ( high sanity)","seems like a bad idea to stand there"+a+"in the open"));
-		mSounds.push_back(new mSoundSlot("boo","boo 09 ( high sanity)","..."));
-		mSounds.push_back(new mSoundSlot("sorry","sorry about that  ( high sanity)","sorry about that"));
-		break;
-	case 4:
-		mSounds.push_back(new mSoundSlot("MindControl","what if you could control that thing  ( high sanity)","What if you could control that thing?"+ a +" It's faster than you, lighter than you"+a+"and more importantly, better looking"));
-		mSounds.push_back(new mSoundSlot("See what I mean","It can even open doors  ( high sanity)","See what I mean, it can even open doors,"+a+"something you've been struggling"+a+"with for a while now"));
-		break;
-	}
+	for(int i = 1; i <= mapID; i++)
+		switch(i)
+		{
+		case 2:
+			mSounds.push_back(new mSoundSlot("Welcome","welcome to saint hermelin new 01 ( high sanity)","Welcome to St.Hermelin Hospital,"+a+"enjoy your stay... and don't touch"+a+"anything"));
+			/*mSounds.push_back(new mSoundSlot("Who’s cleaning around here?","how sloppy whos cleaning around here new 01 ( high sanity)"));
+			mSounds.push_back(new mSoundSlot("We couldn’t afford a plumber","i wonder what happened to the plummer 01 ( high sanity)"));
+			mSounds.push_back(new mSoundSlot("Now what could that have been?","now what could that have been ( high sanity)"));*/
+			mSounds.push_back(new mSoundSlot("A key","a key, it usually unlocks doors 03 ( high sanity)","a key, it usually unlocks doors"));
+			//mSounds.push_back(new mSoundSlot("Someone must have left the tap on","someone has left the tap on 01 ( high sanity)"));
+			if(mapID == 2)
+				activateNextSound(true);
+			else if(mapID > 2)
+			{
+				activateNextSound(false);
+				activateNextSound(false);
+			}
+			break;
+		case 3:
+			mSounds.push_back(new mSoundSlot("Hide","seems like a bad idea to stand there in the open 01 ( high sanity)","seems like a bad idea to stand there"+a+"in the open"));
+			mSounds.push_back(new mSoundSlot("boo","boo 09 ( high sanity)","..."));
+			mSounds.push_back(new mSoundSlot("sorry","sorry about that  ( high sanity)","sorry about that"));
+			if(mapID > 3)
+			{
+				activateNextSound(false);
+				activateNextSound(false);
+				activateNextSound(false);
+			}
+			break;
+		case 4:
+			mSounds.push_back(new mSoundSlot("MindControl","what if you could control that thing  ( high sanity)","What if you could control that thing?"+ a +"It's faster than you, lighter than you"+a+"and more importantly, better looking"));
+			mSounds.push_back(new mSoundSlot("See what I mean","It can even open doors  ( high sanity)","See what I mean, it can even open "+a+"doors, something you've been"+a+"struggling with for a while now"));
+			if(mapID > 4)
+			{
+				activateNextSound(false);
+				activateNextSound(false);
+			}
+			break;
+		}
 }

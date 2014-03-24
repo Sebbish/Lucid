@@ -11,6 +11,7 @@ public:
 	virtual sf::FloatRect getRect()const;
 	virtual sf::FloatRect getHitBox()const;
 	virtual int getFunc(Entity* player);
+	virtual bool getShowE();
 	virtual void tick();
 	virtual void render(sf::RenderTexture* window);
 private:
@@ -20,6 +21,7 @@ private:
 	Camera* mCamera;
 	int mOriginX;
 	float mVariabel;
+	sf::RectangleShape r;
 };
 
 #endif

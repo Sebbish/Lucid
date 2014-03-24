@@ -13,6 +13,11 @@ Wall::~Wall()
 {
 }
 
+bool Wall::getShowE()
+{
+	return false;
+}
+
 int Wall::getFunc(Entity* player)
 {
 	if (mActive)

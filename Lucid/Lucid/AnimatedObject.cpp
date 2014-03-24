@@ -65,11 +65,21 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 	mFadeOut = false;
 	mFadeSpeed = 20;
 	mScalePixels = 0;
+	r.setTexture(mTexture);
+	r.setPosition(mRect.left,mRect.top);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+	r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+	r.setFillColor(sf::Color(255, 255, 255, mAlpha));
 }
 
 
 AnimatedObject::~AnimatedObject(void)
 {
+}
+
+bool AnimatedObject::getShowE()
+{
+	return false;
 }
 
 sf::FloatRect AnimatedObject::getRect()const
@@ -152,21 +162,6 @@ void AnimatedObject::tick()
 				else
 					mAnimationTimer = mAnimationPicX + mAnimationSpeed;
 
-				/*if (mTypeID == 36)
-				{
-					if (mAnimationDirection == Forward)
-					{
-						mAnimationDirection = Backward;
-						mAnimationSpeed = -mAnimationSpeed;
-						mAnimationTimer = mAnimationPicX + mAnimationSpeed;
-					}
-					else
-					{
-						mAnimationDirection = Forward;
-						mAnimationTimer = 0.0f;
-						mAnimationSpeed = -mAnimationSpeed;
-					}
-				}*/
 			}
 			else
 			{
@@ -177,6 +172,8 @@ void AnimatedObject::tick()
 		{
 			mAnimationTimer += mAnimationSpeed;
 		}
+
+		r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
 	}
 
 	//Fade
@@ -184,6 +181,7 @@ void AnimatedObject::tick()
 		mAlpha -= mFadeSpeed;
 	else
 		mFadeOut = false;
+
 	if (mAlpha < 0)
 		mAlpha = 0;
 
@@ -193,21 +191,19 @@ void AnimatedObject::tick()
 		mFadeIn = false;
 	if (mAlpha > 255)
 		mAlpha = 255;
+
+	if(mFadeIn || mFadeOut)
+		r.setFillColor(sf::Color(255, 255, 255, mAlpha));
 }
 
 void AnimatedObject::render(sf::RenderTexture* window)
 {
 	if (mActive)
 	{
-		sf::RectangleShape r;
-		r.setTexture(mTexture);
 		if (mTypeID == 62)
 			r.setTextureRect(sf::IntRect(256*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
 		else
 			r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
-		r.setPosition(mRect.left,mRect.top);
-		r.setSize(sf::Vector2f(mRect.width,mRect.height));
-		r.setFillColor(sf::Color(255, 255, 255, mAlpha));
 		if (mScalePixels > 0)
 		{
 			r.setPosition(mRect.left, mRect.top + mScalePixels);

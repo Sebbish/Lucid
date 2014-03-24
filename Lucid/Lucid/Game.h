@@ -21,6 +21,7 @@
 #include "Fade.h"
 #include "PortalFade.h"
 #include "Button.h"
+#include "cred.h"
 
 typedef std::vector<Entity*> EntiyVector;
 typedef std::vector<Object*> ObjectVector;
@@ -56,7 +57,7 @@ private:
 	Map* mMap;
 	FilHanterare* mFH;
 	float angle;
-	bool mIsEPressed,mIsQPressed,mIsMPressed,mIsFPressed,mIsLeftPressed,mIsRightPressed, mIsEscapePressed;
+	bool mIsEPressed,mIsQPressed,mIsMPressed,mIsFPressed,mIsLeftPressed,mIsRightPressed, mIsEscapePressed, mIsDownPressed, mIsUpPressed;
 	sf::Clock FPSclock, clock;
 	sf::Shader mShader;
 	sf::RenderTexture mRenderTexture;
@@ -92,6 +93,9 @@ private:
 	Button* mQButton;
 	Button* mFButton;
 	float mSanityLossWhileSeen, mSanityLossWhileControlling;
+	cred *mCred;
+
+	sf::Texture tempTexture;
 };
 
 #endif

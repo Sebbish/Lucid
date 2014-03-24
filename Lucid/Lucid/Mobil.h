@@ -5,10 +5,12 @@
 #include "SaveLoad.h"
 #include "snake.h"
 #include "VoiceMail.h"
+#include "VoiceDialog.h"
+#include <iostream>
 class Mobil
 {
 public:
-	Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voicemail);
+	Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voicemail,sf::Vector2u windowSize);
 	~Mobil();
 	void activate(sf::RenderWindow* view);
 	void deactivate();
@@ -22,6 +24,10 @@ public:
 	bool snakes;
 	void newMap(int mapID);
 	void nextSound();
+	void nextDialog();
+	int getDialogID();
+	void boatLvl8Thing();
+	bool playingLvl8Thing();
 	void VoiceMailTick();
 	void VoiceMailRender(sf::RenderWindow *target);
 	bool slutPÂTest;
@@ -31,6 +37,7 @@ public:
 private:
 	void save();
 	bool mVoiceMail;
+	bool mVoiceMail2;
 	void ActivateSnakes();
 	void ActivateSnakesAI();
 	sf::Texture* mTexture;
@@ -38,11 +45,17 @@ private:
 	sf::FloatRect mRect;
 	sf::FloatRect mApp[10];
 	sf::Font f;
+	sf::RectangleShape rs;
+	sf::Text t;
 
 	bool mActivated;
 	int mActiveAppID;
 	snake *s;
 	VoiceMail *mVM;
+	VoiceDialog *mVD;
+	sf::Vector2f firstMenuThing;
+	float textH;
+	float textY;
 	int mcurrentLevel;
 
 };

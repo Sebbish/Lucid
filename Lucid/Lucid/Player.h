@@ -73,6 +73,7 @@ private:
 	bool mImortal;
 	float mAnimationSpeed;
 	int mTypeID;
+	sf::RectangleShape r;
 	//int mBreatheDelay, mUpperBreatheDelay, mBreatheTimer, mUpperBreatheTimer;
 };
 #endif

@@ -1,13 +1,13 @@
 #include "Mobil.h"
 
 
-Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voicemail):
+Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voicemail,sf::Vector2u windowSize):
 	mTexture(texture),mLines(lines),mActivated(false)
 {
 
-	mRect.width = mTexture->getSize().x;
-	mRect.height = mTexture->getSize().y;
-	mcurrentLevel = 1;
+	mRect.height = windowSize.y;
+	mRect.width = (float)windowSize.y*((float)mTexture->getSize().x/(float)mTexture->getSize().y);
+
 	snakes = false;
 	mVM = new VoiceMail(mapID,Voicemail);
 	mVoiceMail = false;
@@ -16,6 +16,24 @@ Mobil::Mobil(sf::Texture* texture,sf::Texture* lines,int mapID,sf::Texture* Voic
 	//f.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
 
 	getMC = false;
+	rs.setPosition(mRect.left,mRect.top);
+	rs.setSize(sf::Vector2f(mRect.width,mRect.height));
+	rs.setTexture(mTexture);
+	t.setColor(sf::Color(0,0,0));
+	t.setCharacterSize(60);
+	t.setFont(f);
+	t.setString("<                    >");
+	t.setOrigin(t.getGlobalBounds().left + t.getGlobalBounds().width/2.0f,t.getGlobalBounds().top + t.getGlobalBounds().height/2.0f);
+	t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*mVM->getActiveSoundID());
+	while(t.getLocalBounds().width >= 750*(mRect.width/(float)mTexture->getSize().x))
+	{
+		t.setCharacterSize(t.getCharacterSize()-1);
+		t.setOrigin(t.getGlobalBounds().left + t.getGlobalBounds().width/2.0f,t.getGlobalBounds().top + t.getGlobalBounds().height/2.0f);
+		t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*mVM->getActiveSoundID());
+	}
+	mVoiceMail2 = false;
+	mVD = new VoiceDialog(Voicemail);
+	mVD->newLevel(mapID);
 }
 
 
@@ -25,14 +43,20 @@ Mobil::~Mobil()
 }
 
 
+void Mobil::boatLvl8Thing()
+{
+	mVD->boatLvl8Thing();
+}
 
 //aktiverar mobilen och s‰tter r‰tt position
 void Mobil::activate(sf::RenderWindow* view)
 {
 	mRect.left = view->getPosition().x+view->getSize().x/2-mRect.width/2;
 	mRect.top = view->getPosition().y+view->getSize().y/2-mRect.height/2;
+	rs.setPosition(mRect.left,mRect.top);
 	mActivated = true;
 	mActiveAppID = 0;
+	textY = rs.getPosition().x,(250.0f/(float)mTexture->getSize().y)*mRect.height;
 }
 
 //avaktiverar mobilen
@@ -48,7 +72,12 @@ void Mobil::deactivate()
 
 void Mobil::nextSound()
 {
-	mVM->activateNextSound();
+	mVM->activateNextSound(true);
+}
+
+void Mobil::nextDialog()
+{
+	mVD->playNextDialog();
 }
 
 //markerar n‰sta app
@@ -91,13 +120,19 @@ int Mobil::getActiveAppID()
 		if(mActiveAppID == 2)
 		{
 			mVoiceMail = true;
+			mActiveAppID = 0;
 			return -1;
 		}
-
+		mVoiceMail2 = false;
 		return mActiveAppID;
 	}
-	else
+	else if(mVoiceMail2 && mVoiceMail)
+	{
+		mVM->playSound(mVM->getActiveSoundID());
 		return -1;
+	}else
+		mVoiceMail2 = true;
+		
 }
 
 //resetar mobilen
@@ -128,6 +163,19 @@ bool Mobil::getActivate()const
 void Mobil::newMap(int mapID)
 {
 	mVM->newMap(mapID);
+	slutPÂTest = false;
+	getMC = false;
+	mVD->newLevel(mapID);
+}
+
+bool Mobil::playingLvl8Thing()
+{
+	return mVD->playingLvl8Thing();
+}
+
+int Mobil::getDialogID()
+{
+	return mVD->getDialogID();
 }
 
 //uppdatera
@@ -146,117 +194,121 @@ void Mobil::tick()
 			delete s;
 		}
 
+
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::O) && sf::Keyboard::isKeyPressed(sf::Keyboard::P) && !snakes)
 		ActivateSnakes();
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D) &&  !snakes)
 		ActivateSnakesAI();
 	mVM->tick();
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && mVoiceMail)
+		mVoiceMail = false;
 }
 
 //renderar
 void Mobil::render(sf::RenderWindow& target)
 {
+
 	if(mActivated)
 	{
-			sf::RectangleShape rs;
-			rs.setPosition(mRect.left,mRect.top);
-			rs.setSize(sf::Vector2f(mRect.width,mRect.height));
+			
 			rs.setTexture(mTexture);
 			target.draw(rs);
 	
 			if(!snakes && !mVoiceMail)
 			{
-				sf::Text t;
-				t.setColor(sf::Color(0,0,0));
-				t.setCharacterSize(60);
-				t.setFont(f);
 
 				t.setString("NEW GAME");
-				t.setOrigin(t.getGlobalBounds().left + t.getGlobalBounds().width/2.0f,t.getGlobalBounds().top + t.getGlobalBounds().height/2.0f);
-				t.setPosition(mRect.left+mRect.width/2,mRect.top+250);
+				t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+				t.setPosition(mRect.left+mRect.width/2,textY-t.getLocalBounds().height*3);
 				target.draw(t);
+				firstMenuThing.x = t.getPosition().x;
+				firstMenuThing.y = t.getPosition().y;
+				textH = t.getGlobalBounds().height;
 
 				t.setString("LOAD GAME");
 				t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-				t.setPosition(mRect.left+mRect.width/2,mRect.top+350);
+				t.setPosition(mRect.left+mRect.width/2,t.getPosition().y+t.getLocalBounds().height*2);
 				target.draw(t);
 
 				t.setString("VOICE MAIL");
 				t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-				t.setPosition(mRect.left+mRect.width/2,mRect.top+450);
+				t.setPosition(mRect.left+mRect.width/2,t.getPosition().y+t.getLocalBounds().height*2);
 				target.draw(t);
 
 				t.setString("EXIT GAME");
 				t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-				t.setPosition(mRect.left+mRect.width/2,mRect.top+550);
+				t.setPosition(mRect.left+mRect.width/2,t.getPosition().y+t.getLocalBounds().height*2);
 				target.draw(t);
 
 				t.setString("<                    >");
 				t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-				t.setPosition(mRect.left+mRect.width/2,mRect.top+250+100*mActiveAppID);
+				t.setPosition(mRect.left+mRect.width/2,firstMenuThing.y+mActiveAppID*(textH*2));
 				target.draw(t);
 			}else if(!snakes && mVoiceMail)
 			{
-				sf::Text t;
-				t.setColor(sf::Color(0,0,0));
-				t.setCharacterSize(60);
-				t.setFont(f);
 			
 				t.setString("VOICE MAIL");
-				t.setOrigin(t.getGlobalBounds().left + t.getGlobalBounds().width/2.0f,t.getGlobalBounds().top + t.getGlobalBounds().height/2.0f);
+				t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
 				t.setPosition(mRect.left+mRect.width/2,mRect.top+250);
 				target.draw(t);
 				int j = 0;
-				if(mVM->getActiveSoundID() <= 2)
+				if(mVM->getSounds().size() > 0)
 				{
+					if(mVM->getActiveSoundID() <= 2)
+					{
+						for(int i = 0; i < 4;i++)
+						{
+							if(i+1 <= mVM->getSounds().size())
+							{
+							t.setString(mVM->getSounds()[i]->mTitle);
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
+							target.draw(t);
+							}
+							t.setString("<                           >");
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							if(mVM->getActiveSoundID() < 0)
+								t.setPosition(mRect.left+mRect.width/2,mRect.top+350);
+							else
+								t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*mVM->getActiveSoundID());
+							target.draw(t);
 					
-				for(int i = 0; i <= 3;i++)
-				{
-					if(i <= mVM->getSounds().size()-1)
+							j++;
+						}
+
+					}else if(mVM->getActiveSoundID() == mVM->getSounds().size()-1)
 					{
-					t.setString(mVM->getSounds()[i]->mTitle);
-					t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-					t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
-					target.draw(t);
-					}
-					t.setString("<                    >");
-					t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-					t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*mVM->getActiveSoundID());
-					target.draw(t);
-					j++;
-				}
+						for(int i = mVM->getActiveSoundID()-3; i < mVM->getSounds().size();i++)
+						{
+							t.setString(mVM->getSounds()[i]->mTitle);
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
+							target.draw(t);
 
-				}else if(mVM->getActiveSoundID() == mVM->getSounds().size()-1)
-				{
-					for(int i = mVM->getActiveSoundID()-3; i < mVM->getSounds().size();i++)
+							t.setString("<                           >");
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							t.setPosition(mRect.left+mRect.width/2,mRect.top+355+100*3);
+							target.draw(t);
+
+							j++;
+						}
+					}else
 					{
-						t.setString(mVM->getSounds()[i]->mTitle);
-						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
-						target.draw(t);
+						for(int i = mVM->getActiveSoundID()-2; i < mVM->getActiveSoundID()+2;i++)
+						{
+							t.setString(mVM->getSounds()[i]->mTitle);
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
+							target.draw(t);
 
-						t.setString("<                    >");
-						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*3);
-						target.draw(t);
-
-						j++;
-					}
-				}else
-				{
-					for(int i = mVM->getActiveSoundID()-2; i < mVM->getActiveSoundID()+2;i++)
-					{
-						t.setString(mVM->getSounds()[i]->mTitle);
-						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+j*100);
-						target.draw(t);
-
-						t.setString("<                    >");
-						t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
-						t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*2);
-						target.draw(t);
-						j++;
+							t.setString("<                           >");
+							t.setOrigin(t.getLocalBounds().left + t.getLocalBounds().width/2.0f,t.getLocalBounds().top + t.getLocalBounds().height/2.0f);
+							t.setPosition(mRect.left+mRect.width/2,mRect.top+350+100*2);
+							target.draw(t);
+							j++;
+						}
 					}
 				}
 
@@ -280,17 +332,20 @@ void Mobil::render(sf::RenderWindow& target)
 		}
 		
 	}
-	mVM->render(&target);
 }
+
+
 
 void Mobil::VoiceMailTick()
 {
 	mVM->tick();
+	mVD->tick();
 }
 
 void Mobil::VoiceMailRender(sf::RenderWindow *target)
 {
 	mVM->render(target);
+	mVD->render(target);
 	if(slutPÂTest)
 	{
 		sf::Text t;

@@ -1,10 +1,10 @@
 #include "Npc.h"
 
-Npc::Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,int animationPicX,Dialog* dialog,Entity* player,sf::SoundBuffer* idleSound):
-	mRect(rect), mDialogueID(dialogueID), mTexture(texture), mTypeID(typeID),mAnimationPicX(animationPicX),mAnimationSpeed(0.08f),mCurrentAnimationPic(0),mDialog(dialog),mLookLeft(true),mChatting(false),mPlayer(player)
+Npc::Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,int animationPicX,Dialog* dialog,Entity* player,sf::SoundBuffer* idleSound,bool dialogActive):
+	mRect(rect), mDialogueID(dialogueID), mTexture(texture), mTypeID(typeID),mAnimationPicX(animationPicX),mAnimationSpeed(0.08f),mCurrentAnimationPic(0),mDialog(dialog),mLookLeft(true),mChatting(false),mPlayer(player),dialogActive(dialogActive)
 {
 	mDialogFile = "Dialog"+std::to_string(mDialogueID);
-	mIdleSound.setBuffer(*idleSound);
+	//mIdleSound.setBuffer(*idleSound);
 	mIdleSound.setVolume(10);
 	mIdleSound.setMinDistance(768);
 	mIdleSound.setAttenuation(10);
@@ -12,23 +12,38 @@ Npc::Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,in
 	{
 		mIdleSound.setVolume(30);
 	}
+	if(typeID == 83)
+		mLookLeft = false;
+	if(typeID >= 84)
+		mAnimationSpeed = 0.0f;
 }
 
 Npc::~Npc()
 {
 }
 
+bool Npc::getShowE()
+{
+	return dialogActive;
+}
+
+
 int Npc::getFunc(Entity* player)
 {
-	if(mDialog->getDraw())
+	if(dialogActive)
 	{
-		mDialog->nextLine();
-		mChatting = true;
-	}else
-	{
-		mDialog->loadFile(mDialogFile,mDialogueID);
-		mChatting = true;
+		if(mDialog->getDraw())
+		{
+			mDialog->nextLine();
+			mChatting = true;
+		}else
+		{
+			mDialog->loadFile(mDialogFile,mDialogueID);
+			mChatting = true;
+		}
 	}
+		if(mTypeID >= 84)
+			mCurrentAnimationPic = 1;
 	return 0;
 }
 

@@ -10,6 +10,7 @@ public:
 	~Ventilation(void);
 	virtual sf::FloatRect getRect()const;
 	virtual sf::FloatRect getHitBox()const;
+	virtual bool getShowE();
 	virtual void tick();
 	virtual void render(sf::RenderTexture* window);
 	virtual int getFunc(Entity* player);

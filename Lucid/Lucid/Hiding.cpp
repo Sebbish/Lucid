@@ -9,6 +9,11 @@ Hiding::~Hiding()
 {
 }
 
+bool Hiding::getShowE()
+{
+	return true;
+}
+
 int Hiding::getFunc(Entity* player)
 {
 	rectSet;

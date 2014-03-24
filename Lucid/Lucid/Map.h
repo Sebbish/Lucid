@@ -53,6 +53,7 @@ private:
 	std::vector<Wall*> mWallList;
 	std::vector<Trigger*> mTriggerList;
 	std::vector<AnimatedObject*> mAnimatedObjectList;
+	sf::RectangleShape r;
 };
 
 #endif

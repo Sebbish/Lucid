@@ -27,17 +27,19 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mImortal = false;
 	mLayer = Front;
 	mWalkSound.setBuffer(*walkSound);
-	mWalkSound.setPitch(2.0f);
+	//mWalkSound.setPitch(2.2f);
+	//mWalkSound.setPitch(1.6f);
 	mActive = true;
 	mFlashlightMode = false;
 	mSecondLastRect = mRect;
 	mMove = false;
-
-
+	
 	/*mBreatheDelay = 60 * 4;
 	mUpperBreatheDelay = 60;
 	mBreatheTimer = 0;
 	mUpperBreatheTimer = 0;*/
+	r.setTexture(mTexture);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 }
 
 
@@ -226,20 +228,22 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 {
 	mLastRect = mRect;
 	
+	if(mWalkSound.getPlayingOffset().asSeconds() >= 1)
+		mWalkSound.stop();
 
 	if(mMove && mKnockWidth == 0 && !mHiding)
 	{
-		if(mWalkSound.getStatus() == sf::Sound::Stopped)
-			mWalkSound.play();
 		if (mFlashlightMode == true  && mSecondLastRect != mRect)
 		{
 			mAnimationY = 1;
 			mAnimationPicX = 12;
+			mWalkSound.setPitch(1.6f);
 		}
 		else if (mFlashlightMode == false  && mSecondLastRect != mRect)
 		{
 			mAnimationY = 0;
 			mAnimationPicX = 8;
+			mWalkSound.setPitch(2.2f);
 		}
 		else if ((mFlashlightMode == true  && mSecondLastRect == mRect))
 		{
@@ -274,6 +278,8 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 
 			mWalkSound.play();
 		}*/
+		if(mWalkSound.getStatus() == sf::Sound::Stopped)
+			mWalkSound.play();
 	}
 	else if(!mMove && mKnockWidth == 0 && !mHiding)
 	{
@@ -358,8 +364,7 @@ void Player::render(sf::RenderTexture* window, bool visualizeValues, bool mirror
 		}
 	}
 
-	sf::RectangleShape r;
-	r.setTexture(mTexture);
+	
 	if (!mirror)
 	{
 		if(mDirection == RIGHT)
@@ -413,7 +418,6 @@ void Player::render(sf::RenderTexture* window, bool visualizeValues, bool mirror
 		}
 		
 	}
-	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
 
 	if (visualizeValues)

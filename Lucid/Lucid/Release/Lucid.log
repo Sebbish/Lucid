@@ -1,3 +1,103 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+﻿Build started 2014-03-19 11:17:12.
+     1>Project "C:\Lucidaa\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(346,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Enemy.cpp Player.cpp snake.cpp
+         Enemy.cpp
+     1>Enemy.cpp(22): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(24): warning C4305: '=' : truncation from 'double' to 'float'
+     1>Enemy.cpp(33): warning C4305: '=' : truncation from 'double' to 'float'
+     1>Enemy.cpp(305): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(310): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(856): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(858): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(863): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(865): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(871): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(873): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Enemy.cpp(892): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(899): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(906): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(914): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(917): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Enemy.cpp(921): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         Player.cpp
+     1>Player.cpp(17): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Player.cpp(323): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Player.cpp(325): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Player.cpp(337): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Player.cpp(342): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         snake.cpp
+     1>snake.cpp(50): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+=======
+﻿Build started 2014-03-19 16:01:50.
+=======
+﻿Build started 2014-03-19 17:07:07.
+>>>>>>> 1795a5437776a7563ae37e69b9bbcc51e1d0d1c8
+     1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FilHanterare.cpp Game.cpp
+         FilHanterare.cpp
+         Game.cpp
+     1>Game.cpp(16): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(17): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(28): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
+     1>Game.cpp(103): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>Game.cpp(380): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
+     1>Game.cpp(516): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>Game.cpp(520): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>Game.cpp(532): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>Game.cpp(561): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(562): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(563): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(594): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Game.cpp(608): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Game.cpp(813): warning C4018: '<' : signed/unsigned mismatch
+     1>Game.cpp(823): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(839): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(848): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(863): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(875): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(877): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(886): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(896): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(903): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+<<<<<<< HEAD
+     1>Game.cpp(920): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(928): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(932): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(933): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(934): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(956): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Game.cpp(1027): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1028): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1041): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1041): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+         Mobil.cpp
+     1>Mobil.cpp(8): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>Mobil.cpp(9): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>Mobil.cpp(216): warning C4018: '<=' : signed/unsigned mismatch
+     1>Mobil.cpp(232): warning C4018: '<' : signed/unsigned mismatch
+     1>Mobil.cpp(301): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>Mobil.cpp(302): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+>>>>>>> 1415617e1cc507f57b1b854e0cbaf028470f4127
+=======
+     1>Game.cpp(918): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(935): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(943): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(947): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(948): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(949): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(971): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Game.cpp(1042): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1043): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1056): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1056): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+>>>>>>> 1795a5437776a7563ae37e69b9bbcc51e1d0d1c8
+=======
 ﻿Build started 2014-03-21 18:09:52.
      1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
@@ -10,8 +110,9 @@
      1>Player.cpp(385): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
      1>Player.cpp(406): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
      1>Player.cpp(411): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+>>>>>>> 8a94557802b88f745f6ba51466ab8f59808d266a
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"P:\Lucid\Lucid\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" /LIBPATH:"C:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"P:\Lucid\Lucid\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"P:\Lucid\Lucid\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\ambiance.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" /LIBPATH:"C:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\ambiance.obj
          Release\AnimatedObject.obj
          Release\Button.obj
          Release\Camera.obj
@@ -49,6 +150,20 @@
          Release\VoiceMail.obj
          Release\Wall.obj
          Generating code
+<<<<<<< HEAD
+     1>c:\lucidaa\lucid\lucid\saveload.cpp(66): warning C4715: 'SaveLoad::load' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(127): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\filhanterare.cpp(121): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\effects.cpp(135): warning C4715: 'Effects::getShader' : not all control paths return a value
+     1>c:\lucidaa\lucid\lucid\mobil.cpp(126): warning C4715: 'Mobil::getActiveAppID' : not all control paths return a value
+         Finished generating code
+         Lucid.vcxproj -> C:\Lucidaa\Lucid\Lucid\..\Release\Lucid.exe
+     1>Done Building Project "C:\Lucidaa\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:05.37
+=======
      1>p:\lucid\lucid\lucid\saveload.cpp(66): warning C4715: 'SaveLoad::load' : not all control paths return a value
      1>p:\lucid\lucid\lucid\filhanterare.cpp(141): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
      1>p:\lucid\lucid\lucid\filhanterare.cpp(135): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
@@ -58,4 +173,13 @@
 
 Build succeeded.
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+Time Elapsed 00:00:19.00
+>>>>>>> 1415617e1cc507f57b1b854e0cbaf028470f4127
+=======
+Time Elapsed 00:00:14.14
+>>>>>>> 1795a5437776a7563ae37e69b9bbcc51e1d0d1c8
+=======
 Time Elapsed 00:00:11.55
+>>>>>>> 8a94557802b88f745f6ba51466ab8f59808d266a
