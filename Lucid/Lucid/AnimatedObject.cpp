@@ -128,9 +128,14 @@ void AnimatedObject::fadein()
 	mFadeOut = false;
 }
 
-void AnimatedObject::scale(int pixels)
+void AnimatedObject::scale(float pixels)
 {
 	mScalePixels += pixels;
+}
+
+float AnimatedObject::getScalePixels()
+{
+	return mScalePixels;
 }
 
 void AnimatedObject::tick()

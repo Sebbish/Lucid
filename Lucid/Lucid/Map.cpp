@@ -209,10 +209,10 @@ void Map::renderMap(sf::RenderTexture* window)
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
 	//r.setTextureRect(sf::IntRect(0,0,window->getSize().x,window->getSize().y));
-	if (mMapID != 1)
-		r.setPosition(0,0);
-	else
+	if (mMapID == 1 || mMapID == 9)
 		r.setPosition(3586, 0);
+	else
+		r.setPosition(0,0);
 	r.setSize(sf::Vector2f(mTexture->getSize().x,mTexture->getSize().y));
 	window->draw(r);
 }

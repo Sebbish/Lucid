@@ -32,7 +32,8 @@ public:
 	void setLoop(bool loop);
 	void fadeout();
 	void fadein();
-	void scale(int pixels);
+	void scale(float pixels);
+	float getScalePixels();
 private:
 	sf::FloatRect mRect;
 	int mTypeID;

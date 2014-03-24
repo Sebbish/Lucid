@@ -43,6 +43,7 @@ void Sanity::live()
 	mBlurValue = 0;
 	mWhiteFadeIn = true;
 	mWhiteFadeOut = false;
+	mDelayTimer = 0;
 }
 
 bool Sanity::fadeIsDone()
@@ -174,4 +175,9 @@ sf::Shader& Sanity::getShader()
 void Sanity::setBrus(bool brus)
 {
 	mBrus = brus;
+}
+
+bool Sanity::getWhiteFadeOut()
+{
+	return mWhiteFadeOut;
 }

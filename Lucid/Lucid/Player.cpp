@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(float x, float y, float width, float height,float speed,sf::Texture* texture,float anitmationPicX,sf::SoundBuffer* walkSound):
-	mMaxSpeed(speed),mDirection(RIGHT),mTexture(texture),mAnimationPicX(anitmationPicX),mKnockWidth(0),mAcc(0)
+Player::Player(float x, float y, float width, float height,float speed,sf::Texture* texture,float anitmationPicX,sf::SoundBuffer* walkSound, int typeID):
+	mMaxSpeed(speed),mDirection(RIGHT),mTexture(texture),mAnimationPicX(anitmationPicX),mKnockWidth(0),mAcc(0), mTypeID(typeID)
 {
 	std::ifstream stream;
 	stream.open("../Debug/config.txt");
@@ -94,7 +94,8 @@ void Player::getFunc(Entity* entity)
 void Player::setRect(sf::FloatRect rect)
 {
 	mRect = rect;
-	mAnimationTimer = 0;
+	//mAnimationTimer = 0;
+	mMove = false;
 }
 
 void Player::setPosition(sf::FloatRect rect)
@@ -178,7 +179,7 @@ bool Player::getCanSeePlayer()
 
 int Player::getTypeID()
 {
-	return 0;
+	return mTypeID;
 }
 
 void Player::setWait()
@@ -233,7 +234,7 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 		if (mFlashlightMode == true  && mSecondLastRect != mRect)
 		{
 			mAnimationY = 1;
-			mAnimationPicX = 11;
+			mAnimationPicX = 12;
 		}
 		else if (mFlashlightMode == false  && mSecondLastRect != mRect)
 		{
@@ -250,6 +251,13 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 			mAnimationY = 2;
 			mAnimationPicX = 4;
 		}
+
+		if (mTypeID == 69)
+		{
+			mAnimationPicX = 8;
+			mAnimationY = 0;
+		}
+
 		if(mDirection == Entity::RIGHT)
 			mRect.left += mMaxSpeed;
 		if(mDirection == Entity::LEFT)
@@ -269,15 +277,22 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 	}
 	else if(!mMove && mKnockWidth == 0 && !mHiding)
 	{
-		if (mFlashlightMode == true)
+		if (mTypeID == 0)
 		{
-			mAnimationY = 3;
+			if (mFlashlightMode == true)
+			{
+				mAnimationY = 3;
+			}
+			else
+			{
+				mAnimationY = 2;
+			}
 		}
 		else
 		{
-			mAnimationY = 2;
+			mAnimationY = 1;
 		}
-		mAnimationPicX = 4;
+		mAnimationPicX = 8;
 		if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
 		{
 			mAnimationTimer = 0.0f;
@@ -322,15 +337,37 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 
 }
 
-void Player::render(sf::RenderTexture* window, bool visualizeValues, bool mirror)
+void Player::render(sf::RenderTexture* window, bool visualizeValues, bool mirror, bool upsidedown)
 {
+	if (!mMove && !mHiding)
+	{
+	if (mTypeID == 0)
+		{
+			if (mFlashlightMode == true)
+			{
+				mAnimationY = 3;
+			}
+			else
+			{
+				mAnimationY = 2;
+			}
+		}
+		else
+		{
+			mAnimationY = 1;
+		}
+	}
+
 	sf::RectangleShape r;
 	r.setTexture(mTexture);
 	if (!mirror)
-	{ 
+	{
 		if(mDirection == RIGHT)
 		{
-			r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+			if (!upsidedown)
+				r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+			else
+				r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, (mAnimationY + 1) * mRect.height,mRect.width,-mRect.height));
 			if (mHiding)
 			{
 				r.setPosition(mRect.left + 35,mRect.top);
@@ -342,7 +379,10 @@ void Player::render(sf::RenderTexture* window, bool visualizeValues, bool mirror
 		}
 		else if(mDirection == LEFT)
 		{
-			r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),mAnimationY * mRect.height,-mRect.width,mRect.height));
+			if (!upsidedown)
+				r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),mAnimationY * mRect.height,-mRect.width,mRect.height));
+			else
+				r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer+1),(mAnimationY + 1) * mRect.height,-mRect.width,-mRect.height));
 			if (mHiding)
 			{
 				r.setPosition(mRect.left - 50,mRect.top);
@@ -411,4 +451,9 @@ Entity::form Player::getForm()
 Entity::form Player::getNextForm()
 {
 	return NONE;
+}
+
+void Player::setIdle()
+{
+
 }

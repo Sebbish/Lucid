@@ -15,7 +15,7 @@ Height= 1080
 Acceleration= 100
 
 <-SANITY->
-Controlling= 101
+Controlling= 21
 BeingSeen= 101
 
 <-ENEMY->

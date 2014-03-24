@@ -17,6 +17,8 @@ private:
 	bool bool1, bool2, bool3, bool4;
 	sf::Clock mClock;
 	int timer;
+	float tick1;
+	float tick1Speed;
 };
 
 #endif

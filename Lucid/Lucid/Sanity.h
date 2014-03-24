@@ -14,6 +14,7 @@ public:
 	bool fadeIsDone();
 	void die();
 	void live();
+	bool getWhiteFadeOut();
 private:
 	float mSanity;
 	sf::Texture *mBrusTexture, *mDieTexture;

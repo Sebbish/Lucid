@@ -89,6 +89,8 @@ Enemy::Enemy(float x, float y, float width, float height, float speed, int direc
 	mAttackSound.setMinDistance(1000);
 	mAttackSound.setAttenuation(10);
 
+	mIdle = false;
+
 
 	mTeleportWaitTime = 300;
 	mTeleport = false;
@@ -134,7 +136,7 @@ void Enemy::setDirection(direction d)
 
 void Enemy::getFunc(Entity* entity)
 {
-	if (mActive)
+	if (mActive && !mIdle)
 	{
 		if (entity->getTypeID() == 0)
 		{
@@ -172,7 +174,8 @@ sf::FloatRect Enemy::getRect()const
 
 sf::FloatRect Enemy::getHitBox()const
 {
-	
+	if (!mIdle)
+	{
 	sf::FloatRect hitBoxRect = mRect;
 	/*hitBoxRect.left += 80;
 	hitBoxRect.width = 96;*/
@@ -204,6 +207,9 @@ sf::FloatRect Enemy::getHitBox()const
 		hitBoxRect.height = 60;
 	}
 	return hitBoxRect;
+	}
+	else
+		return sf::FloatRect(0, 0, 0, 0);
 }
 
 sf::FloatRect Enemy::getLastRect()const
@@ -507,7 +513,7 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 				mTeleport = false;
 			}
 
-			if (!mEatWait)
+			if (!mEatWait && !mIdle)
 			{
 				for (auto i:entityVector)
 				{
@@ -863,7 +869,7 @@ void Enemy::setAnimation()
 	}
 }
 
-void Enemy::render(sf::RenderTexture* window, bool visualizeValues, bool mirror)
+void Enemy::render(sf::RenderTexture* window, bool visualizeValues, bool mirror, bool upsidedown)
 {
 	if (mActive)
 	{
@@ -962,4 +968,9 @@ void Enemy::setImortal(bool imortal)
 bool Enemy::getImortal()
 {
 	return mImortal;
+}
+
+void Enemy::setIdle()
+{
+	mIdle = true;
 }

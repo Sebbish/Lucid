@@ -6,6 +6,9 @@ Event::Event(void)
 	bool2 = false;
 	bool3 = false;
 	bool4 = false;
+
+	tick1 = 0;
+	tick1Speed = 0.3;
 }
 
 Event::~Event(void)
@@ -255,14 +258,23 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			mMobil->nextSound();
 		}
 		
-		if (bool1 == true && entityVector[0]->getActive() == false && entityVector[1]->isEating() == false) //Om monstret äter spelaren så försvinner det
+		if (bool1 == true && entityVector[0]->getActive() == false/* && entityVector[1]->isEating() == false*/) //Om monstret äter spelaren så försvinner det
 		{
+			mSanity->die();
 			bool1 = false;
-			entityVector[1]->setActive(false);
+			bool4 = true;
+			/*entityVector[1]->setActive(false);
 			entityVector[0]->setActive(true);
 			entityVector[0]->setImortal(false);
-			map->getSuperPortalList()[0]->setActive(true);
-			mMobil->nextSound();
+			map->getSuperPortalList()[0]->setActive(true);*/
+			mMobil->nextSound();//?
+		}
+		if (mSanity->fadeIsDone() && bool4)
+		{
+			entityVector[0]->setActive(true);
+			entityVector[0]->setImortal(false);
+			bool4 = false;
+			return 13;
 		}
 		break;
 
@@ -350,6 +362,9 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		break;
 
 
+
+
+
 	case 5:
 		if (triggers[0]->getTrigged()) //Om bub går på keycard
 		{
@@ -407,6 +422,9 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 
 		break;
 
+
+
+
 	case 6:
 		if (triggers[0]->getTrigged())
 		{
@@ -419,16 +437,135 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 				animatedObjects[i]->setActive(true);
 			}
 			bool1 = true;
+			bool2 = true;
 		}
 
 		if (bool1)
 		{
 			for (int i = 2; i <= 23; i++)
 			{
-				animatedObjects[i]->scale(-1);
+				animatedObjects[i]->scale(-0.5f);
 			}
 		}
 
+		if (animatedObjects[2]->getScalePixels() <= 128 && bool2)
+		{
+			mSanity->die();
+			bool2 = false;
+		}
+		if (mSanity->fadeIsDone())
+		{
+			mSanity->live();
+			for (int i = 2; i <= 23; i++)
+			{
+				animatedObjects[i]->setActive(false);
+			}
+			animatedObjects[0]->setActive(true);
+			animatedObjects[1]->setActive(false);
+			bool1 = false;
+		}
+
+		if (triggers[1]->getTrigged())
+		{
+			triggers[1]->setActive(false);
+			return 7;
+		}
+		break;
+
+
+
+
+	case 7:
+		if (triggers[0]->getTrigged())
+		{
+			triggers[0]->setActive(false);
+			entityVector[2]->setActive(true);
+		}
+
+		if (controlledEntity == entityVector[1] && !bool1)
+		{
+			bool1 = true;
+			entityVector[2]->setIdle();
+			if (entityVector[0]->getHiding())
+				entityVector[0]->toggleHiding();
+			walls[1]->setActive(false);
+		}
+
+		if (triggers[1]->getTrigged())
+		{
+			triggers[1]->setActive(false);
+		}
+
+		if (triggers[1]->getActive() == false)
+		{
+			tick1 += tick1Speed;
+			entityVector[0]->setPosition(sf::FloatRect(entityVector[0]->getRect().left, entityVector[0]->getRect().top + tick1, 0, 0));
+		}
+
+		if (triggers[2]->getTrigged())
+		{
+			triggers[2]->setActive(false);
+			return 15;
+		}
+
+		/*if (triggers[0]->getActive() == false)
+		{
+			entityVector[2]->setTargetX(1967);
+		}*/
+
+		break;
+
+
+
+
+	case 9:
+		if (triggers[0]->getTrigged()) //Öppnar dörren
+		{
+			triggers[0]->setActive(false);
+			animatedObjects[4]->setAnimate(true);
+		}
+		if (triggers[1]->getTrigged()) //Öppnar hissen
+		{
+			triggers[1]->setActive(false);
+			animatedObjects[5]->setAnimate(true);
+		}
+		if (triggers[2]->getTrigged()) //Fade out första bilden
+		{
+			triggers[2]->setActive(false);
+			triggers[3]->setActive(true);
+			animatedObjects[0]->fadeout();
+			animatedObjects[1]->fadein();
+			animatedObjects[9]->fadein();
+		}
+		if (map->getTriggerList()[3]->getTrigged()) //Fade out andra bilden
+		{
+			triggers[3]->setActive(false);
+			triggers[2]->setActive(true);
+			animatedObjects[0]->fadein();
+			animatedObjects[1]->fadeout();
+			animatedObjects[9]->fadeout();
+		}
+		break;
+
+
+
+
+	case 10:
+		if (triggers[0]->getTrigged())
+		{
+			triggers[0]->setActive(false);
+			return 11;
+		}
+		break;
+
+
+
+	case 11:
+		if (triggers[0]->getTrigged())
+		{
+			triggers[0]->setActive(false);
+			entityVector[0]->setDirection(Entity::LEFT);
+		}
 		break;
 	}
 

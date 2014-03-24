@@ -22,8 +22,15 @@ FilHanterare::FilHanterare(void)
 	mTexture[3]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level2/Level2.png",sf::IntRect(0,0,8192,300));
 	mTexture[4]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_1.png",sf::IntRect(0,0,8192,600));
 	mTexture[5]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level3/Level_3_2.png",sf::IntRect(0,0,8192,1200));
-	mTexture[6]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level4/Level 4.png",sf::IntRect(0,0,8192,1200));
+	mTexture[6]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level4/Level 4,1.png",sf::IntRect(0,0,5534,1200));
+	mTexture[7]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Level4/Level 4,2.png",sf::IntRect(0,0,4096,1200));
+	//Final corridor efter 3:e båtscenen [16]
+	mTexture[8]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Magdas rum/Magda Sjukrum.png",sf::IntRect(0,0,600,300));
+	mTexture[9]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Epilogue/3 - Inomhus Bg.png", sf::IntRect(0, 0, 3296, 625));
+	mTexture[10]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/FinalCorridor/FinalCorridor.png", sf::IntRect(0, 0, 2048, 300));
+	mTexture[11]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Respawn Rum/Lewis Sjukrum.png",sf::IntRect(0,0,600,300));
 
+	mTexture[16]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/FinalCorridor/FinalCorridor.png", sf::IntRect(0, 0, 2048, 300));
 	mTexture[20]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Respawn Rum/Lewis Sjukrum.png",sf::IntRect(0,0,600,300));
 	
 	
@@ -90,7 +97,16 @@ FilHanterare::FilHanterare(void)
 
 	mTexture[64]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Dörrar/Dörrar SpriteSheet 2.png",sf::IntRect(0,0,2048,512));
 
-	
+	//Epilogue
+	mTexture[65]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Epilogue/1 - Utomhus 1.png", sf::IntRect(0, 0, 2403, 625));
+	mTexture[66]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Epilogue/2 - Utomhus 2.png", sf::IntRect(0, 0, 1734, 625));
+	mTexture[67]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Epilogue/Parallax 1.png", sf::IntRect(0, 0, 1536, 1080));
+	mTexture[68]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Epilogue/parallax 2.png", sf::IntRect(0, 0, 3786, 625));
+
+	mTexture[69]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Lewis/Lewis_Captain_Spritesheet.png", sf::IntRect(0, 0, 2048, 512));
+
+	mTexture[70]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Steam/Steam_Spritesheet.png", sf::IntRect(0, 0, 4096, 256));
+
 	mSoundBuffer[0]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");
 	mSoundBuffer[1]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/lewis hall walking slow 2(with clothing).wav");
 	mSoundBuffer[2]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/door 2.wav");
