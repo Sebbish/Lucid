@@ -17,6 +17,7 @@ public:
 	virtual int getFunc(Entity* player);
 private:
 	sf::FloatRect mRect;
+	sf::FloatRect rectSet;
 	int mTypeID;
 	sf::Texture* mTexture;
 };

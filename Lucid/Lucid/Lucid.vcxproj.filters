@@ -118,12 +118,15 @@
     <ClCompile Include="cred.cpp" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="ambiance.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedObject.h">
       <Filter>.h</Filter>
     </ClInclude>
+=======
+>>>>>>> 8a94557802b88f745f6ba51466ab8f59808d266a
     <ClInclude Include="Button.h">
       <Filter>.h</Filter>
     </ClInclude>
@@ -223,7 +226,16 @@
     <ClInclude Include="VoiceDialog.h">
       <Filter>.h</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="cred.h" />
+=======
+    <ClInclude Include="AnimatedObject.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="ambiance.h">
+      <Filter>h</Filter>
+    </ClInclude>
+>>>>>>> 8a94557802b88f745f6ba51466ab8f59808d266a
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png" />

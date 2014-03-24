@@ -35,7 +35,7 @@ public:
 	virtual void setWait();
 	virtual void resetTargetX();
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
-	virtual void render(sf::RenderTexture* window, bool visualizeValues, bool mirror);
+	virtual void render(sf::RenderTexture* window, bool visualizeValues, bool mirror, bool upsidedown);
 	virtual void setActive(bool active);
 	virtual bool getActive();
 	virtual void setTargetX(int x);
@@ -49,6 +49,7 @@ public:
 	virtual void flashlight(bool flash);
 	virtual void setImortal(bool imortal);
 	virtual bool getImortal();
+	virtual void setIdle();
 	
 private:
 	float mLastSeenX;
@@ -70,6 +71,9 @@ private:
 	int mPatrolStop;
 	layer mLayer;
 	bool mWait;
+	bool mEatWait;
+	int mEatWaitTime;
+	int mEatWaitTimer;
 	bool mHunting;
 	bool mIsPlayerVisible;
 	bool mSearching;
@@ -102,5 +106,6 @@ private:
 	bool mUpsidedown;
 	int mControlledSpeed;
 	int mFlightSpeed;
+	bool mIdle;
 };
 #endif

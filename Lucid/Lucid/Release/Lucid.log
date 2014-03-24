@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿Build started 2014-03-19 11:17:12.
      1>Project "C:\Lucidaa\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(346,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
@@ -96,6 +97,20 @@
      1>Game.cpp(1056): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>Game.cpp(1056): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
 >>>>>>> 1795a5437776a7563ae37e69b9bbcc51e1d0d1c8
+=======
+﻿Build started 2014-03-21 18:09:52.
+     1>Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Player.cpp
+         Player.cpp
+     1>Player.cpp(17): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Player.cpp(368): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Player.cpp(370): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Player.cpp(383): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Player.cpp(385): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Player.cpp(406): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Player.cpp(411): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+>>>>>>> 8a94557802b88f745f6ba51466ab8f59808d266a
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" /LIBPATH:"C:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\ambiance.obj
          Release\AnimatedObject.obj
@@ -150,20 +165,21 @@ Build succeeded.
 Time Elapsed 00:00:05.37
 =======
      1>p:\lucid\lucid\lucid\saveload.cpp(66): warning C4715: 'SaveLoad::load' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\filhanterare.cpp(125): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
-     1>p:\lucid\lucid\lucid\filhanterare.cpp(119): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\filhanterare.cpp(141): warning C4715: 'FilHanterare::getSound' : not all control paths return a value
+     1>p:\lucid\lucid\lucid\filhanterare.cpp(135): warning C4715: 'FilHanterare::getTexture' : not all control paths return a value
          Finished generating code
-     1>Map.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Map.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Trigger.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Trigger.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
-     1>Ventilation.obj : warning LNK4099: PDB 'vc110.pdb' was not found with 'Ventilation.obj' or at 'P:\Lucid\Lucid\Release\vc110.pdb'; linking object as if no debug info
          Lucid.vcxproj -> P:\Lucid\Lucid\Release\Lucid.exe
      1>Done Building Project "P:\Lucid\Lucid\Lucid\Lucid.vcxproj" (Build target(s)).
 
 Build succeeded.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Time Elapsed 00:00:19.00
 >>>>>>> 1415617e1cc507f57b1b854e0cbaf028470f4127
 =======
 Time Elapsed 00:00:14.14
 >>>>>>> 1795a5437776a7563ae37e69b9bbcc51e1d0d1c8
+=======
+Time Elapsed 00:00:11.55
+>>>>>>> 8a94557802b88f745f6ba51466ab8f59808d266a

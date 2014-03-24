@@ -33,6 +33,8 @@ public:
 	void setLoop(bool loop);
 	void fadeout();
 	void fadein();
+	void scale(float pixels);
+	float getScalePixels();
 private:
 	sf::FloatRect mRect;
 	int mTypeID;
@@ -50,6 +52,8 @@ private:
 	bool mFadeIn, mFadeOut;
 	int mFadeSpeed;
 	sf::RectangleShape r;
+	float mScalePixels;
+	float mScaleFactor;
 };
 
 #endif

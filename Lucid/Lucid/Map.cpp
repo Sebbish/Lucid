@@ -209,6 +209,7 @@ void Map::renderMap(sf::RenderTexture* window)
 			i->render(window);
 	}
 	//r.setTextureRect(sf::IntRect(0,0,window->getSize().x,window->getSize().y));
+
 	if(mMapID == 7)
 	{
 		int temp = mTexture->getSize().x-2;
@@ -220,15 +221,10 @@ void Map::renderMap(sf::RenderTexture* window)
 		r.setPosition(mTexture->getSize().x*2-2,0);
 		window->draw(r);
 		r.setPosition(0,0);
-	}else if (mMapID != 1)
-	{
-		r.setPosition(0,0);
-	}else
-	{
+	}else if (mMapID == 1 || mMapID == 9)
 		r.setPosition(3586, 0);
-	}
-
-	
+	else
+		r.setPosition(0,0);
 	window->draw(r);
 }
 

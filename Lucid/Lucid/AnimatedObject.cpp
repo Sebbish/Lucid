@@ -138,6 +138,16 @@ void AnimatedObject::fadein()
 	mFadeOut = false;
 }
 
+void AnimatedObject::scale(float pixels)
+{
+	mScalePixels += pixels;
+}
+
+float AnimatedObject::getScalePixels()
+{
+	return mScalePixels;
+}
+
 void AnimatedObject::tick()
 {
 	if (mAnimate)
@@ -189,6 +199,15 @@ void AnimatedObject::render(sf::RenderTexture* window)
 {
 	if (mActive)
 	{
+		if (mTypeID == 62)
+			r.setTextureRect(sf::IntRect(256*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+		else
+			r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+		if (mScalePixels > 0)
+		{
+			r.setPosition(mRect.left, mRect.top + mScalePixels);
+			r.scale(1, (mRect.height - mScalePixels) / mRect.height);
+		}
 		window->draw(r);
 	}
 }

@@ -8,13 +8,14 @@ class cred
 public:
 	cred();
 	~cred();
-	void tick();
+	bool tick();
 	void render(sf::RenderWindow &target);
 private:
 	sf::Music m;
 	sf::Text t;
 	sf::Font f;
 	std::string text;
+	bool end;
 };
 #endif
 

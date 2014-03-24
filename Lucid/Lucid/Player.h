@@ -6,7 +6,7 @@ class Player :
 	public Entity
 {
 public:
-	Player(float x, float y, float width, float height, float speed,sf::Texture* texture,float anitmationPicX,sf::SoundBuffer* walkSound);
+	Player(float x, float y, float width, float height, float speed,sf::Texture* texture,float anitmationPicX,sf::SoundBuffer* walkSound, int typeID);
 	~Player();
 	virtual sf::FloatRect getRect()const;
 	virtual sf::FloatRect getHitBox()const;
@@ -42,13 +42,14 @@ public:
 	virtual void hitRoof();
 	virtual void shortYStepBack();
 	virtual void tick(Entity *player, std::vector<Entity*> entityVector);
-	virtual void render(sf::RenderTexture* window, bool visualizeValues, bool mirror);
+	virtual void render(sf::RenderTexture* window, bool visualizeValues, bool mirror, bool upsidedown);
 	virtual void flashlight(bool flash);
 	virtual void setImortal(bool imortal);
 	virtual bool getImortal();
 	virtual void setForm(form currentForm, form nextForm, bool upsidedown);
 	virtual form getForm();
 	virtual form getNextForm();
+	virtual void setIdle();
 private:
 	float mLastSeenX;
 	sf::FloatRect mRect;
@@ -71,6 +72,8 @@ private:
 	bool mFlashlightMode;
 	bool mImortal;
 	float mAnimationSpeed;
+	int mTypeID;
+	sf::RectangleShape r;
 	//int mBreatheDelay, mUpperBreatheDelay, mBreatheTimer, mUpperBreatheTimer;
 };
 #endif

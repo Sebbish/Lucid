@@ -16,6 +16,10 @@ namespace db
 		{
 			mAnimationSpeed = 0.1f;
 		}
+		else if(typID == 25)
+		{
+			mAnimationSpeed = 0.11f;
+		}
 		else
 		{
 			mAnimationSpeed = 0.15f;
@@ -156,7 +160,7 @@ namespace db
 			if (mMoveOnOff == true )
 			{
 				mAnimationPicY = 0;
-				if(mAnimationTimer >= mAnimationPicX-mAnimationSpeed)
+				if(mAnimationTimer >= mAnimationPicX - mAnimationSpeed)
 					mAnimationTimer = 0.0f;
 				else
 					mAnimationTimer += mAnimationSpeed;
@@ -167,7 +171,7 @@ namespace db
 				mAnimationPicY = 1;
 				if (mTypeID == 58)
 				{
-					if(mAnimationTimer >= 4-mAnimationSpeed)
+					if(mAnimationTimer >= 4 - mAnimationSpeed)
 					mAnimationTimer = 0.0f;
 					else
 					mAnimationTimer += mAnimationSpeed;

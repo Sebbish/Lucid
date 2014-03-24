@@ -29,7 +29,7 @@ Game::Game()
 	testLight = sf::Color(100, 100, 100, 255);
 	mFH = new FilHanterare();
 	mAtmospherScaleX = 1;
-	mAtmospherScaleY = 1;
+	mAtmospherScaleY = 1.6;
 	mSanity = new Sanity(mFH->getTexture(63));
 	mLightLevel = false;
 	mFlashlightOnOff = false;
@@ -51,12 +51,12 @@ Game::Game()
 	mEButton->willRender(true);
 	mQButton = new Button(mFH->getTexture(54));
 	mQButton->willRender(false);
-
-	mFButton = new Button(mFH->getTexture(68));
+	mFButton = new Button(mFH->getTexture(59));
 	mFButton->willRender(false);
-	loadMap("../Debug/map12.txt", 12);
-	if(mMap->getID() == 12)
-		mCred = new cred();
+	loadMap("../Debug/map13.txt", 13);
+	mMobil->setCurrentLevel(3);
+
+	
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
 	mPortalFade = new PortalFade(mFH->getTexture(27), mRenderTexture);
 	mEffects = new Effects();
@@ -90,19 +90,11 @@ Game::~Game()
 void Game::run()
 {
 	sf::Font MyFont;
-
-
 		if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
 		{
 			// Error...
 		}
-		//if (!MyFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf"))
 
-		//if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
-
-
-		
-		//mSanityMeter.setString("Hello");
 		mSanityMeter.setFont(MyFont);
 		mSanityMeter.setScale(1,1);
 		mSanityMeter.setOrigin(mSanityMeter.getGlobalBounds().left + mSanityMeter.getGlobalBounds().width,mSanityMeter.getGlobalBounds().top + mSanityMeter.getGlobalBounds().height);
@@ -158,9 +150,33 @@ void Game::input(Entity* entity)
 			{
 				entity->setDirection(Entity::LEFT);
 				entity->setMove(true);
+				if (mMap->getID() == 7)
+				{
+					if (entity == mEntities[0])
+					{
+						mEntities[1]->setDirection(Entity::LEFT);
+						mEntities[1]->setMove(true);
+					}
+					else
+					{
+						mEntities[0]->setDirection(Entity::LEFT);
+						mEntities[0]->setMove(true);
+					}
+				}
 			}else
 			{
 				entity->setMove(false);
+				if (mMap->getID() == 7)
+				{
+					if (entity == mEntities[0])
+					{
+						mEntities[1]->setMove(false);
+					}
+					else
+					{
+						mEntities[0]->setMove(false);
+					}
+				}
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
 			{
@@ -231,43 +247,49 @@ void Game::input(Entity* entity)
 			mFlashlighSound.play();
 		}
 		//kollar om Q trycktes ned och mindcontrollar då
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Q) || sf::Joystick::isButtonPressed(0,1)) && !mIsQPressed /*&& mMobil->getMC*/ )
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Q) || sf::Joystick::isButtonPressed(0,1)) && !mIsQPressed && (mMap->getID() > 4 || (mMap->getID() == 3 && mMap->getTriggerList()[0]->getActive() == false))/*&& mMobil->getMC*/ )
 		{
-				
-			//kontrollerar om den kontrollerade entiteten är spelaren
-			if(mControlledEntity == mEntities[0])
+			if (mMap->getID() == 7 && mMap->getTriggerList()[0]->getActive() == false)
 			{
-				Entity* enemie = NULL;
-
-				//kollar alla entiteter och kollar vilken som är närmast av de som är på samma y-level och innom 200p range
-				for(auto i:mEntities)
-				{
-					if(mEntities[0]->getRect().top >= i->getRect().top-100 && mEntities[0]->getRect().top <= i->getRect().top+100 && i != mEntities[0])
-					{
-						if(mEntities[0]->getRect().left+mEntities[0]->getRect().width >= i->getRect().left-200 && mEntities[0]->getRect().left <= i->getRect().left+i->getRect().width+200)
-						{
-							if(enemie == NULL)
-								enemie = i;
-							else
-							{
-								if(mEntities[0]->getRect().left-i->getRect().left <= mEntities[0]->getRect().left-enemie->getRect().left)
-									enemie = i;
-							}
-						}
-					}
-				}
-				if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getSearching() && enemie->getTypeID() == 21)
-				{
-					mControlledEntity->setMove(false);
-					setControlledEntity(enemie);
-				}
-
+				setControlledEntity(mEntities[1]);
 			}
 			else
 			{
-				mControlledEntity->resetTargetX();
-				mControlledEntity->setWait();
-				setControlledEntity(mEntities[0]);
+				//kontrollerar om den kontrollerade entiteten är spelaren
+				if(mControlledEntity == mEntities[0])
+				{
+					Entity* enemie = NULL;
+
+					//kollar alla entiteter och kollar vilken som är närmast av de som är på samma y-level och innom 200p range
+					for(auto i:mEntities)
+					{
+						if(mEntities[0]->getRect().top >= i->getRect().top-100 && mEntities[0]->getRect().top <= i->getRect().top+100 && i != mEntities[0] && i->getActive())
+						{
+							if(mEntities[0]->getRect().left+mEntities[0]->getRect().width >= i->getRect().left-200 && mEntities[0]->getRect().left <= i->getRect().left+i->getRect().width+200)
+							{
+								if(enemie == NULL)
+									enemie = i;
+								else
+								{
+									if(mEntities[0]->getRect().left-i->getRect().left <= mEntities[0]->getRect().left-enemie->getRect().left)
+										enemie = i;
+								}
+							}
+						}
+					}
+					if(enemie != NULL && !enemie->getCanSeePlayer() && !enemie->getSearching() && enemie->getTypeID() == 21)
+					{
+						mControlledEntity->setMove(false);
+						setControlledEntity(enemie);
+					}
+
+				}
+				else
+				{
+					mControlledEntity->resetTargetX();
+					mControlledEntity->setWait();
+					setControlledEntity(mEntities[0]);
+				}
 			}
 		}
 
@@ -370,12 +392,14 @@ void Game::render()
 	lm->setView(*camera->getView());
 
 	if (mMap->getID() == 2 && mEntities[0]->getRect().top == 487 && mEntities[0]->getRect().left > 4999 && mEntities[0]->getRect().left < 5689)
-		mEntities[0]->render(&mRenderTexture, mVisualizeValues, true);
+		mEntities[0]->render(&mRenderTexture, mVisualizeValues, true, false);
+	if (mMap->getID() == 20 && mEntities[0]->getRect().top == 44 && mEntities[0]->getRect().left > 50 && mEntities[0]->getRect().left < 550)
+		mEntities[0]->render(&mRenderTexture, mVisualizeValues, true, false);
 
 	mMap->renderMap(&mRenderTexture);
 	for(auto i:mEntities)
 		if (i -> getLayer() == Entity::Back)
-			i->render(&mRenderTexture, mVisualizeValues, false);
+			i->render(&mRenderTexture, mVisualizeValues, false, false);
 	
 	mMap -> renderObjects(&mRenderTexture);
 
@@ -383,7 +407,12 @@ void Game::render()
 
 	for(auto i:mEntities)
 		if (i -> getLayer() == Entity::Front)
-			i->render(&mRenderTexture, mVisualizeValues, false);
+		{
+			if (mMap->getID() == 7 && i == mEntities[1])
+				i->render(&mRenderTexture, mVisualizeValues, false, true);
+			else
+				i->render(&mRenderTexture, mVisualizeValues, false, false);
+		}
 	
 
 	mMap->renderForeground(&mRenderTexture);
@@ -438,13 +467,19 @@ void Game::tick()
 	mEButton->setObject(0, false);
 	mFButton->setObject(0, false);
 	mQButton->setObject(0, true);
-
+	mFButton->setObject(0, false);
 
 	mEffects->tick(clock);
 
 	int newMap = mFade->tick();
 	if (newMap != 0)
 	{
+		mSanity->setSanity(25);
+		if (mSanity->getSanity() <= 50)
+		{
+			mSanity->setSanity(-(mSanity->getSanity()));
+			mSanity->setSanity(50);
+		}
 		//mFade->fadeOut(newMap);
 		mMobil->setCurrentLevel(newMap);
 		std::string mapName = "../Debug/map";
@@ -455,10 +490,15 @@ void Game::tick()
 
 	if (mEntities[0]->getActive() == false && mEntities[0]->getImortal() == false) // Om spelaren dör.
 	{
-		std::string mapName = "../Debug/map";
-		mapName += std::to_string(0);
-		mapName += ".txt";
-		loadMap(mapName, 20);
+		mSanity->die();
+		if (mSanity->fadeIsDone())
+		{
+			std::string mapName = "../Debug/map";
+			mapName += std::to_string(0);
+			mapName += ".txt";
+			loadMap(mapName, 20);
+			mSanity->live();
+		}
 	}
 
 	sf::FloatRect rect = mPortalFade->tick();
@@ -479,15 +519,51 @@ void Game::tick()
 
 	collision();
 
+	//FADE HÄR
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
 	if(mMap->getID() == 12)
-		mCred->tick();
+		if(mCred->tick()){
+			delete mCred;
+			loadMap("../Debug/map2.txt", 2);
+			return;
+		}
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton, mControlledEntity, camera, mFButton,mSanity,mMap->getObjectList());
 
-	newMap = mEvent->tick(mMap, mEntities, mLights, mMobil, mQButton, mControlledEntity, camera, mFButton,mMap->getObjectList());
 
 	if (newMap != 0)
 	{
-		mFade->fadeOut(newMap);
-
+		if (!mSanity->getWhiteFadeOut())
+		{
+			mFade->fadeOut(newMap);
+		}
+		else
+		{
+			std::string mapName = "../Debug/map";
+			mapName += std::to_string(newMap);
+			mapName += ".txt";
+			loadMap(mapName, newMap);
+			mSanity->live();
+		}
 	}
 
 	camera->tick();
@@ -556,11 +632,11 @@ void Game::tick()
 	}
 	else
 	{
-		if (mFlashlightOnOff == false && mAtmospherScaleX <= 5)
+		if (mAtmospherScaleX <= 5)
 		{
-			mAtmospherScaleX += 0.003;
+			mAtmospherScaleX += 0.006;
 		}
-		/*if (mFlashlightOnOff == false && mAtmospherScaleY <= 5)
+		/*if (mFlashlightOnOff == false && mAtmospherScaleY <= 5)aad
 		{
 			mAtmospherScaleY += 0.003;
 		}*/
@@ -593,7 +669,7 @@ void Game::tick()
 
 	mLights[1]->setScale(mAtmospherScaleX,mAtmospherScaleY);
 	//mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), mControlledEntity->getRect().top /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
-	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), camera->getView()->getCenter().y-44 - 128 /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
+	mLights[1]->setPosition(sf::Vector2f(mControlledEntity->getRect().left - ((512 * mAtmospherScaleX / 4) + (mAtmospherScaleX-1) * 256 / 2), camera->getView()->getCenter().y-44 - 250 /*- ((256 * mAtmospherScaleY / 4) + (mAtmospherScaleY-1) * 256 / 2)*/));
 
 	//Sanity baserade uträkningar
 	bool tempBrus = false;
@@ -653,6 +729,18 @@ void Game::tick()
 	}
 
 	mSanity->tick();
+
+	if (mMap->getID() == 7)
+	{
+		if (mControlledEntity == mEntities[0])
+		{
+			mEntities[1]->setPosition(sf::FloatRect(mEntities[0]->getRect().left, mEntities[1]->getRect().top, 0, 0));
+		}
+		else
+		{
+			mEntities[0]->setPosition(sf::FloatRect(mEntities[1]->getRect().left, mEntities[0]->getRect().top, 0, 0));
+		}
+	}
 }
 
 void Game::collision()
@@ -800,7 +888,11 @@ void Game::collision()
 
 void Game::loadMap(std::string filename, int mapID)
 {
-	if(mapID >= 2)	
+	if(mapID == 12)
+		mCred = new cred();
+	delete mEvent;
+	mEvent = new Event();
+	if(mapID >= 2 && mapID != 20)	
 		mSL->save(0,"hej",mapID);
 	mEButton->setObject(0, true);
 	mMobil->newMap(mapID);
@@ -854,10 +946,11 @@ void Game::loadMap(std::string filename, int mapID)
 			width = dataVector[i + 3];
 			height = dataVector[i + 4];
 			speed = dataVector[i + 5];
-			mEntities.push_back(new Player(x, y, width, height, speed, mFH->getTexture(0), 8,mFH->getSound(1)));
+			typeID = dataVector[i + 6];
+			mEntities.push_back(new Player(x, y, width, height, speed, mFH->getTexture(typeID), 8,mFH->getSound(1), typeID));
 			mControlledEntity = mEntities[0];
 			camera = new Camera(sf::Vector2f(mWindow.getSize()),mControlledEntity);
-			i += 5;
+			i += 6;
 			break;
 		case 1://Fiende
 			x = dataVector[i + 1];
@@ -1013,12 +1106,6 @@ void Game::loadMap(std::string filename, int mapID)
 	for(auto i:mLights)
 	{
 			i->setMoveOnOff(true);
-	}
-
-	if (mSanity->getSanity() <= 50)
-	{
-		mSanity->setSanity(-(mSanity->getSanity()));
-		mSanity->setSanity(50);
 	}
 	mMap->setupPortals();
 

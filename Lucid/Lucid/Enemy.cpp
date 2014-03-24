@@ -64,6 +64,9 @@ Enemy::Enemy(float x, float y, float width, float height, float speed, int direc
 	mAnimationTimer = 0;
 	mWaitTimer = 0;
 	mWait = false;
+	mEatWait = false;
+	mEatWaitTime = 240;
+	mEatWaitTimer = 0;
 	mImortal = false;
 	//mWaitTime = 60;
 	/*mViewBackRange = 300;
@@ -85,6 +88,8 @@ Enemy::Enemy(float x, float y, float width, float height, float speed, int direc
 	mWalkNotSlimeSound.setAttenuation(10);
 	mAttackSound.setMinDistance(1000);
 	mAttackSound.setAttenuation(10);
+
+	mIdle = false;
 
 
 	mTeleportWaitTime = 300;
@@ -131,7 +136,7 @@ void Enemy::setDirection(direction d)
 
 void Enemy::getFunc(Entity* entity)
 {
-	if (mActive)
+	if (mActive && !mIdle)
 	{
 		if (entity->getTypeID() == 0)
 		{
@@ -169,7 +174,8 @@ sf::FloatRect Enemy::getRect()const
 
 sf::FloatRect Enemy::getHitBox()const
 {
-	
+	if (!mIdle)
+	{
 	sf::FloatRect hitBoxRect = mRect;
 	/*hitBoxRect.left += 80;
 	hitBoxRect.width = 96;*/
@@ -201,6 +207,9 @@ sf::FloatRect Enemy::getHitBox()const
 		hitBoxRect.height = 60;
 	}
 	return hitBoxRect;
+	}
+	else
+		return sf::FloatRect(0, 0, 0, 0);
 }
 
 sf::FloatRect Enemy::getLastRect()const
@@ -503,15 +512,18 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 			{
 				mTeleport = false;
 			}
-			for (auto i:entityVector)
+
+			if (!mEatWait && !mIdle)
 			{
-				if ((i->getTypeID() == 21 && mTypeID == 22) || (i->getTypeID() == 22 && mTypeID == 21))
+				for (auto i:entityVector)
 				{
-					checkSight(i);
+					if ((i->getTypeID() == 21 && mTypeID == 22) || (i->getTypeID() == 22 && mTypeID == 21))
+					{
+						checkSight(i);
+					}
 				}
+				checkSight(player);
 			}
-			checkSight(player);
-		
 
 			if (mRect.left <= mTargetX + 5 && mRect.left >= mTargetX - 5)
 			{
@@ -597,6 +609,16 @@ void Enemy::tick(Entity *player, std::vector<Entity*> entityVector)
 					mTargetX = mPatrolStop;
 					mWaitTimer = 0;
 				}
+			}
+
+			if (mEatWaitTimer >= mEatWaitTime)
+			{
+				mEatWait = false;
+				mEatWaitTimer = 0;
+			}
+			else
+			{
+				mEatWaitTimer++;
 			}
 		}
 
@@ -736,7 +758,12 @@ void Enemy::setAnimation()
 				{
 					mAnimationTimer = 0.0f;
 					if (mCurrentForm == EAT)
+					{
 						mNextForm = MONSTER;
+						mEatWait = true;
+						mWait = true;
+						mWaitTimer = 0;
+					}
 				}
 				else
 					mAnimationTimer += mAnimationSpeed;
@@ -842,7 +869,7 @@ void Enemy::setAnimation()
 	}
 }
 
-void Enemy::render(sf::RenderTexture* window, bool visualizeValues, bool mirror)
+void Enemy::render(sf::RenderTexture* window, bool visualizeValues, bool mirror, bool upsidedown)
 {
 	if (mActive)
 	{
@@ -941,4 +968,9 @@ void Enemy::setImortal(bool imortal)
 bool Enemy::getImortal()
 {
 	return mImortal;
+}
+
+void Enemy::setIdle()
+{
+	mIdle = true;
 }

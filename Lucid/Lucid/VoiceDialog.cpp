@@ -38,7 +38,7 @@ void VoiceDialog::newLevel(int mapID)
 	}
 	switch (mapID)
 	{
-	case 7:
+	case 14:
 		mSounds.push_back(new mSoundSlot("Boatscene_2/Boatscene_2_Taunt_Businesswoman","Hey captain! Nice job breaking"+newLine+"everything"));
 		mSounds.push_back(new mSoundSlot("Boatscene_2/Boatscene_2_Taunt_Moneyback","I demand my money back!"));
 		mSounds.push_back(new mSoundSlot("Boatscene_2/Boatscene_2_Taunt_Oldlady","Well hurry up then, boat's not gonna"+newLine+"steer itself!"));
@@ -52,7 +52,7 @@ void VoiceDialog::newLevel(int mapID)
 		mSounds.push_back(new mSoundSlot("Boatscene_2/Boatscene_2_Texasman_3","Yes?"));
 		mSounds.push_back(new mSoundSlot("Boatscene_2/Boatscene_2_Pojkvasker_3","I don't want to be a captain when I"+newLine+"grow up, I think it looks hard and you"+newLine+"will just get sad like him"));
 		break;
-	case 8:
+	case 13:
 		mSounds.push_back(new mSoundSlot("Boatscene_1/Boatscene_1_Hippie_1","Can´t believe we never tried this cruise"+newLine+"thing before, the bars look really dope"+newLine+"man!"));
 		mSounds.push_back(new mSoundSlot("Boatscene_1/Boatscene_1_MrGreen_1","Yeah, I can´t wait until people start drinking."+newLine+"Maybe we should ask those girls next doors"+newLine+"if they want to tag along?"));
 		mSounds.push_back(new mSoundSlot("Boatscene_1/Boatscene_1_Hippie_2","Totally, they looked pretty good and seemed pretty cool"+newLine+"actually. I don´t know about you but I have a feeling that it"+newLine+"was a better choice to spend our money on this cruise"+newLine+"than following Dan and Doyle on their beer road trip."));
@@ -97,7 +97,7 @@ int VoiceDialog::getDialogID()
 
 void VoiceDialog::boatLvl8Thing()
 {
-	if(mMapID == 8)
+	if(mMapID == 13)
 	{
 		for(int i = 0; i < mSounds.size()-2;i++)
 		{
@@ -110,7 +110,7 @@ void VoiceDialog::boatLvl8Thing()
 
 bool VoiceDialog::playingLvl8Thing()
 {
-	if(mMapID ==  8 && lvl8Thing)
+	if(mMapID ==  13 && lvl8Thing)
 	{
 		if(mSounds[mSounds.size()-1]->mSound.getStatus() == sf::Sound::Stopped)
 			return true;
@@ -120,7 +120,7 @@ bool VoiceDialog::playingLvl8Thing()
 
 void VoiceDialog::tick()
 {
-	if(mMapID == 7 && playingSoundID >= 5 && playingSoundID < 10)
+	if(mMapID == 14 && playingSoundID >= 5 && playingSoundID < 10)
 	{
 		if(playingSoundID == 9 && mSounds[playingSoundID]->mSound.getStatus() != sf::Sound::Stopped)
 			pause = 20;
@@ -130,7 +130,7 @@ void VoiceDialog::tick()
 			else
 				pause -= .5;
 	}
-	if(mMapID == 8)
+	if(mMapID == 13)
 	{
 		if(playingSoundID == -1)
 		{

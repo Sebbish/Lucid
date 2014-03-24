@@ -14,6 +14,7 @@ cred::cred()
 	t.setFont(f);
 	t.setString(text);
 	t.setPosition(300,-t.getGlobalBounds().height);
+	end = false;
 }
 
 
@@ -21,9 +22,12 @@ cred::~cred()
 {
 }
 
-void cred::tick()
+bool cred::tick()
 {
 	t.setPosition(t.getPosition().x,t.getPosition().y+3);
+	if(t.getPosition().y >= 1920)
+		end = true;
+	return end;
 }
 
 void cred::render(sf::RenderWindow &target)
