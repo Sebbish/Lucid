@@ -20,6 +20,7 @@ private:
 	sf::FloatRect rectSet;
 	int mTypeID;
 	sf::Texture* mTexture;
+	sf::RectangleShape r;
 };
 
 #endif

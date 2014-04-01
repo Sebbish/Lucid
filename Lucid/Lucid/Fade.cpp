@@ -11,6 +11,11 @@ Fade::Fade(sf::Texture* texture, sf::RenderTexture &renderTexture):
 	mFadeOut = false;
 	mMapID = 0;
 	mAlpha = 0;
+
+	r.setTexture(mTexture);
+	r.setTextureRect(sf::IntRect(0, 0, 1920, 1080));
+	r.setPosition(0, 0);
+	r.setSize(mSize);
 }
 
 
@@ -20,11 +25,7 @@ Fade::~Fade(void)
 
 void Fade::render(sf::RenderWindow &window)
 {
-	sf::RectangleShape r;
-	r.setTexture(mTexture);
-	r.setTextureRect(sf::IntRect(0, 0, 1920, 1080));
-	r.setPosition(0, 0);
-	r.setSize(mSize);
+	
 	r.setFillColor(sf::Color(255, 255, 255, mAlpha));
 	window.draw(r);
 }

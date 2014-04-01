@@ -20,6 +20,7 @@ private:
 	Object* mObject;
 	bool mWillRender;
 	bool mQ;
+	sf::RectangleShape r;
 };
 
 #endif

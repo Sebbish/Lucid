@@ -45,6 +45,7 @@ private:
 	sf::Texture *mTexture;
 	sf::Font mFont;
 	sf::Text mText;
+	sf::RectangleShape mRS;
 };
 #endif
 

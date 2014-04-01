@@ -23,6 +23,9 @@ Portal::Portal(sf::FloatRect rect, int currentMapID, int targetMapID, int target
 		directionRight = false;
 	else
 		directionRight = true;
+
+	r.setTexture(mTexture);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 }
 
 Portal::~Portal()
@@ -125,14 +128,14 @@ void Portal::render(sf::RenderTexture* window)
 {
 	if (mUseTexture)
 	{
-		sf::RectangleShape r;
-		r.setTexture(mTexture);
+		
+		
 		if (directionRight)
 			r.setTextureRect(sf::IntRect((int)mAnimationTimer * 256,256,mRect.width,mRect.height));
 		else
 			r.setTextureRect(sf::IntRect(((int)mAnimationTimer + 1) * 256, 256, -mRect.width, mRect.height));
 		r.setPosition(mRect.left,mRect.top);
-		r.setSize(sf::Vector2f(mRect.width,mRect.height));
+		
 		window->draw(r);
 	}
 }

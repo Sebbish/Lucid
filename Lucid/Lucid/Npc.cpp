@@ -16,6 +16,9 @@ Npc::Npc(sf::FloatRect rect, int dialogueID, sf::Texture* texture, int typeID,in
 		mLookLeft = false;
 	if(typeID >= 84)
 		mAnimationSpeed = 0.0f;
+
+	r.setTexture(mTexture);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 }
 
 Npc::~Npc()
@@ -104,13 +107,12 @@ void Npc::tick()
 
 void Npc::render(sf::RenderTexture* window)
 {
-	sf::RectangleShape r;
-	r.setTexture(mTexture);
+	
+	
 	if(mLookLeft)
 		r.setTextureRect(sf::IntRect(mRect.width*(int)mCurrentAnimationPic,0,mRect.width,mRect.height));
 	else
 		r.setTextureRect(sf::IntRect(mRect.width*((int)mCurrentAnimationPic+1),0,-mRect.width,mRect.height));
 	r.setPosition(mRect.left,mRect.top);
-	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
 }
