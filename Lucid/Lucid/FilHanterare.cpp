@@ -30,10 +30,11 @@ FilHanterare::FilHanterare(void)
 	mTexture[10]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/FinalCorridor/FinalCorridor.png", sf::IntRect(0, 0, 2048, 300));
 	mTexture[11]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Respawn Rum/Lewis Sjukrum.png",sf::IntRect(0,0,600,300));
 	mTexture[12]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Hiss1.png",sf::IntRect(0,0,300,256));
-	mTexture[14]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/LevelBoat2/Level_Boat_2.png",sf::IntRect(0,0,4098,256));
 	mTexture[13]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/LevelBoat1/båtscen ute(1).png",sf::IntRect(0,0,1362,696));
+	mTexture[14]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/LevelBoat2/Level_Boat_2.png",sf::IntRect(0,0,4098,256));
+	mTexture[15]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/LevelBoat3/Level_Boat_3.png",sf::IntRect(0,0,4096,300));
 
-	mTexture[16]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/FinalCorridor/FinalCorridor.png", sf::IntRect(0, 0, 2048, 300));
+	mTexture[16] = mTexture[10];
 
 	mTexture[20]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Respawn Rum/Lewis Sjukrum.png",sf::IntRect(0,0,600,300));
 
@@ -53,7 +54,7 @@ FilHanterare::FilHanterare(void)
 	mTexture[26]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/VendingMachine1.png",sf::IntRect(0,0,256,256));
 	mTexture[27]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/black.png",sf::IntRect(0,0,1920,1080));
 	mTexture[28]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Ryan/Ryan_Spritesheet.png",sf::IntRect(0,0,1024,256));
-	mTexture[29]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Magda/Magda_SpriteSheet.png",sf::IntRect(0,0,2048,256));
+	mTexture[29]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Magda/Magda_SpriteSheet.png",sf::IntRect(0,0,2048,512));
 
 	//Intro
 	mTexture[30]->loadFromFile(path+"LucidProject/Resources/Graphics/Backgrounds/Prologue/1 - Utomhus 1.png",sf::IntRect(0,0,2403,625));
@@ -122,9 +123,8 @@ FilHanterare::FilHanterare(void)
 
 	mTexture[60]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/vattentavla/vattentavla1.png",sf::IntRect(0,0,128,256));
 	mTexture[61]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/vattentavla/vattentavlaSpritesheet.png",sf::IntRect(0,0,384,256));
-	mTexture[62]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Vatten/vatten_spritesheet.png",sf::IntRect(0,0,2048,256));
+	mTexture[62]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Vatten/vattenfis.png",sf::IntRect(0,0,256,256));
 	mTexture[63]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Brus_spritesheet.png",sf::IntRect(0,0,7680,1080));
-
 
 	mTexture[64]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Dörrar/Dörrar SpriteSheet 2.png",sf::IntRect(0,0,2048,512));
 
@@ -138,6 +138,9 @@ FilHanterare::FilHanterare(void)
 
 	mTexture[70]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Steam/Steam_Spritesheet.png", sf::IntRect(0, 0, 4096, 256));
 
+	mTexture[71]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Nurse/Nurse_Female_Spritesheet.png",sf::IntRect(0,0,1024,256));
+	mTexture[72]->loadFromFile(path+"LucidProject/Resources/Graphics/Animations/Nurse/Nurse_Male_Spritesheet.png",sf::IntRect(0,0,1024,256));
+
 	mSoundBuffer[0]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/death.wav");
 
 	mSoundBuffer[1]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/lewis hall walking slow 2(with clothing).wav");
@@ -150,7 +153,6 @@ FilHanterare::FilHanterare(void)
 	mSoundBuffer[29]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/magda bed idle 1.wav");
 	mSoundBuffer[9]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/MONO sound fx/lewis flashlight ON .wav");
 	mSoundBuffer[10]->loadFromFile(path+"LucidProject/Resources/Sound/SoundFX/walking up stairs short 2.ogg");
-
 }
 
 

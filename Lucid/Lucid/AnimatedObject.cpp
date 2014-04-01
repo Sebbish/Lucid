@@ -37,14 +37,16 @@ AnimatedObject::AnimatedObject(sf::FloatRect rect, sf::Texture* texture, int typ
 	{
 		mAnimationSpeed = 0.2f;
 	}
-	if (typeID == 36)
+	else if (typeID == 36)
 	{
 		mAnimationSpeed = 0.75f;
 	}
-	if (typeID == 44)
+	else if (typeID == 44)
 	{
 		mAnimationSpeed = 0.1f;
 	}
+	else if (typeID == 28)
+		mAnimationSpeed = 0.05;
 	else
 		mAnimationSpeed = 0.15f;
 
@@ -201,14 +203,19 @@ void AnimatedObject::render(sf::RenderTexture* window)
 	if (mActive)
 	{
 		if (mTypeID == 62)
+		{
 			r.setTextureRect(sf::IntRect(256*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
+		}
+		else if (mTypeID == 72)
+			r.setTextureRect(sf::IntRect(mRect.width*((int)mAnimationTimer + 1), mAnimationY * mRect.height,-mRect.width,mRect.height));
 		else
 			r.setTextureRect(sf::IntRect(mRect.width*(int)mAnimationTimer, mAnimationY * mRect.height,mRect.width,mRect.height));
 		if (mScalePixels > 0)
 		{
 			r.setPosition(mRect.left, mRect.top + mScalePixels);
-			r.scale(1, (mRect.height - mScalePixels) / mRect.height);
+			//r.setScale(1, (mRect.height - mScalePixels) / mRect.height);
 		}
+
 		window->draw(r);
 	}
 }

@@ -122,7 +122,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 				
 			}
 
-			for (int i = 7; i <= 25; i++)
+			for (int i = 7; i <= 29; i++)
 			{
 				animatedObjects[i]->scale(192);
 				animatedObjects[i]->setActive(true);
@@ -321,7 +321,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		if(triggers[2]->getTrigged()) // når slutet av banan
 		{
 			triggers[2]->setActive(false);
-			return 7;
+			return 5;
 			//mMobil->slutPåTest = true;
 		}
 
@@ -360,6 +360,22 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		{
 			QButton->willRender(false);
 		}
+
+		if (triggers[3]->getTrigged())
+		{
+			triggers[3]->setActive(false);
+			triggers[4]->setActive(true);
+			animatedObjects[4]->setActive(false);
+			animatedObjects[5]->setActive(true);
+		}
+
+		if (triggers[4]->getTrigged())
+		{
+			triggers[4]->setActive(false);
+			triggers[3]->setActive(true);
+			animatedObjects[5]->setActive(false);
+			animatedObjects[4]->setActive(true);
+		}
 		break;
 	case 5:
 		if (triggers[0]->getTrigged()) //Om bub går på keycard
@@ -394,6 +410,14 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			camera->setTarget(controlledEntity);
 			controlledEntity->controlled(true);
 
+		}
+		if (controlledEntity->getTypeID() == 21)
+		{
+			animatedObjects[3]->setActive(false);
+		}
+		else
+		{
+			animatedObjects[3]->setActive(true);
 		}
 
 		if (triggers[2]->getTrigged()) //Spelaren går på kortläsaren
@@ -463,6 +487,68 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 			triggers[1]->setActive(false);
 			return 7;
 		}
+
+		if (triggers[2]->getTrigged() && controlledEntity == entityVector[0])//BlackScreen
+		{
+			triggers[2]->setActive(false);
+			triggers[3]->setActive(true);
+			triggers[4]->setActive(true);
+			triggers[5]->setActive(true);
+			triggers[6]->setActive(true);
+
+			animatedObjects[24]->setActive(false);
+			animatedObjects[25]->setActive(true);
+			animatedObjects[26]->setActive(true);
+		}
+		if (triggers[3]->getTrigged() && controlledEntity == entityVector[0])//BlackScreen
+		{
+			triggers[2]->setActive(true);
+			triggers[3]->setActive(false);
+			triggers[4]->setActive(true);
+			triggers[5]->setActive(true);
+			triggers[6]->setActive(true);
+
+			animatedObjects[24]->setActive(true);
+			animatedObjects[25]->setActive(false);
+			animatedObjects[26]->setActive(true);
+		}
+		if (triggers[4]->getTrigged() && controlledEntity == entityVector[0])//BlackScreen
+		{
+			triggers[2]->setActive(true);
+			triggers[3]->setActive(true);
+			triggers[4]->setActive(false);
+			triggers[5]->setActive(true);
+			triggers[6]->setActive(true);
+
+			animatedObjects[24]->setActive(true);
+			animatedObjects[25]->setActive(true);
+			animatedObjects[26]->setActive(false);
+		}
+		if (triggers[5]->getTrigged() && controlledEntity == entityVector[1])//BlackScreen
+		{
+			triggers[2]->setActive(true);
+			triggers[3]->setActive(true);
+			triggers[4]->setActive(true);
+			triggers[5]->setActive(false);
+			triggers[6]->setActive(true);
+
+			animatedObjects[24]->setActive(true);
+			animatedObjects[25]->setActive(false);
+			animatedObjects[26]->setActive(true);
+		}
+		if (triggers[6]->getTrigged() && controlledEntity == entityVector[1])//BlackScreen
+		{
+			triggers[2]->setActive(true);
+			triggers[3]->setActive(true);
+			triggers[4]->setActive(true);
+			triggers[5]->setActive(true);
+			triggers[6]->setActive(false);
+
+			animatedObjects[24]->setActive(true);
+			animatedObjects[25]->setActive(true);
+			animatedObjects[26]->setActive(false);
+		}
+
 		break;
 
 	case 7:
@@ -506,7 +592,15 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		break;
 
 
+	case 8:
 
+		if (triggers[0]->getTrigged())
+		{
+			triggers[0]->setActive(false);
+			return 9;
+		}
+
+		break;
 
 	case 9:
 		if (triggers[0]->getTrigged()) //Öppnar dörren
@@ -618,7 +712,7 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		if(triggers[7]->getTrigged())
 		{
 			triggers[7]->setActive(false);
-			return 5;
+			return 6;
 		}
 
 		if(triggers[8]->getTrigged())
@@ -695,6 +789,26 @@ int Event::tick(Map* map, std::vector<Entity*> &entityVector, std::vector<db::Li
 		{
 			triggers[22]->setActive(false);
 			object[14]->getFunc(controlledEntity);
+		}
+		break;
+
+
+
+
+		case 15:
+		if (triggers[0]->getTrigged())
+		{
+			triggers[0]->setActive(false);
+			return 16;
+		}
+
+
+
+		case 16:
+		if (triggers[0]->getTrigged())
+		{
+			triggers[0]->setActive(false);
+			return 8;
 		}
 		break;
 		}

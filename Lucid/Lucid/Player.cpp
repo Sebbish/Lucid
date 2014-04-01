@@ -256,7 +256,7 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 			mAnimationPicX = 4;
 		}
 
-		if (mTypeID == 69)
+		if (mTypeID == 69 || mTypeID == 29)
 		{
 			mAnimationPicX = 8;
 			mAnimationY = 0;

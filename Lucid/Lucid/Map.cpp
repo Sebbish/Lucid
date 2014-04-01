@@ -210,7 +210,7 @@ void Map::renderMap(sf::RenderTexture* window)
 	}
 	//r.setTextureRect(sf::IntRect(0,0,window->getSize().x,window->getSize().y));
 
-	if(mMapID == 7)
+	if(mMapID == 14)
 	{
 		int temp = mTexture->getSize().x-2;
 		temp = -temp;

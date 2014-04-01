@@ -15,6 +15,7 @@ Sanity::Sanity(sf::Texture* brus):
 	mDelayTimer = 0;
 	mWhiteFadeIn = false;
 	mWhiteFadeOut = false;
+	mBlurValue = 0;
 }
 
 
@@ -36,6 +37,7 @@ void Sanity::die()
 {
 	mWhiteFadeOut = true;
 	mWhiteFadeIn = false;
+	mBlurValue = 0;
 }
 
 void Sanity::live()
