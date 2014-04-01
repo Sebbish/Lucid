@@ -5,7 +5,7 @@ VoiceMail::VoiceMail(int mapID,sf::Texture* Voicemail):
 	mActiveSoundID(-1),mSoundPlayingID(-1),mTexture(Voicemail)
 {
 	loadSounds(mapID);
-	mFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
+	mFont.loadFromFile("LucidProject/Resources/Dialog/ariblk.ttf");
 	//mFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
 	mText.setFont(mFont);
 	mDraw = false;

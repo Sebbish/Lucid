@@ -12,7 +12,7 @@ public:
 		mSoundSlot(std::string soundPath,std::string text)
 		{
 			
-			mSound.openFromFile("../../../LucidProject/Resources/Sound/Dialog/"+soundPath+".ogg");
+			mSound.openFromFile("LucidProject/Resources/Sound/Dialog/"+soundPath+".ogg");
 			mText = text;
 		}
 		sf::Music mSound;

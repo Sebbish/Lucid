@@ -4,7 +4,7 @@ Player::Player(float x, float y, float width, float height,float speed,sf::Textu
 	mMaxSpeed(speed),mDirection(RIGHT),mTexture(texture),mAnimationPicX(anitmationPicX),mKnockWidth(0),mAcc(0), mTypeID(typeID)
 {
 	std::ifstream stream;
-	stream.open("../Debug/config.txt");
+	stream.open("config.txt");
 	std::string output;
 	std::vector<int> dataVector;
 	while(!stream.eof())
@@ -256,7 +256,7 @@ void Player::tick(Entity *player, std::vector<Entity*> entityVector)
 			mAnimationPicX = 4;
 		}
 
-		if (mTypeID == 69)
+		if (mTypeID == 69 || mTypeID == 29)
 		{
 			mAnimationPicX = 8;
 			mAnimationY = 0;

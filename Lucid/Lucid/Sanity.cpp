@@ -4,7 +4,7 @@
 Sanity::Sanity(sf::Texture* brus):
 	mSanity(100), mBrusTexture(brus)
 {
-	mWaveShader.loadFromFile("../../../SFML-2.1/examples/shader/resources/wave.vert", "../../../SFML-2.1/examples/shader/resources/blur.frag");
+	mWaveShader.loadFromFile("SFML-2.1/examples/shader/resources/wave.vert", "SFML-2.1/examples/shader/resources/blur.frag");
 	mAnimationTimer = 0;
 	mAnimationSpeed = 0.50;
 	mAlpha = 0;
@@ -15,6 +15,7 @@ Sanity::Sanity(sf::Texture* brus):
 	mDelayTimer = 0;
 	mWhiteFadeIn = false;
 	mWhiteFadeOut = false;
+	mBlurValue = 0;
 }
 
 
@@ -36,6 +37,7 @@ void Sanity::die()
 {
 	mWhiteFadeOut = true;
 	mWhiteFadeIn = false;
+	mBlurValue = 0;
 }
 
 void Sanity::live()

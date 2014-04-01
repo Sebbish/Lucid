@@ -3,7 +3,7 @@
 Game::Game()
 {
 	std::ifstream stream;
-	stream.open("../Debug/config.txt");
+	stream.open("config.txt");
 	std::string output;
 	std::vector<int> dataVector;
 	while(!stream.eof())
@@ -53,8 +53,8 @@ Game::Game()
 	mQButton->willRender(false);
 	mFButton = new Button(mFH->getTexture(59));
 	mFButton->willRender(false);
-	loadMap("../Debug/map1.txt", 1);
-	mMobil->setCurrentLevel(7);
+	loadMap("map1.txt", 1);
+	mMobil->setCurrentLevel(1);
 
 	
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
@@ -90,7 +90,7 @@ Game::~Game()
 void Game::run()
 {
 	sf::Font MyFont;
-		if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
+		if (!MyFont.loadFromFile("LucidProject/Resources/Dialog/ariblk.ttf"))
 		{
 			// Error...
 		}
@@ -408,6 +408,8 @@ void Game::render()
 		mEntities[0]->render(&mRenderTexture, mVisualizeValues, true, false);
 	if (mMap->getID() == 20 && mEntities[0]->getRect().top == 44 && mEntities[0]->getRect().left > 50 && mEntities[0]->getRect().left < 550)
 		mEntities[0]->render(&mRenderTexture, mVisualizeValues, true, false);
+	if (mMap->getID() == 12)
+		mEntities[0]->render(&mRenderTexture, mVisualizeValues, true, false);
 
 	mMap->renderMap(&mRenderTexture);
 	for(auto i:mEntities)
@@ -467,7 +469,7 @@ void Game::render()
 	mSanityMeter.setString("Sanity: " + std::to_string(mSanity->getSanity()));
 	mSanityMeter.setOrigin(mSanityMeter.getLocalBounds().left + mSanityMeter.getLocalBounds().width,mSanityMeter.getLocalBounds().top + mSanityMeter.getLocalBounds().height);
 	mSanity->render(&mWindow);
-	mWindow.draw(mSanityMeter);
+	//mWindow.draw(mSanityMeter);
 	mFade->render(mWindow);
 	mPortalFade->render(mWindow);
 	if(mMap->getID() == 12)
@@ -688,8 +690,15 @@ void Game::tick()
 	bool tempBrus = false;
 	if (mControlledEntity != mEntities[0])
 	{
-		//mSanity->setSanity(-0.021);
-		mSanity->setSanity(-mSanityLossWhileControlling);
+		if (mMap->getID() != 7)
+		{
+			//mSanity->setSanity(-0.021);
+			mSanity->setSanity(-mSanityLossWhileControlling);
+		}
+		else
+		{
+			mSanity->setSanity(mSanityLossWhileControlling);
+		}
 		tempBrus = true;
 	}
 

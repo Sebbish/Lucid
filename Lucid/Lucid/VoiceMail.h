@@ -13,7 +13,7 @@ public:
 		mSoundSlot(std::string title, std::string soundPath,std::string text)
 		{
 			mTitle = title;
-			mSound.openFromFile("../../../LucidProject/Resources/Sound/voicemail/"+soundPath+".ogg");
+			mSound.openFromFile("LucidProject/Resources/Sound/voicemail/"+soundPath+".ogg");
 			mUsed = false;
 			mText = text;
 		}
