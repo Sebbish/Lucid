@@ -1,147 +1,47 @@
-﻿Build started 2014-04-01 10:23:05.
+﻿Build started 2014-04-01 10:28:24.
      1>Project "C:\Lucidaa\Lucid\Lucid\Lucid.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(346,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ambiance.cpp cred.cpp Effects.cpp Enemy.cpp Event.cpp FilHanterare.cpp Game.cpp Main.cpp Mobil.cpp Player.cpp Sanity.cpp SaveLoad.cpp snake.cpp VoiceDialog.cpp VoiceMail.cpp
-         ambiance.cpp
-     1>ambiance.cpp(231): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>ambiance.cpp(267): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(268): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(297): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(298): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(321): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ambiance.cpp(329): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(339): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(353): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(385): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ambiance.cpp(393): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(403): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(417): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(499): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(500): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(501): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(510): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(526): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(570): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(571): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(572): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(581): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(597): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(641): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(642): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(643): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(652): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(668): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(709): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(710): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(729): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(730): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(749): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>ambiance.cpp(750): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(764): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(782): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(800): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(822): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(834): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(845): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>ambiance.cpp(846): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-         cred.cpp
-         Effects.cpp
-     1>Effects.cpp(14): warning C4305: '=' : truncation from 'double' to 'float'
-     1>Effects.cpp(15): warning C4305: '=' : truncation from 'double' to 'float'
-         Enemy.cpp
-     1>Enemy.cpp(22): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>Enemy.cpp(24): warning C4305: '=' : truncation from 'double' to 'float'
-     1>Enemy.cpp(33): warning C4305: '=' : truncation from 'double' to 'float'
-     1>Enemy.cpp(317): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>Enemy.cpp(322): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>Enemy.cpp(886): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Enemy.cpp(888): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Enemy.cpp(893): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Enemy.cpp(895): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Enemy.cpp(901): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Enemy.cpp(903): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Enemy.cpp(922): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Enemy.cpp(929): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Enemy.cpp(936): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Enemy.cpp(944): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Enemy.cpp(947): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Enemy.cpp(951): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-         Event.cpp
-     1>Event.cpp(11): warning C4305: '=' : truncation from 'double' to 'float'
-         FilHanterare.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\SFML-2.1\include" /I"P:\SFML-2.1\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
          Game.cpp
      1>Game.cpp(16): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
      1>Game.cpp(17): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
      1>Game.cpp(28): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
      1>Game.cpp(32): warning C4305: '=' : truncation from 'double' to 'float'
      1>Game.cpp(101): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>Game.cpp(442): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
-     1>Game.cpp(461): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(462): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>Game.cpp(636): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>Game.cpp(640): warning C4305: '-=' : truncation from 'double' to 'float'
-     1>Game.cpp(652): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>Game.cpp(681): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(682): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(683): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(721): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>Game.cpp(735): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Game.cpp(963): warning C4018: '<' : signed/unsigned mismatch
-     1>Game.cpp(974): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(990): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1003): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1020): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1022): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1034): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1034): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>Game.cpp(1043): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1053): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1060): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1075): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1092): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1100): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1104): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1105): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1106): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1128): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Game.cpp(1193): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1194): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1207): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(1207): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
-         Main.cpp
-         Mobil.cpp
-     1>Mobil.cpp(8): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>Mobil.cpp(263): warning C4018: '<=' : signed/unsigned mismatch
-     1>Mobil.cpp(283): warning C4018: '<' : signed/unsigned mismatch
-     1>Mobil.cpp(356): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Mobil.cpp(357): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-         Player.cpp
-     1>Player.cpp(17): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>Player.cpp(373): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Player.cpp(375): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Player.cpp(388): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Player.cpp(390): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Player.cpp(411): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>Player.cpp(416): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-         Sanity.cpp
-     1>Sanity.cpp(88): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>Sanity.cpp(115): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>Sanity.cpp(130): warning C4390: ';' : empty controlled statement found; is this the intent?
-         SaveLoad.cpp
-         snake.cpp
-     1>snake.cpp(50): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-         VoiceDialog.cpp
-     1>VoiceDialog.cpp(74): warning C4018: '<=' : signed/unsigned mismatch
-     1>VoiceDialog.cpp(89): warning C4018: '>=' : signed/unsigned mismatch
-     1>VoiceDialog.cpp(102): warning C4018: '<' : signed/unsigned mismatch
-     1>VoiceDialog.cpp(127): warning C4018: '<' : signed/unsigned mismatch
-     1>VoiceDialog.cpp(138): warning C4018: '<' : signed/unsigned mismatch
-     1>VoiceDialog.cpp(145): warning C4018: '<=' : signed/unsigned mismatch
-         VoiceMail.cpp
-     1>VoiceMail.cpp(32): warning C4018: '<=' : signed/unsigned mismatch
-     1>VoiceMail.cpp(51): warning C4018: '<=' : signed/unsigned mismatch
-     1>VoiceMail.cpp(73): warning C4018: '>=' : signed/unsigned mismatch
+     1>Game.cpp(445): warning C4244: 'argument' : conversion from 'float' to 'sf::Uint8', possible loss of data
+     1>Game.cpp(464): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(465): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>Game.cpp(639): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>Game.cpp(643): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>Game.cpp(655): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>Game.cpp(684): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(685): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(686): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(724): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>Game.cpp(738): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Game.cpp(966): warning C4018: '<' : signed/unsigned mismatch
+     1>Game.cpp(977): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(993): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1006): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1023): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1025): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1037): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1037): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>Game.cpp(1046): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1056): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1063): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1078): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1095): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1103): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1107): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1108): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1109): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1131): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>Game.cpp(1196): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1197): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1210): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(1210): warning C4244: 'argument' : conversion from 'unsigned int' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\Release\Lucid.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"P:\SFML-2.1\lib" /LIBPATH:"C:\SFML-2.1\lib" "sfml-audio.lib" "sfml-graphics.lib" "sfml-main.lib" "sfml-system.lib" "sfml-window.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\Release\Lucid.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\Release\Lucid.lib" /MACHINE:X86 /SAFESEH Release\ambiance.obj
          Release\AnimatedObject.obj
@@ -193,4 +93,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:12.37
+Time Elapsed 00:00:04.96
