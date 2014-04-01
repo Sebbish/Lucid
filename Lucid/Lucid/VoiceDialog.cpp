@@ -4,7 +4,7 @@
 VoiceDialog::VoiceDialog(sf::Texture *t):
 	playingSoundID(-1),mTexture(t)
 {
-	mFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf");
+	mFont.loadFromFile("LucidProject/Resources/Dialog/ariblk.ttf");
 	mText.setFont(mFont);
 	mDraw = false;
 	mRS.setSize(sf::Vector2f(960,200));

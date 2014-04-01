@@ -4,10 +4,10 @@
 SaveLoad::SaveLoad()
 {
 	
-	stream.open("../Debug/SaveFile.txt");
+	stream.open("SaveFile.txt");
 	if(!stream.is_open())
 	{
-		sstream.open("../Debug/SaveFile.txt");
+		sstream.open("SaveFile.txt");
 		for(int i = 0; i < 5; i++)
 		{
 			sstream << "unused_file_slot ";
@@ -47,7 +47,7 @@ void SaveLoad::save(int activeSlot, std::string name, int mapID)
 		mSLD[activeSlot].text = name;
 		mSLD[activeSlot].mapID = mapID;
 		std::ofstream stream;
-		stream.open("../Debug/SaveFile.txt");
+		stream.open("SaveFile.txt");
 		for(int i = 0; i < 5;i++)
 		{
 			stream << mSLD[i].text;

@@ -3,7 +3,7 @@
 Game::Game()
 {
 	std::ifstream stream;
-	stream.open("../Debug/config.txt");
+	stream.open("config.txt");
 	std::string output;
 	std::vector<int> dataVector;
 	while(!stream.eof())
@@ -53,7 +53,7 @@ Game::Game()
 	mQButton->willRender(false);
 	mFButton = new Button(mFH->getTexture(59));
 	mFButton->willRender(false);
-	loadMap("../Debug/map1.txt", 1);
+	loadMap("map1.txt", 1);
 	mMobil->setCurrentLevel(1);
 
 	
@@ -90,7 +90,7 @@ Game::~Game()
 void Game::run()
 {
 	sf::Font MyFont;
-		if (!MyFont.loadFromFile("../../../LucidProject/Resources/Dialog/ariblk.ttf"))
+		if (!MyFont.loadFromFile("LucidProject/Resources/Dialog/ariblk.ttf"))
 		{
 			// Error...
 		}

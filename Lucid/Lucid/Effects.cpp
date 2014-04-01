@@ -3,10 +3,10 @@
 
 Effects::Effects(void)
 {
-	mShaderEdge.loadFromFile("../../../SFML-2.1/examples/shader/resources/edgeMod.frag",sf::Shader::Fragment);
-	mShaderWave.loadFromFile("../../../SFML-2.1/examples/shader/resources/wave.vert",sf::Shader::Vertex);
-	mShaderBlur.loadFromFile("../../../SFML-2.1/examples/shader/resources/blur.frag",sf::Shader::Fragment);
-	mShaderPixelate.loadFromFile("../../../SFML-2.1/examples/shader/resources/pixelate.frag",sf::Shader::Fragment);
+	mShaderEdge.loadFromFile("SFML-2.1/examples/shader/resources/edgeMod.frag",sf::Shader::Fragment);
+	mShaderWave.loadFromFile("SFML-2.1/examples/shader/resources/wave.vert",sf::Shader::Vertex);
+	mShaderBlur.loadFromFile("SFML-2.1/examples/shader/resources/blur.frag",sf::Shader::Fragment);
+	mShaderPixelate.loadFromFile("SFML-2.1/examples/shader/resources/pixelate.frag",sf::Shader::Fragment);
 
 	mShaderEdge.setParameter("texture", sf::Shader::CurrentTexture);
 	mShaderPixelate.setParameter("texture", sf::Shader::CurrentTexture);

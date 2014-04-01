@@ -4,7 +4,7 @@ Enemy::Enemy(float x, float y, float width, float height, float speed, int direc
 	mMaxSpeed(speed), mTexture(texture),mMove(false), mTypeID(typeID),mTempCollideWithPlayer(false),mControlled(false), mPatrolStart(patrolStart), mPatrolStop(patrolStop)
 {
 	std::ifstream stream;
-	stream.open("../Debug/config.txt");
+	stream.open("config.txt");
 	std::string output;
 	std::vector<int> dataVector;
 	while(!stream.eof())
