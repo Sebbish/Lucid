@@ -92,7 +92,9 @@ namespace db
 		int mAbianceGreen;
 		int mAbianceBlue;
 		int mTypeID;
-
+		
+		bool mBlinkStart;
+		int mBlinkTimerStart;
 	};
 }
 
