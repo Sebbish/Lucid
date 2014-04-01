@@ -53,13 +53,8 @@ Game::Game()
 	mQButton->willRender(false);
 	mFButton = new Button(mFH->getTexture(59));
 	mFButton->willRender(false);
-<<<<<<< HEAD
-	loadMap("../Debug/map5.txt", 5);
-	mMobil->setCurrentLevel(5);
-=======
 	loadMap("../Debug/map1.txt", 1);
-	mMobil->setCurrentLevel(7);
->>>>>>> f6732bf53db875eba315015ef861a4b8ddc0241d
+	mMobil->setCurrentLevel(1);
 
 	
 	mFade = new Fade(mFH->getTexture(27), mRenderTexture);
@@ -196,49 +191,50 @@ void Game::input(Entity* entity)
 					}
 				}
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
-			{
-				mEffects->setNextShader(0);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-			{
-				mEffects->setNextShader(1);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-			{
-				mEffects->setNextShader(2);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-			{
-				mEffects->setNextShader(3);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-			{
-				mEffects->setNextShader(4);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3))
-			{
-				mVisualizeValues = !mVisualizeValues;
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F5))
-			{
-					mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid");
-					mWindow.setVerticalSyncEnabled(true);
-					mWindow.setMouseCursorVisible(false);
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F6))
-			{
-					mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
-					mWindow.setVerticalSyncEnabled(true);
-					mWindow.setMouseCursorVisible(false);
-			}
+	//Debug
+			//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
+			//{
+			//	mEffects->setNextShader(0);
+			//}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+			//{
+			//	mEffects->setNextShader(1);
+			//}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+			//{
+			//	mEffects->setNextShader(2);
+			//}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+			//{
+			//	mEffects->setNextShader(3);
+			//}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+			//{
+			//	mEffects->setNextShader(4);
+			//}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3))
+			//{
+			//	mVisualizeValues = !mVisualizeValues;
+			//}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F5))
+			//{
+			//		mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid");
+			//		mWindow.setVerticalSyncEnabled(true);
+			//		mWindow.setMouseCursorVisible(false);
+			//}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F6))
+			//{
+			//		mWindow.create(sf::VideoMode::getDesktopMode(), "Lucid", sf::Style::Fullscreen);
+			//		mWindow.setVerticalSyncEnabled(true);
+			//		mWindow.setMouseCursorVisible(false);
+			//}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) ||sf::Joystick::getAxisPosition(0,sf::Joystick::V) >= 50)
-			{
-				mEntities[0]->setMaxSpeed(24);
-			}
-			else
-				mEntities[0]->setMaxSpeed(6);
+			//if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) ||sf::Joystick::getAxisPosition(0,sf::Joystick::V) >= 50)
+			//{
+			//	mEntities[0]->setMaxSpeed(24);
+			//}
+			//else
+			//	mEntities[0]->setMaxSpeed(6);
 
 
 		}
@@ -315,29 +311,31 @@ void Game::input(Entity* entity)
 		{
 			mControlledEntity->toggleRoofStance();
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::H) && mControlledEntity != mEntities[0])
+
+	//Debug
+		/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::H) && mControlledEntity != mEntities[0])
 		{
 			mControlledEntity->hitRoof();
-		}
+		}*/
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
-		{
-			loadMap("../Debug/map"+std::to_string(mMap->getID() - 1)+".txt",mMap->getID() - 1);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5))
-		{
-			loadMap("../Debug/map"+std::to_string(mMap->getID())+".txt",mMap->getID());
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6))
-		{
-			loadMap("../Debug/map"+std::to_string(mMap->getID() + 1)+".txt",mMap->getID() + 1);
-		}
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
+		//{
+		//	loadMap("../Debug/map"+std::to_string(mMap->getID() - 1)+".txt",mMap->getID() - 1);
+		//}
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5))
+		//{
+		//	loadMap("../Debug/map"+std::to_string(mMap->getID())+".txt",mMap->getID());
+		//}
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6))
+		//{
+		//	loadMap("../Debug/map"+std::to_string(mMap->getID() + 1)+".txt",mMap->getID() + 1);
+		//}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
-		{
-			mMap->getTriggerList()[2]->setActive(true);
-			mEntities[1]->setActive(false);
-		}
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+		//{
+		//	mMap->getTriggerList()[2]->setActive(true);
+		//	mEntities[1]->setActive(false);
+		//}
 	}
 	break;
 
