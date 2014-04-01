@@ -9,6 +9,9 @@ VoiceMail::VoiceMail(int mapID,sf::Texture* Voicemail):
 	//mFont.loadFromFile("P:/Downloads/LucidProject/Resources/Dialog/ariblk.ttf");
 	mText.setFont(mFont);
 	mDraw = false;
+	mRS.setSize(sf::Vector2f(960,200));
+	mRS.setFillColor(sf::Color::White);
+	mRS.setTexture(mTexture);
 }
 
 
@@ -90,17 +93,14 @@ void VoiceMail::tick()
 	if(mDraw)
 		if(mActiveSounds[mSoundPlayingID]->mSound.getStatus() == sf::Music::Stopped)
 			mDraw = false;
+
 }
 
 void VoiceMail::render(sf::RenderWindow *target)
 {
 	if(mDraw)
 	{
-		sf::RectangleShape mRS;
-		mRS.setSize(sf::Vector2f(960,200));
 		mRS.setPosition(target->getPosition().x+target->getSize().x/2-mRS.getSize().x/2,target->getSize().y-mRS.getSize().y);
-		mRS.setFillColor(sf::Color::White);
-		mRS.setTexture(mTexture);
 		target->draw(mRS);
 		mText.setString(mActiveSounds[mSoundPlayingID]->mText);
 		mText.setPosition(mRS.getPosition().x+270,mRS.getPosition().y+50);

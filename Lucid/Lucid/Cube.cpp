@@ -8,6 +8,8 @@ Cube::Cube(sf::FloatRect& rec,bool leader,bool fruit,sf::Texture& t,sf::FloatRec
 	this->maxSize = maxSize;
 	mD = RIGHT;
 	mNextD = RIGHT;
+	rs.setSize(sf::Vector2f(mRect.width,mRect.height));
+	rs.setTexture(&t);
 }
 
 
@@ -102,14 +104,14 @@ void Cube::render(sf::RenderWindow& target, int animationX)
 	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);*/
 
-	sf::RectangleShape rs;
+	
 	if (mLeader)
 		rs.setFillColor(sf::Color::Red);
-	rs.setTexture(&t);
+	
 	if (animationX != 2)
 		rs.setTextureRect(sf::IntRect(animationX * 256, 0, 256, 256));
 	rs.setPosition(mRect.left,mRect.top);
-	rs.setSize(sf::Vector2f(mRect.width,mRect.height));
+	
 	
 	target.draw(rs);
 }

@@ -32,6 +32,7 @@ private:
 	sf::Sound mIdleSound;
 	std::string mDialogFile;//endast namnet på filen utan .txt
 	bool dialogActive;
+	sf::RectangleShape r;
 };
 
 #endif

@@ -53,7 +53,7 @@ Game::Game()
 	mQButton->willRender(false);
 	mFButton = new Button(mFH->getTexture(59));
 	mFButton->willRender(false);
-	loadMap("../Debug/map7.txt", 7);
+	loadMap("../Debug/map1.txt", 1);
 	mMobil->setCurrentLevel(7);
 
 	
@@ -439,7 +439,7 @@ void Game::render()
 	
 	mAmbient = sf::Color(mAmbientRed,mAmbientGreen,mAmbientBlue,255);
 	lm->setAmbient(mAmbient);
-	//lm->render(mWindow);
+	lm->render(mWindow);
 
 	////Ritar om fönstret med shader
 	tempTexture.update(mWindow);

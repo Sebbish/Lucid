@@ -28,6 +28,7 @@ private:
 	std::vector<sf::Music*> mSounds;
 	int mLineNumber;
 	sf::Texture &mTexture;
+	sf::RectangleShape mRS;
 };
 #endif
 

@@ -28,6 +28,7 @@ private:
 	bool mLeader;
 	bool mFruit;
 	sf::Texture &t;
+	sf::RectangleShape rs;
 };
 #endif
 

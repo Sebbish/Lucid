@@ -3,6 +3,8 @@
 Hiding::Hiding(sf::FloatRect rect, sf::Texture* texture, int typeID):
 	mRect(rect), mTexture(texture), mTypeID(typeID)
 {
+	r.setTexture(mTexture);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 }
 
 Hiding::~Hiding()
@@ -46,10 +48,9 @@ void Hiding::tick()
 
 void Hiding::render(sf::RenderTexture* window)
 {
-	sf::RectangleShape r;
-	r.setTexture(mTexture);
+	
+	
 	r.setTextureRect(sf::IntRect(0,0,mRect.width,mRect.height));
 	r.setPosition(mRect.left,mRect.top);
-	r.setSize(sf::Vector2f(mRect.width,mRect.height));
 	window->draw(r);
 }

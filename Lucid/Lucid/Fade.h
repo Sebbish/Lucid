@@ -20,6 +20,7 @@ private:
 	int mFadeSpeed;
 	sf::Texture* mTexture;
 	sf::Vector2f mSize;
+	sf::RectangleShape r;
 };
 
 #endif

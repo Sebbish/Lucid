@@ -12,6 +12,10 @@ PortalFade::PortalFade(sf::Texture* texture, sf::RenderTexture &renderTexture):
 	mAlpha = 0;
 	mPosition = sf::FloatRect(0, 0, 0, 0);
 	mWaitTime = 0;
+	r.setTexture(mTexture);
+	r.setTextureRect(sf::IntRect(0, 0, 1920, 1080));
+	r.setPosition(0, 0);
+	r.setSize(mSize);
 }
 
 
@@ -21,11 +25,6 @@ PortalFade::~PortalFade(void)
 
 void PortalFade::render(sf::RenderWindow &window)
 {
-	sf::RectangleShape r;
-	r.setTexture(mTexture);
-	r.setTextureRect(sf::IntRect(0, 0, 1920, 1080));
-	r.setPosition(0, 0);
-	r.setSize(mSize);
 	if (mAlpha < 255)
 		r.setFillColor(sf::Color(255, 255, 255, mAlpha));
 	else

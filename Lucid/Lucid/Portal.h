@@ -42,6 +42,7 @@ private:
 	bool mAnimate;
 
 	bool directionRight;
+	sf::RectangleShape r;
 };
 
 #endif

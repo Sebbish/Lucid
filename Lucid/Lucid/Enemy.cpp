@@ -106,6 +106,9 @@ Enemy::Enemy(float x, float y, float width, float height, float speed, int direc
 
 	mUpsidedown = false;
 
+	r.setTexture(mTexture);
+	r.setSize(sf::Vector2f(mRect.width,mRect.height));
+
 	/*mFont.loadFromFile("../Debug/ariblk.ttf");
 	mText.setFont(mFont);
 	mText.setCharacterSize(24);
@@ -873,8 +876,8 @@ void Enemy::render(sf::RenderTexture* window, bool visualizeValues, bool mirror,
 {
 	if (mActive)
 	{
-		sf::RectangleShape r;
-		r.setTexture(mTexture);
+		
+		
 		if (mTypeID == 21)
 		{
 			if (mUpsidedown)
@@ -900,7 +903,7 @@ void Enemy::render(sf::RenderTexture* window, bool visualizeValues, bool mirror,
 				r.setTextureRect(sf::IntRect(mRect.width * (int)mAnimationTimer, mRect.height * mAnimationY, mRect.width, mRect.height));
 		}
 		r.setPosition(mRect.left,mRect.top);
-		r.setSize(sf::Vector2f(mRect.width,mRect.height));
+		
 	
 		/*mWindow->clear(sf::Color(255, 0, 255));
 		mWindow->draw(mText);

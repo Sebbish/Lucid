@@ -11,6 +11,8 @@ Dialog::Dialog(sf::Texture &texture):
 	mText.setFont(mFont);
 	mText.setPosition(0,0);
 	mText.setColor(sf::Color::Red);
+	mRS.setSize(sf::Vector2f(960,200));
+	mRS.setTexture(&mTexture);
 }
 
 
@@ -96,11 +98,10 @@ void Dialog::render(sf::RenderWindow* target)
 {
 	if(mDraw)
 	{
-		sf::RectangleShape mRS;
-		mRS.setSize(sf::Vector2f(960,200));
+		
 		mRS.setPosition(target->getPosition().x+target->getSize().x/2-mRS.getSize().x/2,target->getSize().y-mRS.getSize().y);
 		mRS.setFillColor(sf::Color::White);
-		mRS.setTexture(&mTexture);
+		
 		target->draw(mRS);
 		mText.setPosition(mRS.getPosition().x+270,mRS.getPosition().y+50);
 		target->draw(mText);

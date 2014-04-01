@@ -21,6 +21,8 @@ private:
 	sf::Texture* mTexture;
 	sf::Vector2f mSize;
 	int mWaitTime;
+
+	sf::RectangleShape r;
 };
 
 #endif

@@ -4,6 +4,8 @@
 Button::Button(sf::Texture* texture):
 	mTexture(texture)
 {
+	r.setTexture(mTexture);
+	r.setSize(sf::Vector2f(64, 64));
 }
 
 
@@ -35,8 +37,7 @@ void Button::render(sf::RenderWindow* window, Camera* camera)
 
 		if (mWillRender && mObject->getShowE())
 		{
-			sf::RectangleShape r;
-			r.setTexture(mTexture);
+			
 			float temp = mClock.getElapsedTime().asSeconds();
 			r.setTextureRect(sf::IntRect(64*((int)temp % 2), 0, 64, 64));
 			if (!mQ)
@@ -51,7 +52,7 @@ void Button::render(sf::RenderWindow* window, Camera* camera)
 			else
 				r.setPosition(mObject->getRect().left + 96 - camera->getView()->getCenter().x + (camera->getView()->getSize().x / 2) - 413, mObject->getRect().top + 32 - camera->getView()->getCenter().y + (camera->getView()->getSize().y / 2));
 */
-			r.setSize(sf::Vector2f(64, 64));
+			
 			window->draw(r);
 		}
 	}

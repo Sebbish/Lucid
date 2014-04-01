@@ -107,5 +107,6 @@ private:
 	int mControlledSpeed;
 	int mFlightSpeed;
 	bool mIdle;
+	sf::RectangleShape r;
 };
 #endif
